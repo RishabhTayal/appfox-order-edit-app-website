@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-sitewide-sale-beats-subscriber-discount",
+    title: "Does a Shopify Sitewide Sale Beat Your Subscribers' Subscribe & Save Discount?",
+    excerpt:
+      "A subscriber locked into 15% off subscribe & save renews in the middle of a 25%-off sitewide sale - and pays more than a stranger checking out as a guest with no account at all. The subscription discount and the sale discount never compared notes, and for one week, loyalty was the worse deal.",
+    category: "PLAYBOOK",
+    date: "2026-08-17",
+    author: "The AppFox Team",
+    metaTitle: "Does a Sitewide Sale Beat Your Shopify Subscriber Discount? | AppFox",
+    metaDescription:
+      "A Shopify sitewide sale can quietly undercut a subscriber's subscribe & save discount, because the two run as separate price rules that never check against each other. Here's why the gap opens during a promotion, and how to keep the subscriber price honest instead of teaching loyal subscribers to cancel and rebuy.",
+    body: [
+      {
+        type: "p",
+        text: "A merchant runs a 25%-off sitewide sale for Black Friday week on a moisturizer that's also sold through a subscribe & save plan. A subscriber who's been renewing that same moisturizer for a year at their locked-in 15%-off subscribe & save rate has their card charged, on schedule, at 15% off - exactly what the plan has always charged them. The promo banner running across the rest of the site that same week says 25% off. She does the math, or a friend checking out as a guest does it for her: the price she just paid for being a loyal subscriber is higher than the price anyone off the street pays today with no account, no history, and no commitment at all.",
+      },
+      {
+        type: "p",
+        text: "This isn't a pricing mistake, a coupon-stacking bug, or fine print anyone forgot to write. It's two separate discount systems - a subscription's standing subscribe & save rate and a storewide promotional price - running on the same product at the same time, with neither one aware the other exists. The subscribe & save discount was set once, when she joined, and renews on that same fixed math every cycle. The sitewide sale was layered on top of the storefront price for the promotion window, built to discount a guest cart, not to check itself against a recurring contract quietly billing in the background.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't running a sitewide sale, and it isn't offering a subscribe & save discount - both are normal, healthy parts of a Shopify subscription program. The mistake is assuming the two will never collide, when a sale big enough to move revenue will almost always land on a billing date for at least some share of a subscriber base loyal enough to matter.",
+      },
+      { type: "h2", text: "Why the subscriber discount doesn't know the sale is happening" },
+      {
+        type: "p",
+        text: "Nothing about this requires an unusual sale or an unusual subscriber - it's the ordinary case for any store that runs seasonal promotions on top of an ongoing subscription program.",
+      },
+      {
+        type: "ul",
+        items: [
+          "A subscribe & save discount is a fixed percentage or fixed amount off a product's regular price, applied automatically to every renewal on schedule - it isn't a live comparison against whatever price happens to be showing on the product page that day",
+          "A sitewide or flash sale is typically a separate price rule - an automatic discount, a code, or a temporary price edit - layered on top of the storefront for the promotion's duration, with no built-in awareness that a recurring contract already carries its own discount underneath it",
+          "Shopify bills a subscription renewal at whatever the subscription contract says to charge, not whatever the product's current listed price happens to be - so a storewide price cut that flows straight into a guest cart doesn't flow through to a renewal the same way",
+          "The gap is invisible to the merchant in exactly the place it's most visible to the subscriber: the merchant sees a subscriber renewing normally, like any other month, while the subscriber is looking at a promo banner advertising a better deal than the one their loyalty already earned",
+          "The bigger and more frequent the sale calendar, the more renewals land inside a promotion window purely by coincidence of billing date - a subscriber whose card happens to charge during a Black Friday week didn't do anything different from one who renews in March, but only one of them notices the gap",
+        ],
+      },
+      { type: "h2", text: "What a beaten subscriber discount costs beyond one awkward renewal" },
+      {
+        type: "p",
+        text: "A subscriber who discovers they're paying more than a stranger checking out as a guest doesn't read it as \"the sale isn't for subscribers\" - she reads it as being penalized for exactly the loyalty a subscribe & save program is supposed to reward. And the fix a subscriber finds on her own is the worst possible outcome for the merchant running the sale: cancel the subscription, add the same product to a one-time cart, and check out at the sale price instead - trading a customer who was going to renew for years for a single discounted order, during the one week the merchant was trying hardest to build revenue.",
+      },
+      {
+        type: "quote",
+        text: "A subscribe & save discount is supposed to reward a customer for showing up automatically. A sitewide sale that quietly beats it rewards that same customer for canceling instead.",
+      },
+      { type: "h2", text: "Keeping the subscriber price honest during a sale" },
+      {
+        type: "ol",
+        items: [
+          "Compare the subscriber's standing discount against the active sale price before any renewal that falls inside a promotion window, and charge whichever is better - not the subscriber's contract rate by default",
+          "Decide the policy before the first sale, not during it: does a sitewide promotion ever beat subscribe & save, and if so by how much - a subscriber discount that's contractually never the worse deal is a far easier promise to keep than one you have to firefight renewal by renewal",
+          "If a sale is deliberately meant to exclude subscription renewals, say so in the promotion's terms - a subscriber has no way to know a banner she sees on every page secretly doesn't apply to the price she's already paying",
+          "Give subscribers a heads-up before a renewal is scheduled to land inside a known sale window, rather than letting them discover the gap by comparing a receipt to a friend's guest order",
+          "Track how many renewals actually fall inside a sale window over a year - for most catalogs it's a small, predictable number of subscribers a few times a year, which makes \"always give the better price\" cheap insurance against a much more expensive cancel-and-rebuy habit",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's subscribe & save discounts run as percentage or fixed pricing set on the plan, alongside tiered pricing and trial periods - the app has no built-in awareness of a separate sitewide promotion running elsewhere on the store, because nothing tells it one exists unless a merchant sets that up deliberately. What a merchant running a seasonal sale can do is treat the promotion as a scheduled, deliberate check against the standing subscriber discount for that window, instead of letting the two price rules run past each other by default - the same discipline a subscribe & save rate already gets whenever a merchant reviews it against a base-price change.",
+      },
+      {
+        type: "p",
+        text: "Because the customer portal is the same place a subscriber already goes to skip, pause, swap, or update payment details, it's also a reasonable place to reflect an adjusted renewal price during a known sale window - so a subscriber who checks her account sees the better number in advance, instead of finding out only from a charge that already posted.",
+      },
+      {
+        type: "p",
+        text: "The subscriber in the opening example didn't do anything wrong by staying on her subscription straight through a sale - that's exactly the behavior a subscribe & save discount exists to reward. Nothing about running a bigger storewide promotion should have the power to quietly make her loyalty the worse deal. Check the subscriber price against the sale price before the renewal runs, and a flash sale stops being the one week a year that teaches your best subscribers to cancel and rebuy.",
+      },
+    ],
+  },
+  {
     slug: "free-gift-with-purchase-order-edits",
     title: "Does Editing a Shopify Order Remove the Free Gift With Purchase?",
     excerpt:
