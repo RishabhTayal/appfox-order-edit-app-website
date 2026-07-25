@@ -30,6 +30,74 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-cancellation-doesnt-stop-the-order-already-created",
+    title: "Why Canceling a Shopify Subscription Doesn't Stop the Renewal Order Already Created",
+    excerpt:
+      "A subscriber cancels her subscription the same day it's due to renew and still gets charged - because the order had already been created before her cancellation caught up to it. The contract and the order it produced are two different records, and closing one doesn't undo the other.",
+    category: "PLAYBOOK",
+    date: "2026-08-20",
+    author: "The AppFox Team",
+    metaTitle: "Why Canceling a Shopify Subscription Won't Stop an Order | AppFox",
+    metaDescription:
+      "Canceling a Shopify subscription stops future renewals, but it can't reach an order the billing run already created before the cancellation processed. Here's why the two are separate records, and how to keep a same-day cancellation from reading like a broken promise.",
+    body: [
+      {
+        type: "p",
+        text: "A subscriber cancels her monthly coffee subscription the same day it's due to renew, confident she caught it in time. Four hours later, an order confirmation lands in her inbox and a charge posts to her card - for a subscription her account page still shows as canceled. She isn't imagining either half of that. The subscription really is canceled, and the order really was created and charged, and support is now looking at two facts that read like a contradiction but aren't.",
+      },
+      {
+        type: "p",
+        text: "Nothing about that sequence is a billing glitch or a race condition an app failed to catch. A Shopify subscription contract and the orders it generates are separate records, and canceling the contract only ever changes what happens next - it has no reach backward into an order the billing run had already created before the cancellation was processed. If her renewal ran at 9am and she canceled at 1pm, the order that was created at 9am was never going to un-happen just because the contract's status changed four hours later.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't that the timing was close - a subscriber is always going to cancel near her renewal date more often than on any other day, since that's usually the moment she's reminded the subscription exists at all. The mistake is treating \"canceled\" as a word that reaches backward, when on Shopify it only ever reaches forward from the moment the cancellation actually takes effect.",
+      },
+      { type: "h2", text: "Why the order survives the cancellation" },
+      {
+        type: "ul",
+        items: [
+          "A subscription contract and the orders it has produced are separate records - canceling the contract sets its own status to canceled and stops the next scheduled billing run; it doesn't touch, void, or flag any order the contract already generated",
+          "The billing run that turns a due contract into a paid order works on its own schedule, independent of when a subscriber happens to open her account and click cancel - once that run has processed a cycle, the order and the charge behind it exist as their own record, unconnected to whatever the contract's status becomes minutes or hours later",
+          "A canceled contract has no scheduled renewal left to fire, but that only prevents future orders - it says nothing about an order the contract already produced before the cancellation reached it",
+          "Refunding or voiding an order that already fired is a separate action entirely, taken on the order itself through the same tools a merchant would use to refund any other order - cancellation doesn't trigger it, request it, or imply it",
+        ],
+      },
+      { type: "h2", text: "What the gap costs when nobody expects it" },
+      {
+        type: "p",
+        text: "A subscriber who cancels and then sees a charge anyway doesn't read the timing the way the systems do. She reads it as the cancellation not working, opens a chargeback or a refund ticket, and loses whatever trust she had left in a subscription she just tried to leave on good terms. Multiply that by every subscriber who cancels within a few hours of her renewal time - which, because cancellations cluster around the exact moment a renewal reminder lands, is a meaningful share of all cancellations a store processes - and an accurate piece of system behavior turns into a support queue that reads like a billing bug nobody's fixed.",
+      },
+      {
+        type: "quote",
+        text: "The contract stopped exactly when she asked it to. The order it had already made didn't get the memo, because there was never a wire between the two that could have carried one.",
+      },
+      { type: "h2", text: "How to close the gap before support has to" },
+      {
+        type: "ol",
+        items: [
+          "Show the subscriber's next scheduled renewal date and time in the portal right next to the cancel button, so she can see whether she's canceling ahead of the billing run or after it's already fired for this cycle",
+          "When a cancellation request lands after the cycle's order has already been created, say so on the confirmation screen - \"this cycle's order already shipped; cancellation takes effect next cycle\" reads as informative where silence reads as a bug",
+          "Give support a one-click path to refund or void that specific order without also having to check whether the contract itself still needs canceling - by the time she's emailing, the contract usually already is, and the order is the only open item left",
+          "Track how often cancellation requests arrive within the same day as a renewal, since that's the exact window this problem lives in - a store that never measures it has no way to know whether the confirmation screen actually needs the extra line",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's customer portal lets a subscriber cancel her own contract, and that cancellation takes effect immediately on the contract - no future renewal will fire once it's processed. What the portal doesn't do is reach into an order Shopify's billing had already created for the current cycle before she clicked cancel; that order exists as its own record, the same way it would on any subscription platform, because Shopify's subscription contracts and the orders they produce are separate objects at the API level.",
+      },
+      {
+        type: "p",
+        text: "If an order fires before a cancellation catches it, undoing that specific charge is a refund on the order itself - the same action a merchant would take on any other paid order, through Shopify admin or, for a store that also runs AppFox Order Editing, through the same self-service flow a customer already uses to fix a one-time purchase. The subscription and the order it produced become two different problems the moment cancellation timing puts them at odds, and they need two different tools to close out.",
+      },
+      {
+        type: "p",
+        text: "The coffee subscriber wasn't wrong about anything - she canceled, and the subscription is canceled. She just canceled after the clock had already turned for that cycle, and no cancellation button reaches back in time to catch an order that beat it there. Show her that boundary before she has to find it in her inbox, and the ticket that follows a same-day cancellation stops reading like a broken promise and starts reading like exactly what it is: a subscription that stopped on schedule, one cycle later than she'd hoped.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-and-one-time-item-splits-into-two-orders",
     title: "Why a Shopify Subscription Item and a One-Time Item Split Into Two Orders",
     excerpt:
