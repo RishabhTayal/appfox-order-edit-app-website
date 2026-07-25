@@ -30,6 +30,70 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-swap-drops-below-free-shipping-threshold",
+    title: "Why a Shopify Subscription Swap Can Quietly Drop a Subscriber Below Free Shipping",
+    excerpt:
+      "A subscriber swaps one item in her box for a cheaper one and doesn't touch anything else - but her next renewal comes in a few dollars under the free-shipping line, and the charge that shows up looks like a billing mistake instead of the threshold doing exactly what it was built to do.",
+    category: "PLAYBOOK",
+    date: "2026-08-21",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Free Shipping Threshold: Why Swaps Break It | AppFox",
+    metaDescription:
+      "A Shopify subscription swap, quantity drop, or frequency change can push a subscriber's renewal subtotal below your free-shipping threshold without anyone touching a shipping setting. Here's why the charge reappears, and how to stop it from reading as a billing error.",
+    body: [
+      {
+        type: "p",
+        text: "A subscriber on a curated skincare box swaps her monthly serum for a lighter, less expensive moisturizer through the self-service portal - same subscription, same cadence, one line item changed. Nothing about the swap looks like a shipping decision. Her next renewal comes in three dollars under the store's fifty-dollar free-shipping line, and for the first time since she signed up, a shipping charge shows up on the order. She didn't touch her address, her plan, or anything with the word \"shipping\" on it. From where she's sitting, the store just started charging her for shipping on a subscription that was always free to ship - and that reads as a billing mistake, not as a threshold working correctly on a smaller box.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a bug. A free-shipping threshold is a rule that checks an order's subtotal at the moment that order is created, and a subscription renewal is a brand-new order each cycle, built fresh from whatever the contract's current line items happen to be. It has no memory of the box she signed up with, and no field anywhere that marks her as \"used to qualify for free shipping.\" The threshold isn't tracking her - it's testing the order in front of it, the same way it would test a first-time shopper's cart, and this cycle that order simply totals less than it did last cycle.",
+      },
+      { type: "h2", text: "Why the threshold doesn't remember what used to qualify" },
+      {
+        type: "ul",
+        items: [
+          "A free-shipping threshold evaluates the subtotal of the order being created, not the subscriber or the subscription - it has no concept of grandfathering someone in because an earlier cycle happened to clear the line",
+          "A subscription renewal isn't an update to last month's order - it's a new order, assembled from whatever the contract's line items, quantities, and pricing currently are, and it gets checked against the shipping rule from zero every time",
+          "Swapping to a lower-priced product, dropping a quantity, or removing an add-on through the customer portal changes next cycle's subtotal exactly the way editing a one-time cart would - the portal doesn't distinguish a swap that stays above the line from one that doesn't",
+          "A subscribe-and-save discount is subtracted before the threshold is checked, so a subscriber already getting a percentage off is closer to the line than the sticker price suggests - a swap that would have been harmless at full price can be the one that tips a discounted order under it",
+        ],
+      },
+      {
+        type: "h3",
+        text: "None of that is a shipping-rule bug - it's a subtotal that moved a few dollars and a rule that was never told which subscribers used to clear it",
+      },
+      { type: "h2", text: "Why this lands harder on a subscription than a one-time order" },
+      {
+        type: "p",
+        text: "A shopper building a one-time cart sees the threshold in real time - most stores show a progress bar or a \"you're $12 away from free shipping\" message right there at checkout, so a cart that falls short is a visible, in-the-moment choice. A subscriber managing her box in the portal doesn't get that same view. She's choosing a product, not building a cart against a live shipping calculation, and the subtotal she's affecting won't actually get tested until a renewal runs days or weeks later - by which point the swap is long forgotten and the shipping line just looks like it appeared from nowhere.",
+      },
+      {
+        type: "quote",
+        text: "She didn't decide to pay for shipping. She decided to try a lighter moisturizer, and the shipping decision got made for her, three weeks later, by a rule she never saw.",
+      },
+      { type: "h2", text: "Keeping a swap from turning into a shipping surprise" },
+      {
+        type: "ol",
+        items: [
+          "Surface the free-shipping threshold, and how close the subscription currently sits to it, right inside the swap and quantity-change flow in the portal - not just on the eventual renewal receipt",
+          "When a swap, quantity drop, or frequency change would take the next renewal under the threshold, say so before the change is confirmed, with the shipping cost that will be added if the subscriber goes ahead",
+          "For stores where the box's identity depends on staying above the line, consider a minimum-item or minimum-value floor on the swap options themselves, so a subscriber can't accidentally configure her way under it",
+          "Track how many active subscriptions currently sit within one swap or one quantity step of the threshold, so a merchant can see the exposure before a batch of renewals crosses it in the same billing week",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "The customer portal is where a subscriber already goes to skip, pause, swap a product, change frequency, or update her card - which makes it the right place to show a free-shipping threshold before a change crosses it, since that's exactly where the subtotal is actually being edited. Subscribe-and-save discounts and tiered pricing are configured per plan, so a merchant setting up a box close to a shipping cutoff can see how a discount narrows the margin between a full swap menu and a subtotal that stays above the line. And subscription analytics on the Growth plan and above is where a merchant can check how many active subscriptions currently sit within a swap or two of the threshold, instead of finding out the exposure from a week of \"why am I being charged for shipping now\" tickets.",
+      },
+      {
+        type: "p",
+        text: "The skincare subscriber wasn't wrong to swap her serum for a moisturizer, and the store wasn't wrong to charge her for shipping on a smaller box - the threshold did exactly what it was configured to do. The only thing missing was a moment, inside the swap itself, where she could see that coming. Put the free-shipping line where the subtotal is actually changing, and the charge that follows a swap stops reading like the billing broke and starts reading like exactly what it is: a smaller box, shipped for what a smaller box actually costs.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-cancellation-doesnt-stop-the-order-already-created",
     title: "Why Canceling a Shopify Subscription Doesn't Stop the Renewal Order Already Created",
     excerpt:
