@@ -30,6 +30,84 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-and-one-time-item-splits-into-two-orders",
+    title: "Why a Shopify Subscription Item and a One-Time Item Split Into Two Orders",
+    excerpt:
+      "A customer adds a one-time candle to her subscription box in the same cart, pays once, and expects one box. Shopify checks her out into two separate orders and two shipments instead - and the ticket that follows reads like a billing mistake, not the platform working as designed.",
+    category: "PLAYBOOK",
+    date: "2026-08-19",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Subscription Splits Into Two Orders | AppFox",
+    metaDescription:
+      "Adding a one-time item to a Shopify subscription cart checks out into two separate orders and two shipments, because a selling-plan line item can't share an order with a one-time one. Here's why the split is unavoidable, and how to keep it from reading as a mistake.",
+    body: [
+      {
+        type: "p",
+        text: "A subscriber on her third box adds a scented candle to her cart alongside her regular subscribe-and-save refill - same cart, same checkout, one card charged once. She gets a single order confirmation email, so she's expecting a single box on her porch. What actually ships is two separate packages, on two separate order numbers, with two separate shipping charges on her statement. The candle wasn't supposed to need its own box. From where she's sitting, the store either charged her twice for shipping by mistake or split her order for no reason she can see, and either read is bad enough that she opens a ticket before she opens the boxes.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a bug, and nothing about it is the subscription app mishandling a mixed cart. It's a structural fact of how Shopify's subscription APIs work: a line item sold on a selling plan and a line item sold as a one-time purchase cannot live on the same order, because only one of them is attached to a subscription contract that has to renew on its own again next month. The checkout that produced two orders did exactly what Shopify requires it to do - it just never told the subscriber that was coming.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't letting a subscriber add a one-time item next to her subscription - for a lot of stores, that combined cart is where the best upsell revenue lives. The mistake is letting her complete that checkout believing it produces one shipment, when the platform was always going to hand her two.",
+      },
+      { type: "h2", text: "Why the split happens" },
+      {
+        type: "p",
+        text: "This isn't a setting a subscription app can toggle off or a quirk of one theme's checkout - it's how Shopify's selling-plan architecture separates recurring and one-time commerce at the order level.",
+      },
+      {
+        type: "ul",
+        items: [
+          "A selling-plan line item is tied to a subscription contract that has to bill again on its own schedule - the order it first ships on has to stay traceable back to that contract, independent of anything else in the cart that day",
+          "A one-time line item has no contract behind it and nothing to renew - it's a normal order the moment it's paid for, with none of the recurring-billing bookkeeping a subscription item carries",
+          "Shopify's checkout groups line items by how they're going to be fulfilled and billed going forward, not by what cart they arrived in together - a subscription item and a one-time item fail that grouping test even when the customer paid for both in a single transaction",
+          "Because the split happens inside Shopify's own checkout and order-creation flow, it applies the same way regardless of which subscription app is running the widget - it isn't something AppFox Subscription or any other subscriptions app can merge back into one order after the fact",
+          "The customer only ever sees one payment authorization and one order-confirmation trigger at checkout, which is exactly why the second order number that shows up afterward looks like a mistake instead of the expected result",
+        ],
+      },
+      {
+        type: "h3",
+        text: "None of that is a shipping error - it's two different kinds of order, sharing a cart for exactly one moment before checkout has to separate them again",
+      },
+      { type: "h2", text: "What the surprise costs beyond one confused subscriber" },
+      {
+        type: "p",
+        text: "A subscriber who didn't know to expect two shipments doesn't file the second one under \"how Shopify subscriptions work.\" She files it under \"they charged me for shipping twice,\" which is a refund request and a trust hit rolled into one ticket. Multiply that across every subscriber who ever adds a one-time item to a subscribe-and-save cart, and a feature meant to lift average order value quietly generates the exact support volume a self-service portal was supposed to prevent - plus a shipping cost the store didn't plan for on orders that were supposed to be one box, not two.",
+      },
+      {
+        type: "quote",
+        text: "The cart doesn't lie about how many payments it took. It just doesn't warn anyone how many orders that payment is about to become.",
+      },
+      { type: "h2", text: "Keeping the split from reading as a mistake" },
+      {
+        type: "ol",
+        items: [
+          "Say it at the moment the one-time item gets added to a cart that already has a subscription item in it - a short line next to the add-to-cart button, not a policy page nobody reads before checkout",
+          "Repeat it on the order confirmation and again on the second order's shipping notification, so the second box arrives as the delivery she was told about instead of an unexplained extra charge",
+          "Where the margin allows it, absorb or discount shipping on the one-time item specifically when it's added alongside an active subscription, since the double shipping charge - not the second box itself - is usually what triggers the ticket",
+          "For items you want in the same box every time, sell them as part of the subscription's own selling plan instead of as a separate one-time add-on - a bundled offering ships and bills on the subscription's schedule, with no second order to explain",
+          "Track how often a mixed cart generates a shipping complaint versus how much incremental revenue the one-time add-on brings in, so the upsell placement can be tuned instead of guessed at",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's subscribe-and-save widget lets a shopper choose one-time or recurring on the same product page without leaving it, which is exactly the moment a mixed cart like the one above gets built - and exactly where a short line of copy about a second shipment costs nothing to add. For items a merchant wants shipping with every box rather than added separately, the app's bundled offerings let those items ride on the subscription's own selling plan instead of checking out as a standalone one-time line, which is what keeps them inside the same order and the same shipment cycle as the rest of the box.",
+      },
+      {
+        type: "p",
+        text: "None of that changes the underlying Shopify behavior - a selling-plan item and a one-time item still can't share an order, on this app or any other. What changes is whether the subscriber finds that out from a clear line of copy before she checks out, or from a second shipping charge and an order number she wasn't expecting after she already has.",
+      },
+      {
+        type: "p",
+        text: "The subscriber with the candle in her cart wasn't wrong to expect one box for one payment - that's how checkout works everywhere else she shops. She just needed the cart to tell her, before she paid, that a subscription item and a one-time item were always going to ship as two. Set that expectation at the add-to-cart moment instead of the delivery moment, and the same split that reads as a billing mistake today reads as exactly what it is: two orders, both correct, neither one a surprise.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-renewal-store-credit-doesnt-apply",
     title: "Does Store Credit Cover a Shopify Subscription Renewal Charge?",
     excerpt:
