@@ -30,6 +30,83 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-renewal-store-credit-doesnt-apply",
+    title: "Does Store Credit Cover a Shopify Subscription Renewal Charge?",
+    excerpt:
+      "Support apologizes for a damaged box with $25 in store credit, and the subscriber assumes it'll come off her next renewal. It doesn't - Shopify bills the card on the subscription contract, not the account balance, and the credit just sits there while she's charged in full.",
+    category: "PLAYBOOK",
+    date: "2026-08-18",
+    author: "The AppFox Team",
+    metaTitle: "Does Store Credit Cover a Shopify Subscription Renewal? | AppFox",
+    metaDescription:
+      "Store credit issued to a Shopify subscriber doesn't reduce their next automatic renewal charge, because recurring billing draws from the card saved on the subscription contract, not the account balance. Here's why the two systems never touch, and how to make a subscriber credit actually reach the renewal.",
+    body: [
+      {
+        type: "p",
+        text: "A subscriber's box arrives with a broken jar and a missing item, and support apologizes the way support usually does: $25 in store credit, applied to her account, with a note that says sorry for the trouble. She reads that as her next charge being $25 lighter - that's what a credit is supposed to mean. Two weeks later, renewal day comes around on schedule, and her card is charged the full amount, same as always. The $25 is still sitting in her account, untouched. From where she's standing, the store apologized, promised to make it right, and then charged her in full anyway - which reads as worse than never apologizing at all.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a billing error, and nothing about it is the subscription app failing to notice a credit that was issued in good faith. It's two systems on the same store that were never wired to talk to each other. Store credit is a balance sitting on the customer's account, spent by choice at a checkout where a customer picks how to pay. A subscription renewal isn't a checkout a customer attends - it's a scheduled, unattended charge against whatever payment method is saved on the contract, running on a timer with nobody there to pick anything.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't issuing store credit as an apology - for a lot of complaints, it's the fastest, cheapest way to make a customer feel heard. The mistake is letting a subscriber walk away believing that credit will automatically show up on the one charge she's actually watching for it: the next renewal.",
+      },
+      { type: "h2", text: "Why the credit and the renewal never meet" },
+      {
+        type: "p",
+        text: "This isn't a quirk of one subscription app or one store's setup - it's how recurring billing has to work on any platform, Shopify included, once you follow what a scheduled charge actually requires.",
+      },
+      {
+        type: "ul",
+        items: [
+          "A subscription contract bills by charging a saved payment method directly - a tokenized card, or a reference agreement like PayPal - the same instrument every cycle, with no checkout session in between for a customer to choose how to pay",
+          "Store credit and gift card balance are redeemed at checkout, as one option among several a customer selects in the moment - they exist to be applied by a person making a decision, not drawn down automatically by a server running billing on a timer",
+          "Issuing a subscriber store credit only touches her account balance - it doesn't write anything to the subscription contract itself, so the next renewal has no way of knowing a credit was ever issued, let alone that it was meant for this charge",
+          "A subscriber told \"we've credited your account\" reasonably assumes the next thing that happens automatically - her renewal - is where that credit lands, because that's how a coupon or a discount code would behave at any other checkout",
+          "The credit doesn't expire and it isn't lost - it just accumulates as unspent balance while renewals keep charging the card in full, until she happens to place a separate one-time order and notices it sitting there, unconnected to the apology that created it",
+        ],
+      },
+      { type: "h2", text: "What an unapplied credit costs beyond one renewal" },
+      {
+        type: "p",
+        text: "A subscriber who was promised a credit and then charged full price on schedule doesn't file that under \"store credit works differently for subscriptions.\" She files it under \"they said they'd fix it and they didn't\" - the second complaint lands harder than the first one, because now it's not a damaged box, it's a broken promise on top of a damaged box. And the support ticket that follows usually doesn't read as a billing question. It reads as an accusation: you told me this was handled, and you charged me anyway.",
+      },
+      {
+        type: "quote",
+        text: "A discount code changes what a checkout charges. Store credit changes what a customer has to spend later. A subscription renewal is neither of those - it's a charge nobody attends, running against a card, on a day the credit was never told about.",
+      },
+      { type: "h2", text: "Making a subscriber credit actually reach the renewal" },
+      {
+        type: "p",
+        text: "The fix isn't avoiding store credit as compensation - for a subscriber who isn't owed a full refund but deserves something, it's often the right call. The fix is routing that something at the charge the subscriber is actually watching, instead of a balance she has no reason to know sits separate from it.",
+      },
+      {
+        type: "ol",
+        items: [
+          "If the credit is meant to offset the next renewal specifically, apply it there directly - a one-cycle discount on the plan, a skipped cycle, or a partial refund processed right after the renewal charges - rather than routing it through the store's general credit balance",
+          "If store credit really is the right tool - a subscriber who also shops one-time, or a credit meant for a future purchase rather than this renewal - say exactly that when it's issued, instead of a generic \"we've credited your account\" that leaves the subscriber to guess where it applies",
+          "Give support a single documented default for subscriber complaints, so every agent offers the same fix - a discount on the next invoice, a post-renewal refund - rather than each one promising a form of \"credit\" that quietly means something different depending on who's answering",
+          "Confirm the fix landed where the subscriber expects before closing the ticket - a credit sitting in her account balance while her renewal charges in full isn't resolved just because a note was added to the order",
+          "Where this comes up often enough to matter, build the habit into the workflow itself: any subscriber credit gets a matching action on the subscription contract in the same pass, not a second step someone has to remember to do later",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Where this lives in AppFox Subscription",
+      },
+      {
+        type: "p",
+        text: "AppFox Subscription bills renewals the way any Shopify subscription app has to: against the payment method saved on the contract, charged directly on schedule, with no checkout session and no balance-selection step in between. There's no mechanism for a renewal to check a customer's store credit balance before it charges, because that draw-down step doesn't exist anywhere in Shopify's recurring billing flow - not for AppFox Subscription, and not for any other subscriptions app on the platform. What does reach the contract is a discount applied to the plan for a cycle, a skipped renewal, or a refund processed against the charge once it's gone through - any of those actually changes what the subscriber pays, where a store credit balance alone never will.",
+      },
+      {
+        type: "p",
+        text: "The subscriber in the opening example wasn't wrong to expect her $25 to count for something on the next charge - that's exactly what an apology is supposed to mean. She just needed to be told, plainly, that the credit sitting on her account and the renewal about to run are two different things unless someone connects them. Apply the fix at the contract, not just the balance, and a damaged box stops being the thing that also breaks her trust in the apology.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-sitewide-sale-beats-subscriber-discount",
     title: "Does a Shopify Sitewide Sale Beat Your Subscribers' Subscribe & Save Discount?",
     excerpt:
