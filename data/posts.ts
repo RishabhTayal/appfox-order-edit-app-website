@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-shipping-address-change-never-reverts",
+    title: "Why a Shopify Subscription's Shipping Address Change Never Reverts on Its Own",
+    excerpt:
+      "A subscriber redirects one renewal to a temporary address for a trip, assuming it will snap back once she's home - but a subscription contract holds a single permanent shipping address, not a one-time override, and nothing about editing it looks any different from a change that's meant to stick forever.",
+    category: "PLAYBOOK",
+    date: "2026-08-22",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Shipping Address Change: Why It Never Reverts | AppFox",
+    metaDescription:
+      "A Shopify subscriber who redirects one renewal to a temporary shipping address can end up stuck there for months, because a subscription contract holds one permanent address, not a per-cycle override. Here's why the change doesn't revert on its own, and how to stop a temporary detour from becoming the new default.",
+    body: [
+      {
+        type: "p",
+        text: "A coffee subscriber packing for six weeks at a rented beach house opens her subscription portal a few days before her next renewal, planning to redirect just that one box to the temporary address and switch it back once she's home. She finds a single shipping address field on the subscription - not two fields, not a one-time override, nothing that mirrors the \"ship this order to\" option she's used a dozen times at checkout for gifts. She updates the field, the box goes exactly where she wants it, and three renewals later, long after she's back in her own kitchen, her coffee is still arriving at a beach house she doesn't have access to anymore.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a missing feature. A subscription contract holds one shipping address, and it holds it the same way it holds one price and one frequency - as a persistent value that every future renewal reads from until someone changes it again. A one-time cart has a shipping address that exists for exactly one order and disappears once that order ships. A subscription's address isn't scoped to an order at all; it's scoped to the contract, and the contract doesn't have a concept of \"just this once.\"",
+      },
+      { type: "h2", text: "Why a subscription only holds one address at a time" },
+      {
+        type: "ul",
+        items: [
+          "A subscription contract stores a single current shipping address, the same field a renewal order pulls from every cycle - there's no separate slot for a one-cycle exception sitting alongside it",
+          "Editing that address in the customer portal is a permanent update to the contract, effective immediately and for every renewal after it, with no built-in expiry or scheduled revert",
+          "Shopify's recurring billing engine builds each renewal from whatever the contract's address happens to be at the moment that renewal runs - it has no memory of what the address used to be before the subscriber changed it",
+          "A subscription purchased as a gift starts with the recipient's address set once at checkout, which solves a different problem - a permanent difference between buyer and recipient, not a temporary detour for an existing subscriber",
+          "A saved address book on the customer's account is separate from the one address bound to the active subscription contract, so having several addresses on file doesn't give any single renewal the option to borrow one of them just for that cycle",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The subscription doesn't have a temporary-address problem so much as it doesn't have a temporary-address feature - the field it's editing was built to hold one enduring value, not one that snaps back on its own",
+      },
+      { type: "h2", text: "Why this is easy to miss until months later" },
+      {
+        type: "p",
+        text: "Changing the address at checkout on a one-time order is a decision scoped to a single, visible transaction - it's obviously done the moment the order confirms. Changing the address on a subscription doesn't feel any different in the moment, but its effect isn't scoped at all; it just sits there as the new default until somebody remembers to touch it again. A subscriber who's used to one-time checkout brings that same one-order mental model into the portal, edits the field, and has no reason to expect it needs a second edit later to undo it. The mistake isn't visible at the time it's made - it's only visible two or three renewals later, when a box that should have come home with her keeps going somewhere she isn't.",
+      },
+      {
+        type: "quote",
+        text: "She didn't forget to update her address. She updated it once, correctly, for a trip that ended - and the subscription just kept believing it.",
+      },
+      { type: "h2", text: "Keeping one detour from becoming the new default" },
+      {
+        type: "ol",
+        items: [
+          "Add a one-cycle shipping override to the portal that's visibly separate from the permanent address field, so a subscriber redirecting a single renewal isn't reaching for the same control that sets every future one",
+          "When a subscriber edits the permanent address, say so plainly in the confirmation - name the next renewal date this will affect and every one after it, not just \"address updated\"",
+          "Send a receipt or reminder after any address change that states where the following renewal is currently scheduled to ship, so a temporary change that was never reverted shows up before the box does",
+          "Where a subscriber only needs to skip a cycle rather than redirect it, put skip ahead of address editing as the obvious path for travel windows - it solves \"don't ship this one\" without ever touching the address on file",
+          "Flag subscriptions with an address change followed by several renewals at that same address, since a detour that was supposed to be temporary and never got reverted is exactly the account a support ticket is about to come from",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "The customer portal is where a subscriber already goes to skip a delivery, pause the whole subscription, swap a product, or update the card and address on file, which is why skip is the safer answer to a travel window or a one-off gift than editing the address ever is - it leaves the permanent shipping address untouched and simply doesn't create an order for that cycle. AppFox Subscription doesn't fork a separate one-cycle address alongside the contract's permanent one; an address edit in the portal updates the same field every renewal reads from, same as it does on Shopify's own recurring billing. Custom shipping profiles on the Business plan and above control which rates apply to a subscription, which is a different question from where a single cycle ships, so they don't cover this either.",
+      },
+      {
+        type: "p",
+        text: "What subscription analytics on the Growth plan and above can do is surface accounts with a recent address change, so a merchant - or support, before the next renewal fires - can catch a detour that looks like it was never meant to be permanent, instead of finding out from the subscriber whose coffee just arrived at a beach house.",
+      },
+      {
+        type: "p",
+        text: "The beach house wasn't the problem, and neither was the subscriber's decision to send one box there. The subscription just did what a subscription does with any address it's given - it kept using it, cycle after cycle, because nothing ever told it to stop. Put skip in front of the address field for exactly this kind of detour, and a subscriber gets her coffee redirected for six weeks without ever having to remember to redirect it back.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-swap-drops-below-free-shipping-threshold",
     title: "Why a Shopify Subscription Swap Can Quietly Drop a Subscriber Below Free Shipping",
     excerpt:
