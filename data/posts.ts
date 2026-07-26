@@ -30,6 +30,79 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "order-edit-submitted-twice-can-double-charge-a-customer",
+    title: "Why Submitting a Shopify Order Edit Twice Can Double-Charge a Customer",
+    excerpt:
+      "A customer's connection stalls right after she taps confirm on an order edit, the button just sits there, so she taps it again - and both taps go through, charging her card twice for a swap she only meant to make once. The order itself looks completely normal afterward; only her statement knows two charges went out for one edit.",
+    category: "PLAYBOOK",
+    date: "2026-08-23",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Order Edit Double-Charge: Why Submitting Twice Bills Twice | AppFox",
+    metaDescription:
+      "Tapping confirm twice on a Shopify order edit - because of a slow connection, a stalled spinner, or an app retrying after a timeout - can charge a customer for the same price difference twice without ever creating a second order. Here's why the race condition happens, and how to make a duplicate submission fail instead of bill twice.",
+    body: [
+      {
+        type: "p",
+        text: "A customer sitting in a coffee shop on shaky wifi swaps a t-shirt for a hoodie through her order's self-service edit link. She taps confirm, and the button just sits there - no spinner that resolves, no confirmation screen, nothing for eight long seconds. Assuming the tap didn't register, she taps it again. This time it goes through immediately, the order updates to show the hoodie, and she closes the tab satisfied. Two days later she notices her card was charged the $18 price difference twice, not once, for an upgrade she only ever asked for a single time.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a bug in the payment gateway. An order edit that raises the total has to charge the difference between the old total and the new one, and that charge is computed by reading the order's current state, comparing it to the requested change, and running a card transaction for the gap. When two submissions for the same edit land close enough together, both can read the exact same starting state before either one has finished writing its result back - so both independently calculate the same $18 difference, and both successfully charge it, because neither request has any way of knowing the other is also in flight.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't a flaky connection or an impatient customer double-tapping a button - that happens on every form on the internet, checkout included. It's an edit flow that never asks \"has this exact change already been submitted\" before it charges a card a second time.",
+      },
+      { type: "h2", text: "Why a slow tap looks identical to two different requests" },
+      {
+        type: "ul",
+        items: [
+          "Shopify's own checkout already solves this with a cart token that makes a duplicate submission within the payment step a no-op instead of a second order - but a self-service order-edit flow bolted on after checkout is a separate system, and not every implementation carries that same protection over",
+          "A double-tap doesn't look any different, on the server, from two genuinely separate edits arriving a few hundred milliseconds apart - both are just a request against the same order, and a handler that reads the current state, computes a diff, and charges it treats each one identically",
+          "Mobile networks make this worse than desktop: a button that gives no feedback for five to ten seconds on a spotty connection reads to a customer as \"it didn't register,\" which is exactly the condition that makes a second tap feel like the reasonable response rather than a reckless one",
+          "The second submission doesn't have to come from the customer at all - an app that times out waiting for Shopify's API and automatically retries the same mutation can trigger the identical race condition with no double-tap and no customer input anywhere in it",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A duplicate charge isn't two mistakes stacking on top of each other - it's one slow response mistaken for silence, answered the way anyone answers silence: by trying again",
+      },
+      { type: "h2", text: "Why this is harder to catch than a duplicate order" },
+      {
+        type: "p",
+        text: "A duplicate order from a double-submitted checkout is easy to spot - it shows up as two order numbers sitting side by side in the dashboard, and canceling one is an obvious, one-click fix. A duplicate edit charge doesn't create a second order at all. It's two authorizations against the same order, so the order itself still looks completely normal: one hoodie, one corrected total, one edit logged on the timeline. The only places the duplicate is visible are the customer's card statement and the payment gateway's own transaction log - neither of which most merchants are checking per order. The evidence that something went wrong lives everywhere except the one screen a merchant is actually looking at.",
+      },
+      {
+        type: "quote",
+        text: "The order isn't lying - it really did become a hoodie, once. The customer's card just knows something the order screen never shows.",
+      },
+      { type: "h2", text: "Making a duplicate submission fail instead of just being unlikely" },
+      {
+        type: "ol",
+        items: [
+          "Attach a single-use token to every edit confirmation, and reject a second submission carrying that same token outright instead of processing it as a fresh request",
+          "Lock the order for the full length of the charge, not just the length of the button click, so a second request against an order that's already mid-edit queues or fails instead of running in parallel against the same starting state",
+          "Re-check the order's current version immediately before charging anything, not only before displaying the confirmation screen - if the order changed since the customer loaded that screen, treat the submission as stale rather than trusting a diff calculated against data that's no longer current",
+          "Disable the confirm control the instant it's tapped and show real, incremental progress instead of a spinner with no timeout - most double-taps happen because nothing on screen told the customer their first tap did anything at all",
+          "Reconcile automatically after the fact: if two charges for the identical amount land against the same order within a short window, flag and refund the second one before a customer has to notice it on a statement and open a ticket about it",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox scopes every customer-facing edit confirmation to a single-use link already, and price differences settle automatically through Shopify's own payment API rather than a separate parallel charge path - which is exactly the surface where a duplicate submission would otherwise turn into a duplicate authorization. Whether an edit auto-applies or waits in the approval queue first, it lands on the same per-order audit timeline, so a merchant looking at one order sees every attempt made against it, not just the one that stuck.",
+      },
+      {
+        type: "p",
+        text: "On the Growth plan and above, that same activity feeds the analytics dashboard, which is where a pattern like two charge attempts seconds apart against one order becomes something support can catch before a customer emails about it, rather than something that first surfaces as a chargeback. None of this depends on a customer being patient with a slow connection - it depends on the edit itself refusing to be submitted twice in any way that matters.",
+      },
+      {
+        type: "p",
+        text: "The coffee-shop wifi didn't do anything wrong, and neither did the customer who tapped a second time when the first tap looked like it hadn't worked. The button just needed to know, the moment it was tapped again, that it had already heard this exact request once. That's a fix that belongs in the edit flow itself - not in asking customers to wait more patiently for a spinner that never resolves.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-shipping-address-change-never-reverts",
     title: "Why a Shopify Subscription's Shipping Address Change Never Reverts on Its Own",
     excerpt:
