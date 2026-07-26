@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "order-edits-can-quietly-void-a-warranty-registration",
+    title: "Why an Order Edit Can Quietly Void a Customer's Warranty Registration",
+    excerpt:
+      "Warranty coverage gets tied to the exact SKU and serial number a customer walked out of checkout with. Let a self-service edit swap that line item afterward and the paperwork on file stops matching what's actually in the box - and nobody finds out until a claim gets denied.",
+    category: "PLAYBOOK",
+    date: "2026-08-24",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Order Edits and Warranty Registration: Why Swaps Void Coverage | AppFox",
+    metaDescription:
+      "A size or model swap made through a self-service order edit can leave a customer's warranty registration pointing at a product they no longer own. Here's why the mismatch happens, and how to gate edits on warranty-eligible items before it does.",
+    body: [
+      {
+        type: "p",
+        text: "A customer buys a stand mixer, registers the serial number on the manufacturer's site for the five-year warranty, and a week later realizes she ordered the wrong color. She opens the order status page, swaps the line item for the same mixer in a different finish, and the edit goes through cleanly - new color, same price, confirmation email sent. What she's holding eighteen months later, when a motor fails and she files a claim, is a warranty registration that lists a serial number for a mixer that was shipped back to the warehouse the day the swap happened. The manufacturer's system has no record of the one actually sitting on her counter.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the edit itself was unusual - a color swap is exactly the kind of low-risk change a self-service flow exists to handle. The mismatch comes from where warranty coverage actually lives: registered against the specific unit that shipped, identified by its own serial number or SKU, on a system the store doesn't control and the order-edit flow never talks to. Swap the line item and Shopify updates the order just fine. The warranty database three steps removed from Shopify has no idea anything changed.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't letting customers edit warrantied products - most swaps on most orders are perfectly safe. It's treating a swap on a line item with a manufacturer's warranty attached the same way you'd treat one on a plain, unregistered SKU.",
+      },
+      { type: "h2", text: "Why warranty coverage doesn't follow the edit" },
+      {
+        type: "p",
+        text: "This isn't a Shopify limitation so much as a gap between two systems that were never built to inform each other - one that tracks what's on the order, and one that tracks what a customer is covered for.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Warranty registration is usually keyed to a serial number or unit-specific identifier captured at registration time - not to the order number, the SKU on the order, or the customer's account, so nothing about editing the order updates it",
+          "A variant swap typically closes the original line item and opens a new one; the serial number the customer already registered belongs to a unit that's no longer in their order at all",
+          "Registration commonly happens through the manufacturer's own site or a third-party warranty app days or weeks after delivery - well outside any window an order-edit flow is watching, so there's no moment where the two events could even be compared",
+          "A model or capacity swap (the 5-quart mixer for the 6-quart) can change which warranty terms apply in the first place, not just which serial number is correct - a coverage length or parts list that was accurate for the original item may not be for the replacement",
+          "None of this blocks the edit or throws an error - the swap completes, the order looks correct, and the gap is invisible until a claim gets filed against a serial number that no longer matches anything the customer owns",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The order was edited correctly. The registration just never heard about it.",
+      },
+      { type: "h2", text: "Why a normal eligibility check misses this" },
+      {
+        type: "p",
+        text: "Edit windows, fulfillment cutoffs, and stock checks are all questions about the order: has it shipped, is the new variant in stock, is it past the window. Whether a line item carries a manufacturer's warranty a customer may have already registered against its specific unit is a fact that lives outside the order entirely - most eligibility engines were built to gate changes to the order, not to check whether a swap invalidates paperwork sitting on a system they've never queried.",
+      },
+      {
+        type: "quote",
+        text: "A serial number doesn't know it was swapped out. It just sits in a warranty database, still attached to a customer's name, still describing a product that's back in a warehouse somewhere else.",
+      },
+      { type: "h2", text: "Gate warranty-eligible line items on their own rules" },
+      {
+        type: "ol",
+        items: [
+          "Flag any line item that ships with manufacturer warranty coverage the moment the order is placed, not just the SKUs a merchandiser remembers are covered - warranty terms change by vendor and category more often than product catalogs get updated to reflect it",
+          "Route variant or model swaps on a flagged line item to manual review by default, instead of letting them auto-apply the way an unregistered item would",
+          "Show the customer a plain warning before they confirm a swap on a flagged item - \"registering a new serial number may be required after this change\" - so the gap doesn't stay invisible until a claim is denied",
+          "If the manufacturer or a warranty app exposes an API to update or re-issue a registration, trigger that update automatically as part of the edit instead of leaving it to the customer to notice and redo on their own",
+          "Where no update path exists, log the swap explicitly on the order's own record, so support can reconstruct what actually shipped when a claim comes in months later and the paperwork doesn't match",
+        ],
+      },
+      { type: "h2", text: "Where this belongs in your eligibility rules" },
+      {
+        type: "p",
+        text: "The same eligibility engine that already treats a personalized item or a pre-order differently from an ordinary one is where a warranty flag belongs too - checked per line item, since a single order can easily mix an unregistered accessory that's safe to auto-swap with a warrantied appliance that isn't. In AppFox, that's a per-action rule on the line item itself: auto-apply stays on for everything that doesn't carry the flag, and a flagged swap routes to the approval queue with the warranty note attached, so whoever reviews it - or a Shopify Flow wired to the manufacturer's own system - can act on it before the edit ships.",
+      },
+      {
+        type: "p",
+        text: "Most edited orders never touch a warranty at all, and a self-service flow shouldn't slow down for coverage that isn't there. But the ones that do carry it deserve a different question than \"is the new size in stock\" - because a swap on a registered item isn't just a variant change. It's a request to move coverage from one serial number to another, and unless the flow says so out loud, the only place that ever finds out is a denied claim eighteen months later.",
+      },
+    ],
+  },
+  {
     slug: "order-edit-submitted-twice-can-double-charge-a-customer",
     title: "Why Submitting a Shopify Order Edit Twice Can Double-Charge a Customer",
     excerpt:
