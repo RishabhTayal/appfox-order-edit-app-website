@@ -30,6 +30,72 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "why-buy-now-pay-later-cant-fund-a-shopify-subscription",
+    title: "Why Buy Now, Pay Later Can't Fund a Shopify Subscription Renewal",
+    excerpt:
+      "Klarna, Afterpay, and Affirm underwrite a fixed installment loan against one cart total at one moment. A Shopify subscription needs a payment method that can be charged again, unattended, thirty days later - which is exactly what a Buy Now, Pay Later loan was never built to do.",
+    category: "REVENUE",
+    date: "2026-08-28",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscriptions and Buy Now, Pay Later: Why They Don't Mix | AppFox",
+    metaDescription:
+      "Klarna, Afterpay, and Affirm aren't available at checkout once a Shopify subscription or selling-plan item is in the cart - and it isn't a missing integration. A Buy Now, Pay Later loan is underwritten once, against one total, with no mechanism for a merchant to trigger another charge on it a month later. Here's why BNPL can't fund recurring billing, and what to show subscribers instead.",
+    body: [
+      {
+        type: "p",
+        text: "A skincare brand runs Klarna on every product page - it's their single best-converting payment option for a $180 quarterly set, and support fields almost no complaints about it. So when the brand launches a subscribe-and-save version of the same set, the team expects Klarna to just carry over. It doesn't. The payment option that was front and center on the one-time product page is simply absent the moment a customer selects the subscription plan instead of the one-time purchase - not grayed out with an explanation, just gone. The team's first assumption is a broken integration or a missing setting somewhere in checkout configuration. It's neither. Klarna was never going to be available there, on this store or any other, because a subscription and a Buy Now, Pay Later loan are solving two different problems with the same-looking button.",
+      },
+      {
+        type: "p",
+        text: "A Shopify subscription renews by charging a payment method the customer authorized once, at signup, again and again on a schedule - each renewal a fresh, merchant-initiated charge against a card that's still good to bill next month, and the month after that, indefinitely. Buy Now, Pay Later doesn't work that way at all. Klarna, Afterpay, and Affirm each underwrite a fixed installment loan at the moment of checkout, sized to that one cart total, approved once against that one purchase. There's no stored, chargeable instrument sitting behind it the way there is behind a card - just a loan that was priced and approved for a number that stopped being relevant the second the order shipped. Asking it to fund a renewal isn't a settings problem. There's no mechanism on the other end for a merchant to reach back into that loan and trigger a new, unattended charge a month later.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't offering Buy Now, Pay Later on one-time orders - it converts well for a reason. The mistake is assuming it's a generic \"payment method\" that a subscription checkout can treat the same way it treats a card, when a BNPL loan and a vaulted card are structurally different things wearing similar-looking buttons at checkout.",
+      },
+      { type: "h2", text: "Why a subscription checkout can't offer BNPL" },
+      {
+        type: "ul",
+        items: [
+          "A subscription renewal is a merchant-initiated transaction - the store triggers the charge on schedule, with no shopper present to accept new loan terms, and no BNPL provider extends credit without a shopper in the loop to approve it",
+          "A BNPL loan is underwritten once, against one specific total, at one specific moment - there's no equivalent of a vaulted card token behind it that a merchant can charge again for a different amount on a different date",
+          "Shopify's checkout only surfaces payment methods that are actually eligible for whatever's in the cart, so a selling-plan item drops BNPL from the available options the same way it would drop a method that doesn't support the store's currency",
+          "None of the major BNPL providers publish a recurring-charge API for merchants to bill an existing loan again - the product they sell is a one-time installment plan, not a stored-credential agreement the way a card-on-file is",
+          "A subscriber who wants Klarna's installment convenience specifically for the recurring price, not just the first box, has no equivalent to ask for - the flexibility BNPL offers on a single purchase has no version that repeats automatically",
+        ],
+      },
+      {
+        type: "quote",
+        text: "A card on file is a promise a merchant can redeem again. A Buy Now, Pay Later loan is a promise that was already spent - on one order, at one price, the day it was approved.",
+      },
+      { type: "h2", text: "What assuming BNPL will carry over actually costs" },
+      {
+        type: "p",
+        text: "The real cost shows up twice, in two different places. First, at the product page: a shopper who came in expecting to pay for a subscription the same way they'd pay for a one-time order - four installments, no surprise - hits a checkout that quietly dropped their preferred option, and a share of that traffic abandons right there, confused rather than convinced. Second, inside the business itself, when a merchant tries to force a fix: charging a BNPL loan for the full estimated subscription term up front and calling the resulting product a \"subscription\" isn't a subscription at all anymore. It's a single prepaid purchase wearing subscription language, and it breaks the one thing subscribers actually rely on - the ability to skip, pause, swap, or cancel a plan that hasn't already been fully paid for in a loan a customer can't unwind mid-term.",
+      },
+      { type: "h2", text: "Setting expectations instead of forcing a workaround" },
+      {
+        type: "ol",
+        items: [
+          "Check what Shopify Payments and your active gateways actually list as eligible for selling-plan carts before assuming a store-wide BNPL toggle reaches subscription products the same way it reaches one-time ones",
+          "Say it on the product page, not just at checkout - a line as simple as \"Buy Now, Pay Later available on one-time purchase; subscriptions bill by card\" resolves the confusion before a shopper picks a plan expecting an option that won't be there",
+          "If BNPL-style flexibility matters for a high-ticket item, offer the one-time purchase with BNPL as a clearly separate path next to the subscription option, rather than trying to make one plan serve both jobs",
+          "Don't prepay a subscription's full term through a BNPL loan and market it as recurring - if a plan can't be skipped, paused, or canceled without unwinding an outstanding loan, it isn't the subscription a customer signed up expecting",
+          "Track checkout starts against completions specifically on subscription product pages if BNPL is popular store-wide - a payment-method gap shows up first as a quiet conversion drop, well before it shows up as a support ticket asking where Klarna went",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription bills renewals through Shopify's own checkout, so the payment methods a subscriber sees are whatever Shopify Payments and the store's connected gateways make eligible for a selling-plan cart - AppFox doesn't maintain a separate payment-method list, and it can't make a BNPL provider extend a rechargeable line of credit that provider was never built to offer. Where AppFox does help is upstream of checkout: the subscribe-and-save widget's copy is merchant-controlled, so a store can set the expectation - card billing on the recurring plan, BNPL still available on the one-time version - right on the product page, before a shopper commits to a plan assuming every payment icon carries over. And subscription analytics on the Growth plan and above reports checkout starts against completions for subscription products as its own number, which is where a payment-method mismatch shows up as a conversion gap worth investigating, instead of staying invisible until a shopper emails asking where Klarna went.",
+      },
+      {
+        type: "p",
+        text: "The skincare brand's missing Klarna button wasn't a bug, and it wasn't a setting buried somewhere in checkout. It was two different financial products that happen to look alike at the button level - a rechargeable card and a loan that was already spent - and only one of them was ever going to survive into a second billing cycle. The fix isn't finding a way to force Buy Now, Pay Later into a recurring contract it was never underwritten for. It's telling a subscriber, before they pick a plan, exactly which kind of payment their subscription actually runs on.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-free-trial-ships-before-first-charge",
     title: "Why a Shopify Subscription Free Trial Ships a Box Before It Ever Bills a Card",
     excerpt:
