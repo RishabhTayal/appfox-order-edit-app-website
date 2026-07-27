@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "does-a-shopify-subscription-stay-tax-exempt-after-the-certificate-expires",
+    title: "Does a Shopify Subscription Stay Tax-Exempt After the Certificate Expires?",
+    excerpt:
+      "A resale certificate lapses, nobody updates the customer's record, and thirteen renewals later a subscriber's bill quietly grows a tax line that was never there before. A Shopify subscription doesn't lock in tax-exempt status the way it can lock in price - it re-checks the customer record fresh on every single renewal, in both directions.",
+    category: "PLAYBOOK",
+    date: "2026-08-29",
+    author: "The AppFox Team",
+    metaTitle: "Does a Shopify Subscription Stay Tax-Exempt After Certificate Expires? | AppFox",
+    metaDescription:
+      "A Shopify subscription rechecks a customer's tax-exempt status fresh on every renewal - it's never locked to the contract the way price can be. Here's why a lapsed resale certificate can silently start, or stop, taxing a subscriber, and how to keep exemption records in sync with your billing.",
+    body: [
+      {
+        type: "p",
+        text: "A janitorial-supply wholesaler runs a restock subscription for small cleaning businesses - gloves, disinfectant, paper goods, replenished every 30 days. One customer, a two-person cleaning company, signs up tax-exempt: they submitted a resale certificate at onboarding, and every renewal for the next year bills a clean, tax-free number. Then, on renewal thirteen, the receipt comes back with $11.40 of sales tax added - the first tax line that subscription has ever carried. The customer emails, confused. Nothing about their business changed. Nothing about the subscription changed. The bill still did.",
+      },
+      {
+        type: "p",
+        text: "Nothing broke. Most states put an expiration date on a resale or exemption certificate - a year is common - and this one had quietly lapsed a few weeks earlier. What makes the change land on exactly renewal thirteen, rather than showing up gradually or not at all, is how a Shopify subscription actually determines tax: not from a number saved anywhere on the contract, but by reading the customer's tax-exempt flag fresh, at the moment each renewal order is created. A subscription's price can be locked to whatever pricing policy a merchant configured at signup, fixed or tracking the product. Tax-exempt status was never locked to anything. It's re-derived live off the customer record every cycle, so the instant that record changes - a certificate expires, gets revoked, gets corrected - the very next renewal reflects it, with no separate action from anyone on the subscription side.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't collecting tax correctly once a certificate lapses - that's exactly right. The mistake is assuming exemption status is something that got set once at signup and just carries forward, when a subscription actually rechecks it on every renewal, in both directions, and neither direction announces itself.",
+      },
+      { type: "h2", text: "Why tax-exempt status doesn't stay put on a subscription" },
+      {
+        type: "ul",
+        items: [
+          "A subscription contract's tax treatment isn't a field stored on the contract at all - it's a live lookup against the customer record's tax-exemption flag, run fresh every time a renewal order is created, the same lookup a brand-new checkout would run",
+          "A sales-tax exemption certificate's expiration date is set by the state, not by the merchant - a certificate that was valid at signup can lapse on its own schedule with nobody on either side of the subscription taking any action at all",
+          "There's no default link between a certificate's expiration date and the renewals running against it - the two live in different systems, a compliance file and a billing contract, that were never built to check in with each other",
+          "The reverse happens just as easily - a customer who becomes newly tax-exempt after they've already subscribed, through a new resale certificate or a change in entity type, sees their very next renewal reflect it automatically, no support ticket or contract edit required, because the same live lookup runs either way",
+          "None of this shows up as an error anywhere in the flow - a lapsed certificate doesn't stop a renewal from processing, it just changes one line on the receipt, which is exactly why it goes unnoticed until someone reconciles collected tax months later",
+        ],
+      },
+      {
+        type: "p",
+        text: "The cost isn't symmetric. Miss it in one direction and a subscriber gets a surprise charge; miss it in the other and the business is the one carrying the risk.",
+      },
+      {
+        type: "quote",
+        text: "A subscription's price only changes when a merchant decides it should. Its tax-exempt status changes the moment the customer record does - whether or not anyone decided anything.",
+      },
+      { type: "h2", text: "What a missed expiration actually costs" },
+      {
+        type: "p",
+        text: "If a certificate lapses in the real world and nobody updates the customer's record to match, every renewal after that keeps going out tax-free on a status that's no longer valid - a liability that compounds quietly, order after order, and usually only surfaces at audit or filing time, on a batch of renewals that all trace back to the same stale flag. If the record does get corrected promptly, the risk flips: a subscriber who's paid the same number for a year gets blindsided by tax appearing on a renewal receipt with no explanation attached, reads it as a billing error, and either opens a ticket or disputes the charge - not because the tax was wrong, but because nothing told them it was coming.",
+      },
+      { type: "h2", text: "Keeping certificate status and subscription billing in sync" },
+      {
+        type: "ol",
+        items: [
+          "Track exemption-certificate expiration dates somewhere that actually gets checked on a schedule - a compliance calendar or a dated customer tag, not a PDF sitting in a folder nobody revisits",
+          "Follow up with exempt subscribers before their certificate's expiration date, not after a renewal has already gone out taxed or untaxed on a status that's since changed",
+          "Update the customer record the moment a certificate is confirmed expired, rather than waiting for the next renewal to surface the mismatch on its own",
+          "Flag a subscriber's next renewal receipt when its tax treatment is about to change for a reason unrelated to price, so the number moving doesn't read as an unexplained error",
+          "Audit tax-exempt subscribers on a recurring schedule the same way you'd audit fixed-price contracts against current shelf prices - a stale exemption costs you exactly the way a stale price does, just running in the other direction",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription bills renewals through Shopify's native subscription infrastructure and checkout, so every renewal's tax line is calculated the same way Shopify calculates tax anywhere else - against the customer and shipping details on file at the moment that specific renewal order is created, not a number carried forward from signup. AppFox doesn't keep a separate tax-exemption list of its own, and it can't reach into a state's certificate registry to know when one lapses. What it does give a merchant is subscription analytics, on the Growth plan and above, that reports active subscriptions in one place - which is where a recurring compliance check, which subscribers are marked tax-exempt and does that still match what's actually on file, gets run on purpose, instead of surfacing for the first time as a confused support ticket or a filing-season surprise.",
+      },
+      {
+        type: "p",
+        text: "The cleaning company's month-thirteen tax line wasn't a mistake, and neither were the eleven renewals before it that charged nothing at all. Both were the same system doing exactly what it's built to do: reading tax-exempt status fresh, every renewal, off whatever the customer record says right now. The gap isn't in how Shopify calculates it. It's in whether anything on the merchant's side is watching the certificate's own calendar closely enough to keep that record telling the truth.",
+      },
+    ],
+  },
+  {
     slug: "why-buy-now-pay-later-cant-fund-a-shopify-subscription",
     title: "Why Buy Now, Pay Later Can't Fund a Shopify Subscription Renewal",
     excerpt:
