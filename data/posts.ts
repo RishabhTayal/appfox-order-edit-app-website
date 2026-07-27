@@ -30,6 +30,72 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-free-trial-ships-before-first-charge",
+    title: "Why a Shopify Subscription Free Trial Ships a Box Before It Ever Bills a Card",
+    excerpt:
+      "A trial period on a Shopify subscription delays the first charge - it doesn't delay the first box. The opening cycle's order is created and fulfilled at signup either way, so every trial that doesn't convert has already cost a full box, not a deferred one.",
+    category: "REVENUE",
+    date: "2026-08-27",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Free Trial: Why It Ships Before It Bills | AppFox",
+    metaDescription:
+      "A Shopify subscription's trial period sets when the first charge fires, not when the first box ships. The opening cycle's order is created and fulfilled at signup regardless, so a trial that never converts has already cost a full box. Here's why, and how to price for it.",
+    body: [
+      {
+        type: "p",
+        text: "A candle brand runs a \"first box free\" trial to compete with shoppers who'd otherwise just buy a candle once and move on. Emma signs up, gets a full box in the mail four days later, and cancels on day thirteen - one day before the fourteen-day trial ends and the plan would have charged her card for the first time. Her cancellation email confirms it: no charge was ever made. The merchant's monthly cohort report agrees - zero revenue from Emma, exactly as the trial promised. What the report doesn't show is the box itself: full retail candles, packaging, and a shipping label, all spent in full four days after signup, with nothing coming back.",
+      },
+      {
+        type: "p",
+        text: "Nothing about Emma's box is a mistake. A trial period on a Shopify subscription contract is a billing-policy setting - it tells the plan how many days to wait before collecting the first charge. It says nothing about fulfillment. The contract still creates an order for that opening cycle the moment someone signs up, trial or not, and that order is exactly what triggers picking, packing, and shipping - the same order object, running through the same fulfillment queue, whether it billed $32 or $0. The trial delayed when Emma's card got charged. It never touched when her box left the warehouse.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't offering a free trial to compete on acquisition - that's a reasonable way to win a shopper who'd never commit to a recurring charge sight unseen. The mistake is assuming a trial defers risk the same way it defers a charge, when a Shopify subscription's trial period only ever promises one of those two things.",
+      },
+      { type: "h2", text: "Why a trial delays the charge, not the shipment" },
+      {
+        type: "ul",
+        items: [
+          "A contract's trial period lives on the billing policy as a count of days before the first invoice - there's no matching field anywhere in Shopify's subscription API for \"delay fulfillment,\" because billing and fulfillment are two separate systems reading from the same order",
+          "The order created for a trial's opening cycle is the same kind of order fulfillment always reads from - as soon as it exists, it's eligible to ship, whether its charge is $0, deferred, or already collected, because nothing downstream distinguishes a trial order from a paid one",
+          "Cost of goods, packaging, and freight for that first box are spent the moment it ships - a subscriber who cancels on day thirteen of a fourteen-day trial has still been shipped a full box, with nothing recovered once it's out the door",
+          "A packing slip or fulfillment queue carries no default signal that a given box is running at zero revenue so far, so a warehouse team has no reason to treat a trial order any differently than one that already charged",
+          "Nothing about a card on file for a trial prevents the same person from signing up again under a different email and address purely to collect another free box, since fulfillment has no way to tell a repeat trial apart from a first one",
+        ],
+      },
+      {
+        type: "quote",
+        text: "A trial period is a promise about when the card gets charged. It was never a promise about when the box gets picked.",
+      },
+      { type: "h2", text: "What a trial actually costs when it doesn't convert" },
+      {
+        type: "p",
+        text: "A merchant pricing a \"first box free\" offer against a marketing budget line is pricing the wrong risk. The real cost isn't zero for a trial that doesn't convert - it's a full box, spent on day one, regardless of what the billing report says forty days later. If a fourth of trial signups never make it to their first paid renewal, that quarter of the cohort isn't a deferred charge that quietly disappeared - it's product, packaging, and freight the business paid for outright, filed under cost of goods instead of customer acquisition, where nobody's actually tracking it as the price of winning that subscriber.",
+      },
+      { type: "h2", text: "Pricing and building for what a trial actually delays" },
+      {
+        type: "ol",
+        items: [
+          "Budget a free trial as a customer-acquisition cost paid in product and freight, at your worst-case conversion rate - not as a deferred charge with no downside if it doesn't convert",
+          "Decide up front whether the trial is meant to delay billing only, or fulfillment too - if the intent is that nothing ships until the trial ends, that has to be built into the product or fulfillment workflow itself, because the trial-days setting on the billing policy won't do it",
+          "If a full box shipping for free costs more than the offer is meant to, trial on a lower-cost variant - a sample size or a single item - rather than the same box a paying subscriber gets",
+          "Require a valid card on file even for a $0 trial charge - Shopify still validates the payment method at signup, which is real friction against someone re-signing under a new email purely to collect free boxes",
+          "Track trial-to-paid conversion and the product cost spent on non-converting trials as its own number, separate from general churn - a trial that reads as free in the billing report can still be the least profitable acquisition channel in the business once the box itself is counted",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's trial-period setting is a billing lever - it tells the underlying selling plan when the first charge should fire, the same job Shopify's own billing policy does, and it doesn't reach into fulfillment to hold a shipment back until the trial ends. If a trial is meant to also delay or downsize the first shipment, that has to be handled on the product or variant side - a trial-specific variant or a fulfillment rule, not the trial-days field, since fulfillment and billing stay separate on this app the same way they do on Shopify's own subscription infrastructure. Where AppFox does help is visibility: subscription analytics on the Growth plan and above tracks a contract from trial start through to its first paid renewal or its cancellation, so trial-to-paid conversion is a number a merchant can actually pull, instead of one buried inside a general churn report.",
+      },
+      {
+        type: "p",
+        text: "Emma's box wasn't a bug. Her trial did exactly what it was built to do - it protected her card, not the merchant's shelf. The fix isn't a setting hiding in Shopify's billing policy, and it isn't something a subscription app can quietly add underneath it. It's the moment a merchant decides which one a free trial is actually supposed to be free of - a charge, or a box - because a plan built to defer one has never, on its own, deferred the other.",
+      },
+    ],
+  },
+  {
     slug: "drop-shipped-orders-need-a-different-order-edit-flow",
     title: "Why Drop-Shipped Orders Need a Different Order-Edit Flow",
     excerpt:
