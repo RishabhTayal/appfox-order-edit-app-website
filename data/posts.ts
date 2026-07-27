@@ -30,6 +30,72 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "drop-shipped-orders-need-a-different-order-edit-flow",
+    title: "Why Drop-Shipped Orders Need a Different Order-Edit Flow",
+    excerpt:
+      "A self-fulfilled item is safe to swap until your warehouse picks it. A drop-shipped one can be committed to a vendor's purchase order minutes after checkout - long before Shopify's own fulfillment status says anything has changed.",
+    category: "GUIDE",
+    date: "2026-08-26",
+    author: "The AppFox Team",
+    metaTitle: "Why Drop-Shipped Orders Need a Different Edit Flow | AppFox",
+    metaDescription:
+      "A drop-shipped line item can be committed to a vendor's purchase order minutes after checkout, while Shopify still shows it as open. Here's why the standard order-edit cutoff doesn't protect it, and how to gate drop-shipped items on their own clock.",
+    body: [
+      {
+        type: "p",
+        text: "A home-goods store ships most of its catalog from its own warehouse, but a handful of larger items - floor lamps, in this case - come direct from a wholesale supplier the store has a drop-shipping relationship with. A customer orders a rug and a lamp in the same cart. The rug goes into the warehouse's normal pick queue. The lamp does something the customer never sees: within twenty minutes, the store's dropshipping app batches the order into a purchase order and emails it to the supplier automatically. An hour later, the customer opens the order status page to swap the lamp for a different finish - the same self-service flow that let her swap the rug's color without any trouble on a different order last month. The eligibility engine checks the edit window, checks that the new finish shows as in stock, and lets the swap through. Nothing checks whether the supplier already has a purchase order for the finish she's trying to change out of.",
+      },
+      {
+        type: "p",
+        text: "The swap itself isn't unusual - a finish change is exactly the kind of low-risk edit a self-service flow exists to handle. What's different is where the real commitment to ship actually happens. For a self-fulfilled item, that commitment is your own warehouse picking it, which is exactly what a fulfillment cutoff is built to protect against. For a drop-shipped item, the commitment happens the moment a purchase order leaves for the vendor - often within minutes of checkout, automated, and finished long before Shopify's own fulfillment status on that line item changes from \"unfulfilled\" to anything else.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't letting drop-shipped items into the same order-edit portal as everything else. It's assuming the fulfillment cutoff that protects a self-fulfilled item also protects a drop-shipped one, when the two are running on completely different clocks.",
+      },
+      { type: "h2", text: "Why a drop-shipped line item runs on its own clock" },
+      {
+        type: "ul",
+        items: [
+          "A vendor purchase order or notification typically fires on its own schedule - instantly, hourly, or in a nightly batch - that has nothing to do with when your own warehouse would pick the item, and often lands minutes after checkout, well ahead of your standard fulfillment cutoff",
+          "Shopify's own fulfillment status on that line item still reads \"unfulfilled\" until the vendor ships and sends tracking back, so an eligibility engine that gates edits on fulfillment status sees a window that's wide open on your side and already closed on the vendor's",
+          "A single order can mix a self-fulfilled item with a drop-shipped one from a different vendor entirely - a swap that's perfectly safe on one line item can already be too late on the other, and both sit inside the same order as far as most edit flows are concerned",
+          "Canceling or swapping the item in Shopify updates your own records but doesn't reach the vendor on its own - unless something explicitly re-sends the change, the vendor ships against the original purchase order regardless of what your order now shows",
+          "A multi-vendor order can split into several separate purchase orders, each sent on its own schedule - \"the order's\" edit deadline isn't one date, it's as many deadlines as it has vendors",
+        ],
+      },
+      {
+        type: "quote",
+        text: "A fulfillment cutoff protects the items your own warehouse hasn't touched yet. It has nothing to say about a purchase order that already left for someone else's.",
+      },
+      { type: "h2", text: "What a mismatched swap actually costs" },
+      {
+        type: "p",
+        text: "When the edit outruns the vendor notification, the supplier ships what the original purchase order said, not what the order now shows in Shopify. The customer gets a package in the finish she tried to change out of, the store still owes the vendor for that unit, and now there's a second conversation - a return, a re-ship, sometimes a second vendor bill - to unwind an edit that looked like it had already succeeded. None of that shows up as a failed edit on your side. The confirmation email went out, the order record updated, and the mismatch only surfaces when the wrong box arrives.",
+      },
+      { type: "h2", text: "Gate drop-shipped items on the vendor's clock, not yours" },
+      {
+        type: "ol",
+        items: [
+          "Flag every line item sourced from a drop-ship vendor the moment the order is created - a tag, a vendor field, or a metafield your dropshipping app already writes - rather than trying to infer it later from tracking data that hasn't arrived yet",
+          "Set the edit cutoff on a flagged line item to match when your purchase-order export actually fires, not your standard fulfillment cutoff - for most automated dropshipping apps that's minutes to a few hours, not the day or two a warehouse pick allows",
+          "Route any swap, cancellation, or address change on a flagged item to manual review or a vendor-confirmation step by default, instead of letting it auto-apply the way an edit on an unflagged item would",
+          "Gate per line item, not per order - a self-fulfilled rug and a drop-shipped lamp on the same order need two different answers to \"is this still safe to change\"",
+          "If your dropshipping app can push edits back to the vendor - an updated or canceled purchase order - don't mark the edit complete on that line item until the vendor's side confirms it, not just yours",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's eligibility engine already evaluates edit windows and fulfillment cutoffs per line item rather than per order, which is exactly the granularity a mixed self-fulfilled and drop-shipped order needs - a vendor flag, sourced from a tag or metafield your dropshipping app writes, fits into the same rule set as the cutoff and stock checks it already runs. A drop-shipped line item can carry a shorter cutoff and route to the approval queue, while an ordinary SKU on the same order still auto-applies. AppFox doesn't talk to your vendor's purchase-order system directly - that connection, if you want swaps pushed back to the supplier automatically, lives in whatever app manages the vendor relationship - but it can hold a flagged edit for review until someone confirms the vendor's side is settled, instead of applying it the instant the customer clicks submit.",
+      },
+      {
+        type: "p",
+        text: "The customer swapping her lamp's finish did everything right - she used the exact flow the store built for this. What was missing wasn't a warning on the confirmation email. It was a clock the edit engine never checked: the vendor's, not the warehouse's. Add that check once, per vendor-flagged line item, and the swap that's still safely inside your fulfillment cutoff stops looking identical to the one that was already too late for the supplier.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-cancellation-flow-easy-as-signup",
     title: "Why Your Shopify Subscription Cancellation Flow Needs to Be as Easy as Signup",
     excerpt:
