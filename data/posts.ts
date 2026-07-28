@@ -30,6 +30,72 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "why-a-gift-card-purchase-cant-be-edited-like-a-normal-order",
+    title: "Why a Shopify Gift Card Purchase Can't Be Edited Like a Normal Order",
+    excerpt:
+      "A customer buys a $100 gift card for a friend's birthday, schedules it to send in a week, then decides two days later she'd rather send $75. The swap screen that resized a shirt on her last order has nothing for this one - because the code was already generated, live and spendable, the moment she paid.",
+    category: "PLAYBOOK",
+    date: "2026-09-01",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Gift Card Order Can't Be Edited Like a Normal One | AppFox",
+    metaDescription:
+      "A Shopify gift card's code is generated and activated the instant the order is paid, not when it ships - so a self-service amount or recipient change can't just edit a line item the way a physical order can. Here's why gift-card purchases need their own edit rule, and how to gate them on the code's status instead of the shipping clock.",
+    body: [
+      {
+        type: "p",
+        text: "A customer buys a $100 Shopify gift card as a birthday present for a friend, and schedules it to land in that friend's inbox on the birthday itself, a week out. Two days later, she changes her mind - she'd rather send $75 and pick up a small physical add-on from the same store instead. She opens the same self-service order-status page that let her swap a shirt size on a different order last month, expecting the same kind of quick fix. What she finds instead is a line item that reads $100 flat, no variant to swap, no quantity to trim to a partial amount, and an edit window that - technically - hasn't closed at all. Whatever she clicks, the code Shopify already generated for that gift card doesn't move.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the edit flow is broken. It's built to hold a window open until an item is picked and packed, then close it - exactly what protected the shirt swap she made without incident. A gift card was never running on that clock. Shopify creates the gift card's code and activates it the moment the order is paid, independent of any shipping or fulfillment step, because there's no box to pick in the first place. By the time she opens the edit page, the $100 isn't a number sitting in a cart anymore - it's a real, spendable balance already attached to a real code.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't selling gift cards through the same storefront as physical products - most stores do, and should. It's assuming that \"hasn't shipped yet\" and \"value not yet issued\" mean the same thing, when a gift card's real gate is whether its code has been issued, sent, or redeemed, and that clock starts at checkout, not at some later fulfillment cutoff.",
+      },
+      { type: "h2", text: "Why the code exists before anyone would think to edit it" },
+      {
+        type: "ul",
+        items: [
+          "Shopify generates a gift card's code and activates its balance the instant the order is paid - there's no fulfillment step downstream of checkout for an edit flow to hold a window open against",
+          "A scheduled \"send on\" date only delays the recipient email - the code itself is created and enabled to redeem well before that email goes out, so it's live long before anyone involved would think to check on it",
+          "The dollar amount is baked into that specific code at the moment it's issued - there's no separate order-total field left to trim the way a quantity or variant can be edited on a physical line item",
+          "Recipient name, email, gift message, and send date live as properties on the gift-card line item, not on the order itself - a standard swap-and-adjust screen built around variants and stock has nothing to check them against",
+          "If any part of the balance has already been redeemed, an amount change isn't a number to update anymore - it's a live balance that would have to be clawed back from whatever the recipient already spent it on",
+        ],
+      },
+      {
+        type: "quote",
+        text: "A fulfillment cutoff protects an item that hasn't been picked yet. A gift card was never waiting to be picked - it exists, live and spendable, from the moment the order clears.",
+      },
+      { type: "h2", text: "What editing a live code actually costs" },
+      {
+        type: "p",
+        text: "If the send date hasn't arrived and nothing on the code has been touched, the cheapest fix is straightforward: deactivate the original code and issue a new one at the corrected amount. That stops being cheap the moment the code has already reached the recipient, or the send date has already passed. At that point, \"editing\" the gift card means asking for money back from someone who already has it in hand as a gift - not a shipping correction, but a clawback conversation the purchaser never signed up to start and the recipient never agreed to be part of. A support ticket that begins as \"can I lower the amount\" ends as a request to void a gift someone else already believes is theirs.",
+      },
+      { type: "h2", text: "Gate gift-card line items on the code's status, not the shipping clock" },
+      {
+        type: "ol",
+        items: [
+          "Flag gift-card product line items at checkout the same way personalized or pre-order items get flagged, so the eligibility engine treats them as their own case instead of falling through to the rules built for physical inventory",
+          "Check the code's own status - unsent and unredeemed, sent, or partially redeemed - before deciding whether an amount or recipient change is even possible, rather than just checking whether the order's edit window is technically still open",
+          "For a code that's unsent and untouched, route an amount change through a cancel-and-reissue of that specific code instead of trying to edit a number that was never an editable field to begin with",
+          "For any code that's already been sent or partially redeemed, pull it out of self-service auto-apply entirely and route it to manual review - past that point, a change functions as a refund negotiation involving a gift-card balance, not a routine edit",
+          "Say plainly, inside the edit flow, why a gift card locks once it's sent - \"this gift card has already been delivered and can't be changed here\" reads as an explanation the customer can act on, not a dead end that looks like a broken page",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's eligibility engine already evaluates line items on their own terms rather than treating every item on an order the same way - a pre-order variant gets checked against its own allocation, a personalized item gets excluded from auto-swap. A gift-card line item fits the same pattern: flagged at checkout, checked against the code's own send and redemption status through Shopify's gift card records before any amount or recipient change is offered, and routed to manual review the moment that status shows the code has already gone out. Nothing about that requires treating gift cards as unsupported - it just means the eligibility check that already looks at fulfillment cutoffs and stock levels asks one more question first: has this code already become somebody else's money.",
+      },
+      {
+        type: "p",
+        text: "The birthday-gift-card customer wasn't wrong to expect her edit screen to work - it did, cleanly, for the shirt. What was missing wasn't a warning on the confirmation email or a longer edit window. It was a check the flow never ran: not whether the order had shipped, but whether the code behind it already had. Gate gift-card items on that status instead of the shipping clock, and a $25 amount tweak stops being a coin flip between a clean reissue and an awkward clawback from a friend who already opened her birthday email.",
+      },
+    ],
+  },
+  {
     slug: "can-a-shopify-gift-card-pay-for-a-subscription-renewal",
     title: "Can a Shopify Gift Card Pay for a Subscription Renewal?",
     excerpt:
