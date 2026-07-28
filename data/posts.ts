@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "can-a-shopify-gift-card-pay-for-a-subscription-renewal",
+    title: "Can a Shopify Gift Card Pay for a Subscription Renewal?",
+    excerpt:
+      "A customer redeems a $50 gift card to launch her subscribe-and-save order and never enters a card at all. Thirty days later, renewal declines - there's no payment method on the contract to charge, because a gift card only ever covered the order she placed, not the one Shopify has to bill on its own next month.",
+    category: "PLAYBOOK",
+    date: "2026-08-31",
+    author: "The AppFox Team",
+    metaTitle: "Can a Shopify Gift Card Pay for a Subscription Renewal? | AppFox",
+    metaDescription:
+      "A Shopify gift card can pay for the first order of a subscription, but it can never be saved as the payment method a subscription renews on - Shopify's subscription contracts require a rebillable card, not a redeemable balance. Here's why the two don't mix, and how to keep a gift-card signup from declining at renewal.",
+    body: [
+      {
+        type: "p",
+        text: "A skincare brand runs a healthy gift card program - birthday codes, referral rewards, customer-service goodwill - and plenty of that balance lands on subscribe-and-save products. A customer redeems a $50 gift card at checkout, it covers her first month's serum refill in full, and she completes the order without ever being asked for a card. From her side, the subscription is paid for. Thirty days later, Shopify tries to run the renewal and has nothing to charge it to. The order fails, her serum doesn't ship, and the email she gets asks her to add a payment method to a subscription she's fairly sure she already paid for.",
+      },
+      {
+        type: "p",
+        text: "Nothing about that is a glitch in the checkout or a setting AppFox or any other subscriptions app forgot to configure. It's a hard limit Shopify puts on gift cards by design: a gift card can be applied to the order that contains a subscription's first delivery, but it can never be attached to the subscription contract itself as the instrument future renewals bill against. Shopify's own documentation says it plainly - gift cards used on a subscription order apply to that first payment only, and the customer still has to have an eligible payment method on file for every charge after it. The checkout let the gift card pay for what was in the cart that day. It was never going to let the gift card stand in for a card on a contract that has to bill itself, unattended, a month from now.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't accepting gift cards on subscription products - turning that balance away would mean leaving real, already-issued store liability sitting unused, which helps nobody. The mistake is letting a customer complete a $0-card-required checkout on a subscription without telling her that the card-free part was a one-time event, not the new normal for how this plan gets paid.",
+      },
+      { type: "h2", text: "Why a gift card can start a subscription but can't run one" },
+      {
+        type: "ul",
+        items: [
+          "A gift card is a store balance redeemed by choice at a checkout - it exists to be applied in a moment a customer is present, the same way a discount code is, not to sit on file as something a server can draw down later on its own",
+          "A subscription renewal isn't a checkout the customer attends - it's Shopify billing a saved, tokenized payment method on a schedule, with nobody there to pick how to pay when the charge fires",
+          "Shopify's subscription infrastructure only accepts a rebillable instrument on the contract - a vaulted card, PayPal's reference-transaction agreement, or Shop Pay - because those are the only payment types built to be charged again without the customer re-authorizing each time",
+          "A gift card can fully or partially cover the order that contains a subscription's first delivery, same as any other order, but that coverage stops at that one order - Shopify doesn't carry a remaining balance forward onto a contract to offset a future renewal",
+          "If the gift card covered the entire first order, checkout never had a reason to ask for a card - which is exactly the moment a subscriber walks away believing no card was ever required, when one was quietly still needed for every renewal after it",
+        ],
+      },
+      {
+        type: "p",
+        text: "The gap is invisible for a full billing cycle. A subscriber who paid with a gift card sees a normal order confirmation, a normal welcome email, and nothing that flags her subscription as incomplete - because for that first order, it wasn't. The first sign anything was missing is a declined renewal thirty days later, on a subscription she has every reason to believe is already funded.",
+      },
+      {
+        type: "quote",
+        text: "A gift card answers \"how do I pay for what's in my cart right now.\" A subscription renewal asks a question nobody's there to answer thirty days later - and a gift card was never wired to answer it.",
+      },
+      { type: "h2", text: "What a declined gift-card signup costs beyond one renewal" },
+      {
+        type: "p",
+        text: "A failed renewal on a subscription the customer believed was paid for doesn't read as a normal dunning email - it reads as a billing mistake, because from where she's sitting, she already paid and the store is asking again. That's a support ticket that opens defensive instead of confused, and it's involuntary churn stacked on top of it: a subscriber who never got the dunning email, or ignored it because she didn't expect to owe anything, cancels by default when the retries run out. Multiply that across every signup a gift card fully covers, and a promotion meant to drive subscription starts quietly seeds a wave of first-renewal failures a month later.",
+      },
+      { type: "h2", text: "Keeping a gift-card signup from declining at renewal" },
+      {
+        type: "ol",
+        items: [
+          "Require a card on file at checkout for any subscription purchase, even when a gift card balance covers the order in full - Shopify's checkout can be configured so a payment method is still collected as backup, and it's the single fix that closes this gap entirely",
+          "If a full-balance gift card checkout is already live and can't collect a card at that step, say so explicitly on the confirmation: \"your first box is covered - add a card before [date] so your next one ships on time\"",
+          "Send a dedicated reminder ahead of the first renewal specifically for gift-card-funded signups, separate from the standard renewal reminder, since this group has no reason to expect a charge is coming at all",
+          "Give support a fast way to see whether a subscriber's first order was gift-card funded and whether a rebillable payment method has since been added, so a declined-renewal ticket doesn't start with both sides confused about what was already paid",
+          "Track how many subscriptions start on a fully-covered gift card order versus how many of those convert a card before the first renewal, so the gap gets fixed at the checkout step instead of absorbed as routine involuntary churn",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription runs recurring billing through Shopify's native subscription contracts and checkout, which means the gift-card limit above is Shopify's rule, not an AppFox one - it applies the same way whether or not AppFox is the app running the widget. What AppFox does control is the dunning sequence a subscriber sees when that first renewal fails: a clear, branded reminder that explains a payment method is needed, sent with enough lead time to fix it before a delivery is missed, rather than a generic decline notice that lands the same day the charge already failed.",
+      },
+      {
+        type: "p",
+        text: "The subscriber in the opening example didn't misunderstand her own checkout - a $50 gift card really did cover her first order, in full, with nothing else asked of her. She just needed to be told, at that exact moment, that covering today's order and funding next month's renewal were two different things, and that only one of them was actually settled. Ask for the card at signup regardless of the balance in the cart, and the gift card goes back to being what it was supposed to be: a nice way to start a subscription, not the reason it quietly lapses a month in.",
+      },
+    ],
+  },
+  {
     slug: "canceling-a-prepaid-shopify-subscription-mid-term",
     title: "What Happens When a Subscriber Cancels a Prepaid Shopify Subscription Mid-Term?",
     excerpt:
