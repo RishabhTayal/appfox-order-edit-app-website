@@ -30,6 +30,72 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "gdpr-data-deletion-request-active-shopify-subscription",
+    title: "Can You Delete a Subscriber's Data While Her Shopify Subscription Is Still Active?",
+    excerpt:
+      "A subscriber emails asking for her data erased under GDPR while her monthly box is still renewing. Support deletes the customer record on the standard 10-day clock, and the next billing cycle has no address to ship to and no account left to explain why a charge just went through anyway.",
+    category: "PLAYBOOK",
+    date: "2026-09-02",
+    author: "The AppFox Team",
+    metaTitle: "GDPR Data Deletion on an Active Shopify Subscription | AppFox",
+    metaDescription:
+      "A GDPR erasure request lands on a customer with a live Shopify subscription contract, and the standard 10-day redaction clock doesn't check whether that contract still needs the record it's about to wipe. Here's why an active subscription is a documented exception to erasure timing, and how to close the request without breaking billing or missing the deadline.",
+    body: [
+      {
+        type: "p",
+        text: "A subscriber on a monthly skincare box emails support asking that her account and personal data be deleted, citing her right to erasure under GDPR. She isn't asking to cancel the box - as far as she's concerned that's a separate conversation she hasn't started - she just wants her data gone. Support, wanting to look responsive on a compliance request, processes the deletion the same day: customer record erased, done, confirmation sent. Twelve days later her subscription's next renewal fires on schedule, because nobody had actually canceled the contract - it's just that the record behind it, the shipping address and the reference to the payment method she authorized, isn't there anymore. The charge either fails outright with nothing to ship to, or worse, quietly succeeds against a card she can no longer see or manage, because the account that would let her stop it was the thing that got deleted.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is Shopify quietly failing at compliance. Shopify's mandatory data-protection webhooks tell a store that an erasure request came in and start a clock running - they don't check the store's own database for a reason that request might need to wait. Whether a legal or contractual obligation exists that overrides an immediate deletion - an open order, a pending refund, an active subscription contract still scheduled to bill - is a determination Shopify leaves entirely to the merchant, every single time. The webhook fires the same way whether the customer it names has nothing outstanding or has a box renewing in twelve days. Reading it as a green light to delete on sight was always going to be the merchant's assumption, not something the request itself confirmed.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't honoring a subscriber's erasure request - GDPR gives her that right, and stalling on it past the required window is its own violation. The mistake is running that request down the same generic path a one-time customer's data would take, when an active subscription is exactly the kind of ongoing contractual relationship privacy law already carves out as a documented reason to sequence the deletion instead of firing it immediately.",
+      },
+      { type: "h2", text: "Why an active subscription changes the erasure timeline" },
+      {
+        type: "ul",
+        items: [
+          "An active subscription contract needs three things to keep billing on schedule: a customer reference, a shipping address, and a rebillable payment method - erasing any one of them doesn't pause the contract, it just leaves the next renewal with nothing to bill against or ship to",
+          "GDPR's erasure right carries its own exception for data still needed to fulfill a contract the person is a current party to - a subscription mid-term is that contract, not a completed transaction with nothing left to owe",
+          "Shopify's redaction webhook communicates that a request was made and a clock has started; it has no visibility into whether the named customer has a subscription contract still scheduled to renew, because that relationship lives in the subscriptions app's own records, not the webhook payload",
+          "A subscriptions app manages the billing contract, not the redaction decision - so unless the two are deliberately connected, a deletion actioned at the storefront or customer-record level has no way of knowing a contract downstream depends on the exact fields about to be wiped",
+          "Once the shipping address or payment reference is gone, there's no partial undo - the next renewal simply runs with a hole where the required fields used to be, and by then the record that would explain the gap has already been deleted too",
+        ],
+      },
+      {
+        type: "quote",
+        text: "An erasure request doesn't ask a merchant to keep a subscriber's data forever. It asks whether today happens to be a day she still has a live contract running - and that's the one question a generic delete-on-request path was never built to check.",
+      },
+      { type: "h2", text: "What deleting on the standard clock actually costs" },
+      {
+        type: "p",
+        text: "Erase the record immediately and the outcome splits two ways, and neither is clean. If the payment reference goes with it, the renewal fails against an address and a customer that no longer exist in any system support can look up - a billing problem with no account left to trace it to, and no subscriber login left for her to explain what she wanted in the first place. If the payment token happens to survive at the gateway level even after the customer record is gone, the renewal can still succeed - charging a subscriber who was just told her data was erased, for a subscription she now has no account to view or cancel. Either way, a request that was supposed to close a privacy concern reopens it as a billing dispute, and the fact pattern reads worse than a routine decline: it's a company that said it deleted someone's information and then charged her anyway.",
+      },
+      { type: "h2", text: "Sequencing an erasure request against an active subscription" },
+      {
+        type: "ol",
+        items: [
+          "Before actioning any deletion request, check whether the customer has an active subscription contract, not just open orders - a contract still scheduled to renew is exactly the kind of documented obligation that justifies delaying full erasure rather than running it immediately",
+          "Where an active contract exists, tell the subscriber plainly that cancellation and erasure are two different requests, and ask which she wants handled first - most of these resolve cleanly once the subscription itself stops, because a canceled contract removes the obligation that was holding erasure back",
+          "Cancel the subscription contract first, confirm nothing remains pending - no scheduled renewal, no unfulfilled order tied to it - then process the erasure against the now-unblocked record, not the other way around",
+          "Log the sequencing and the reason for it wherever compliance responses get tracked, so a request that took twelve days because a contract had to close first reads as a handled, documented exception instead of a missed deadline",
+          "Route any deletion request that touches a customer with an active subscription to a queue a person reviews before it's actioned, rather than letting a generic erase-on-request automation run unattended against a table that also holds live billing relationships",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription doesn't own Shopify's data-protection webhooks and doesn't decide when an erasure request legally has to wait - that determination, and the response back to Shopify, sits with the merchant on every store, with or without a subscriptions app installed. What AppFox does put within reach is the one fact a merchant needs before answering a deletion request that touches a subscriber: whether that customer's contract is still active and still scheduled to renew. Subscription status is visible per customer through the app, so \"does this person have a live contract\" is a lookup instead of a guess, and canceling that contract ahead of erasure works the same way a subscriber canceling herself would - through the existing subscription infrastructure, not a special back-office process invented for this one situation.",
+      },
+      {
+        type: "p",
+        text: "The subscriber in the opening example didn't want a runaround - she wanted her data gone, and she was entitled to exactly that. The gap wasn't in her request or in Shopify's compliance webhook; it was in treating a subscriber's record like any other customer's the moment a deletion request arrived, when her subscription was still under contract to bill again in twelve days. Cancel first, confirm nothing's left pending, then erase - and the request closes the way she actually asked for it to, without a renewal charge showing up on an account that's already supposed to be gone.",
+      },
+    ],
+  },
+  {
     slug: "why-a-gift-card-purchase-cant-be-edited-like-a-normal-order",
     title: "Why a Shopify Gift Card Purchase Can't Be Edited Like a Normal Order",
     excerpt:
