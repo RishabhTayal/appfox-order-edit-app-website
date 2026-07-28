@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "canceling-a-prepaid-shopify-subscription-mid-term",
+    title: "What Happens When a Subscriber Cancels a Prepaid Shopify Subscription Mid-Term?",
+    excerpt:
+      "A candle-of-the-month subscriber pays $90 upfront for three boxes, gets the first one, then cancels. The contract stops cleanly. The $60 that was already collected for the two boxes she'll never receive doesn't move on its own - because canceling a subscription and refunding an order are two different actions, and only one of them has a button for it.",
+    category: "PLAYBOOK",
+    date: "2026-08-30",
+    author: "The AppFox Team",
+    metaTitle: "Canceling a Prepaid Shopify Subscription Mid-Term: What Happens? | AppFox",
+    metaDescription:
+      "A prepaid Shopify subscription bills once for several future deliveries, then cancellation only stops the ones left. Here's why the money already collected for undelivered boxes doesn't refund itself, and how to write a policy before a subscriber asks for it.",
+    body: [
+      {
+        type: "p",
+        text: "A candle brand sells a \"3-Month Discovery\" plan: pay $90 once, get a new candle shipped every month for three months. It reads like a subscription and it runs on Shopify's subscription infrastructure, but the billing is prepaid - one charge, upfront, covering all three deliveries. A subscriber signs up, gets month one's candle, decides the scent program isn't for her, and cancels from the portal the same week. The cancellation confirmation is immediate and correct: no more candles will ship. What she expects next is some version of a refund for the two candles she's not getting. What actually happens is nothing - the contract closed, and the $60 tied to the deliveries that will never go out just sits inside an order that was already paid and settled two weeks ago.",
+      },
+      {
+        type: "p",
+        text: "Nothing about that is a bug. A prepaid selling plan decouples billing from delivery on purpose: it charges a customer once for a batch of future shipments instead of once per shipment, which is exactly what makes a \"pay for 3, ship monthly\" offer possible in the first place. Canceling the subscription contract only ever touches what the contract still has scheduled to do - the deliveries and charges that haven't happened yet. It has no reach into the order that already fired, because that order isn't a promise anymore; it's a completed, paid transaction, the same as any other order in the store. The contract knows how to stop. It was never built to know how to give money back.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't collecting the full $90 upfront - that's the entire premise of a prepaid plan, and plenty of subscribers prefer it to a card getting charged three separate times. The mistake is assuming that because the contract and the charge started life together, canceling one automatically settles the other, when a prepaid plan splits them from the first charge onward and never reunites them again.",
+      },
+      { type: "h2", text: "Why the leftover balance doesn't refund itself" },
+      {
+        type: "ul",
+        items: [
+          "A prepaid selling plan's billing policy and delivery policy are configured separately - one charge can fund several delivery cycles, which is what makes \"pay once, ship monthly\" different from an auto-renewing plan that bills every single cycle it ships",
+          "Canceling a subscription contract sets the contract's own status and clears its remaining scheduled deliveries and charges - it doesn't reach backward into an order the billing run already created and collected payment on",
+          "The order behind a prepaid charge is a single Shopify order for the full batch, not three separate orders held in reserve - there's no per-delivery line item still \"unpaid\" that cancellation could simply stop billing",
+          "Nothing in Shopify's subscription API prorates a prepaid charge against deliveries not yet fulfilled - that math (two of three boxes, so two-thirds of $90) is a policy decision a merchant has to make and execute, not a calculation the platform runs automatically",
+          "The gap is invisible until someone hits it - a prepaid plan behaves exactly like an auto-renewing one right up until a subscriber cancels early, which is the one moment the two billing models actually diverge",
+        ],
+      },
+      {
+        type: "p",
+        text: "The asymmetry is what makes it costly. An auto-renewing subscriber who cancels early has, at most, one recent charge to dispute. A prepaid subscriber who cancels early is sitting on a specific, calculable balance - two-thirds of what she paid - that she can point to and that support has no default answer for.",
+      },
+      {
+        type: "quote",
+        text: "Canceling an auto-renewing subscription stops money from moving again. Canceling a prepaid one doesn't move back the money that already did - because only one of those actions was ever wired to a refund.",
+      },
+      { type: "h2", text: "What an unwritten policy actually costs" },
+      {
+        type: "p",
+        text: "If a merchant does nothing, the subscriber reads the silence as the worst-case interpretation available: the company took $90, sent one $30 candle, and kept the rest. That's a chargeback risk, a negative review, and - because prepaid discovery and box plans lean on word of mouth - a lost referral, not just a lost subscriber. If a merchant instead promises a full pro-rated cash refund on every early cancellation without ever costing it out, the margin already spent shipping and fulfilling box one comes straight out of whatever's left, on top of the two boxes' worth of inventory now sitting unsold. Neither failure mode is really about the refund amount. Both come from deciding the policy in the middle of a support ticket instead of before the first prepaid plan ever went live.",
+      },
+      { type: "h2", text: "Setting a prepaid cancellation policy before a subscriber needs one" },
+      {
+        type: "ol",
+        items: [
+          "Decide, before launch, what an early cancellation on a prepaid plan actually pays out - full pro-rated refund, store credit, a partial refund net of a stated cancellation fee, or no refund on a plan sold explicitly as non-refundable - and write it down somewhere more durable than a support macro",
+          "State that policy where the subscriber commits to it, on the plan's product page or checkout step, not buried three links deep in a terms-of-service page she never opened",
+          "Surface the remaining unclaimed balance on the cancellation screen itself - \"you've received 1 of 3 boxes; $60 remains\" turns a confusing silence into a number she can act on, whatever the policy says happens to it next",
+          "Give support the exact remaining-deliveries math for any prepaid contract without a spreadsheet, since the number of prepaid plans in a portfolio only grows and nobody wants that math done by hand per ticket",
+          "Review prepaid cancellation requests on a schedule the same way any other churn is reviewed - if pro-rated refunds are common enough to move a margin line, that's a signal to reconsider offering prepaid billing on that plan at all, not just a cost to keep absorbing quietly",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription runs recurring billing through Shopify's native subscription contracts and checkout, which support both auto-renewing and prepaid billing policies - so a \"pay for 3, ship monthly\" plan works the same way on Shopify's rails whether or not a merchant runs it through AppFox. The customer portal lets a subscriber cancel a prepaid contract herself, the same one-click action as any other plan, and that cancellation reliably stops every delivery and charge still scheduled. What AppFox doesn't do is decide, or automatically execute, what happens to money already collected for deliveries that will now never ship - that's a refund policy and a refund action, and it belongs to the merchant the same way refunding any other completed order does.",
+      },
+      {
+        type: "p",
+        text: "Where AppFox does help is visibility: subscription analytics, on the Growth plan and above, surfaces active contracts and their billing type in one place, which is where a merchant can actually see how many prepaid plans are running, how many cycles each has left, and how often early cancellations are hitting a balance nobody's decided what to do with - before that question shows up for the first time in a support inbox instead of a policy document.",
+      },
+      {
+        type: "p",
+        text: "The candle subscriber didn't do anything wrong, and neither did the system that let her cancel instantly. She just ran into the one seam a prepaid plan has: a single charge doing the work of three, and a cancel button that was only ever built to stop the deliveries still ahead of it, not to unwind the payment already behind it. Write the policy before the first cancellation finds that seam, and the number she sees on her way out reads like a business that planned for this - not one that got caught by its own pricing model.",
+      },
+    ],
+  },
+  {
     slug: "does-a-shopify-subscription-stay-tax-exempt-after-the-certificate-expires",
     title: "Does a Shopify Subscription Stay Tax-Exempt After the Certificate Expires?",
     excerpt:
