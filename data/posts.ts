@@ -30,6 +30,72 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "editing-a-shopify-order-paid-with-a-gift-card-when-the-total-goes-up",
+    title: "Why You Can't Auto-Charge the Difference on a Gift-Card-Funded Shopify Order Edit",
+    excerpt:
+      "A customer pays for a $60 order entirely with a $75 gift card, then adds a $25 item through the post-purchase upsell. The edit flow tries to charge the $10 difference to \"the original payment method\" - except the original payment method was a code, and the code doesn't have $10 left.",
+    category: "PLAYBOOK",
+    date: "2026-09-03",
+    author: "The AppFox Team",
+    metaTitle: "Editing a Shopify Order Paid With a Gift Card | AppFox",
+    metaDescription:
+      "When a post-purchase upsell raises an order's total, a self-service edit flow tries to charge the difference to the original payment method - but a redeemed gift card isn't a rebillable card. Here's why gift-card-funded orders need their own edit rule, and how to collect the balance without stalling the order.",
+    body: [
+      {
+        type: "p",
+        text: "A customer checks out for a $60 candle set and pays for the whole thing with a $75 gift card, leaving $15 unspent on the code. Two days later she opens the order-status page, likes a $25 add-on she's shown in the post-purchase upsell, and taps to add it. The edit itself goes through the way every other edit on the store does - line item added, new total calculated, confirmation shown. What's supposed to happen next is automatic: the flow charges the $10 difference between the $15 left on the gift card and the $25 item to whatever paid for the order. Except nothing paid for the order in a way that can be charged $10 more. The order's only payment method was a code, and the code has $15 on it, not $25.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the price-difference feature is broken here. For the overwhelming majority of edited orders, \"charge the difference to the original payment method\" is exactly the right default, and it works invisibly - a saved credit card token from checkout can be pinged for a few dollars more without the customer lifting a finger, the same way a hotel authorizes an incidentals hold after checkout. A gift card was never that kind of instrument. It's a balance, redeemed once, against one total, at one moment. It doesn't sit on file the way a card does, waiting to be asked for a little more.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't offering an upsell inside the edit flow, and it isn't letting a gift card fund the original order - both are exactly what a self-service portal should do. The mistake is assuming \"charge the difference automatically\" is one universal step that behaves the same regardless of what actually paid for the order, when a gift card and a saved card are two fundamentally different kinds of tender wearing the same line on a receipt.",
+      },
+      { type: "h2", text: "Why a gift card can't just be charged the extra $10" },
+      {
+        type: "ul",
+        items: [
+          "A saved credit-card token from checkout can be charged an incremental amount after the fact without the customer present - that's the entire mechanism a price-difference feature relies on, and it only exists for card-on-file payments",
+          "A gift card's balance is calculated once, at the moment it's applied to a total - it isn't a live, rebillable account the way a card is, so there's no equivalent of \"ask it for $10 more\"",
+          "If the gift card had money left over after covering the original total, that leftover is genuinely available for an increase - but only up to what's left; past that ceiling, the order has no rebillable instrument attached to it at all",
+          "Shopify has no mechanism to re-authorize or pull an additional charge from a gift card code that's already been redeemed - once it's applied, that transaction is settled, not held open",
+          "This isn't a declined-card situation with a retry available - the shortfall was never a payment that failed, it's a payment that was never collectible against that instrument in the first place",
+        ],
+      },
+      {
+        type: "quote",
+        text: "A card left on file can always be asked for a little more. A gift card was never a card - it's a balance, and once it's spent, asking it for more only proves how little is left to give.",
+      },
+      { type: "h2", text: "What happens when the edit flow assumes it'll just work" },
+      {
+        type: "p",
+        text: "If the automatic charge silently fails against an instrument that was never chargeable, the outcome splits two bad ways. Either the edit completes and the $25 item ships with only $15 actually collected - a quiet $10 write-off repeated across every gift-card-funded upsell the store runs - or the edit gets stuck in a payment-pending state that a generic \"charge the difference\" script has no fallback for, because it was written assuming a retriable card, not a maxed-out code. Either way, the item may already be queued to ship before anyone on the support side notices the balance was never actually resolved, and by then it's a manual invoice and an awkward follow-up email instead of a clean checkout.",
+      },
+      { type: "h2", text: "Gating the edit on what actually funded the order" },
+      {
+        type: "ol",
+        items: [
+          "Detect the original payment method on the order before offering an upsell or add-on that would raise the total - a gift-card-funded order is a distinct case, not a variant of the standard card-on-file path",
+          "Check the remaining balance on the specific gift card applied to that order, not just whether a gift card was used at all - a $75 card against a $60 order still has $15 of headroom before a second instrument is needed",
+          "When the increase would exceed what's left on the card, prompt for a new payment method at the moment of the edit instead of trying to auto-settle silently - the customer is already in the flow and can authorize a card right there",
+          "Route any edit that still has an unresolved balance after the gift card is exhausted to an approval queue instead of letting it auto-apply - a person should confirm the difference was actually collected before the item ships",
+          "Log which instrument covered which part of the total, so a support reply to \"why was I charged $10\" doesn't require reconstructing a gift-card-plus-card split from memory",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "Automatic payments on price differences is one of the features that makes self-service edits and in-flow upsells work without a person approving every single one - for the typical card-on-file order, AppFox settles the difference through Shopify's native Order Editing API and the customer never sees a second checkout. Gift-card-funded orders are exactly the case that eligibility rules exist to catch: flag the tender type on the order, and an upsell that would exceed the remaining gift card balance can be routed to collect a new payment method in the flow, or held in the approval queue, instead of quietly falling through as if it were an ordinary card-funded edit.",
+      },
+      {
+        type: "p",
+        text: "The candle-set customer didn't do anything unusual - she paid with a gift card because she had one, and she liked an upsell because it was a good one. The gap wasn't in her choices, it was in treating \"charge the difference\" as a single universal step instead of one that depends entirely on what's actually attached to the order. Check the tender, check what's left on it, and ask for a card the moment the balance runs out - and the upsell that should have grown the order by $25 doesn't quietly cost the store $10 to fulfill it.",
+      },
+    ],
+  },
+  {
     slug: "gdpr-data-deletion-request-active-shopify-subscription",
     title: "Can You Delete a Subscriber's Data While Her Shopify Subscription Is Still Active?",
     excerpt:
