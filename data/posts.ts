@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "order-edit-approval-delay-lets-payment-authorization-expire",
+    title: "Why a Slow Order-Edit Approval Can Let the Payment Authorization Expire",
+    excerpt:
+      "A made-to-order piece sits on manual capture until production starts. A price-changing edit routes to approval, the approver is out for a few days, and by the time the edit is signed off, the card's authorization has quietly matured out from under the order.",
+    category: "PLAYBOOK",
+    date: "2026-09-04",
+    author: "The AppFox Team",
+    metaTitle: "Order-Edit Approval Delays and Expired Payment Authorizations | AppFox",
+    metaDescription:
+      "A manual-capture order only holds its payment authorization for a matter of days. Here's why a slow order-edit approval can outlast that window, and how to catch a lapsed authorization before it reaches fulfillment instead of at the capture attempt.",
+    body: [
+      {
+        type: "p",
+        text: "A furniture maker sells made-to-order sofas on manual capture - the card is authorized at checkout but not charged, because cutting doesn't start for another three weeks and nobody wants to hold a customer's money for fabric that hasn't been ordered yet. Four days after checkout, a customer opens a self-service edit and upgrades from the standard linen to a heavier weight that adds $40 to the total. Because a fabric change touches what actually gets cut, the edit routes to a manager for approval instead of applying instantly. The manager is out for most of that week, and the edit doesn't get signed off until day nine. When someone finally goes to capture the new total, the attempt comes back rejected: the authorization behind the order matured and released two days earlier, on day seven. There's no charge left to add $40 to. There's no charge left at all.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a broken approval queue or a broken payment gateway. Manual capture doesn't hold a customer's money indefinitely - it holds an authorization, and most card networks and processors only guarantee that hold for a matter of days before releasing it automatically, regardless of what the merchant plans to do with the order later. That window has nothing to do with a store's own production timeline. It starts ticking at checkout and it keeps ticking through however long an edit happens to sit waiting for someone to look at it.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't routing a fabric-changing edit to a manager for review - a change that affects what's actually cut deserves a person's eyes before it's final. The mistake is running that review against its own SLA clock without ever checking it against the other clock already running underneath the order: how much of the card's authorization window is left by the time the edit even lands in the queue.",
+      },
+      { type: "h2", text: "Why an approval delay and a payment authorization share one deadline" },
+      {
+        type: "ul",
+        items: [
+          "Manual capture holds an authorization, not a settled payment - most gateways release that hold on their own after roughly a week, sometimes sooner depending on the card issuer, with no notice to the merchant when it happens",
+          "The eligibility engine that routes a price-changing edit to approval has no reason to know how much of that window is already spent - checkout and the edit request are two separate events, and only one of them started the clock",
+          "Manual capture is usually chosen for exactly the orders most likely to sit a while before anyone touches them again - made-to-order, backordered, or fraud-reviewed items - which means the clock is often already partway spent before an edit request ever shows up",
+          "Once an authorization matures, it isn't a decline waiting for a retry - the hold is simply gone from the gateway's side, the same way an unclaimed hotel incidentals hold releases on its own after checkout",
+          "An order with a lapsed authorization still displays as ordinary and unfulfilled right up until someone actually attempts a capture - nothing about its status flags the risk while the edit is sitting in the queue",
+        ],
+      },
+      {
+        type: "quote",
+        text: "A declined charge tells you it tried and failed. An expired authorization never tries at all - by the time anyone asks it to, it just isn't there anymore.",
+      },
+      { type: "h2", text: "Why this is worse than an ordinary failed capture" },
+      {
+        type: "p",
+        text: "A capture that fails on insufficient funds or a reissued card is a problem with a clear next step - retry, ask for a new card, hold the order. A lapsed authorization offers none of that, because nothing about it looks like a failure until the exact moment someone tries to use it. The approval queue that was supposed to be the safe, careful path for a price-changing edit becomes the reason the order loses its payment - not because the review was wrong, but because the review and the authorization were never tracked against the same deadline.",
+      },
+      { type: "h2", text: "Racing the approval clock instead of losing to it" },
+      {
+        type: "ol",
+        items: [
+          "Track the days remaining on an order's authorization window next to its position in the approval queue, so a pending edit is judged against the capture deadline, not just its own SLA target.",
+          "Give a price-changing edit on a manual-capture order a shorter approval SLA than the same edit would get on an already-captured order - the card's own window is the real deadline, and it doesn't care what turnaround time the queue was set up to hit.",
+          "When approval is going to run long, capture the original authorized amount before it matures and settle the edit's price difference as its own step once the review finishes, instead of leaving the whole total riding on one hold.",
+          "Alert on an authorization about to mature the same way you'd alert on an SLA breach, so a manual-capture order doesn't cross that line silently while it's sitting in a routine queue.",
+          "When an authorization has already lapsed by the time an edit is approved, treat the order like a fresh checkout, not a retry - send an explicit new payment request instead of attempting to capture a hold that no longer exists.",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's eligibility engine already routes a price-changing edit like a fabric or material swap into an approval queue, with Slack alerts for pending approvals and SLA breaches along the way. That's the natural place for an authorization-window flag on manual-capture orders specifically - so an edit that's on track to outlast the card's hold gets surfaced while it's still waiting for a decision, not after a capture attempt has already failed.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't manage is the gateway's own authorization window or the decision to run an order on manual capture in the first place - both sit with the payment processor and vary by processor and card issuer. What AppFox does handle is settling the price difference automatically once an edit is approved, in place, through Shopify's native Order Editing API. On an order whose authorization has already matured, that settlement step is exactly where the failed capture surfaces - early enough to send a new payment request instead of finding out once the piece is already queued for cutting.",
+      },
+      {
+        type: "p",
+        text: "The sofa customer didn't do anything unusual - she asked for a fabric upgrade five days after checkout, well inside any edit window a store would publish. What actually cost the order its payment wasn't her request or the manager's review. It was a queue and a card hold running on two separate clocks that nobody had ever tied together. Track them as one deadline instead of two, and an edit that finally gets approved stops occasionally showing up to a payment that's already quietly gone.",
+      },
+    ],
+  },
+  {
     slug: "editing-a-shopify-order-paid-with-a-gift-card-when-the-total-goes-up",
     title: "Why You Can't Auto-Charge the Difference on a Gift-Card-Funded Shopify Order Edit",
     excerpt:
