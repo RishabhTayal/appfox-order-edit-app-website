@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-swap-sold-out-variant",
+    title: "What Happens When a Shopify Subscriber Swaps to a Variant That Sells Out Before Renewal",
+    excerpt:
+      "A subscriber swaps her coffee subscription to a limited roast three weeks before it renews. The roast sells out in the meantime, the renewal order tries to create anyway, and what should have been a seamless swap turns into a stalled order and a confused subscriber.",
+    category: "PLAYBOOK",
+    date: "2026-09-06",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Swap Sells Out Before Renewal Fires | AppFox",
+    metaDescription:
+      "A Shopify subscription swap checks inventory once, at the moment a subscriber makes it - not again when the renewal actually fires weeks later. Here's why a sold-out variant can slip through, and how to catch it before it stalls an order.",
+    body: [
+      {
+        type: "p",
+        text: "A coffee subscription lets subscribers swap their monthly bag for any roast in the catalog, including a small-batch seasonal blend the roastery only runs a few hundred bags of at a time. Three weeks before her next renewal, a subscriber logs into the portal and swaps from her usual house blend to the seasonal one - it's in stock, the swap goes through instantly, and her account now shows the seasonal roast queued for next cycle. Eleven days later, the seasonal batch sells out to one-time shoppers browsing the same product page. Nobody touches her subscription. When her renewal date arrives, the billing run tries to build an order around a variant that no longer has any inventory behind it, and instead of a bag of coffee showing up on schedule, she gets a stalled order and, a few days after that, a support email asking why her subscription hasn't shipped.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a bug in the swap itself. The portal checked inventory at the one moment it actually had a job to do - when she clicked to confirm the swap - and at that moment, the seasonal roast was genuinely available. What the portal doesn't do is keep checking. A subscription contract stores the variant she chose, not a running guarantee that the variant will still exist by the time a renewal order is actually built from it, and three weeks is a long time for a limited batch to move.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't letting subscribers swap into a limited or seasonal item - that flexibility is exactly what keeps a coffee subscription from feeling like a fixed order she's stuck with. The mistake is treating the swap as settled the moment she confirms it, when the only inventory check that actually matters is the one that happens when the renewal tries to turn her contract into a real order, sometimes weeks later.",
+      },
+      { type: "h2", text: "Why a swap that worked can still arrive at renewal with nothing behind it" },
+      {
+        type: "ul",
+        items: [
+          "A subscription portal checks stock at the moment of the swap, the same way a cart checks stock at the moment something is added to it - neither one holds that inventory in reserve for a renewal that hasn't happened yet",
+          "The gap between a swap and the renewal it affects can run for weeks, and nothing about a limited or seasonal variant's stock level is tied to who has it queued in a future subscription order",
+          "The variants subscribers most want to swap into - seasonal, limited, or newly launched items - are also the ones most likely to sell out fast, since that's usually why they're worth swapping into in the first place",
+          "A subscription contract records a variant ID, not a live availability signal, so nothing on the subscriber's account changes to reflect the stock dropping to zero in the days after she made her choice",
+          "The renewal's billing run treats the contract's chosen variant as a given and only discovers there's no inventory left when it actually tries to build the order - the same moment a merchant discovers it too",
+        ],
+      },
+      { type: "h2", text: "Why this hits harder on a subscription than a one-time cart" },
+      {
+        type: "p",
+        text: "A shopper adding a limited roast to a one-time cart finds out immediately if it's gone - the product page says sold out, or the cart rejects it, right there in the same session. A subscriber swapping into that same roast weeks ahead of her renewal gets no such moment. She confirms the swap, closes the tab, and doesn't think about it again until either a bag of coffee shows up or it doesn't. By the time it doesn't, the batch has been gone for over a week, she has no memory of a stock warning she was never shown, and the stall reads as the subscription failing rather than a variant that sold out on schedule.",
+      },
+      {
+        type: "quote",
+        text: "The swap didn't break. It succeeded, against a shelf that was still full that afternoon - and nobody checked it again before the shelf emptied.",
+      },
+      { type: "h2", text: "Keeping a swap from arriving at renewal with nothing behind it" },
+      {
+        type: "ol",
+        items: [
+          "Re-check stock on every swapped-in variant a set number of days before its renewal, not just once at the moment the swap was made - close enough to the billing run to catch a sellout, far enough ahead to still act on it",
+          "When a re-check finds the swapped variant gone, notify the subscriber before the renewal fires and ask her to pick again, rather than letting the billing run discover the gap on its own",
+          "Let subscribers set a fallback choice at the time of the swap - revert to the previous variant, or accept a specific substitute - so a sellout has somewhere to land besides a stalled order",
+          "Flag limited or seasonal variants with active swaps against them once remaining stock drops under whatever level makes a sellout likely before the next renewal wave, so a merchant can see the exposure before support does",
+          "Decide in advance whether a sold-out swap should hold the order for a fallback decision or fall back automatically to the subscriber's previous item - a silent substitution and a stalled order send very different messages, and a subscriber should get the one the merchant actually chose",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's customer portal is where a subscriber swaps a product on her own, and that swap checks Shopify's live inventory at the moment she makes it - the same inventory the storefront itself is reading from, not a cached or delayed count. What the portal doesn't do on its own is keep re-checking a swap she confirmed weeks ago against stock that keeps moving after she's closed the tab; a contract holds the variant she chose, and Shopify Flow is the lever a merchant can wire up to re-verify stock on swapped variants ahead of a renewal and route a notification when one comes up empty.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is predict which limited batch is about to sell out - that's a merchant and roastery decision about how much of a seasonal item to make, not something a subscription app can see coming. The fix isn't forecasting software. It's a check placed a few days ahead of the renewal, instead of trusting a stock level that was only ever confirmed once, back when the swap was still weeks from mattering.",
+      },
+      {
+        type: "p",
+        text: "The subscriber who swapped into the seasonal roast didn't do anything wrong, and the portal didn't let a bad swap through - the roast really was in stock when she chose it. What actually stalled her order was three quiet weeks in which nobody checked that choice again before the batch ran out from under it. Recheck the shelf on the way to the renewal, not just on the way into the swap, and a sellout turns back into what it should have been from the start: a subscriber picking a fallback before her order ever goes quiet.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-renewal-during-a-warehouse-shutdown",
     title: "What Happens When a Shopify Subscription Renews During a Warehouse Shutdown",
     excerpt:
