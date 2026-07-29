@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-renewal-during-a-warehouse-shutdown",
+    title: "What Happens When a Shopify Subscription Renews During a Warehouse Shutdown",
+    excerpt:
+      "A subscription box brand closes its warehouse for nine days over the holidays. A subscriber's renewal lands right in the middle of it, the charge goes through on schedule, and the box doesn't move for six more days - long enough for two emails and a refund request.",
+    category: "PLAYBOOK",
+    date: "2026-09-05",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Renewals During a Warehouse Shutdown | AppFox",
+    metaDescription:
+      "A Shopify subscription renewal doesn't pause for your warehouse's holiday shutdown - it charges on schedule while fulfillment sits closed. Here's why that gap turns into refund requests and cancellations, and how to get ahead of it before the season starts.",
+    body: [
+      {
+        type: "p",
+        text: "A subscription box brand closes its warehouse between December 24th and January 2nd every year - the whole small team takes the same nine days off, and nobody's there to pick, pack, or hand a box to the carrier. The billing doesn't know that. A subscriber whose renewal date happens to fall on December 27th gets charged right on schedule, in the middle of the closure, and doesn't see her box move for another six days. By December 30th she's emailed twice asking where it is. By January 2nd she's asked for a refund on a charge that, as far as the store's own systems are concerned, went through exactly the way it was supposed to.",
+      },
+      {
+        type: "p",
+        text: "Nothing about that charge is actually a mistake. The renewal fired on the date she picked at signup, for the amount she agreed to pay, and the box did ship - just six days later than it would have if the warehouse had been open. A subscription's billing engine isn't built to know when a merchant plans to close for the holidays. That's an operational decision made once a year, on a calendar the billing schedule was never designed to read.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't closing the warehouse for a week around the holidays - every team is entitled to that, and most subscription businesses run on a headcount too thin to fulfill and take time off at the same time. The mistake is letting the renewal calendar keep firing straight through that closure as if the two calendars were the same one, when only the fulfillment side of the business actually stops.",
+      },
+      { type: "h2", text: "Why billing and fulfillment run on two separate clocks" },
+      {
+        type: "ul",
+        items: [
+          "Auto-renewal fires off a schedule fixed at signup - weekly, monthly, whatever cadence the subscriber picked - with no concept of a fulfillment center's holiday hours",
+          "A subscription box's entire promise is \"charge you, then ship shortly after\" - a shutdown only breaks the second half of that promise, which is exactly the half a subscriber actually notices",
+          "The subscribers most likely to renew mid-shutdown are the ones on the tightest cadence - weekly and biweekly plans roll through far more calendar dates than a quarterly plan, so they're statistically the most likely to land inside a nine-day window",
+          "Nothing on a subscriber's order record marks a renewal as \"charged during a shutdown\" - it looks identical to every other on-time renewal, right up until the tracking number doesn't move for a week",
+          "Subscribers don't track a merchant's fulfillment calendar; they track their own bank statement, so a charge that lands on schedule but ships late reads as an unexplained delay, not a planned closure",
+        ],
+      },
+      {
+        type: "quote",
+        text: "A holiday closure is a decision a team makes about its own time. A renewal that keeps firing straight through it is a decision nobody actually made.",
+      },
+      { type: "h2", text: "Why this generates more tickets than an ordinary slow shipment" },
+      {
+        type: "p",
+        text: "A late shipment that already has a tracking number moving is a wait. A renewal that fires into a shutdown is a charge with nothing behind it yet, for however many days the warehouse stays closed. Subscribers who'd tolerate a few slow days on a package already in transit are far less patient about a charge that shows no sign of shipping at all - and because a subscription renews again next cycle, a subscriber who files one dispute during a shutdown is also a subscriber who might cancel before the next charge, turning a scheduling gap into churn instead of just a delayed box.",
+      },
+      { type: "h2", text: "Keeping renewals from firing blind into a closure" },
+      {
+        type: "ol",
+        items: [
+          "Put the shutdown dates on the calendar before the season starts, and treat every renewal date that falls inside it as a decision point - not something to notice only after subscribers start emailing.",
+          "Decide up front whether to move the charge date, the ship date, or both - charging on time and shipping late is a very different message than moving the whole cycle, and subscribers should hear whichever one was actually chosen, not guess at it.",
+          "Message affected subscribers before the shutdown starts, naming their specific new date - a subscriber who knows in advance that her box ships January 3rd instead of December 27th isn't the one filing a ticket on December 30th.",
+          "Offer the portal's skip option as an explicit alternative for that cycle, for subscribers who'd rather not receive a box at all during the shutdown window instead of just a later one.",
+          "When the warehouse reopens, ship the renewals that were pushed by the closure before the ones landing on-time right at reopening - subscribers who already waited through the shutdown shouldn't wait again behind a fresh batch.",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's auto-renewal engine bills each subscriber against the cycle dates set at signup, so it keeps charging through a planned shutdown exactly like any other week unless a merchant tells it otherwise. The customer portal is the fastest lever for that: a subscriber can skip a single delivery herself, from her own account, with no ticket and no wait for a support reply - exactly what a merchant needs subscribers reaching for during a shutdown announced in advance. Custom email HTML on the Business plan and above, and a custom email domain on the Pro plan, keep a shutdown notice looking like it came from the brand a subscriber already trusts, rather than a generic notification that's easy to miss in a holiday inbox. The Shopify Flow integration handles routing that notice out to whichever subscribers actually fall inside the closed window.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is know a warehouse's shutdown calendar on its own - that's an operational fact that lives with the merchant and their fulfillment team, not with a billing engine, and no subscription app can infer it automatically. The fix isn't a feature that reads a warehouse's holiday schedule off some external system. It's putting those dates in front of subscribers early enough, through the portal and a well-timed notice, that a charge landing mid-shutdown is something they expected instead of something they're emailing about.",
+      },
+      {
+        type: "p",
+        text: "The subscriber who renewed on December 27th didn't do anything wrong, and neither did the billing engine that charged her on schedule. What actually cost that box its calm arrival was a shutdown that only ever lived on one calendar, running invisibly against a renewal date that lived on another. Put both calendars in the same place before the season starts, and a mid-shutdown renewal turns back into what it should have been the whole time: a box that ships a few days later than usual, because everyone already knew it would.",
+      },
+    ],
+  },
+  {
     slug: "order-edit-approval-delay-lets-payment-authorization-expire",
     title: "Why a Slow Order-Edit Approval Can Let the Payment Authorization Expire",
     excerpt:
