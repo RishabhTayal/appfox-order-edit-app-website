@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "cash-on-delivery-shopify-order-edits",
+    title: "What Happens When You Edit a Shopify Order Paid With Cash on Delivery",
+    excerpt:
+      "A customer pays Cash on Delivery for a $340 space heater, then adds a $60 accessory through a self-service edit two days later. The edit goes through cleanly - except there's no card on file to collect the extra $60 from, and the courier still shows up expecting to collect the original $340.",
+    category: "PLAYBOOK",
+    date: "2026-09-07",
+    author: "The AppFox Team",
+    metaTitle: "Editing a Cash-on-Delivery Shopify Order | AppFox",
+    metaDescription:
+      "A Shopify order paid with Cash on Delivery has no card on file to auto-charge or refund when a self-service edit changes the total. Here's why COD needs its own order-edit rule, and how to keep the courier and the customer in sync.",
+    body: [
+      {
+        type: "p",
+        text: "A home goods store sells space heaters and portable AC units, and offers Cash on Delivery at checkout for anyone who'd rather not put a card number in for a $340 appliance - a real chunk of first-time customers take it. Two days after ordering, one of them opens the order-status page and adds a $60 carrying case through the self-service edit flow. The edit goes through the way every other edit on the store does: new line item, new total, confirmation screen, done. Nobody tells the courier anything changed. When the driver shows up, his manifest still says collect $340. He collects $340, hands over a box that now also contains a $60 case nobody paid for, and the store finds out it's short $60 only when someone reconciles that route's cash drops against what actually shipped.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a broken edit or a courier's mistake. Every other payment method on the store has something sitting behind the order that a price difference can reach - a card to charge again, a gift card balance to draw down, a wallet token to bill. Cash on Delivery has none of that by design. The whole point of COD is that no money moves until a driver is standing at the door with the package, so there is no stored instrument anywhere for an edit to settle a new total against. The edit isn't failing to find the payment method. There genuinely isn't one to find until the doorstep moment itself.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't offering Cash on Delivery - for a store selling big-ticket items to first-time or card-shy customers, it's often the difference between a sale and an abandoned cart. The mistake is letting a COD order's edit flow behave like every other order's edit flow, auto-confirming a new total as if a payment engine were about to reach out and collect the difference, when the only thing that's actually going to collect anything is a driver working off a manifest that was printed before the edit ever happened.",
+      },
+      { type: "h2", text: "Why Cash on Delivery breaks the auto-settle step every other edit relies on" },
+      {
+        type: "ul",
+        items: [
+          "A card-funded order settles a price difference by charging or refunding the card on file - COD has no card on file, and never collects one, by design",
+          "The amount a courier is instructed to collect is fixed at the moment a dispatch manifest or shipping label is generated, not read live off the order at the moment of delivery",
+          "An edit made after that manifest is printed changes the order's total in Shopify but has no path to the courier's paperwork, which usually lives in a completely separate dispatch or 3PL system",
+          "A raised total leaves the driver collecting less than the order is actually worth, with the gap absorbed by the store; a lowered total leaves the driver collecting more than the customer now owes, which the store then has to refund in cash after the fact - a refund method most gateways don't even support",
+          "Nothing about a COD order looks unusual in the order list after the edit - it shows the new total like any other edited order, even though nothing downstream of Shopify has any way to act on that new number yet",
+        ],
+      },
+      { type: "h2", text: "Why this is worse than a card that fails to charge" },
+      {
+        type: "p",
+        text: "A card that fails to charge for a price difference at least fails loudly - a decline, a retry prompt, an order flagged for follow-up. A COD edit fails silently, because nothing about it was ever set up to succeed or fail in the first place; the edit itself completes without error, and the actual mismatch doesn't surface until a driver is at a door with a manifest that no longer matches what's in the box. By then the moment to catch it cheaply - before the item was packed, before the route was planned - is long gone, and what's left is either an under-collection the store eats or a cash refund the store has to arrange by phone, neither of which any part of the edit flow was built to trigger.",
+      },
+      {
+        type: "quote",
+        text: "A declined card tells someone, immediately, that the money didn't move. A stale COD manifest tells no one anything - it just quietly collects the wrong number, on schedule, at the door.",
+      },
+      { type: "h2", text: "Keeping a COD edit and the doorstep collection in sync" },
+      {
+        type: "ol",
+        items: [
+          "Treat any total-changing edit on a COD order as its own eligibility category, separate from card-funded orders, rather than letting it auto-apply through the same rule that assumes a payment method it doesn't have",
+          "Route a COD order's total-changing edits to a short approval step whose sole job is updating the collection amount before dispatch, not deciding whether the edit itself is reasonable",
+          "Cut the dispatch manifest or shipping label as late as the fulfillment cutoff allows, so fewer edits land after the courier's collection amount has already been fixed",
+          "When an edit does land after dispatch, flag the order for a manual heads-up to whoever runs that route - a text to the driver or a note in the 3PL's system - rather than letting the mismatch surface at the door",
+          "Confirm the new amount due to the customer in the edit confirmation itself, in plain terms - \"you'll now owe $400 at delivery\" - so a driver correcting the number on the spot isn't the first time the customer hears about it",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's eligibility engine already lets a merchant set per-action rules and route sensitive edits to an approval queue instead of auto-applying - exactly the lever a COD order needs, since a total-changing edit on one of these orders is a dispatch problem to solve, not a payment to request. The audit timeline stamps the exact new total and the moment it changed, so whoever briefs the route has one authoritative number instead of a guess, and Shopify Flow can trigger a notification out to dispatch or a 3PL the moment a COD order's total moves after its manifest was cut.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is reach into a courier's own dispatch system and rewrite a manifest that's already printed - that hand-off is wherever a store's delivery network actually lives, and it varies by carrier and by market. What AppFox's automatic payment request and refund settle in place, through Shopify's native Order Editing API, is every order that does have a real payment method behind it; a COD order is the one case where that lever has nothing to reach for, which is exactly why it belongs in the approval queue instead of the auto-apply path in the first place.",
+      },
+      {
+        type: "p",
+        text: "The customer who added a carrying case to her space heater order didn't do anything wrong, and the driver who collected $340 was only ever following the manifest he was handed. What actually cost the store $60 was an edit flow that confirmed a new total as if a payment engine were standing by to collect it, when the only collection that was ever going to happen was a driver at a door working off paper printed before the edit existed. Route COD's total-changing edits to a step that updates the manifest instead of assuming a card that was never there, and the gap between what Shopify says and what the driver collects closes before the truck ever leaves.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-swap-sold-out-variant",
     title: "What Happens When a Shopify Subscriber Swaps to a Variant That Sells Out Before Renewal",
     excerpt:
