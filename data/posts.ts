@@ -30,6 +30,71 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-local-pickup-renewal",
+    title: "Why Local Pickup Doesn't Work Like Shipping for a Shopify Subscription Renewal",
+    excerpt:
+      "A candle subscriber picks up her renewal at the downtown store every month - until the month the shelf that stocks it runs dry from walk-in traffic before she gets there. A shipped renewal in the same spot would have quietly sourced from another location. A pickup renewal doesn't have that option, and nothing tells her until she's standing at the counter.",
+    category: "PLAYBOOK",
+    date: "2026-09-09",
+    author: "The AppFox Team",
+    metaTitle: "Why Local Pickup Breaks the Rules of a Shopify Subscription Renewal | AppFox",
+    metaDescription:
+      "A Shopify subscription renewal set to local pickup commits to one location's live stock, with no shipping-style fallback and no tracking loop to reassure the subscriber. Here's why pickup renewals need their own eligibility rule and their own notification.",
+    body: [
+      {
+        type: "p",
+        text: "A candlemaker's subscribe-and-save program lets subscribers choose local pickup at any of its three stores instead of shipping, and a regular chooses the downtown location because it's on her walk to work. Her renewal fires on schedule the second Tuesday of the month, same as always, and the contract generates an order flagged for pickup at that same store. What she doesn't see is that the downtown location's shelf stock of her scent has been selling to walk-in shoppers all week, and by the time her renewal order tries to pull from it, there's nothing left to pull. Three miles away, the location near the highway has a full case sitting in the back. Nobody reroutes it there. She finds out only when she stops by on her lunch break and the person behind the counter has no idea what she's asking for.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a broken selling plan or a broken portal. A local pickup renewal was never given the one thing that makes a shipped renewal forgiving when a location comes up short: a live, addressable fallback. It commits to a place, not just a product, and that commitment is exactly what makes pickup convenient in the first place - which is also what makes it brittle the moment the shelf behind that commitment runs empty.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't offering local pickup as a renewal option alongside shipping - plenty of subscribers genuinely prefer it. The mistake is treating a pickup renewal as a shipping renewal with a different delivery label, when the two have completely different relationships to inventory and completely different ways of telling a subscriber whether anything actually went right.",
+      },
+      { type: "h2", text: "Why a pickup renewal can't just reroute to another location" },
+      {
+        type: "ul",
+        items: [
+          "A shipped renewal that finds its default location short can, depending on how a merchant's fulfillment rules are set up, quietly source from a different warehouse without the subscriber ever knowing or caring which shelf it came off",
+          "A pickup renewal doesn't have that option sitting idle in the background - the location isn't an implementation detail here, it's the actual promise made to the subscriber, and silently moving the order somewhere else breaks that promise instead of honoring it",
+          "The stock a pickup renewal draws from isn't held in a separate reserve behind the counter - it's the same shelf walk-in shoppers are buying from all month, so a location can run dry from ordinary foot traffic with nothing subscription-specific going wrong at all",
+          "A subscription contract checks that location's stock at the moment the renewal order is created, not continuously between then and whenever the subscriber actually walks in, so a shelf that was full when the order generated can still be empty by the time she shows up",
+        ],
+      },
+      { type: "h3", text: "Why the notification gap makes it worse" },
+      {
+        type: "p",
+        text: "A shipped renewal comes with a built-in reassurance loop - a shipping confirmation, a tracking number, an in-transit update, a delivered notice - each one telling the subscriber the thing actually moved. A pickup renewal has none of that machinery to borrow. The only signal she gets is the same renewal receipt she gets every month, which confirms a charge went through and says nothing about whether the item is actually staged at the counter waiting for her. When the location comes up short, the receipt still arrives looking exactly like a success.",
+      },
+      {
+        type: "quote",
+        text: "A shipped order that goes wrong tells you at every step along the way. A pickup order that goes wrong tells you nothing - until you're standing at the counter and the answer is a shrug.",
+      },
+      { type: "h2", text: "Closing the gap between a pickup promise and a pickup renewal" },
+      {
+        type: "ol",
+        items: [
+          "Check the specific pickup location's live stock before the renewal order generates, not after - a location that's about to sell out shouldn't get to find that out from a subscriber standing at the register",
+          "Send a distinct \"ready for pickup\" notification once staff have actually staged the item, separate from the renewal receipt that only confirms a charge - a charge succeeding and an item being ready are two different facts and deserve two different messages",
+          "Decide in advance what happens when a pickup location comes up short - offer to ship to her address instead, offer the nearest location that still has stock, or hold the renewal - rather than improvising an answer at the counter in front of the subscriber",
+          "Give store staff visibility into which units on the shelf are already spoken for by a pending subscription pickup, if a location doesn't want a walk-in sale to quietly undercut a renewal that generated first",
+          "Track pickup fulfillment failures as their own line in renewal reporting, separate from shipped renewals, so a location that keeps running dry before subscribers arrive shows up as a pattern instead of a string of one-off complaints",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription generates each renewal through Shopify's own checkout and fulfillment settings, so whether an order is set to ship or to hold for pickup at a specific location is inherited from whatever the selling plan and the subscriber chose - AppFox doesn't own location inventory or the walk-in-versus-reserved-for-pickup question, because that decision belongs to Shopify's own fulfillment and inventory system at the location level, the same way it does for a one-time pickup order. Where AppFox does help is on the subscriber's side of the relationship: the customer portal is where she already manages the account-level choices behind a renewal - the card on file, an upcoming skip, a shipping address - and it's the natural place to let her switch which pickup location, or switch to shipping altogether, a future renewal uses, the same way an address update already writes forward to the contract instead of just the order in front of her. And subscription analytics on the Growth plan and above reports stalled or failed renewals as their own number, which is where a pickup location quietly running dry before subscribers arrive shows up as a pattern worth fixing, instead of staying invisible until enough \"my subscription wasn't at the counter\" conversations add up in person, where nobody's writing them down.",
+      },
+      {
+        type: "p",
+        text: "The downtown store didn't lose the candle subscriber's order, and nothing about her renewal actually failed. A charge went through exactly on schedule, against a location that had simply sold the last of that scent to someone who walked in before she did. What was missing wasn't a working contract - it was a check on that location's stock before the renewal committed to it, and a notification that told her the truth before she made the trip to find out.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-updating-card-doesnt-retry-failed-renewal",
     title: "Why Updating a Card Doesn't Automatically Retry a Failed Shopify Subscription Renewal",
     excerpt:
