@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-updating-card-doesnt-retry-failed-renewal",
+    title: "Why Updating a Card Doesn't Automatically Retry a Failed Shopify Subscription Renewal",
+    excerpt:
+      "A subscriber's renewal fails, she adds a new card in the portal that same afternoon, and closes the tab certain she's fixed it. Updating the payment method on a Shopify subscription and retrying the charge that already failed are two different actions - and only one of them happens automatically.",
+    category: "REVENUE",
+    date: "2026-09-08",
+    author: "The AppFox Team",
+    metaTitle: "Updating a Card Doesn't Retry a Failed Shopify Subscription Charge | AppFox",
+    metaDescription:
+      "A Shopify subscription payment method update saves a card for the next renewal - it doesn't automatically retry the charge that already failed. Here's why the two are separate actions, and how to close the gap before a subscriber churns waiting on a box that was never re-queued.",
+    body: [
+      {
+        type: "p",
+        text: "A dog-food subscriber's renewal declines for insufficient funds on a Tuesday, and the dunning email lands in her inbox within the hour. Payday hits Thursday, so that afternoon she logs into the subscription portal, adds the card her paycheck just landed on, and gets a clean confirmation: payment method updated. As far as she's concerned, she just fixed the problem the email told her about. She closes the tab expecting a bag of kibble to ship in the next day or two. It doesn't - not that week, not the next one - because the store's dunning sequence had already scheduled its next retry attempt for six days out, and nothing about saving a new card in the portal moved that date up. She finds out only when she emails support asking why a subscription she \"already fixed\" still hasn't shipped.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a bug in the portal. Saving a new default payment method on a subscription contract is a real, completed action - it's exactly what governs every renewal from that point forward. But the renewal that already failed isn't a future renewal. It's a specific failed order sitting in a dunning sequence with its own retry schedule, and unless something explicitly reaches into that stalled attempt and re-fires it against the new card, updating the payment method and retrying the charge stay two separate systems that happen to look, from the subscriber's side of the portal, like the same action.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't asking a subscriber to update her card after a decline - that's the correct fix, and she did it fast. The mistake is a portal that confirms \"payment method updated\" with the same finality as \"your box is on its way,\" when one of those is true the moment she clicks save and the other depends entirely on whether anything downstream actually goes back and retries the order that failed.",
+      },
+      { type: "h2", text: "Why a card update and a retry are two different systems" },
+      {
+        type: "ul",
+        items: [
+          "A subscription contract stores one default payment method for renewals that haven't happened yet - the failed renewal is a separate order record, already created, sitting in whatever retry schedule the dunning sequence assigned it the moment it declined",
+          "That retry schedule runs on its own timer, set when the charge first failed, and keeps running on that timer regardless of when - or whether - the subscriber updates her card in the meantime",
+          "Saving a new card doesn't inherently reach backward into an already-failed order unless the portal or app is specifically built to trigger an immediate retry off that exact action - plenty aren't, because a payment-method update and a retry are built as two different jobs",
+          "If the retry schedule has already exhausted its attempts and the subscription has been paused or canceled, updating the card on that contract has nothing left to apply to - there's no pending renewal left for the new card to attach to",
+          "The portal's confirmation screen looks identical either way - \"card saved\" reads the same whether an immediate retry is about to fire behind it or nothing is queued to happen for another six days",
+        ],
+      },
+      { type: "h2", text: "What the gap costs" },
+      {
+        type: "p",
+        text: "A subscriber who updates her card in good faith and then watches nothing happen doesn't conclude that a retry job is running on its own schedule somewhere - she concludes the fix didn't take, or that the subscription is broken in some new way the original decline email never mentioned. The days between her update and the next scheduled retry read as silence, and silence after someone believes they've solved a billing problem is exactly the moment a support ticket gets filed, or the moment she decides the subscription isn't worth the hassle and cancels it herself before the automatic retry ever gets the chance to run. The gap costs a renewal that a working card could have recovered immediately, and it costs it for a reason that has nothing to do with whether the card was actually good.",
+      },
+      {
+        type: "quote",
+        text: "She didn't experience a payment-method update and a retry schedule as two separate systems. She experienced a portal that told her the card was saved, and a bag of dog food that didn't come.",
+      },
+      { type: "h2", text: "Closing the gap between an update and an actual retry" },
+      {
+        type: "ol",
+        items: [
+          "Trigger an immediate retry of the specific failed renewal the moment a subscriber updates her payment method in the portal, instead of leaving that order to wait for the next step in the standard dunning schedule",
+          "Say what actually happens next in the confirmation itself - \"we're charging your new card now\" and \"your card is saved for future renewals\" are two different promises, and only one of them tells her a box is coming",
+          "Check the subscription's own status before treating a card update as something to apply automatically - if retries are already exhausted and the contract has been canceled, the update should prompt a reactivation flow, not a silent save with nothing behind it",
+          "Track \"card updated but never retried\" as its own gap in renewal reporting, separate from the overall failed-payment rate, so a stalled retry job shows up before it costs a subscriber who already did her part",
+          "Give the portal a visibly distinct action for retrying a specific failed charge, alongside the general payment-method update, so a subscriber recovering from a decline isn't relying on a save button to also mean retry",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's customer portal ties a payment-method update directly to the renewal that prompted it: when a subscriber updates her card after a decline, the app retries that specific stalled order right away through Shopify's own checkout and billing, rather than leaving it parked until the next step in the dunning schedule fires on its own. The confirmation she sees reflects what's actually happening - the charge going through, not just a card being filed away for later.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is manufacture a renewal to retry once a subscription's contract has already been canceled - if the retry window closed and the subscription ended before she updated anything, there's no pending order left for the new card to attach to, and updating payment details on a canceled contract has to route her toward reactivating instead of quietly saving a card with nothing behind it. That boundary is the contract's state, not a gap in the portal - it's exactly why checking status before assuming an update applies matters as much as triggering the retry itself.",
+      },
+      {
+        type: "p",
+        text: "The dog-food subscriber didn't do anything wrong updating her card the same afternoon her paycheck landed - that's the fastest any subscriber is going to move on a decline. What cost her the week wasn't a bad card. It was a portal that treated \"saved\" and \"retried\" as the same word, when only one of them was ever going to get a bag of kibble back on her porch.",
+      },
+    ],
+  },
+  {
     slug: "cash-on-delivery-shopify-order-edits",
     title: "What Happens When You Edit a Shopify Order Paid With Cash on Delivery",
     excerpt:
