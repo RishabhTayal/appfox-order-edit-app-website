@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-renewal-outside-shipping-zone",
+    title: "What Happens When a Shopify Subscriber Moves Outside Your Shipping Zones",
+    excerpt:
+      "A tea subscriber updates her shipping address in the portal before a two-year posting overseas. The renewal fires on schedule three weeks later - and finds no shipping rate to charge against, because the store's shipping profile was never set up to cover the country she moved to. Nothing charges, nothing ships, and no one finds out until she emails asking where her order went.",
+    category: "PLAYBOOK",
+    date: "2026-09-10",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Renewals Outside Your Shipping Zones | AppFox",
+    metaDescription:
+      "A Shopify subscription renewal has no shipping rate to charge against once a subscriber's address falls outside your shipping zones. Here's why the contract stalls without an error either side ever sees, and how to catch an out-of-zone move before the renewal does.",
+    body: [
+      {
+        type: "p",
+        text: "A loose-leaf tea subscription has shipped domestically since launch, so its shipping profile only ever needed two zones: the continental US and Canada. A longtime subscriber takes a two-year work posting overseas, and two weeks before her next renewal she logs into the portal and updates her shipping address to her new apartment abroad. The update goes through cleanly - same confirmation screen she'd get changing an address across town. Three weeks later her renewal date arrives on schedule, the contract tries to build an order against the new address, and nothing happens. No charge lands on her card. No box ships. No error message reaches her, because there was never a checkout session in front of her to show one to - just a background billing run that quietly found no shipping rate for her country and had nowhere to go from there.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a broken address update or a broken contract. The portal did exactly what it was supposed to do: it saved her new address and carried it forward to the next renewal, the same way it would for a move three states over. What it doesn't do is check whether a shipping profile actually covers the country she's moving to, because that's not a question the portal is built to answer - it's a question that only comes up the moment Shopify's checkout tries to calculate a rate for the address on file, and by then the renewal is already running unattended, with no customer at the other end of the screen to see the same \"we don't ship there\" message a live checkout would show.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't shipping domestically only - plenty of subscription businesses have no reason to build out international zones, and most never need to. The mistake is letting an address update anywhere in the world get accepted by the portal with the same confidence as one down the street, when only one of those two updates is guaranteed to still have a shipping rate waiting for it by the time the renewal actually fires.",
+      },
+      { type: "h2", text: "Why a shipping-zone gap fails differently than a sold-out item" },
+      {
+        type: "ul",
+        items: [
+          "A subscription contract stores an address, not a guarantee that a shipping profile covers it - the two are only checked against each other at the moment a renewal tries to turn into a real order, not when the address is saved",
+          "Shopify's checkout won't create an order for a physical product with no valid shipping rate for the destination - that rule doesn't relax for an automated renewal running in the background any more than it would for a live shopper at checkout",
+          "A sold-out variant at least leaves a stalled order sitting somewhere with a reason attached to it; a missing shipping rate can mean no order gets created at all, because the checkout call that would have produced one never had anywhere to land",
+          "Nothing about the portal's address-update confirmation distinguishes a domestic move from an international one - both read as \"address saved\" with the same finality, regardless of whether a shipping profile exists for where it's pointing",
+          "The subscriber has no checkout session to read an error off of, unlike a one-time shopper who'd see \"this item can't ship to your address\" in real time and know immediately what went wrong",
+        ],
+      },
+      { type: "h3", text: "Why the silence is the actual problem" },
+      {
+        type: "p",
+        text: "A live checkout that rejects an address at least tells the shopper something, right there in the moment she's paying attention. A renewal that fails the same check three weeks later tells no one anything, because nobody's watching a background billing run the way a shopper watches her own checkout page. The subscriber who updated her address in good faith has no reason to think anything went wrong - she did the one thing the portal asked of her. She finds out only when the renewal date passes with no charge and no shipment, and by then she's left guessing whether the subscription lapsed, whether her card failed, or whether the move itself broke something, with nothing in her account telling her which.",
+      },
+      {
+        type: "quote",
+        text: "A checkout that rejects an address says so immediately, to the person standing right there. A renewal that hits the same wall does it alone, weeks later, with no one in the room to tell.",
+      },
+      { type: "h2", text: "Catching an out-of-zone move before the renewal does" },
+      {
+        type: "ol",
+        items: [
+          "Check a new address against the subscription's shipping profile the moment it's saved in the portal, not just when the next renewal tries to build an order around it - the gap between those two moments is exactly where this fails silently",
+          "When an address falls outside every zone the profile covers, tell the subscriber then, in the portal, in plain terms - \"we don't currently ship to this country\" is a fixable problem at the moment she's already looking at the form, not a mystery three weeks later",
+          "Decide in advance what a subscription does when its only address on file becomes unshippable - pause it, flag it for a manual reach-out, or prompt her toward canceling - rather than letting a renewal quietly fail to produce anything",
+          "Track failed renewals with no valid shipping rate as their own category in reporting, separate from declined payments and sold-out items, so a shipping-zone gap shows up as a pattern instead of a handful of unexplained support emails",
+          "Revisit which countries a shipping profile actually covers whenever a subscription program expands beyond its original footprint - a zone list set once at launch doesn't update itself just because subscribers start moving around",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's customer portal is where a subscriber already updates the shipping address behind her renewal on her own, and that update writes forward to the contract the same way a skip or a card change does - so the portal did its job correctly in this scenario, carrying the new address into the next billing cycle exactly as asked. Where AppFox doesn't own the outcome is what happens next: each renewal generates through Shopify's own checkout and shipping settings, and whether a given country has a valid rate is entirely a function of the shipping profile a merchant has configured in Shopify - the same profile that governs every other order on the store, subscription or not. AppFox doesn't maintain a separate shipping-zone list for subscribers, because doing so would let a subscription renewal succeed against rules the rest of the store isn't using.",
+      },
+      {
+        type: "p",
+        text: "What subscription analytics on the Growth plan and above does do is report stalled and failed renewals as their own number, which is where a subscriber stuck outside every shipping zone shows up as a pattern worth investigating - instead of staying invisible until enough \"where's my order\" emails land in the same week from subscribers who all moved somewhere the profile never anticipated. And because the portal is where the address change actually happened, it's the natural place for a merchant to wire up a Shopify Flow check that catches an out-of-zone address the moment it's saved, rather than three weeks later when the renewal has nothing left to try.",
+      },
+      {
+        type: "p",
+        text: "The tea subscriber didn't do anything wrong updating her address before the move, and the portal didn't mishandle her request - it saved exactly what she gave it. What actually stalled her renewal was a shipping profile that had never needed to answer the question of whether it covered her new country, sitting untouched since the day the subscription program launched domestic-only. Check the zone at the moment the address changes, not at the moment the renewal tries to use it, and a subscriber who's moving finds out from her own portal - not from a charge and a box that never showed up.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-local-pickup-renewal",
     title: "Why Local Pickup Doesn't Work Like Shipping for a Shopify Subscription Renewal",
     excerpt:
