@@ -30,6 +30,71 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "how-long-should-a-shopify-subscription-pause-last",
+    title: "How Long Should a Shopify Subscription Pause Last?",
+    excerpt:
+      "A year-end review of a subscription program turns up four hundred paused subscribers, dozens of them paused for eleven or twelve months. None canceled. None are being charged, shipped to, or reminded to come back - they're just sitting in the \"active\" count, indefinitely, because nothing about pause ever asked when they'd return.",
+    category: "GUIDE",
+    date: "2026-09-11",
+    author: "The AppFox Team",
+    metaTitle: "How Long Should a Shopify Subscription Pause Last? | AppFox",
+    metaDescription:
+      "An open-ended Shopify subscription pause doesn't show up as active revenue or as churn - it just disappears from both. Here's how to give subscription pauses a resume date, a cap, and a reminder before they quietly become cancellations.",
+    body: [
+      {
+        type: "p",
+        text: "A skincare brand doing a year-end review of its subscription program pulls the paused-subscriber list expecting a handful of names - people between shipments, waiting out a trip. Instead it's four hundred rows deep, and sorting by pause date turns up dozens that go back eleven and twelve months. None of these subscribers canceled. None of them are being charged, shipped to, or emailed about resuming. They're still counted as active in the dashboard's headline number, sitting in a queue that was only ever supposed to hold a subscription for a few weeks at a time.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a broken pause button. Every one of those subscribers used the portal exactly as intended - they hit pause instead of cancel, which is the outcome every retention playbook says you want. The mistake isn't that pause exists or that subscribers use it. It's that a Shopify subscription pause with no end date and no expectation attached behaves like neither an active subscription nor a cancellation - it just sits there, indefinitely, quietly failing to be either one.",
+      },
+      { type: "h2", text: "Why an open-ended pause hides instead of resolving" },
+      {
+        type: "ul",
+        items: [
+          "A paused subscription still counts toward \"active subscriptions\" on most dashboards, so a program can look larger than the revenue it's actually generating - the count doesn't distinguish a subscriber renewing every month from one who paused eleven months ago and never came back",
+          "Nothing about the pause action itself asks the subscriber when she'd like to resume, so the decision to come back is left entirely to someone who has no particular reason to remember she ever made it",
+          "A canceled subscription at least reports as churn, showing up in a number someone is watching - a pause that never resumes reports as nothing at all, because \"still paused\" isn't a churn category on most reports",
+          "The subscriber isn't lying or forgetting on purpose - she genuinely meant \"skip a few months,\" but with no resume date and no reminder, a few months is exactly as likely to become a year as it is to become four weeks",
+        ],
+      },
+      { type: "h3", text: "The dashboard problem, not just the subscriber problem" },
+      {
+        type: "p",
+        text: "Offering pause instead of forcing subscribers straight to cancel actually works - which is exactly why it creates a second problem behind it. Resume rate on paused subscriptions is one of the clearer signals a subscription program can track, but it only tells you anything if you're watching pause duration alongside it. A store that never looks past \"X subscribers currently paused\" has no way to tell a two-week pause from a fourteen-month one, and the two have almost nothing in common - one is a subscriber about to come back, the other is a cancellation that just hasn't been marked as one yet.",
+      },
+      {
+        type: "quote",
+        text: "A subscriber who canceled shows up in your churn report. A subscriber who paused a year ago and never came back shows up nowhere - not as revenue, not as churn, not as anything you'd think to go looking for.",
+      },
+      { type: "h2", text: "Giving pause an actual shape" },
+      {
+        type: "ol",
+        items: [
+          "Ask for a resume date at the moment a subscriber pauses, even if it's just a suggested default she can change - \"pause for how long?\" turns an open-ended gap into a specific, trackable commitment",
+          "Cap how long a pause can run without a check-in - somewhere between one and three billing cycles covers almost every real reason a subscriber pauses, from a trip to a tight month",
+          "Send a reminder before a pause auto-resumes or expires, not just a confirmation when it started - the subscriber who forgot she paused needs a nudge before the charge restarts, not a surprise renewal receipt after",
+          "When a pause runs past its cap with no response, don't quietly auto-resume and don't quietly leave it paused forever either - route it to a genuine choice: come back, or move to cancel and free up the count it's sitting in",
+          "Report pause duration as its own number, not folded into \"active subscriptions\" - a paused-over-90-days segment is the clearest early list of subscriptions worth a personal check-in before they age into forgotten cancellations",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's customer portal is where a subscriber pauses in the first place, and that's deliberate - skip, pause, swap, and cancel all sit at the same level, so pause is a genuine first choice instead of something a subscriber has to dig for on her way to cancel. What the portal doesn't do on its own is put a shape around how long a pause lasts once she's chosen it; a pause is a pause until she comes back and resumes it herself, the same way it would be if a merchant ran the program with no software at all.",
+      },
+      {
+        type: "p",
+        text: "That's where subscription analytics on the Growth plan and above earns its keep - reporting paused subscriptions as their own segment, distinct from active and canceled, is what turns a four-hundred-row paused list from a mystery into a workable queue. And because the portal connects to Shopify Flow, a merchant can build the actual expiry logic on top of it: a reminder at 60 days paused, a resume prompt at 90, a routed decision after that - without needing pause itself to carry that policy natively.",
+      },
+      {
+        type: "p",
+        text: "The skincare brand's four hundred paused subscribers weren't a portal failure, and they weren't really a mystery once someone sorted the list by date - they were subscribers who did exactly what a good retention program asks: they chose pause over cancel. What was missing wasn't the button. It was anything that turned \"pause\" into a decision with a shape, instead of a door that quietly never closes on its own.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-renewal-outside-shipping-zone",
     title: "What Happens When a Shopify Subscriber Moves Outside Your Shipping Zones",
     excerpt:
