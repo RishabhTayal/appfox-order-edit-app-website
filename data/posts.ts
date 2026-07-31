@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-b2b-subscriptions-dont-work-like-dtc-subscriptions",
+    title: "Why Shopify B2B Subscriptions Don't Work Like DTC Subscriptions",
+    excerpt:
+      "A merchant turns on subscribe-and-save storewide, and a wholesale buyer signs into their company account and picks a 30-day recurring restock. Checkout completes fine on the company's net-30 terms - no card entered, none needed. Thirty days later, the renewal has nothing to charge.",
+    category: "PLAYBOOK",
+    date: "2026-09-13",
+    author: "The AppFox Team",
+    metaTitle: "Why Shopify B2B Subscriptions Don't Work Like DTC | AppFox",
+    metaDescription:
+      "A Shopify B2B company account checks out on a negotiated price list and net payment terms, not a card Shopify can charge again later. Here's why a subscribe-and-save toggle that works for DTC customers stalls on a wholesale renewal, and what to offer instead.",
+    body: [
+      {
+        type: "p",
+        text: "A specialty-foods wholesaler turns on subscribe-and-save across every product page, DTC and B2B alike, to save the ops team from re-keying the same restock orders every month. A purchasing manager at one of the wholesaler's retail accounts signs into her company account, opens a case of the store's best-selling hot sauce, and picks \"deliver every 30 days\" the same way a retail shopper would. Checkout completes cleanly - no card entered, no payment prompt, because the company account settles on net-30 terms the way every other order from that buyer always has. The subscription shows up as active in both systems. Thirty days later, the renewal tries to fire, and there's no payment method anywhere on the contract for it to charge. No decline email goes out, because nothing was ever attempted against a card that doesn't exist. The restock just doesn't ship, and the purchasing manager finds out only when the kitchen runs low and calls to ask where it is.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a broken subscription or a bug in the widget. A DTC checkout and a B2B company-account checkout resolve to two genuinely different things: a retail customer's order settles against a card charged right there at checkout, and that same card is exactly what a subscription contract stores to charge again on the next cycle. A company account's order settles against a negotiated price list and a payment term - net-30, net-60, whatever the account was set up with - which means an invoice goes out and payment arrives later, on the buyer's own schedule, through their own accounts-payable process. No card is ever charged at that first checkout, so there's nothing for Shopify to hold onto and nothing for a renewal to bill against when the cycle comes back around.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't letting a wholesale buyer set up a recurring order - a purchasing manager who wants the same case of product every month without re-ordering it by hand is exactly the customer subscribe-and-save is supposed to serve. The mistake is showing that buyer the same auto-renewing toggle a card-paying retail customer sees, when the payment model underneath a company account was never built to auto-charge anything.",
+      },
+      { type: "h2", text: "Why a company account's checkout has nothing for a renewal to charge" },
+      {
+        type: "ul",
+        items: [
+          "A subscribe-and-save widget renders on the product page with no idea whether the shopper checking out is an individual paying by card or a signed-in company account paying on terms - it shows the same toggle either way",
+          "A B2B checkout on Shopify resolves against the company's price list and payment terms, not a card charged in the moment, so no payment method ever gets tokenized for Shopify's subscription engine to reuse later",
+          "The first order under a subscribe-and-save selection completes without issue precisely because it doesn't need a stored card - it's invoiced like every other order that company places, on the same net terms as always",
+          "It's only the renewal - the charge nobody entered a card for in the first place - that has nowhere to draw funds from, and because nothing was attempted, there's no decline, no retry, and no dunning email to alert anyone",
+          "A company account's original order usually clears a purchasing approval before it's placed; auto-renewal has no equivalent step, so a recurring charge either skips the sign-off a company's procurement policy requires or has no clean way to trigger it automatically at all",
+        ],
+      },
+      { type: "h3", text: "Why this looks like it worked, right up until it doesn't" },
+      {
+        type: "p",
+        text: "The subscription is created, the confirmation page looks identical to a retail one, and the first delivery goes out on schedule - so nobody on either side has a reason to double-check anything at signup. The gap only exists one cycle later, at the renewal, and by then the buyer has no memory of a payment step that never happened to flag. From her side, she picked a recurring order the same way she'd pick anything else in the catalog; from the merchant's side, the contract looks exactly like a healthy DTC subscription until the date it's supposed to fire again and simply doesn't.",
+      },
+      {
+        type: "quote",
+        text: "A DTC subscription vaults a card the moment someone signs up. A B2B account runs on paying later - and 'later' was never a payment method a renewal could charge.",
+      },
+      { type: "h2", text: "What to offer a company account instead of the same toggle" },
+      {
+        type: "ol",
+        items: [
+          "Hide the auto-renewing subscribe-and-save toggle for signed-in company accounts, rather than assuming the same widget that works for a card-paying customer works for one paying on terms",
+          "Build a standing reorder in its place - a scheduled draft order or purchase order that regenerates on the buyer's cadence and routes through the same approval and net-terms invoicing as every other order that account places, instead of one that tries to auto-charge on the day it fires",
+          "If a company account genuinely wants auto-charged renewals, require a card on file the same way a DTC subscriber needs one before the recurring option turns on, and be explicit that doing so opts them out of net-terms invoicing for that item",
+          "Use Shopify Flow to notify the account's purchasing contact ahead of a scheduled reorder date, instead of letting an unattended charge attempt be the first anyone hears about it",
+          "Track B2B recurring orders separately from DTC subscription metrics, since a stalled net-terms renewal isn't a failed payment in the usual sense and shouldn't get buried in the same churn or decline numbers a card-based subscriber generates",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's widgets, auto-renewal, and customer portal run on Shopify's native subscription APIs and checkout - the same flow a card-paying DTC customer already trusts, and that trust depends on a real, chargeable payment method sitting behind the contract. That's the piece a company account's net-terms checkout never produces, and no subscription app can manufacture a card that a buyer's accounts-payable process was specifically set up to avoid entering in the first place.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is manage company price lists, payment terms, or purchasing approval chains - those live in Shopify's own B2B company-account infrastructure, the same system that decided the buyer never needed a card at checkout to begin with. What AppFox does control is where subscribe-and-save shows up: a merchant can scope the widget to storefront visitors rather than signed-in company accounts, so a purchasing manager sees a recurring order built for how her company actually pays, not a toggle that quietly assumes a card that was never going to be there.",
+      },
+      {
+        type: "p",
+        text: "The purchasing manager who picked a 30-day cadence didn't misuse anything, and the checkout that let her do it without a card didn't malfunction - that's exactly how her company's account is supposed to work. What actually stalled the hot sauce was a subscription toggle built for a payment model her order never used. Keep the auto-renewing option for the customers who checked out with a card to renew, and give the company accounts a recurring order built for how they actually pay, and a wholesale buyer's restock stops depending on a charge that was never going to succeed.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-renewal-splits-into-two-packages",
     title: "Why a Shopify Subscription Renewal Can Ship in Two Packages",
     excerpt:
