@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-new-customer-accounts-subscription-login-link",
+    title: "Why New Customer Accounts Break a Subscriber's Saved Login Link",
+    excerpt:
+      "A subscriber's card gets declined, she opens the dunning email from three renewals ago because it's the one she remembers, and clicks the same \"update your payment method\" link that always worked. The store has since switched to Shopify's new customer accounts, and the link she trusted now leads nowhere useful.",
+    category: "GUIDE",
+    date: "2026-09-14",
+    author: "The AppFox Team",
+    metaTitle: "Shopify New Customer Accounts Break Subscription Logins | AppFox",
+    metaDescription:
+      "Switching a Shopify store to new customer accounts changes how a subscriber logs in - and can strand every account link already sitting in old renewal, dunning, and welcome emails. Here's why, and how to keep the customer portal reachable.",
+    body: [
+      {
+        type: "p",
+        text: "A skincare subscriber's card expires and the renewal fails quietly, the way most declines do. She doesn't catch it from the decline email that went out that morning - she catches it two weeks later when her next box doesn't show up, digs through her inbox, and finds an older email from a previous decline that she remembers actually working: \"Update your payment method to keep your subscription active,\" with a link she'd clicked before without issue. She clicks it again. Instead of landing on her account with a payment field waiting, she gets a generic sign-in screen asking for an email address, then a one-time code, then drops her on the storefront home page with no memory of what she came to do. The merchant switched from Shopify's classic customer accounts to the new passwordless ones eight months ago. The email she's holding predates that switch by a year.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a broken subscription or a dead link in the technical sense - the URL still resolves, the page still loads. What changed is the accounts system sitting behind it. Classic customer accounts log a shopper in with a password, at a login page that lives on the store's own checkout domain. Shopify's newer customer accounts drop the password entirely: a shopper enters her email, gets a one-time code, and the whole flow is hosted on Shopify's own accounts domain rather than the store's. A merchant can switch between the two in Settings, and Shopify has spent the last couple of years pushing stores toward the new system as the default. The switch itself takes minutes. What it leaves behind is every link already sitting in an inbox, written for a login flow that no longer exists.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't adopting new customer accounts - passwordless login is genuinely easier for most subscribers, and Shopify's direction on this isn't optional forever. The mistake is treating the switch as a settings change instead of a change to every email a subscription program has already sent.",
+      },
+      { type: "h2", text: "Why an old email is the one most likely to fail" },
+      {
+        type: "ul",
+        items: [
+          "A subscription program sends the same handful of account-linked emails on a loop - welcome, renewal reminder, dunning, skip and pause confirmations - so a subscriber accumulates months of them, and the one she reaches for during a real problem is often whichever one she remembers, not the most recent one",
+          "Classic customer accounts live at a login path on the store's own checkout domain; new customer accounts are hosted on a separate Shopify-managed accounts domain, so a URL baked into an email template before the switch doesn't point at a broken page so much as the wrong system entirely",
+          "Password-based login used to let a lingering browser session quietly carry a returning subscriber straight into her account with no login screen at all - passwordless login has no equivalent shortcut, so a link that used to \"just work\" because of a stored session now stops at a fresh code every time",
+          "Shopify has moved many stores onto new customer accounts as the default over the past couple of years, which means some merchants are on the new system without having deliberately flipped a switch - and without having thought to audit anything as a result",
+          "A subscriber has no way to know which accounts system was active on the day a given email was sent, so a link that fails reads to her as the merchant's account page being broken, not as an artifact of timing",
+        ],
+      },
+      { type: "h3", text: "Why this hits a dunning email hardest" },
+      {
+        type: "p",
+        text: "A welcome email gets opened once, right after signup, when the accounts system is whatever it is that day and the link either works or the subscriber notices immediately and contacts support. A dunning email is different: it exists precisely so a subscriber can come back to it later, sometimes much later, after a card has failed and the subscription has already gone quiet. The whole value of that email is its shelf life - and shelf life is exactly what turns a hardcoded login link into a liability. The subscriber most likely to click an old link is the one already at risk of churning, at the exact moment a dead end is most likely to finish the job.",
+      },
+      {
+        type: "quote",
+        text: "A welcome email's link gets tested the day it's sent. A dunning email's link gets tested whenever a subscriber finally opens it - and by then, the login system it was built for might not be the one still running.",
+      },
+      { type: "h2", text: "Keeping the account link reachable through the switch" },
+      {
+        type: "ol",
+        items: [
+          "Stop hardcoding a login or account URL into subscription email templates - use Shopify's live account link output so the destination is generated at open time against whichever accounts system is currently active, not baked in at send time",
+          "Audit every subscription lifecycle email for a hardcoded account link before switching accounts systems, not just the ones sent in the last month, since dunning and win-back emails are specifically the ones designed to be reopened long after they were sent",
+          "If a switch to new customer accounts is coming, send active subscribers a short heads-up that login is changing from a password to an emailed code, so the first time she sees it isn't in the middle of a declined renewal she's already stressed about",
+          "Pull an old dunning or welcome email out of a real inbox and click the link before assuming a template written a year ago still resolves correctly - a template nobody has revisited is exactly the one this breaks",
+          "Where the subscription app supports it, render the customer portal inside Shopify's own new-customer-accounts page through a customer account extension rather than a separately hosted portal, so there's one login experience instead of two that can drift out of sync",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's customer portal resolves a subscriber's account link live, against whichever accounts system the store has active, rather than storing a URL once and reusing it - so skip, pause, swap, and cancel stay reachable through a switch instead of depending on when an email happened to go out. Renewal and dunning notifications route the same way, so a subscriber opening a decline email from months back lands on a working login, not whatever system was current the day it was sent.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is choose which accounts system a store runs, or control the timing of Shopify's own migration of a store's default - that decision sits in the merchant's Shopify admin settings, on Shopify's schedule, not the app's. What AppFox does control is making sure the portal a subscriber reaches always matches the login flow actually running that day, so a switch made in one settings panel doesn't quietly strand every email already sent.",
+      },
+      {
+        type: "p",
+        text: "The subscriber holding an old dunning email didn't do anything wrong, and the merchant who switched accounts systems didn't misconfigure anything either - both of those things are exactly what they're supposed to be. What actually failed was a link written for a login flow that had since moved. Build subscription emails to resolve a login link at open time instead of send time, and a subscriber reaching for a card update she remembers from three months ago lands on her account instead of a dead end.",
+      },
+    ],
+  },
+  {
     slug: "shopify-b2b-subscriptions-dont-work-like-dtc-subscriptions",
     title: "Why Shopify B2B Subscriptions Don't Work Like DTC Subscriptions",
     excerpt:
