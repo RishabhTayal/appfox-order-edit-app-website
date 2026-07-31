@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-renewal-splits-into-two-packages",
+    title: "Why a Shopify Subscription Renewal Can Ship in Two Packages",
+    excerpt:
+      "A bath-products subscriber gets one monthly box - until the cycle her soap ships from one warehouse and her lotion ships from another, two tracking numbers and two arrival dates for one charge on one card. Nothing broke. Shopify just filled her renewal from wherever the stock actually was.",
+    category: "PLAYBOOK",
+    date: "2026-09-12",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Subscription Renewal Ships in Two Packages | AppFox",
+    metaDescription:
+      "A Shopify subscription renewal can quietly fill from two warehouse locations at once, arriving as two packages on two different days for one charge. Here's why it happens and how to keep a split renewal from reading as a mistake.",
+    body: [
+      {
+        type: "p",
+        text: "A bath-products brand ships a three-item subscription box every month - a bar soap, a lotion, and a rotating scent add-on. For eight cycles running, a subscriber's box has arrived as one package, one tracking link, one \"your order has shipped\" email. On the ninth cycle, the soap ships from the warehouse that always fills her box, but the lotion doesn't - that location sold through its stock two days before the renewal batch fired, so Shopify fills the lotion line from a second warehouse instead. She gets two shipping notifications an hour apart, two tracking numbers that don't reference each other, and a lotion bottle that arrives four days after the soap. She emails support asking if half her order got lost.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a fulfillment error or a broken renewal. Shopify allocates a multi-location order at the line-item level - each line ships from whichever location actually has it in stock at the moment fulfillment runs, and nothing requires one location to cover the whole order. That's the same logic a one-time order runs on, and most of the time it works invisibly in a subscriber's favor: an item that would otherwise be backordered ships anyway, just from a different shelf. The difference on a renewal is that nobody chose anything. A one-time shopper who triggers a split at least does it at checkout, on a screen she's actively looking at. A renewal fires on its own schedule, against whatever inventory exists that day, with no one deciding a split is about to happen and no checkout screen for the subscriber to notice it on before it does.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't letting Shopify fill a renewal from more than one location. It's running a subscription program as if every renewal ships as cleanly as the last one did, and having nothing in place for the cycle it doesn't.",
+      },
+      { type: "h2", text: "Why a renewal splits without anyone deciding it should" },
+      {
+        type: "ul",
+        items: [
+          "Shopify's inventory allocation runs per line item, not per order - a box with three SKUs only needs one of them to fall short at one location for the whole renewal to split, and a single-item subscription never hits this at all",
+          "The location that filled last cycle's box has no claim on filling this one - stock levels shift between renewals for reasons that have nothing to do with the subscription, like a one-time order elsewhere draining the same shelf the night before the batch runs",
+          "A recurring renewal has no checkout moment, so none of the usual signals a split order gives a first-time buyer - a delivery estimate showing two dates, a cart note about partial shipping - ever reach a subscriber before her card is already charged",
+          "Each fulfillment moves through picked, packed, and shipped on its own timeline once the order splits, which means two tracking numbers, two shipping emails, and two arrival dates attached to one renewal charge",
+          "A merchant's default subscription confirmation email is almost always written for the one-package case, so a split renewal either sends two disconnected notifications or - if the template only fires once - just one, leaving the second package to show up with no notice at all",
+        ],
+      },
+      { type: "h3", text: "The part that actually confuses a subscriber" },
+      {
+        type: "p",
+        text: "A missing item and a delayed item look identical from a subscriber's side of the counter until someone tells her otherwise. She doesn't have visibility into which warehouse holds what, and she has no reason to assume a split shipment is even a real category of thing that happens to a subscription - as far as she knows, one box means one package. When the second one doesn't show up alongside the first, the likeliest explanation she reaches for isn't \"my order split across two locations.\" It's \"something's missing,\" and that's the version of the story that turns into a support ticket, or a chargeback if the second package is running late enough.",
+      },
+      {
+        type: "quote",
+        text: "A one-time shopper who sees a split at checkout has already been told, before she pays, that two packages are coming. A subscriber never sees a checkout screen at all - the batch just fires, and the second box either explains itself or it doesn't.",
+      },
+      { type: "h2", text: "Keeping a split renewal from reading as a mistake" },
+      {
+        type: "ol",
+        items: [
+          "Send one consolidated renewal notification that lists every package on that cycle's order, with its own tracking link and estimated arrival, instead of letting two separate carrier emails be the only place a subscriber learns her box split",
+          "Give support a one-line explanation to send the moment a ticket comes in - which items shipped from where, and when the second package is expected - so the answer takes a lookup, not an investigation",
+          "Track split-renewal rate as its own metric in subscription reporting, separate from stockouts and skipped cycles, since a split isn't caused by the same thing and doesn't get fixed by the same lever",
+          "Decide, product by product, whether a box's SKUs should be restricted to a single fulfillment location even at the cost of an occasional delay - some brands accept that trade specifically to keep every cycle down to one package",
+          "Review location-priority and inventory-reservation settings ahead of high-volume renewal batches, not after a cycle has already split and the tickets are already in the queue",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription owns the contract - the billing cadence, the renewal date, and the customer portal where a subscriber can see what's coming and manage it herself. What it doesn't own is which Shopify location fills a given renewal or whether that renewal's line items end up split across two of them; that allocation runs inside Shopify's own inventory and location settings, the same engine a one-time order draws from, and no subscription app sits in front of it to change how it decides.",
+      },
+      {
+        type: "p",
+        text: "Where the portal does help is downstream of that decision. Because AppFox Subscription connects to Shopify Flow, a merchant can trigger a custom notification the moment a renewal order picks up a second fulfillment - flagging it for support before the ticket arrives, or firing the consolidated email a default template was never built to send. And because skip, pause, and swap all live in the same self-service portal, a subscriber who's tired of split cycles on one product has a way to change what she's getting without ever opening a support thread at all.",
+      },
+      {
+        type: "p",
+        text: "The bath-products subscriber didn't lose half her order, and nobody on the fulfillment team made a mistake filling it from two warehouses instead of one - the lotion shipped from wherever it actually was, the same way it would have on anyone's first order. What actually cost the brand a support ticket was a renewal that split with no one there to say so first. Tell a subscriber both packages are coming before the second one arrives on its own, and a split renewal stops looking like something went missing and goes back to being what it is: one order, two shelves, two boxes on their way.",
+      },
+    ],
+  },
+  {
     slug: "how-long-should-a-shopify-subscription-pause-last",
     title: "How Long Should a Shopify Subscription Pause Last?",
     excerpt:
