@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "order-edits-can-break-alcohol-shipping-compliance",
+    title: "Why a Shopify Order Edit Can Break Alcohol Shipping Compliance",
+    excerpt:
+      "A wine club member uses a self-service edit to redirect her order to a gift recipient two states over. The edit applies cleanly - new address, new confirmation - except the winery holds no license to ship into that state, and nothing in the edit flow re-checked.",
+    category: "GUIDE",
+    date: "2026-09-15",
+    author: "The AppFox Team",
+    metaTitle: "Order Edits Can Break Alcohol Shipping Compliance | AppFox",
+    metaDescription:
+      "A self-service address edit on an alcohol order can route a shipment into a state a Shopify merchant holds no license to ship into. Here's why the edit flow doesn't catch it, and how to close the gap.",
+    body: [
+      {
+        type: "p",
+        text: "A boutique winery's wine club ships a case a quarter to members who opted into a recurring shipment, and every checkout on the site runs through a DTC alcohol-compliance app that checks a shopper's address against the winery's list of licensed states before it lets the order through - block the cart if the destination state isn't one the winery holds a permit for, flag the shipment for an adult signature if it is. A member places her quarterly case, checkout clears against her home address in a state the winery is licensed in, and the confirmation email goes out. Two days later she opens the order-status page and uses the self-service edit to redirect the shipment as a gift, retyping the address to her sister's place a few states over. The edit goes through the way every other address change on the store does - new address, new confirmation, no error, no delay. Nobody re-runs the compliance check, because nothing in the edit flow was ever built to. Her sister lives in a state the winery holds no license to ship alcohol into at all. The case ships anyway.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a broken edit or a compliance app that failed to do its job. The compliance app did exactly what it was built to do - it checked the address that existed at the exact moment checkout ran, the only moment it was ever wired to look at. A self-service order edit is a separate system entirely, built to change a line item or a shipping address on an order that already exists, and by design it doesn't re-invoke every gate the original checkout passed through. Address edits are supposed to be the easy, low-risk kind - a typo fixed, an apartment number added, a package redirected before it ships. For an alcohol order, the destination address isn't a shipping detail sitting next to the real decision - the destination address is the compliance decision, the one input the licensing check actually runs on. An edit flow that treats it as low-risk is applying the wrong category to the one field where a wrong value carries the same stakes as shipping into a state with no license issued for it at all.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't letting a customer fix a shipping address after checkout - a gift redirect or a typo correction is exactly the kind of edit self-service tools exist to absorb without a support ticket. The mistake is letting an alcohol order's address edit auto-apply through the same low-risk rule a t-shirt store would use, when the one thing that rule was never taught to check is the one thing that makes the shipment legal to send in the first place.",
+      },
+      { type: "h2", text: "Why an address edit skips the check the original checkout ran" },
+      {
+        type: "ul",
+        items: [
+          "A DTC alcohol-compliance check runs at checkout because that's where the compliance app is installed and wired in - it validates the cart against the address on the page at that moment, then hands the finished order off to fulfillment with no ongoing connection to it",
+          "A self-service order edit talks to Shopify's order-editing API directly, updating the shipping address on the record itself - it has no reason to know a separate compliance app exists, let alone call back into it before applying the change",
+          "Most storefront compliance apps only ever run inside the checkout flow, not as a standing rule attached to the order afterward, so there's no hook left behind for anything downstream - including an edit - to trigger a second check against",
+          "An edit confirmation looks identical whether the new address is inside the merchant's licensed states or three states outside them - nothing in the flow distinguishes a routine typo fix from a redirect that just made the order illegal to fulfill",
+          "Age verification runs the same way - a signature-required, ID-checked delivery flag gets set once, against the recipient checkout validated, and an edited address doesn't get re-flagged for a different name at a different door",
+        ],
+      },
+      { type: "h3", text: "Why this is a bigger problem than a bad address on a normal order" },
+      {
+        type: "p",
+        text: "A normal order shipped to the wrong address is an operational headache - a reroute, a reship, maybe a refund. An alcohol order shipped to an unlicensed state is a regulatory one: most states that regulate direct-to-consumer alcohol shipping treat an out-of-state shipment without a permit as a violation on the shipper's license, not a customer-service issue to smooth over after the fact. It doesn't matter that the winery holds a valid permit in the state the order was originally placed from, or that the compliance app cleared the cart correctly the first time - the shipment that actually left the warehouse went to whichever address was on the label last, and that's the address a regulator or a carrier's own alcohol-shipping audit checks against the permit list. The winery's real license risk was never sitting at checkout. It was sitting in an edit flow nobody had told to look.",
+      },
+      {
+        type: "quote",
+        text: "A typo fixed on a t-shirt order costs a reship. The same edit on an alcohol order can cost the license that let the shipment happen at all.",
+      },
+      { type: "h2", text: "Keeping an address edit inside the compliance boundary" },
+      {
+        type: "ol",
+        items: [
+          "Treat address edits on alcohol or other regulated-shipment orders as their own eligibility category, separate from the general address-edit rule every other order uses, instead of assuming a rule built for typo fixes is safe for every product line",
+          "Route any address edit on a regulated order to a manual approval step whose one job is re-checking the new destination against the merchant's current permit list, rather than letting it auto-apply the way a t-shirt order's address change would",
+          "Where the compliance app supports a webhook or API, call it again from the approval step - re-run the same state and volume check the original checkout ran, against the new address, before the edit is confirmed",
+          "Keep the compliance app's licensed-state list somewhere the person reviewing the edit can check in seconds, since a permit list that only lives inside the compliance app's own settings screen turns every review into a second login just to answer one question",
+          "If a merchant's permit list changes - a state added or dropped mid-year - update wherever that approval step is checking against, not just the checkout app's own configuration, so the two don't quietly drift out of sync",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's eligibility engine lets a merchant route specific edit types to an approval queue instead of auto-applying, which is exactly the lever a regulated-shipment order needs - an address edit on one of these orders is a compliance decision to re-check, not a convenience to wave through. A merchant can flag SKUs or a product tag as regulated, so any order carrying one of them routes its address edits to review by default rather than relying on someone remembering to catch it, and the audit timeline stamps exactly what address the edit changed to and when, giving whoever reviews it the one fact the decision actually turns on.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is hold a merchant's alcohol permits or run the state-by-state compliance check itself - that logic lives in whatever DTC compliance app or carrier integration the winery already uses at checkout, and it varies by state, by product, and by the merchant's own license portfolio. What AppFox's approval queue does is make sure that check gets a second look on the one edit type built to route around it, instead of assuming an address change is as low-risk on a case of cabernet as it is on a case of ordinary retail packaging.",
+      },
+      {
+        type: "p",
+        text: "The member who redirected her wine club shipment as a gift didn't do anything wrong, and the compliance app that cleared her original checkout wasn't fooled or bypassed - it simply never got asked the question a second time. What actually put the shipment at risk was an edit flow that treated a changed address as the routine kind, when for an alcohol order the address is the one field carrying all the regulatory weight. Route a regulated order's address edits to a check that re-asks the compliance question instead of assuming the first answer still holds, and a gift redirect stays a nice gesture instead of a shipment nobody was licensed to send.",
+      },
+    ],
+  },
+  {
     slug: "shopify-new-customer-accounts-subscription-login-link",
     title: "Why New Customer Accounts Break a Subscriber's Saved Login Link",
     excerpt:
