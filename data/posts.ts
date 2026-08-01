@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-pause-triggers-win-back-email",
+    title: "Why a Win-Back Flow Emails a Paused Shopify Subscriber, Not Just a Canceled One",
+    excerpt:
+      "A supplement subscriber pauses through the self-service portal for two months while she travels. A week later, a \"we miss you - 20% off\" email lands in her inbox. She never canceled. Her win-back flow just can't tell the difference between a pause and a cancellation.",
+    category: "GUIDE",
+    date: "2026-09-16",
+    author: "The AppFox Team",
+    metaTitle: "Why a Win-Back Flow Emails a Paused Shopify Subscriber | AppFox",
+    metaDescription:
+      "A Shopify win-back flow built on order recency can't tell a paused subscriber from a canceled one - both look like silence. Here's why that happens, and how to keep a deliberate pause from triggering a \"we miss you\" discount.",
+    body: [
+      {
+        type: "p",
+        text: "A supplement subscriber opens her account portal and pauses her monthly subscription for two months - she's traveling, she has enough left in the cabinet, and the pause option is right there next to skip and cancel. The confirmation is immediate: paused until her chosen resume date, no charge in the meantime. A week later, an email lands in her inbox: \"We miss you - come back for 20% off.\" She hasn't gone anywhere. She didn't cancel. She used the exact self-service tool built to let her step away without canceling, and the store's own marketing just treated her like she left.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a broken pause or a rogue email. The pause did exactly what it was supposed to do - it stopped the next renewal from firing, on schedule, with a resume date already set. The win-back flow did exactly what it was built to do, too - it watches for customers who've gone quiet and re-engages them with an offer. The two systems just aren't looking at the same data. The pause lives inside the subscription app. The win-back flow lives in an email platform like Klaviyo, and most win-back flows are built on the one signal every store already has without any special setup: how long it's been since a customer's last order. A pause and a cancellation produce the identical answer to that question - zero new orders - for a subscriber who was renewing normally right up until the gap started.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't building a win-back flow off order recency - that's a reasonable, common way to catch a lapsed customer, and for a store with no subscriptions at all it works fine. The mistake is running that same segment against subscribers without excluding the ones whose \"no orders\" is a deliberate, temporary, already-confirmed pause rather than an actual absence.",
+      },
+      { type: "h2", text: "Why a win-back flow can't tell a pause from a cancellation on its own" },
+      {
+        type: "ul",
+        items: [
+          "An email platform like Klaviyo doesn't natively know a customer has a subscription, let alone whether that subscription is active, paused, or canceled - it only knows what's actually synced to it, and by default that's orders and standard customer profile fields",
+          "An order-recency segment - \"no orders in 45 days\" - is the most common way to build a win-back trigger precisely because it needs no special setup, and it's exactly the signal a pause is designed to interrupt on purpose",
+          "A subscription pause and a cancellation generate the same order history from the flow's point of view: zero new orders, starting on the same date, for a subscriber who was renewing normally right up to that point",
+          "The action that sets a pause happens inside the subscription app's customer portal, not as an event the email platform receives by default - unless a merchant specifically syncs subscription status or a \"paused\" event, that distinction never reaches the flow at all",
+          "A subscriber who paused on purpose already knows why her orders stopped; a win-back email that reaches her anyway doesn't read as neutral marketing - it reads as evidence the pause she just set didn't actually register",
+        ],
+      },
+      { type: "h3", text: "Why the discount is the part that actually does the damage" },
+      {
+        type: "p",
+        text: "A win-back discount aimed at a genuinely lapsed subscriber is a fair incentive - she's gone, and a lower price might bring her back. Aimed at someone who paused two weeks ago and is due to resume automatically, it does two things wrong at once. It offers a price lower than the one she already locked in for her next renewal, which is a real, redeemable inconsistency if she uses the code before resuming. And it signals - however unintentionally - that the pause she just set through the portal either didn't take or isn't being respected, which is precisely the worry a self-service pause exists to prevent in the first place. A subscriber who trusted the pause button enough to use it instead of hitting cancel gets an email that makes canceling look like the only way to actually be believed.",
+      },
+      {
+        type: "quote",
+        text: "A win-back flow answers one question - has this person stopped ordering. It can't answer a second one - did they mean to stop - unless something tells it the difference.",
+      },
+      { type: "h2", text: "Keeping a paused subscriber out of the win-back segment" },
+      {
+        type: "ol",
+        items: [
+          "Sync subscription status - active, paused, canceled - into the email platform as its own customer or event property, not just order history, so a flow can filter on the actual status instead of inferring it from a gap in orders",
+          "Add a suppression filter to the win-back flow that excludes anyone with an active-but-paused subscription, checked again at send time rather than only at the moment the flow's entry trigger first fired, since a subscriber can resume mid-flow",
+          "Where pauses have a fixed length, pass the resume date along with the paused status, so the flow can hold entirely for that subscriber instead of treating a two-week pause the same as an open-ended one",
+          "If a paused subscriber is worth a nudge at all, route her to a separate, no-discount message instead - a plain \"your subscription resumes on [date]\" reinforces that the pause worked, rather than making her doubt it",
+          "Re-check the win-back flow's entry and suppression logic whenever it's rebuilt or the email platform integration changes, since the segment definition is the one place this breaks silently, with no error for anyone to notice",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's Klaviyo integration passes subscription status, not just order events, so a pause set through the customer portal reaches Klaviyo as its own signal - distinct from a renewal that simply failed to fire. A merchant building a win-back flow has a subscription-status property to filter against directly, instead of having to infer intent from an order-recency segment that treats a two-month pause and a real cancellation as the same thing.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is build or manage the win-back flow itself - the copy, the discount, the timing, all of that stays in Klaviyo, set up however the merchant wants it. What AppFox's side of the integration does is make sure the one fact a win-back flow actually needs - is this subscriber gone, or just paused - is available to filter on, instead of leaving the flow to guess from an order gap that looks identical either way.",
+      },
+      {
+        type: "p",
+        text: "The subscriber who paused her supplement subscription didn't do anything wrong, and the win-back flow that reached her anyway wasn't misconfigured in any way its builder would ever notice - it did exactly what an order-recency segment is built to do, treat an absence of orders as an absence of interest. What it was never given was the one distinction that actually mattered: a pause set on purpose, with an end date already picked. Sync subscription status into whatever email platform a win-back flow actually runs on, and a deliberate pause stops looking like the exact thing it isn't.",
+      },
+    ],
+  },
+  {
     slug: "order-edits-can-break-alcohol-shipping-compliance",
     title: "Why a Shopify Order Edit Can Break Alcohol Shipping Compliance",
     excerpt:
