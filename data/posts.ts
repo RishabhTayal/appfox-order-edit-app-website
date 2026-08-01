@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-renewal-triggers-review-request",
+    title: "Why a Shopify Subscription Renewal Triggers a Review Request Every Month",
+    excerpt:
+      "A skincare subscriber gets a genuine review request after her first box and leaves five stars - then gets the identical ask again after every renewal that follows, same product, same email, forever. Her subscription didn't do anything wrong; the review app just can't tell a fourth renewal from a first-time purchase.",
+    category: "PLAYBOOK",
+    date: "2026-09-18",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Subscription Renewal Triggers a Review Request | AppFox",
+    metaDescription:
+      "A Shopify subscription renewal creates a normal order, so review apps like Judge.me and Loox ask for a review on every box, not just the first. Here's why that happens, and how to stop the repeat ask before it costs you the subscriber's inbox.",
+    body: [
+      {
+        type: "p",
+        text: "A skincare subscriber signs up for a monthly restock through a subscribe-and-save widget, and four days after her first box arrives, a review-request email lands: how was your order? She leaves a genuine five-star review, glad to have found something worth repeating. A month later, the second box renews and ships on schedule - and the same email lands again, word for word, asking her to review an order she's already reviewed the product from. By month four, she's gotten the identical request four times for four boxes of the identical product, and the fifth one is the reason she finally unsubscribes from the list altogether - not because the product got worse, but because the email itself stopped feeling like it was paying attention.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a misconfigured app or a merchant who forgot to turn something off. A review-request app like Judge.me, Loox, or Yotpo watches for order creation or fulfillment, waits a set number of days, and sends its ask - that's the entire job, and it does that job correctly every single time an order exists to trigger it. A Shopify subscription renewal creates exactly that: a real, standard order object, fulfilled the same way any other order is, with nothing in its shape or its webhook payload marking it as the fourth occurrence of a relationship that started months earlier. To the review app, box four looks identical to a brand-new customer's first-ever purchase, because as far as the order record goes, it is one.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't triggering a review request off order fulfillment - for a one-time purchase, that's exactly the right moment to ask. The mistake is running that same trigger, unmodified, against a subscriber whose fourth order is a renewal of a decision she already made and already reviewed, rather than a new purchase decision that deserves a fresh ask of its own.",
+      },
+      { type: "h2", text: "Why a renewal order looks identical to a first-time purchase" },
+      {
+        type: "ul",
+        items: [
+          "A review app's trigger is almost always order creation or order fulfillment - it has no separate concept of \"subscription renewal\" unless something in the order explicitly tells it so",
+          "A Shopify subscription contract generates a normal order through the same order-creation pipeline as any other purchase, so the order Judge.me or Loox sees carries no built-in flag distinguishing renewal four from purchase one",
+          "The review app's delay timer - send five days after delivery - resets fresh with every order it sees, because it was built to count days since this purchase, not to check whether this customer has already been asked about this exact product",
+          "A subscriber's product doesn't change between renewals, but the review app has no way to know that without being told - it only knows an order fulfilled, which is true every single cycle",
+          "None of this is specific to any one review platform - it's how order-triggered automation works everywhere by default, for any app that hooks into order events without a subscription-aware filter layered on top",
+        ],
+      },
+      { type: "h3", text: "Why the repeat request costs more than an eye-roll" },
+      {
+        type: "p",
+        text: "A subscriber who's already left a review has nothing new to say, and being asked anyway reads less like customer care and more like a mail merge that never checked who it was talking to. The real cost isn't the one ignored email - it's what she does the second or third time it repeats. Marking a message as spam, or hitting unsubscribe on the sender rather than that one flow, doesn't just silence the review request. It silences whatever else shares that sending domain or list - the shipping delay notice, the failed-payment alert, the win-back offer that might have actually saved the subscription later. A repeat ask that trains a subscriber to stop opening email from you is a retention cost dressed up as a marketing request.",
+      },
+      {
+        type: "quote",
+        text: "A review request answers one question - was this specific purchase worth telling other shoppers about. It was never built to ask that question to the same subscriber, about the same product, every single month for as long as the subscription runs.",
+      },
+      { type: "h2", text: "How to stop the ask from repeating on every renewal" },
+      {
+        type: "ol",
+        items: [
+          "Check whether your review platform can filter its trigger by order number or a \"first order only\" rule - most established review apps, Judge.me, Loox, and Yotpo among them, support excluding an order that isn't a customer's first, which is the simplest fix if it's available",
+          "Send one review request timed to the first box, then switch later renewals to a different, lower-frequency check-in - a quarterly satisfaction or NPS-style ping asks something a subscriber can actually answer differently each time",
+          "If your subscription app tags its orders distinctly from one-time purchases, build the review app's exclusion rule off that tag rather than off order count - it still holds up if a subscriber skips a cycle and the renewal count stops lining up with calendar months",
+          "Route review requests and subscription lifecycle emails - renewal receipts, dunning, win-back - through separate senders or sub-flows where your platform allows it, so an unsubscribe from one doesn't take out the others",
+          "Watch unsubscribe rate for subscribers specifically, separate from one-time customers - a gap that only shows up on the subscriber segment is usually a repeat-ask problem, not a content problem",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox tags every order a subscription contract creates - the first order and every renewal after it - so the difference between this subscriber's very first purchase and renewal number four of the same plan is something an order tag, not a guess about timing, can answer. That same subscription status - active, on its Nth renewal, paused, canceled - is available through AppFox's Klaviyo integration too, not just as order data, so a flow (a review request included, if it's built in Klaviyo rather than a dedicated review app) has a real property to filter against instead of inferring intent from how many orders happened to land.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is reach into a third-party review app's own trigger logic - Judge.me's send rules, Loox's delay timer, and Yotpo's request cadence all live entirely on that app's side, outside anything a subscription app can set from its end. What AppFox's tagging does is make sure the signal those apps need - is this order a first purchase or a renewal - actually exists somewhere they can read it, instead of leaving every review-request integration to treat a subscriber's tenth box exactly like a stranger's first.",
+      },
+      {
+        type: "p",
+        text: "The skincare subscriber who unsubscribed by month four didn't leave because the product stopped working - she left because an email kept asking her the same question it had already gotten a good answer to. Tag the renewal, point the review app's exclusion rule at it, and the ask that goes out next time fits where she actually is in the relationship: not \"how was your order\" repeated forever, but silence until there's something new worth asking about.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-cant-be-started-from-pos",
     title: "Why a Shopify Subscription Can't Be Started From POS",
     excerpt:
