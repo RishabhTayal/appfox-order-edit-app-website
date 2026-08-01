@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-cant-be-started-from-pos",
+    title: "Why a Shopify Subscription Can't Be Started From POS",
+    excerpt:
+      "A coffee roaster's weekend market stall runs Shopify POS, and a regular customer wants to sign up for the same subscribe-and-save plan she's seen on the website. The cashier rings up a bag of coffee just fine - there's no way to start the recurring plan from the register at all.",
+    category: "GUIDE",
+    date: "2026-09-17",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Subscription Can't Be Started From POS | AppFox",
+    metaDescription:
+      "Shopify subscription contracts are created through online checkout, not Shopify POS, so a register sale can't sign a customer up for recurring billing. Here's why, and how to still capture the subscriber in person.",
+    body: [
+      {
+        type: "p",
+        text: "A coffee roaster sells at a Saturday market with Shopify POS running on an iPad at the folding table, and online with a subscribe-and-save widget on every product page. A regular stops by, buys a bag the way she always does, and asks the person working the stall to just sign her up for the every-four-weeks plan she's seen at checkout on the website - same coffee, 10% off, one less thing to remember. The cashier rings up the bag without any trouble. Setting up the recurring plan is the part that doesn't work. There's no subscribe-and-save option anywhere in the POS cart, no toggle, no selling-plan picker - just the one-time price, the same as it would be for anyone walking up who's never heard of the subscription at all.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a bug in the POS app or a setting the roaster forgot to turn on. A Shopify subscription is a contract - a standing agreement to charge a saved payment method on a recurring schedule - and that contract gets created through Shopify's online checkout, the same flow the subscribe-and-save widget hands a shopper off to. Checkout is where a customer explicitly agrees to future charges and where Shopify vaults the payment method those charges will run against later, unattended, with no one present to re-enter a card. A POS sale is built around a different moment entirely: a card is presented, a single amount is authorized, and the transaction settles right there at the register. Nothing in that exchange creates an ongoing authorization to charge the customer again next month, because nothing about a walk-up register sale was ever designed to.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't that POS can sell a subscription product at all - it can, as a one-time item, same as any other SKU in the catalog. The mistake is assuming that because the product carries a selling plan online, ringing it up at the register somehow carries the recurring part along with it. It doesn't, because the register was never the thing creating the contract in the first place.",
+      },
+      { type: "h2", text: "Why POS can't create a recurring subscription contract" },
+      {
+        type: "ul",
+        items: [
+          "A Shopify subscription contract is created and stored through the online store's checkout and subscription APIs - POS is a separate commerce surface with its own checkout, and it isn't wired into that contract-creation flow",
+          "Vaulting a payment method for future, unattended charges requires the customer's explicit consent at checkout - a card tapped or swiped at a register authorizes one settlement, not a standing agreement to be charged again on a schedule",
+          "A selling plan attached to a product controls the discount and delivery frequency a shopper sees online; POS reads the product and its price, not the selling plan, so an item with a subscription option simply rings up at its one-time price",
+          "The customer portal a subscriber uses to skip, pause, or swap only exists for contracts created through the account tied to online checkout - there's no equivalent identity handoff from a POS sale to create that same portal access",
+          "None of this is an AppFox limitation or a third-party app gap to close - it's how Shopify separates in-person settlement from the recurring-billing infrastructure a subscription runs on",
+        ],
+      },
+      { type: "h3", text: "What actually happens if you try it anyway" },
+      {
+        type: "p",
+        text: "There's no error message, because POS isn't rejecting anything - it's just selling the product the only way it knows how to sell it. The subscription-eligible bag of coffee scans, rings up at full price, and the sale completes normally. Nothing about the receipt, the payment, or the order distinguishes it from a customer who's never going to buy that coffee again. If a staff member doesn't know to do anything further, the interaction that started as \"I'd like the subscription, please\" ends as a single sale with no record that a subscription was ever the ask - no lead, no follow-up, no way to know later that this customer wanted a recurring plan and simply couldn't get one at the register.",
+      },
+      {
+        type: "quote",
+        text: "POS answers the question a register is built for - can this customer pay for this item right now. It was never asked, and can't answer, a second question: will this same customer still be charged for it next month.",
+      },
+      { type: "h2", text: "How to still capture the subscriber standing at your register" },
+      {
+        type: "ol",
+        items: [
+          "Keep a QR code or a short link at the register or on a card in the bag that opens the exact subscribe-and-save product page, so the customer finishes signing up on her own phone in the time it takes to bag the order",
+          "If a staff tablet or laptop is available, pull up the same online product page in a browser and walk the customer through the subscribe-and-save toggle there - it's still an online checkout, just completed in person with someone helping",
+          "Capture an email at the register for anyone who asks about the subscription and couldn't complete it on the spot, and send a same-day follow-up with a direct link to the plan she asked about, before the moment cools off",
+          "Don't try to manually recreate the recurring charge later with a saved card on file outside Shopify's own subscription infrastructure - it skips the customer's actual checkout consent and leaves the contract living somewhere the portal, dunning, and renewal logic were never built to look",
+          "Track how often this comes up at in-person events as its own number, separate from online conversion - it tells you whether a permanent point-of-sale workaround like a signup tablet is worth setting up before the next market or pop-up",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's contracts are created and held in Shopify's own native subscription infrastructure, through Shopify Checkout - the same online flow the subscribe-and-save widget already sends a shopper to. That's deliberate: it keeps the contract portable and keeps every renewal running on the checkout Shopify itself maintains, rather than a workaround layered on top. It also means AppFox can't reach around Shopify's own boundary between POS and online checkout to start a contract from the register - no subscription app can, because the contract-creation step lives entirely on Shopify's side of that line.",
+      },
+      {
+        type: "p",
+        text: "What AppFox does help with is everything downstream of the moment a customer actually starts the plan, however she gets there. A subscription begun from a QR-code link at a market stall behaves exactly like one begun from a laptop at home - same customer portal to skip, pause, or swap, same auto-renewal on Shopify Checkout, same Klaviyo sync for a follow-up flow if she signed up and then went quiet. The gap is only ever at the register itself, in the seconds between \"I'd like the subscription\" and a phone or tablet actually opening the page that can create one.",
+      },
+      {
+        type: "p",
+        text: "The roaster's cashier didn't do anything wrong ringing up a one-time bag of coffee - that's the only sale a register can make. What closed the gap wasn't a setting anyone was missing; it was giving the customer a thirty-second way to finish, on her own device, the checkout that was always going to be the thing that created her subscription. Put that path in front of her before she walks away from the stall, and a register that can't start a subscription stops being the reason she never got one.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-pause-triggers-win-back-email",
     title: "Why a Win-Back Flow Emails a Paused Shopify Subscriber, Not Just a Canceled One",
     excerpt:
