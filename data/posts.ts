@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-cant-add-to-a-klarna-or-afterpay-order",
+    title: "Why a Shopify Order Edit Can't Add to a Klarna or Afterpay Order",
+    excerpt:
+      "A customer buys a patio heater with Klarna's pay-in-4, then adds a $40 cover through a self-service edit two days later. The edit confirms cleanly with a new total - except Klarna already fixed four installments against the original loan, and nothing about the edit reaches back to collect the difference.",
+    category: "GUIDE",
+    date: "2026-09-19",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Order Edit Can't Add to a Klarna or Afterpay Order | AppFox",
+    metaDescription:
+      "A Shopify order paid with Klarna, Afterpay, or Affirm can't absorb a bigger total through a self-service edit, because the installment loan was underwritten once, for one fixed amount. Here's why, and how to collect the difference without confirming a total nothing is going to charge.",
+    body: [
+      {
+        type: "p",
+        text: "A patio-furniture store sells a $220 heater with Klarna's pay-in-4 at checkout - four payments of $55, approved in seconds, no card required up front. Two days later, the customer opens the order-status page and adds a $40 weatherproof cover through the self-service edit flow. The edit goes through the way every other edit on the store does: new line item, new total, a clean confirmation screen. Nobody goes back to collect the extra $40. Klarna already fixed its four installments at $55 each against the $220 it approved at checkout, and nothing about an address-book-style edit two days later reaches back into that loan to add a fifth charge, or to resize the four that are already scheduled.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a broken edit or a lender that dropped a step. Every other funding method behind an order edit either has a reusable instrument to bill again - a card on file - or a balance an edit can draw down or top up, like a gift card. Klarna, Afterpay, and Affirm work differently: each one underwrites a single, specific number - the cart total at the moment of checkout - as a fixed loan the customer agreed to repay in installments, approved through a real-time credit decision made once, for that amount. It isn't a payment method sitting on file waiting for a bigger number to show up later. There's no \"charge $40 more to the loan\" step missing from the integration, because the loan itself was never built to be a size that flexes after approval.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't letting a BNPL customer use self-service edits at all - removing the cover and getting a partial refund plugs cleanly into how these providers already handle returns, reducing a loan that's already approved. The mistake is letting an edit that raises the total on a BNPL order confirm exactly as cleanly as a raise on a card-funded order would, when the thing that's supposed to collect the difference was underwritten once, for a smaller number, and was never going to reach back for more.",
+      },
+      { type: "h2", text: "Why a BNPL loan can't just absorb a bigger order" },
+      {
+        type: "ul",
+        items: [
+          "Klarna, Afterpay, and Affirm each run their own real-time credit check at checkout, approving one exact amount for one specific cart - not a revolving line a merchant can draw more against later",
+          "The installment schedule is fixed the moment the loan is approved; a standard integration has no API step that resizes an already-scheduled plan to a new, larger total",
+          "A card on file can be charged again through Shopify's payment-terms flow because it's a general-purpose instrument; a BNPL transaction is a single-purpose loan tied to the exact order that existed at authorization, with no equivalent \"charge again\" hook",
+          "Refunds run the other direction more cleanly - most BNPL providers do support reducing or canceling remaining installments against a partial refund, because a smaller loan is just less of what was already approved",
+          "None of this is unique to Shopify's Order Editing API - it's the same limitation any store runs into integrating with these providers directly, because the constraint sits with the lender's underwriting model, not with how the edit itself is built",
+        ],
+      },
+      { type: "h3", text: "Why the gap doesn't show up until reconciliation" },
+      {
+        type: "p",
+        text: "An edit confirmation screen doesn't check how the order was funded before it confirms - a BNPL order's total updates exactly the way a card order's would, because from Shopify's side the order total is correct either way. The gap only surfaces later, when someone works accounts receivable and finds this order collected four Klarna payments totaling $220 and nothing further ever came in for the $40 cover that shipped with it. By then there's no clean way to ask Klarna to retroactively resize a loan it already approved and started collecting on - the merchant either eats the $40 or manually invoices a customer who reasonably assumed the edit's confirmation screen meant the whole thing was settled.",
+      },
+      {
+        type: "quote",
+        text: "A card can be asked for a little more. A BNPL loan was already asked for exactly the amount it agreed to lend - and resizing that decision after the fact was never the lender's job to do just because a cover got added to the heater.",
+      },
+      { type: "h2", text: "Keeping a BNPL order edit inside what the loan can actually do" },
+      {
+        type: "ol",
+        items: [
+          "Treat any total-increasing edit on a BNPL-funded order as its own eligibility category, separate from card-funded orders, since the auto-apply-and-charge-the-difference rule other orders use has no payment step behind it to run",
+          "Let edits that lower or hold the total steady - swaps, removals, size changes - keep auto-applying, since that direction maps onto a partial refund most BNPL providers already process against the existing loan",
+          "For anything that raises the total, route the difference to a fresh, separate transaction - a new small Klarna, Afterpay, or Affirm authorization, or a card - rather than trying to fold it into the original loan",
+          "Make the edit confirmation say plainly that the addition will be billed separately, before the customer assumes one clean total is being collected the same way the original order was",
+          "Watch BNPL orders specifically for the \"add-on shipped, never separately billed\" gap during reconciliation - it's invisible in the order total, which shows the corrected number, and only shows up in what actually got collected",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's eligibility engine can flag a BNPL payment method as its own condition, routing any edit that raises a BNPL order's total to a separate collection step instead of auto-confirming it the way a card-funded order would. A merchant can leave the reducing edits - removing an item, sizing down - on the auto-apply path, since those map onto refunds Klarna, Afterpay, and Affirm already process, while sending anything that adds cost to checkout, or to manual review, before the customer sees a confirmation that implies it's covered.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is negotiate with Klarna, Afterpay, or Affirm to resize a loan that's already been underwritten - that decision belongs entirely to the lender's own risk model, and no order-editing app on either side of the transaction can reach into it. What AppFox's eligibility rules do is stop the edit from confirming as if that resize had already happened, so the $40 gap shows up as a flagged edit needing a real second transaction, not as a number reconciliation finds missing weeks later.",
+      },
+      {
+        type: "p",
+        text: "The customer who added a cover to her patio heater wasn't trying to get anything for free, and Klarna didn't fail to collect anything it was ever asked to collect - it collected exactly the loan it approved, on schedule, four times. What actually created the gap was an edit flow that confirmed a bigger total as if the same lender were simply going to lend a bit more against it. Route BNPL's total-raising edits to a second transaction instead of a bigger ask against the same fixed loan, and the cover ships with its $40 actually collected - not just added to a total nothing was ever going to reach back for.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-renewal-triggers-review-request",
     title: "Why a Shopify Subscription Renewal Triggers a Review Request Every Month",
     excerpt:
