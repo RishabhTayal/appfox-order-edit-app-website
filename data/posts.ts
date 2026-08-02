@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-renewal-chargeback-evidence",
+    title: "Why a Shopify Subscription Chargeback Needs Different Evidence Than a One-Time Order",
+    excerpt:
+      "A coffee subscriber's card gets charged for the fifth renewal in a row, she doesn't recognize it out of context, and disputes it as unauthorized. The merchant fights back with the same packing-slip-and-tracking-number packet that wins one-time-order disputes - and loses, because a recurring-billing dispute is asking an entirely different question.",
+    category: "REVENUE",
+    date: "2026-09-20",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Subscription Chargeback Needs Different Evidence | AppFox",
+    metaDescription:
+      "A Shopify subscription renewal dispute and a one-time order dispute look identical in a processor dashboard, but card networks score them under different reason codes asking different questions. Here's why a tracking number can't win a recurring-billing chargeback - and what evidence actually can.",
+    body: [
+      {
+        type: "p",
+        text: "A coffee-subscription customer has her card charged $24.99 for the fifth renewal in a row - same amount, same day of the month, same 12oz bag she's gotten four times already. She doesn't recognize the charge on her statement out of context, calls her bank instead of the merchant, and disputes it as a transaction she never authorized. The merchant pulls together the file they'd use for any disputed order: the packing slip, the carrier tracking number, delivery confirmation showing the bag arrived on schedule. The bank still rules for the customer. Nothing about the fifth box was ever in question - the dispute was never about whether it shipped.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this outcome is a fluke, or a bank siding with whoever complains loudest. A first-time order dispute and a fifth-renewal dispute are answering two different questions, even though both show up in the same processor dashboard labeled \"chargeback.\" A one-time order dispute usually asks whether the customer got what she paid for, and a tracking number answers that directly. A subscription renewal dispute almost always asks something else entirely - whether the customer authorized this specific, recurring charge in the first place, and whether that authorization was ever properly withdrawn. A delivery record answers the first question well. It doesn't touch the second one at all, no matter how detailed the tracking history is.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't skipping evidence for subscription disputes - most merchants file something. The mistake is filing the same one-time-order packet for a recurring charge, when the card networks score the two under entirely different reason codes asking entirely different questions. Visa's recurring-transaction code and Mastercard's canceled-recurring code aren't asking \"did it arrive.\" They're asking \"did she agree to this charge, and was that agreement still standing on the day it ran.\"",
+      },
+      { type: "h2", text: "Why a delivery receipt doesn't answer a recurring-billing dispute" },
+      {
+        type: "ul",
+        items: [
+          "Visa 13.2 and Mastercard 4841 - the reason codes processors apply to recurring-charge disputes - ask whether the customer authorized recurring billing and whether that authorization was ever canceled, not whether an item shipped",
+          "A tracking number proves a box moved from a warehouse to a doorstep; it says nothing about whether the cardholder agreed months ago to be billed again on a schedule she set up herself",
+          "A bank reviewing a recurring dispute wants to see the original consent - the plan, price, and frequency the subscriber agreed to at signup - sitting next to the specific charge she's disputing",
+          "\"I didn't authorize this\" collapses fast against a subscriber's own history of three or four prior renewals on the same card, at the same amount, with no dispute filed against any of them - representment evidence a first-order file simply has no equivalent of",
+          "\"I tried to cancel and couldn't reach anyone\" is the recurring-dispute version of \"item never arrived,\" and it only holds up if a merchant can't show the subscriber had a working self-service cancel path sitting right there, unused",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A tracking number wins the wrong argument. A signup record wins the right one.",
+      },
+      { type: "h2", text: "Why the gap doesn't show up until subscriptions start driving the chargeback rate" },
+      {
+        type: "p",
+        text: "Most merchants build a single dispute-response template early, off whatever their processor's default packet asks for on a one-time order, and it works fine as long as one-time orders are most of what gets disputed. Subscriptions grow slower and quieter - a handful of renewals a month at first, then a meaningful share of revenue a year in - and the dispute template never gets revisited along the way, because nothing about it looks broken from a merchant's side. It only becomes visible in the loss column: a chargeback rate that creeps up specifically on renewal charges, while first-time-order disputes stay flat, filed against the same evidence packet that keeps winning them.",
+      },
+      {
+        type: "quote",
+        text: "A one-time order disputes whether something arrived. A subscription renewal disputes whether the charge should have happened at all - and no tracking number answers that question.",
+      },
+      { type: "h2", text: "What a subscription-specific evidence packet actually needs" },
+      {
+        type: "ol",
+        items: [
+          "Keep the original signup record - date, plan, price, and frequency the subscriber agreed to - attached to the subscription itself, not logged once at checkout and never referenced again",
+          "Pull the full renewal history for that subscription into the dispute file, not just the disputed charge, so the bank sees a run of prior, unchallenged renewals at the same amount before it sees the one being contested",
+          "Include a copy of the renewal reminder or receipt sent ahead of the disputed charge, if one went out - it undercuts a \"surprise charge\" claim more directly than any shipping record can",
+          "Show whether the subscriber's account carried working self-service skip, pause, or cancel access at the time of the charge, and whether she used any of it - that answers \"could she have stopped this\" before the bank has to guess",
+          "File the dispute under the recurring-transaction reason code your processor actually applies, not the generic goods-not-received template built for one-time orders",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox keeps the plan, price, and frequency a subscriber agreed to, along with the full renewal ledger and portal activity, tied to the subscription record itself rather than scattered across individual order receipts. The customer portal - skip, pause, swap, cancel - runs on every plan including Free, and every action a subscriber takes through it is logged against that same subscription. On Growth and above, subscription analytics keeps that renewal history and portal activity queryable per subscriber, so pulling together what a recurring-charge dispute actually asks for is a lookup against one subscription, not a reconstruction from a dozen separate orders after the chargeback notice already arrived.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is file the dispute or argue it to the card network - that call, and the representment itself, belongs to the merchant's payment processor. What AppFox keeps in place is the specific record a recurring-transaction reason code is actually asking for: the original consent, the unbroken renewal history, and proof of whether a working cancel path sat there unused - so the packet a merchant sends to their processor answers the question actually being asked, instead of the one a shipping label already settled.",
+      },
+      {
+        type: "p",
+        text: "The coffee subscriber wasn't trying to get a free bag, and the merchant hadn't failed to ship a single one. What lost the dispute was answering \"did she agree to this specific charge\" with proof that only ever answered \"did a box arrive.\" Keep the signup consent and the renewal history attached to the subscription instead of the order, and the fifth chargeback gets contested with a record from month one - not just a tracking number from a box that was never actually in question.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-cant-add-to-a-klarna-or-afterpay-order",
     title: "Why a Shopify Order Edit Can't Add to a Klarna or Afterpay Order",
     excerpt:
