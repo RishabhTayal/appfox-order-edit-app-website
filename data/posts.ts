@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-renewal-crosses-customs-duty-threshold",
+    title: "Why a Shopify Subscription Renewal Can Trigger Customs Duty the First Box Never Did",
+    excerpt:
+      "A Toronto subscriber's first skincare box clears customs duty-free. Four renewals later the merchant adds a serum and raises the price - the charge goes through exactly like always, and the fifth box gets held at the border for a duty bill nobody saw coming.",
+    category: "REVENUE",
+    date: "2026-09-21",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Subscription Renewal Can Trigger Customs Duty | AppFox",
+    metaDescription:
+      "A Shopify subscription box that clears customs duty-free once doesn't stay duty-free forever - a price increase, an added item, or a currency swing can push a later renewal over a destination's duty threshold. Here's why, and how to catch it before a subscriber gets billed at the door.",
+    body: [
+      {
+        type: "p",
+        text: "A subscriber in Toronto signs up for a $38-a-month skincare box from a US-based Shopify store. Her first shipment clears customs with nothing owed - the declared value sits comfortably under Canada's duty-and-tax-free threshold for personal imports, and the box arrives the way any other parcel would. Four renewals later, the merchant refreshes the lineup with a full-size serum and raises the plan price to $52 to cover it. The subscriber's card charges the same way it always has, on the same date, with no interruption anywhere in the flow. Her fifth box gets held at the border instead, and a few days later a courier is at her door asking for a duty-and-tax payment before she can have it.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the hold is a shipping mistake or a customs officer being arbitrary. Duty and import tax on a personal parcel are assessed against the declared value of the specific shipment crossing the border, not against the subscriber or the subscription's history - a country's threshold has no memory of the three prior boxes that already cleared underneath it. Each renewal is a new order the billing engine creates on its own schedule, priced at whatever the plan happens to charge that cycle and shipped as its own shipment with its own declared value. The first four boxes cleared duty-free because they were priced under the line. The fifth box gets tested against the exact same line, at a higher price, and this time it doesn't clear it.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't shipping internationally, and it isn't raising a subscription's price or refreshing what's inside the box - a merchant does both for reasons that have nothing to do with customs. The mistake is assuming a shipment that cleared duty-free once is going to keep clearing duty-free indefinitely, when nothing in a recurring subscription's billing or fulfillment pipeline checks a renewal's declared value against a duty threshold before it ships.",
+      },
+      { type: "h2", text: "Why a box that cleared once doesn't keep clearing" },
+      {
+        type: "ul",
+        items: [
+          "A price increase raises the declared value of every renewal that follows it, even when nothing about what ships or where it ships changes - a box that sat comfortably under a threshold at $38 can land right on top of it at $52",
+          "Adding an item to the box - a lineup refresh, a bonus product, an upsell folded into the plan - raises the shipment's value the same way a price increase does, just through what's inside instead of what it costs",
+          "A subscriber upgrading her own plan tier or quantity through the self-service portal raises the value of every renewal from that point forward, the same change a merchant could just as easily have made from the other side",
+          "Currency conversion moves the number too - a plan priced in the merchant's currency and converted for a foreign subscriber can cross a foreign threshold on exchange-rate movement alone, with the merchant's price never changing at all",
+          "A country can also move the threshold itself - duty-and-tax-free allowances get revised by customs authorities on their own timeline, unconnected to anything a merchant does to the plan",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A duty threshold isn't a line a subscription crosses once. It's a line every renewal gets tested against again.",
+      },
+      { type: "h2", text: "Why the hold catches the subscriber, not the merchant" },
+      {
+        type: "p",
+        text: "None of this shows up on the merchant's side before it ships. A renewal's checkout flow doesn't run a customs check before it confirms - Shopify's billing engine confirms the charge and creates the shipment the same way it would for a box priced under the threshold, because from its side the order is correct either way. The gap surfaces at the border instead: a parcel held for assessment, a courier collecting duty and a handling fee before delivery, on a box the subscriber has received four times before without ever being asked for anything extra. From where she's sitting, nothing about her subscription changed enough to explain a bill showing up at her door - a $14 price increase or one new serum doesn't look like the kind of change that should cost her money on top of what she already paid.",
+      },
+      {
+        type: "quote",
+        text: "A customs threshold doesn't track a subscriber's history. It tests the shipment standing in front of it, cycle after cycle, and eventually one renewal doesn't pass the same test the last four did.",
+      },
+      { type: "h2", text: "Keeping a renewal from surprising a subscriber at the border" },
+      {
+        type: "ol",
+        items: [
+          "Flag international subscriptions whose plan price or box contents sit within a reasonable margin of a destination's duty-and-tax-free threshold, so a future price change or lineup addition doesn't cross it unnoticed",
+          "Treat a price increase or an added item on an international plan as a shipping decision, not just a pricing or merchandising one, and check it against the thresholds a subscriber base actually ships into before it goes live",
+          "Where Shopify Managed Markets or a duty provider supports Delivered Duty Paid, route international renewals through it once a shipment's value crosses the line, so any duty owed gets collected at checkout instead of at the door",
+          "Say so in the renewal reminder when a shipment's value has changed enough to matter - the same reminder that already tells a subscriber the date and amount of an upcoming charge is the natural place to flag a bigger box before it ships",
+          "Watch cancellation and complaint reasons for international subscribers by market rather than folding them into an overall churn number - a cluster that traces back to an unexpected customs bill points at a threshold problem long before anyone thinks to check for one",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription creates every renewal through Shopify's own checkout and subscription infrastructure, which is also where Shopify Managed Markets and duty calculation live - whatever applies to a one-time international order applies to a subscription renewal the same way, because a renewal is a new order built through that same pipeline. A price change or an item added through the portal flows into that same order-creation step, so whatever duty setup a merchant has configured for their markets gets applied to a renewal the same way it would to a first-time purchase.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is calculate or remit duty itself - that sits with Shopify Managed Markets and the carrier or broker behind it, the same as it does for any other order. What AppFox does control is what a subscriber sees before the charge fires: the renewal reminder already carries the exact amount and date of the upcoming charge, which is the natural place to note a bigger box or a new price before it ships, rather than after a courier is already asking for money at the door. Subscription analytics on the Growth plan and above can be read by market, so a cluster of international cancellations tracing back to a customs surprise shows up as a pattern worth checking, not a handful of unrelated complaints.",
+      },
+      {
+        type: "p",
+        text: "The subscriber in Toronto wasn't trying to avoid a duty she owed, and the merchant hadn't done anything wrong by raising a price or refreshing a box four renewals in - both are ordinary decisions a subscription business makes all the time. What actually surprised her was a threshold that had cleared her box four times running finally getting tested against a shipment that no longer fit under it, with nothing in between to say so. Watch what a price change or an added item does to an international renewal's declared value, and the fifth box either clears the same way the first four did, or arrives with a subscriber who already knew why it might not.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-renewal-chargeback-evidence",
     title: "Why a Shopify Subscription Chargeback Needs Different Evidence Than a One-Time Order",
     excerpt:
