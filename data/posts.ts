@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-signup-february-29-renewal-date",
+    title: "Why a Shopify Subscription That Signs Up on February 29 Renews on the Wrong Day",
+    excerpt:
+      "A subscriber starts a monthly candle box on leap day, February 29, and her first eleven renewals land exactly where they should. Then February comes around again in a year that doesn't have a 29th - and whether her billing date survives depends on a piece of scheduling logic she's never heard of.",
+    category: "PLAYBOOK",
+    date: "2026-09-22",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Renewal Dates on February 29 | AppFox",
+    metaDescription:
+      "A Shopify subscription anchored to February 29 works fine for eleven renewals - then hits a February that doesn't have a 29th. Here's how a subscription's billing engine resolves a date that doesn't exist, and why the answer decides whether the renewal date slips once or drifts forever.",
+    body: [
+      {
+        type: "p",
+        text: "A subscriber signs up for a monthly candle subscription on February 29 - a leap day, the kind of date that only exists once every four years. Her card charges on March 29, April 29, and every 29th after that without a hitch, eleven renewals in a row landing exactly where the calendar says they should. Then the twelfth renewal comes due, and it's February again - except this time it's a plain, ordinary year, and February only goes up to the 28th. The date her subscription has renewed on every month since she signed up simply doesn't exist this time.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a bug a merchant introduced or a mistake a subscriber made. A monthly billing interval is really just an instruction - \"charge on the 29th of next month\" - and every calendar system eventually has to answer the question of what \"the 29th\" means in a month that stops at 28. Most months never surface the question at all, because most months have a 29th. February, three years out of four, is the one month a year where a subscription anchored to a late-month day runs straight into a date that was never guaranteed to exist in the first place.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't signing a subscriber up on a leap day, and it isn't billing monthly instead of on a fixed set of calendar dates - both are completely ordinary choices a subscription program makes without thinking twice about February. The mistake is assuming every billing engine resolves a missing date the same way, when the resolution a system picks doesn't just decide what happens in February. It decides whether the subscriber's renewal date is back to normal by March, or quietly moved for good.",
+      },
+      { type: "h2", text: "Why a date that doesn't exist has more than one right answer" },
+      {
+        type: "ul",
+        items: [
+          "Some billing engines clamp the missing date to the last day of the short month - February 29 becomes February 28 for that cycle only - and treat the day-of-month as fixed metadata, so March simply resolves back to the 29th on its own",
+          "Other engines compute every renewal as \"the date of the last successful charge, plus one month\" - under that design, a cycle that clamps to February 28 hands March a starting point of the 28th, not the 29th, and the subscriber's billing date has permanently moved a day earlier",
+          "The two designs are indistinguishable for eleven months a year and only diverge in the one month where the difference actually matters, which is exactly why the gap goes unnoticed until it's already happened",
+          "A subscriber signed up on the 30th or the 31st hits a milder version of the same problem in every month with fewer than 31 days, not just February - April, June, September, and November all fall short",
+          "Annual plans anchored to February 29 have it worse in a different way: the mismatch doesn't come around again for a full year, so a resolution nobody checked at signup has three years to be forgotten before it matters at all",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A missing date isn't a billing failure. It's a fork in the road that most subscription programs never notice they're standing at.",
+      },
+      { type: "h2", text: "Why the subscriber notices before the merchant does" },
+      {
+        type: "p",
+        text: "None of this shows up as an error anywhere. The charge still goes through, the receipt still arrives, and the subscription still renews - just possibly on the 28th instead of the 29th, with nothing in the transaction record flagging that the date moved at all. The subscriber is the one left comparing this month's charge date against last month's and wondering whether her bank statement is wrong, her memory is wrong, or something about her subscription quietly changed. A support ticket that starts with \"my billing date moved and I don't know why\" is genuinely hard to diagnose from the merchant's side, because the answer isn't in any log a support agent would normally think to check - it's in how the billing engine handled one specific month, a year ago.",
+      },
+      {
+        type: "quote",
+        text: "February 29 doesn't break a subscription once. It asks a billing engine a question, and the answer either holds for three years or quietly compounds for as long as the subscriber stays.",
+      },
+      { type: "h2", text: "Checking how a leap-day signup actually resolves" },
+      {
+        type: "ol",
+        items: [
+          "Find out - directly, not by assumption - whether your billing platform treats the day-of-month as fixed metadata or recalculates each renewal from the previous charge date, since that single design choice is the whole answer",
+          "If renewal dates are computed from the last charge, flag any subscriber anchored to the 29th, 30th, or 31st specifically, since they're the only ones who can drift and the drift compounds a little further every time a short month comes around",
+          "For annual plans anchored to February 29, calendar the check three years out rather than trusting it'll get caught in the moment - a mismatch nobody's expecting for three years is exactly the kind that gets forgotten",
+          "Don't let the renewal reminder email go stale on this - it should always state the actual date the next charge is scheduled for, not \"one month from your last charge,\" so a resolved date reaches the subscriber before the receipt does",
+          "When a subscriber asks why her billing date moved, have an actual answer ready rather than a guess - \"your plan renews on the 29th, and February doesn't have one this year\" is a complete explanation a subscriber can accept; a support agent improvising one usually isn't",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription schedules a contract's full run of billing dates when its policy is set, rather than computing each renewal from wherever the previous one happened to land - the same design that keeps a late payment retry from dragging a subscriber's calendar off schedule handles a leap-day anchor the same way. A subscriber who signs up on February 29 gets that resolution decided once, as part of the schedule, instead of recalculated fresh - and wrong - every time a short month comes around.",
+      },
+      {
+        type: "p",
+        text: "What that means in practice is a subscriber anchored to the 29th renews on February 28 in the three years out of four that February falls short, and is back on the 29th the moment a leap year makes it available again - never sliding a day earlier for good just because one particular month happened to be short. The renewal reminder reflects whichever date is actually scheduled, so a subscriber sees the real charge date in advance rather than working it out from a receipt after the fact.",
+      },
+      {
+        type: "p",
+        text: "The candle subscriber who signed up on a leap day didn't do anything unusual, and a merchant running a monthly billing cycle through February didn't do anything wrong either - both are ordinary parts of running a subscription program that happens to touch a date most calendars only offer once every four years. What decides whether that subscriber's next eleven renewals stay exactly where she expects them is a piece of scheduling logic she'll never see. Know which answer your billing engine gives, and February stops being a date that quietly moves a subscriber's calendar and goes back to being just a short month.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-renewal-crosses-customs-duty-threshold",
     title: "Why a Shopify Subscription Renewal Can Trigger Customs Duty the First Box Never Did",
     excerpt:
