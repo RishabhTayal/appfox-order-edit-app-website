@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "does-pausing-a-shopify-subscription-lock-in-the-price",
+    title: "Does Pausing a Shopify Subscription Lock In Your Price?",
+    excerpt:
+      "A subscriber pauses her coffee subscription for a slow month, assuming she'll pick back up right where she left off. Three months later the merchant raises the shelf price, she resumes on schedule, and her first renewal back charges more than the one she paused - because pausing never froze the number in the first place.",
+    category: "PLAYBOOK",
+    date: "2026-09-23",
+    author: "The AppFox Team",
+    metaTitle: "Does Pausing a Shopify Subscription Lock In Your Price? | AppFox",
+    metaDescription:
+      "Pausing a Shopify subscription stops the charge, but it doesn't freeze the price behind it. Here's why a percentage-off plan can resume at a different rate than the one a subscriber paused, and how to keep that gap from reading as a broken promise.",
+    body: [
+      {
+        type: "p",
+        text: "A subscriber pauses her monthly coffee subscription in January - a slow month, more beans in the cupboard than she needs - through the customer portal's one-click pause. She's been paying $15.30 a bag, 15% off the $18 shelf price, for eight renewals straight. In March, the roaster raises the shelf price to $21 to cover a jump in green-bean costs, the same catalog edit it makes to dozens of products a year without a second thought about the subscription running on top of it. In April, her pause period ends and the subscription resumes automatically, exactly as scheduled. The renewal that lands isn't $15.30. It's $17.85 - 15% off the new $21 - and as far as she's concerned, she paused one price and woke up to a different one.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the resumed charge is a mistake in the billing engine. A pause is a state that tells the schedule to skip billing for a stretch of time - it stops a charge from firing, and that's the entire scope of what it does. It was never a snapshot of the plan's price at the moment the subscriber clicked pause, because nothing about pausing asks the system to remember one. The percentage-off pricing policy attached to her plan works the same way at every renewal it's ever run, resumed or not: it looks at what the product costs right now and takes 15% off that number. The renewal that fires in April isn't a special case getting some different treatment because it followed a pause - it's just the next renewal on the schedule, following the exact rule every renewal before it followed, against a shelf price that's since moved.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't pausing subscriptions, and it isn't raising a shelf price to cover rising costs - both are ordinary, defensible calls a merchant makes for reasons that have nothing to do with each other. The mistake is letting a subscriber believe pausing is the same as freezing, when nothing about a pause actually locks a number down - it only postpones the next time that number gets checked.",
+      },
+      { type: "h2", text: "Why a pause doesn't remember the price it was paused at" },
+      {
+        type: "ul",
+        items: [
+          "Pausing changes a subscription contract's status, not its pricing policy - the plan underneath is exactly the same plan it was the day before the pause, still governed by whatever rule it was built with",
+          "A percentage-off plan never stores a dollar figure at all - it stores a discount rate and re-derives the charge from the product's live price every time a renewal actually runs, whether that renewal is the eighth in a row or the first one after a three-month gap",
+          "A fixed-price plan is the mirror opposite - it locked in a number at signup and a shelf-price edit never reaches it, paused or active, so a subscriber on that kind of plan genuinely does resume at the same price, just not because pausing did anything to guarantee it",
+          "The gap between the two plan types is invisible for the entire length of a pause, because there's no charge and no receipt to compare against - the only moment it can possibly surface is the first renewal after resume, which is also the worst possible moment for a subscriber to be surprised",
+          "A subscriber has no way to know which policy her plan runs on unless something tells her, and a pause confirmation screen that just says \"paused until April\" gives her every reason to assume the number is paused right along with it",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A pause stops a charge from firing. It was never a promise about what that charge will be the next time it does.",
+      },
+      { type: "h2", text: "Why this lands differently than an ordinary price increase" },
+      {
+        type: "p",
+        text: "A subscriber who's actively renewing every month at least has a chance to notice a price creeping up over time, or to catch a heads-up email if the merchant sends one before the increase takes effect. A subscriber coming back from a pause has none of that - she wasn't watching for anything, because as far as she knew, she'd already made her decision months ago and was just waiting for the world to catch up to her schedule. A different number on the very first charge she sees again doesn't read like a routine cost-of-goods adjustment. It reads like she's being charged extra for having stepped away, which is close to the worst message a merchant could send a subscriber at the exact moment she's re-engaging on her own. This is also, statistically, a fragile moment - a resumed subscriber who was already willing to pause instead of cancel is showing more hesitation than a subscriber who never left, and a price surprise right at resume is a legitimate reason to finish the cancellation she almost didn't start.",
+      },
+      {
+        type: "quote",
+        text: "The price a subscriber paused at was never guaranteed to be the price she resumes at - it just happens to be the last number she saw, which is exactly why an unexplained difference feels like it was hidden rather than simply recalculated.",
+      },
+      { type: "h2", text: "Checking what your paused subscribers will actually resume at" },
+      {
+        type: "ol",
+        items: [
+          "Check which pricing policy - percentage-off or fixed - is attached to every plan that allows pausing, since that single setting decides whether a resumed renewal can differ from the price a subscriber paused at in the first place",
+          "Before editing a product's shelf price, pull the list of currently paused subscribers on a percentage-off plan for that product - they won't see anything change until they resume, but the change is already decided the moment the shelf price moves",
+          "Decide, as a policy rather than a default, whether a subscriber resuming from a pause should see the current recalculated price or a rate honored from when she paused - either is defensible, but only one of them should be happening on purpose",
+          "Make sure the resume confirmation and the renewal reminder both state the exact charge amount before it fires, not just the date - a subscriber who sees the new number in advance can decide what to do with it; one who only sees it on a receipt can only react to it",
+          "If a subscriber paused shortly after a price increase, treat her resume date as a moment that needs a second look, not a routine reactivation - she's the subscriber most likely to read a second unexplained charge as a pattern instead of a coincidence",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's subscribe-and-save offers are configured as either a percentage or a fixed discount per plan, so whether a resumed renewal tracks the product's current price or holds the number a subscriber paused at is a setting a merchant chose deliberately for that plan, not a side effect of how pause happens to interact with pricing. The renewal reminder AppFox sends ahead of every charge - resumed or not - carries the exact amount that's about to bill, so a subscriber coming back from a pause sees the real number before it's charged instead of discovering it on the receipt.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is decide, on a merchant's behalf, whether a paused subscriber should be shielded from a price change that happened while she was away - that's a business call, not a billing default, and it's exactly why the policy sits on the plan for a merchant to set rather than being baked in either direction. What AppFox's structure does is make sure that choice is visible and intentional per plan, so a resumed renewal charges what a merchant actually meant it to charge, not just whatever the pricing policy happened to compute by default.",
+      },
+      {
+        type: "p",
+        text: "The coffee subscriber who paused in January didn't do anything that should have cost her more in April - she made a completely ordinary choice to skip a slow month, on a plan that was never built to remember the price she left it at. Know which pricing policy sits behind every plan that allows a pause, and a resumed subscription stops being a number that quietly changed while nobody was watching, and goes back to being exactly what a subscriber expects it to be: the same decision she made before, picked back up on schedule.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-signup-february-29-renewal-date",
     title: "Why a Shopify Subscription That Signs Up on February 29 Renews on the Wrong Day",
     excerpt:
