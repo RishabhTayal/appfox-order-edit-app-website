@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "order-edits-can-break-a-local-delivery-route",
+    title: "Why a Self-Service Order Edit Can Send a Local Delivery Driver to the Wrong Address",
+    excerpt:
+      "A customer catches a typo in her apartment number and fixes it through a self-service edit at 10am. The correction saves cleanly - except the same-day local delivery route was already generated at 8am, and nothing about the edit reaches back into a route a driver is already carrying.",
+    category: "PLAYBOOK",
+    date: "2026-09-25",
+    author: "The AppFox Team",
+    metaTitle: "Order Edits Can Break an Already-Generated Local Delivery Route | AppFox",
+    metaDescription:
+      "A Shopify order edit that changes a local delivery address after the day's route is already generated doesn't reach the routing app - the driver still has the old stop. Here's why that gap exists and how to set an edit cutoff that actually matches your delivery window.",
+    body: [
+      {
+        type: "p",
+        text: "A florist runs same-day local delivery across one metro area, and every morning at 8am a routing app pulls the day's local-delivery orders out of Shopify and builds an optimized route - a dozen stops, sequenced by neighborhood, printed onto a manifest before the first van leaves the shop. At 10am, a customer who ordered a dozen roses for a 2pm delivery notices she typed the wrong apartment number at checkout. She opens the order-status page, corrects it through the self-service edit flow, and gets a clean confirmation: address updated. At 2:38pm, the driver rings the buzzer on the apartment she typed originally - not the one she fixed four hours earlier - because the route was already generated before her correction landed, and nothing about the edit reached back into it.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a bug in the edit or in the routing app. A route-optimization run isn't a live view into Shopify that re-checks itself all day - it's a discrete planning step, computed once against whatever orders exist at generation time, because resequencing a dozen already-loaded vans mid-morning is disruptive in a way that recalculating a spreadsheet isn't. Most Shopify-to-router integrations import an order once, at or near creation, to build that plan. An address changed through Shopify's own Order Editing API afterward updates the order record perfectly - it just isn't a change most routing tools are wired to listen for after they've already planned around the order once.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't letting customers fix their own delivery address - catching a typo before a driver ever leaves the shop is exactly what self-service editing is supposed to do. The mistake is treating an edit made after the route is cut the same way as one made before it, when the same checkout-page correction that safely updates an unfulfilled warehouse order has no way of knowing a courier's stop for that order was already frozen hours earlier.",
+      },
+      { type: "h2", text: "Why a corrected address doesn't reach the driver" },
+      {
+        type: "ul",
+        items: [
+          "A routing app computes an optimized stop sequence once, at generation time - it isn't a live read of Shopify that re-checks itself every time a driver approaches a stop",
+          "Most Shopify-to-router integrations pull orders through a one-time import or a webhook fired at order creation, not one wired to fire again on a later order edit",
+          "Rebuilding a route after it's generated isn't free for these apps either - resequencing already-loaded vans mid-morning is disruptive enough that many routing tools deliberately don't watch for changes past that point",
+          "The Shopify order record itself shows the corrected address exactly right - the discrepancy lives entirely in a second system that already made its own copy and moved on",
+          "None of this throws an error anywhere in the flow - the edit confirms, the order looks correct, and the only place still holding the old address is a manifest already in a driver's hand",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A corrected address changes one field on one order. A generated route reads that field once, plans a driver's whole morning around it, and never checks it again.",
+      },
+      { type: "h2", text: "Why the merchant is the last one to find out" },
+      {
+        type: "p",
+        text: "The florist doesn't learn about the gap from the edit - it confirmed the way every other address correction on the site does. She learns about it from a driver marking a stop as no-answer, or from a customer calling to ask where her roses are. By the time anyone pulls up the order, the address on file is exactly right, which is what makes the mix-up so confusing to trace: everything in Shopify looks correct, and the only record of what actually went to print is a paper manifest or a routing app's own dashboard, sitting a step removed from the order itself.",
+      },
+      {
+        type: "quote",
+        text: "The order looked right by 10:04am. The route was already cut at 8:00am - and nothing about the edit reached back to change what the driver was carrying.",
+      },
+      { type: "h2", text: "Keeping late edits from missing the route" },
+      {
+        type: "ol",
+        items: [
+          "Treat an address edit differently depending on whether that day's local-delivery route has already been generated for the order - not just whether the order has shipped, which is the cutoff most stores default to",
+          "Set the edit window for local-delivery orders around your actual route-generation time (say, an 8am cut), rather than the generic same-day or 24-hour window that fits warehouse fulfillment but not a route already printed",
+          "Route address edits that land after that cutoff to a quick approval or notification step instead of auto-applying them, since auto-apply on an unfulfilled order doesn't guarantee the routing app ever sees the change",
+          "Push a notification to dispatch the moment an address changes on an order that's already been assigned to a route, so a human can radio the driver instead of the mix-up surfacing at the door",
+          "Build the habit at the team level: any order tagged for local delivery gets a stricter, route-aware cutoff by default, the same way a warehouse fulfillment cutoff already gets applied to shipped orders",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's eligibility engine can set edit cutoffs per fulfillment method, not just per order age - so a local-delivery order can carry a tighter window tied to your actual route-generation time instead of sharing the same 24-hour default as a warehouse-fulfilled shipment. Address edits inside that window can auto-apply the way any other correction does; edits requested after the cutoff route to an approval step instead, and Shopify Flow can fire a dispatch notification the instant an address changes on an order that's already past it, so the correction reaches a person who can radio the driver rather than sitting quietly in Shopify alone.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is integrate directly with a routing app to resequence a live route or push a corrected stop straight to a driver's device - that hand-off lives entirely inside whichever routing tool a store runs, and it varies by provider the same way 3PL and courier integrations do. What the eligibility engine and Flow triggers solve is the step before that: making sure a late address edit doesn't auto-apply as if the routing app were still watching, and instead surfaces to dispatch as a flagged change while there's still time to reach the driver directly.",
+      },
+      {
+        type: "p",
+        text: "The florist's customer didn't do anything wrong catching her own typo, and the self-service edit flow didn't do anything wrong confirming it - the correction was real, and it landed in Shopify exactly the way it was supposed to. What put a driver at the wrong door was a route that had already been generated and handed off before that correction existed anywhere the routing app could see it. Set the cutoff at the route, not just at the warehouse, and a fixed apartment number goes back to being what it should have been all along - a typo caught in time, not a delivery a driver has to circle back for.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-editing-product-options-breaks-variant-id",
     title: "Why Editing a Shopify Subscription Product's Options Can Break Every Active Contract on It",
     excerpt:
