@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-portal-next-billing-date-timezone",
+    title: "Why a Shopify Subscriber's Portal Can Show the Wrong Next-Billing Date",
+    excerpt:
+      "A subscriber in Honolulu checks her portal at lunchtime and sees a renewal scheduled for tomorrow. That night, the store's billing batch fires on schedule in New York - and the charge posts to her card a full calendar day before the date she was just shown.",
+    category: "PLAYBOOK",
+    date: "2026-09-26",
+    author: "The AppFox Team",
+    metaTitle: "Why a Subscriber's Portal Shows the Wrong Billing Date | AppFox",
+    metaDescription:
+      "A Shopify subscription's next-billing date is checked against one clock, but a subscriber reads it on her own. Here's why a portal date and the day a charge actually posts can point at two different calendar days, and how to close the gap.",
+    body: [
+      {
+        type: "p",
+        text: "A pet-food brand runs its subscription billing out of a New York warehouse, and every night at 1am Eastern its billing batch sweeps through every active contract whose next-billing date has arrived, charges the ones that are due, and creates their renewal orders. A subscriber in Honolulu - six hours behind - opens her account at lunchtime on the 2nd and checks her portal the way she does most months: \"Next delivery: Aug 3.\" She closes the tab reassured she has a full day before anything charges. At 1am Eastern that night, the batch runs exactly on schedule. In Honolulu, it's still 7pm on the 2nd. The charge posts to her card dated Aug 2 - a full calendar day earlier than the date her own portal told her, a few hours earlier, to expect it.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the early-looking charge is a bug in the billing engine. A daily billing batch has to run against one clock, not a different one for every subscriber it processes - it sweeps through the entire contract list once, at a fixed time, comparing each contract's next-billing date to whatever \"today\" is on the clock the batch runs on. For a store based in New York, that's usually Eastern time, sometimes UTC; either way, it's a single global reference, because building a batch that waits for local midnight in every subscriber's own timezone before touching her contract isn't how a nightly sweep is built to work. The portal, for its part, isn't lying either - it renders the date sitting on the contract, exactly as stored. What nobody in the chain does is translate that date into the subscriber's own clock before showing it to her, because the date on the contract was never local to begin with. It's local to New York, or to UTC, and it only happens to match the subscriber's own calendar day on the months her timezone and the store's line up closely enough that the gap doesn't cross a midnight.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't running a billing batch once a night instead of continuously, and it isn't showing a subscriber the date sitting on her own contract - both are ordinary, sensible defaults for a recurring-billing system. The mistake is displaying that date as if it were already translated into the subscriber's own day, when it's really just the store's day, borrowed and shown to her without a note that the two clocks aren't the same one.",
+      },
+      { type: "h2", text: "Why the portal date and the charge date can point at two different days" },
+      {
+        type: "ul",
+        items: [
+          "A subscription contract's next-billing date is a calendar date on one clock - typically the store's local timezone or UTC - not a date that's recalculated per subscriber based on where she happens to be logging in from",
+          "A nightly billing batch sweeps the entire contract list once, at a fixed time on that same clock, and charges whatever is due against it - it has no per-subscriber concept of \"her midnight,\" only the store's",
+          "The gap is invisible for subscribers close to the store's own timezone, because their local midnight and the store's fall close enough together that the date rarely disagrees - it only opens up for subscribers several hours west or east of the store",
+          "Six hours of difference is enough to put a subscriber's local evening on one side of the store's midnight and her local morning on the other, which is exactly the window a nightly batch runs inside",
+          "None of this throws an error or shows up as a delay - the batch runs precisely on schedule, the charge posts exactly on time by the store's own clock, and the only thing that looks wrong is a bank statement dated a day earlier than a portal a subscriber checked hours before",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The portal isn't wrong about the date. It's just telling a subscriber the store's day, on a screen she's reading from her own.",
+      },
+      { type: "h2", text: "Why this reads as a mistake instead of a technicality" },
+      {
+        type: "p",
+        text: "A subscriber doesn't experience \"the batch ran on the store's clock\" - she experiences a bank notification with a date on it, sitting next to a portal screen she checked earlier the same day that told her something different. Those are the only two facts she has, and they disagree, which is exactly the shape of a billing error from where she's standing. She has no reason to think about which timezone a merchant's billing job runs on, because nothing in the portal ever told her the date she was looking at belonged to anyone's clock but her own. For a subscriber who checks her account specifically to plan around an upcoming charge - waiting for payday, moving money into the right account, timing a card that's about to expire - a charge landing a day earlier than promised isn't a rounding error. It's the exact number she was managing around, off by one in the direction that costs her an overdraft fee instead of a shrug.",
+      },
+      {
+        type: "quote",
+        text: "She checked the date at lunch and planned her afternoon around having a day left. The batch had already crossed her midnight before it crossed the store's.",
+      },
+      { type: "h2", text: "Closing the gap between the date shown and the date charged" },
+      {
+        type: "ol",
+        items: [
+          "Decide, deliberately, which clock a next-billing date is stored and batched against - store timezone or UTC - rather than inheriting whatever default the billing engine happened to ship with",
+          "Where the portal renders that date, convert it into the viewer's own browser timezone before displaying it, the same way a checkout page already localizes currency, instead of showing the store's raw date to every subscriber regardless of where she's reading from",
+          "For subscriber bases that skew international or span multiple U.S. time zones, treat the batch's run time as a support-load lever, not just an ops setting - running it in the middle of the store's own night pushes the riskiest cross-midnight window into subscribers' evenings rather than their working hours",
+          "Put the actual charge time, not just the date, into the renewal reminder sent ahead of the batch, so a subscriber checking hours in advance is comparing against a real cutoff instead of a bare date that reads the same at 8am and 8pm",
+          "When a subscriber disputes a charge as early or mislabeled, check the batch's run time against her own timezone before assuming fraud or a billing-engine error - a day-early charge is very often exactly on schedule, just not on her schedule",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription runs its renewal batch on a single, fixed schedule tied to the store's own configuration, and the portal date a subscriber sees is the same next-billing date the batch works from - there's no separate, unsynchronized copy of the date drifting between the two. The renewal reminder AppFox sends ahead of each charge carries the scheduled charge time alongside the date, so a subscriber checking her account isn't left inferring a cutoff from a bare calendar date that means something slightly different depending on when in the day she happens to look at it.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is render the portal's date in each individual subscriber's own local timezone rather than the store's - that's a per-viewer localization step that sits in front-end rendering, not in the subscription contract or the billing schedule underneath it, and it varies by how a store's account pages are built. What the fixed batch schedule and the reminder's charge time solve is the gap most likely to cause a dispute: a subscriber left guessing at a cutoff from a date alone, instead of seeing the actual moment a charge is scheduled to fire.",
+      },
+      {
+        type: "p",
+        text: "The Honolulu subscriber didn't misread anything, and the billing batch didn't run early - it fired exactly on schedule, on the clock it was always built to run on. What put a charge on her statement a day before her portal's date was two clocks that were never the same one, standing next to each other on a screen that gave her no reason to notice the difference. Show the charge time next to the date, and a batch that's always been perfectly on schedule stops looking like one that quietly moved a day early.",
+      },
+    ],
+  },
+  {
     slug: "order-edits-can-break-a-local-delivery-route",
     title: "Why a Self-Service Order Edit Can Send a Local Delivery Driver to the Wrong Address",
     excerpt:
