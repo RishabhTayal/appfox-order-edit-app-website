@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-sms-renewal-reminder-tcpa-consent",
+    title: "Why a Shopify Subscription SMS Renewal Reminder Needs Its Own Consent",
+    excerpt:
+      "A candle-of-the-month merchant turns on \"text me before you charge my card\" using the SMS consent shoppers already gave at checkout. Two years and two dozen renewal texts later, that checkbox was scoped for order updates and promotional offers - not for an indefinite recurring series a subscription sends for as long as it lives.",
+    category: "PLAYBOOK",
+    date: "2026-09-29",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription SMS Renewal Reminders & TCPA | AppFox",
+    metaDescription:
+      "A Shopify checkout's SMS consent checkbox is scoped to order updates or marketing offers - not to a recurring billing-reminder series a subscription sends every renewal. Here's why that mismatch is a real TCPA exposure, and how to scope consent correctly.",
+    body: [
+      {
+        type: "p",
+        text: "A candle-of-the-month subscription merchant wants to cut down on \"why was I charged\" tickets, so they turn on a renewal reminder through their SMS platform: a text that lands two days before every billing cycle, telling the subscriber the date and amount before the card gets charged. The phone number and the consent behind it come from the same place every other SMS in the store does - the checkbox shoppers checked at checkout to receive text updates. The reminder ships on schedule, cycle after cycle, for as long as each subscription renews. Two years in, one subscriber's attorney sends a demand letter. She never agreed to a running series of automated texts about her card being charged, month after month - she checked a box about receiving updates on an order she placed once.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is the SMS platform malfunctioning or the checkout app mishandling consent. A checkout's SMS opt-in checkbox captures consent for whatever that checkbox actually described - order and shipping updates, or promotional offers, depending on which one a shopper checked. Under the Telephone Consumer Protection Act, an automated text needs consent scoped to what the message actually is: an indefinite, recurring billing reminder tied to a subscription contract is a different thing than a one-time shipping notice or an occasional marketing blast, and courts assessing TCPA consent look at what the specific message is and how it was described when consent was collected, not at what a merchant meant the checkbox to cover later.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't sending a renewal reminder by text - warning a subscriber before her card gets charged is good subscription hygiene, and it heads off exactly the kind of surprise-charge dispute that damages trust. The mistake is reaching for the SMS consent already sitting in the checkout, built for order updates or marketing offers, and assuming it silently extends to cover a new, indefinite recurring series that checkbox was never written to describe.",
+      },
+      { type: "h2", text: "Why one checkout checkbox doesn't cover every text a subscription can send" },
+      {
+        type: "ul",
+        items: [
+          "Shopify's SMS consent at checkout is scoped to the language the checkbox actually showed - \"order updates\" and \"marketing offers\" are typically two separate checkboxes with two separate legal bases, and neither describes \"a recurring billing reminder, every renewal, for as long as the subscription lives\"",
+          "TCPA's consent bar turns on what the message actually is, not on what a merchant intended - a reminder that states only the charge date and amount reads as informational, but the same text with \"reply SKIP to skip this box\" or a cross-sell line folded in reads as marketing, which needs the stricter consent tier",
+          "Consent given once at signup doesn't expand itself as a subscription rolls forward - a checkbox scoped to one order doesn't self-evidently cover every renewal order that subscription generates for the next two years, and that gap is exactly what a TCPA claim is built to find",
+          "An SMS platform sending renewal reminders through an automated system is squarely the kind of dialing TCPA exposure targets - the informal, order-status-adjacent feel of the message doesn't change which consent tier a court applies to it",
+          "This isn't specific to one SMS vendor - Klaviyo, Postscript, Attentive, and Shopify's own marketing SMS all rely on the merchant to supply consent actually collected for that message's purpose; none of them audit whether it was",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The box she checked said \"updates.\" The text she got said \"we're about to charge your card again\" - every month, for two years.",
+      },
+      { type: "h2", text: "Why this is a bigger exposure than a bad email" },
+      {
+        type: "p",
+        text: "A TCPA violation carries statutory damages assessed per text message, up to $500 per text and up to $1,500 if a violation is found willful - not a single fine for the campaign. A renewal reminder is, by design, a series: the whole point is that it fires every cycle for the life of the subscription. A merchant sending twenty-four correctly-timed reminders to five hundred subscribers over two years isn't looking at one questionable message if the underlying consent was scoped wrong - each text is its own count, which is exactly what makes recurring SMS programs an attractive target for TCPA class actions in subscription businesses specifically, far more than in stores that only ever send a one-time shipping notice.",
+      },
+      {
+        type: "quote",
+        text: "A subscription renewal reminder isn't one text. It's a recurring series a merchant commits to sending for as long as the subscription lives - and consent has to be scoped to match that, not to the single order the checkout checkbox was actually written for.",
+      },
+      { type: "h2", text: "Scoping SMS consent to match what a subscription actually sends" },
+      {
+        type: "ol",
+        items: [
+          "Treat \"recurring subscription billing reminders\" as its own consent purpose, separate from one-time order-status texts and separate from promotional marketing - and collect it explicitly at the point a shopper starts the subscription, rather than inferring it from a checkout box written for something else",
+          "Disclose what the recurring series actually is at the moment consent is collected: that it's automated, how often it will fire, and how to stop it - the specifics TCPA's \"clear and conspicuous\" consent standard looks for",
+          "Keep the reminder itself informational only - charge date, amount, a link to skip or manage the subscription - and route any upsell or cross-sell impulse into a separate marketing message with its own consent, instead of folding it into the billing reminder and pulling the whole message into the stricter marketing bar",
+          "Store the consent record itself - timestamp, exact language shown, and channel - somewhere it survives a later complaint, since defending a TCPA claim depends on producing that record, not on asserting a checkbox existed",
+          "Have counsel familiar with TCPA and the state-level mini-TCPA statutes review the specific consent language and send cadence before turning on automated renewal texts at scale - confirming the language once is far cheaper than defending a class action priced per message",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription doesn't send SMS and doesn't collect or manage SMS consent. A renewal reminder that goes out by text runs through a merchant's own SMS platform - Klaviyo's SMS channel, reached through AppFox's Shopify Flow integration, is the common path - triggered off the renewal-date data AppFox exposes for each subscription. That boundary matters here specifically: the consent question this post raises lives entirely on the SMS platform's side of that handoff, not inside AppFox, so wiring up the trigger doesn't change what a merchant still owes the subscriber before that trigger is allowed to fire.",
+      },
+      {
+        type: "p",
+        text: "What AppFox does put within reach is the renewal date itself, known precisely enough per subscription to drive a reminder that lands a consistent window before the exact charge, instead of a rough send window guessed from a billing cycle length. Once consent is scoped correctly on the SMS platform, that precision is what lets the reminder stay a single-purpose, informational message tied to one subscription's actual renewal - rather than a generic promotional send that happens to mention billing.",
+      },
+      {
+        type: "p",
+        text: "The candle merchant didn't do anything wrong wanting subscribers to know before a charge lands - that's good subscription hygiene, and it heads off exactly the kind of surprise-charge complaint that turns into a chargeback or worse. What went wrong was reaching for the SMS consent already sitting in checkout, built for a different purpose, instead of asking a subscriber once, plainly, for permission to text her about the recurring thing a subscription actually is. Scope the consent to the message, disclose the cadence, and keep the reminder itself informational - and a renewal text stops being the one line item a TCPA demand letter can point to.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-age-verification-doesnt-run-on-renewal",
     title: "Why Age Verification Doesn't Run on a Shopify Subscription's Renewal Order",
     excerpt:
