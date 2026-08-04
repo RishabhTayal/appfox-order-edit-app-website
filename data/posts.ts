@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-shipping-protection-doesnt-renew",
+    title: "Why Shipping Protection Doesn't Renew With a Shopify Subscription",
+    excerpt:
+      "A skincare subscriber adds Route protection to her first box the way the checkout widget offers it. Her fourth box goes missing in transit, and the claim comes back denied - the protection she paid for once was never rebought for a single renewal that came after it.",
+    category: "PLAYBOOK",
+    date: "2026-09-30",
+    author: "The AppFox Team",
+    metaTitle: "Why Shipping Protection Doesn't Renew With a Subscription | AppFox",
+    metaDescription:
+      "Shipping protection apps like Route, Corso, and Navidium sell coverage as a checkout add-on, priced and bought once per order - but a subscription renewal never passes through that checkout, so the protection a subscriber bought at signup doesn't ride along to any box after the first. Here's why, and how to close the gap.",
+    body: [
+      {
+        type: "p",
+        text: "A skincare brand's subscribers see the same checkout widget every other customer does: a small checkbox from their shipping-protection app, a dollar or two added to the order, coverage against a lost or damaged package. A subscriber signing up for her first box checks it without much thought - cheap insurance, one extra line on the receipt. Her first box arrives fine. Her fourth one doesn't; the tracking stalls in transit and never moves again. She opens a claim through the same protection app that covered her first order, certain the same dollar she's been quietly used to seeing has been covering every box since. The claim comes back denied. There's no protection policy on file for that order at all - or any of the three renewals between the first box and the one that went missing.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the denied claim is the protection app malfunctioning. Route, Corso, Navidium, and similar apps sell coverage the same way at every store that runs them: a widget or checkbox that appears on a live checkout page, priced as a small percentage of that one cart's value, bought as its own line item in that one transaction. It's built to intercept a shopper actively moving through checkout - the same kind of hook an age-verification modal or a post-purchase upsell uses. A subscription renewal doesn't create that hook. It's a billing engine charging a stored card and generating the resulting order directly, with no live checkout page for a protection widget to render on, because there's no checkout happening at all for the widget to attach to. The first box passed through checkout and saw the offer. Every renewal after it skips checkout entirely, and skips the offer with it.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't selling shipping protection as a checkout add-on instead of bundling it silently into every order - letting a customer opt in and see the line item is the more transparent design, and most protection apps are built around exactly that choice. The mistake is assuming a coverage decision made once, at signup, keeps applying to every box a subscription ships afterward, when the app that sold the coverage was never wired to see a renewal happen, let alone re-sell protection against it.",
+      },
+      { type: "h2", text: "Why coverage bought once doesn't carry to the boxes after it" },
+      {
+        type: "ul",
+        items: [
+          "A shipping-protection app hooks into a live checkout session - a widget rendered on the page, a fee added before payment - and has no equivalent hook into a billing engine's background renewal job, because that job never renders a checkout page at all",
+          "A subscription renewal order is typically created through an API call against a stored payment method, not through the storefront checkout a subscriber used at signup - so a protection app watching only for storefront checkout events never sees the renewal happen",
+          "The checkbox a subscriber ticked at signup answered a question about that one order - whether to insure that one shipment - not a standing instruction that re-applies itself to every future charge the same subscription generates",
+          "Nothing about a missing protection line item blocks the renewal or throws an error - the charge captures, the order confirms, and the box ships on schedule, because from the billing engine's side an unprotected renewal looks exactly like every protected one before it",
+          "A subscriber who keeps seeing \"protected\" language in her welcome email or her portal has no reason to re-check whether coverage is still there - the absence is invisible until the one moment it would have mattered",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The checkbox she ticked covered the box she was looking at. It was never in the room for the three that came after it.",
+      },
+      { type: "h2", text: "Why this lands harder than a missed upsell" },
+      {
+        type: "p",
+        text: "A missed upsell at renewal is lost revenue a merchant never sees; a missing protection policy is a promise a subscriber believes she's still paying for. She isn't tracking whether her subscription passed through a live checkout on any given cycle - she's tracking whether the box she paid for is covered if it doesn't show up, and the only signal she has is that she checked a box once and has kept getting billed the way she expected since. When a renewal box goes missing and the claim comes back empty, it doesn't read to her as a gap in how checkout-time apps and billing engines talk to each other. It reads as a company that quietly stopped honoring something she paid for, on exactly the box where honoring it would have mattered.",
+      },
+      {
+        type: "quote",
+        text: "A protection fee bought at checkout covers the order the app was watching when it sold it. A subscription renewal doesn't pass in front of that app again - so the coverage a subscriber thinks is standing doesn't renew with the box.",
+      },
+      { type: "h2", text: "Making protection follow every box, not just the first" },
+      {
+        type: "ol",
+        items: [
+          "Ask your shipping-protection vendor directly whether it has any hook into subscription renewal orders specifically - most are built and priced against one-time storefront checkouts, and a vendor's own answer here is more reliable than assuming",
+          "Where the vendor supports it, turn on a recurring or subscription-aware protection tier explicitly - a small but growing number now offer one - rather than treating the checkout widget as coverage that applies indefinitely once ticked",
+          "If no recurring option exists, decide deliberately whether the store self-insures renewal shipments, drops protection language from renewal-adjacent marketing, or discloses plainly that protection applies to the first order only - and pick one on purpose, rather than letting subscribers assume by default",
+          "Keep protection language in the customer portal and renewal emails accurate to what's actually covered on that specific order, not a copy-paste of the signup confirmation's promise",
+          "Where a subscriber disputes a denied claim on a renewal box, check whether protection was ever re-purchased for that order before assuming vendor error - a missing policy on a renewal is usually exactly this gap, not a processing mistake",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription creates every renewal as its own order through Shopify's own checkout and tax infrastructure, the same order pipeline a first-time purchase runs through - but a renewal, like any recurring charge against a stored payment method, isn't a live storefront session a shopper is sitting at, so a checkout-widget app like Route, Corso, or Navidium has nothing to render on when that order is created. That's true of AppFox's renewal orders the same way it's true of any subscription billing engine on Shopify; it isn't a gap specific to one app's implementation.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is sell, apply, or re-quote shipping protection itself - that's a function that belongs with a dedicated protection app and whatever recurring-coverage option that vendor does or doesn't offer, the same as it would for a store with no subscription program at all. Because every renewal is a distinct, ordinary Shopify order, a merchant is free to set portal and email copy that states plainly what's covered on each one - and that accuracy, not a workaround inside the billing engine, is what keeps a subscriber's expectations lined up with what she actually paid for on the box that matters.",
+      },
+      {
+        type: "p",
+        text: "The skincare subscriber didn't misunderstand anything when she ticked a protection checkbox on her first box - that's exactly what the widget was there for, and exactly what it covered. What went quiet was everything after it: three renewals that never passed the checkout the coverage was sold on, carrying a promise nobody re-made and nobody told her had lapsed. Confirm whether your protection vendor covers renewals at all, and set the copy to match whichever answer comes back - and a subscriber checking a box once stops meaning something different by the fourth box than it meant on the first.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-sms-renewal-reminder-tcpa-consent",
     title: "Why a Shopify Subscription SMS Renewal Reminder Needs Its Own Consent",
     excerpt:
