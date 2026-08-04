@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-age-verification-doesnt-run-on-renewal",
+    title: "Why Age Verification Doesn't Run on a Shopify Subscription's Renewal Order",
+    excerpt:
+      "A wine club checks ID at signup the way its age-verification app is built to: a modal at checkout, confirmed once. Three months later, the second bottle ships on a renewal charge that never passed through a checkout session at all - and neither did the age gate.",
+    category: "PLAYBOOK",
+    date: "2026-09-28",
+    author: "The AppFox Team",
+    metaTitle: "Why Age Verification Skips a Subscription Renewal | AppFox",
+    metaDescription:
+      "A Shopify age-verification app gates checkout - but a subscription renewal order is created by the billing engine, not a live checkout session, so the gate that ran at signup often never runs again. Here's why, and how to close the gap.",
+    body: [
+      {
+        type: "p",
+        text: "A three-bottle wine club based in Oregon sells its first shipment the normal way: a shopper lands on the product page, adds a subscription to cart, and hits an age-verification modal at checkout that asks her to confirm she's 21 before the order can be placed. She confirms, pays, and the first case ships with an adult-signature delivery requirement attached, exactly as the club's alcohol-shipping compliance setup requires. Ninety days later, her subscription renews. The stored card on file gets charged automatically, a new order appears in Shopify, and the second case goes out for fulfillment - without her ever seeing a checkout page, an age-verification modal, or any prompt to confirm anything at all. The renewal wasn't skipped past the age gate. It never passed anywhere near it.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the missing gate is a bug in the age-verification app or in the subscription's billing engine. An age-verification app built for Shopify - whether it's a checkout UI extension or a theme-level gate - is built to intercept a live storefront checkout: a shopper actively moving through cart and payment, on a session the app can attach a modal to and block until she answers it. A subscription renewal doesn't create that session. It's a billing engine charging a stored payment method on a schedule and generating the resulting order directly, the same way any recurring-billing system on Shopify has to work in order to charge a card without the customer sitting at checkout every cycle. There's no live checkout for the age gate to intercept, because there's no checkout happening at all - just an order appearing, already paid, on a clock nobody but the merchant is watching.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't running a subscription on stored-payment auto-renewal instead of asking a subscriber to check out fresh every cycle - that's the entire point of a subscription, and asking a shopper to re-enter her card every ninety days would defeat it. The mistake is assuming that because an age gate ran once, at signup, the compliance question it answered stays answered for every shipment that follows - when the gate itself was never built to run anywhere except a checkout page, and a renewal order is built specifically to skip that page.",
+      },
+      { type: "h2", text: "Why a gate that works at signup doesn't run again at renewal" },
+      {
+        type: "ul",
+        items: [
+          "An age-verification app hooks into checkout - a page load, a modal, a block on payment - and has no equivalent hook into a billing engine's background renewal job, because that job was never designed to render a checkout page at all",
+          "A subscription renewal order is typically created through an API call against a stored payment method, not through the storefront a shopper originally used - so any app that only listens for storefront checkout events never sees the renewal happen",
+          "The confirmation a shopper gave at signup answers a question about that moment - that she was of legal age then - not a standing attestation that updates or re-confirms itself on every future charge",
+          "Nothing about a skipped age gate throws an error or blocks the renewal - the charge succeeds, the order confirms, and the case ships on schedule, because from the billing engine's side a renewal is just another successful order like the two hundred before it",
+          "State alcohol-shipping rules that require an adult signature at delivery still apply to a renewal shipment exactly as they did to the first one - a missing checkout-time gate doesn't just create a technical gap, it can leave the shipment out of compliance with the rule the first order's gate was there to satisfy",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The gate did its job at signup. It was never in the room for the renewal at all.",
+      },
+      { type: "h2", text: "Why this reads as a compliance failure, not a technicality" },
+      {
+        type: "p",
+        text: "A state regulator or a carrier auditing an alcohol shipper's compliance doesn't ask whether an age gate ran once, three months ago, on a shopper's first order - it asks whether every shipment leaving the warehouse today has an adult confirming receipt at the door. A subscription program that verified age carefully at signup and then ships eleven more unverified renewals over the following year hasn't half-solved the problem; from a compliance standpoint, it's solved it once and then quietly stopped solving it eleven times in a row. The gap doesn't show up as a rejected order or a support ticket - it shows up, if it shows up at all, as a shipment that reached whoever happened to answer the door, with no gate anywhere in the chain that re-asked the question the first order asked.",
+      },
+      {
+        type: "quote",
+        text: "The first case shipped with an age gate and an adult-signature label. The second one shipped with neither - and nobody who built the renewal flow ever told it to check.",
+      },
+      { type: "h2", text: "Closing the gap between signup verification and renewal fulfillment" },
+      {
+        type: "ol",
+        items: [
+          "Treat age-restricted shipping compliance as a delivery-time control, not just a checkout-time one - require adult-signature confirmation from the carrier on every shipment for the subscription, renewal included, not only the first order a checkout-time gate happened to see",
+          "Don't rely on a checkout-page age-verification app to cover a subscription program by itself - confirm with the app's vendor whether it has any hook into renewal orders at all, since most are built against storefront checkout events specifically",
+          "Where state law requires it, re-confirm age on a recurring cadence rather than once at signup - some age-verification apps support a periodic re-check email or portal prompt separate from the checkout gate, which a subscription program should turn on deliberately rather than assume is automatic",
+          "Flag subscription products that are age-restricted distinctly in your product catalog, so shipping and fulfillment rules can apply an adult-signature requirement automatically to every order tagged that way, renewal orders included, instead of depending on someone remembering to attach it order by order",
+          "Review this with counsel or a compliance specialist familiar with alcohol, tobacco, or cannabis shipping rules in every state a subscriber lives in - the adult-signature-at-delivery requirement is usually the backstop that still holds even when a software gate doesn't run, and it's worth confirming it's actually configured, not assumed",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription creates every renewal as its own order through Shopify's own checkout and tax infrastructure, the same order pipeline a first-time purchase runs through - but a renewal, like any recurring charge against a stored payment method, isn't a live storefront session a shopper is sitting at, so a checkout-time age-verification app has nothing to attach a modal to when that order is created. That's true of AppFox's renewal orders the same way it's true of any subscription billing engine on Shopify; it isn't a gap specific to one app's implementation. Because every renewal is a distinct, ordinary Shopify order, a merchant's existing shipping and fulfillment rules - including an adult-signature delivery requirement configured at the carrier or fulfillment level - apply to it exactly as they would to any other order, whether or not a checkout-time gate ran on that particular cycle.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is perform, replace, or re-trigger age verification itself - that's a compliance function that belongs with a dedicated age-verification app, a periodic re-confirmation flow a merchant sets up deliberately, and delivery-time adult-signature requirements at the carrier, the same as it would for a store with no subscription program running at all. What creating each renewal as a standard, taggable Shopify order does solve is the harder half of that gap for a subscription business specifically: making sure a merchant's shipping rules - the adult-signature requirement chief among them - apply consistently to every renewal a subscription generates, not only to the first order that happened to pass through an interactive checkout gate.",
+      },
+      {
+        type: "p",
+        text: "The wine club didn't do anything wrong installing an age-verification app and confirming its first shipment carefully - that's exactly the control a compliance-minded merchant should have at checkout. What it missed was quieter: a gate built for a page a renewal never loads, on a shipment that still needs the same confirmation the first one got. Flag the product, attach adult-signature delivery to every order the subscription generates, and a compliance control that only ever fired once starts firing every time a case actually leaves the warehouse.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-economic-nexus-sales-tax-threshold",
     title: "Why a Shopify Subscription Program Can Quietly Cross a State's Economic Nexus Threshold",
     excerpt:
