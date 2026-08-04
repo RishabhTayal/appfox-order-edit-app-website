@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-economic-nexus-sales-tax-threshold",
+    title: "Why a Shopify Subscription Program Can Quietly Cross a State's Economic Nexus Threshold",
+    excerpt:
+      "A candle brand watches for the one big wholesale order that might trigger sales-tax nexus in a new state. Meanwhile 220 subscribers in that same state are each renewing monthly - and the transaction count from a subscription program can cross an economic nexus threshold years before a single large sale ever would.",
+    category: "PLAYBOOK",
+    date: "2026-09-27",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscriptions and Economic Nexus: The Threshold You're Not Watching | AppFox",
+    metaDescription:
+      "A Shopify subscription program can push a store past a state's economic nexus threshold - especially the transaction-count prong - long before revenue alone would. Here's why recurring renewals cross that line differently than one-time orders, and how to catch it before a state does.",
+    body: [
+      {
+        type: "p",
+        text: "A candle brand based in Ohio ships nationally through Shopify and keeps half an eye on sales-tax nexus the way most growing merchants do: watch for the one big order that might tip a new state over the line. When a $9,000 wholesale order from a Texas boutique comes in, the finance lead checks it against Texas's threshold, sees it's nowhere close on its own, and moves on. Nobody checks Illinois, because nothing about Illinois ever looked like the kind of state that trips a threshold - there's no single large order to flag. There's also, by the end of that same year, 220 separate subscribers there, each of them renewing once a month, each renewal its own completed transaction. The revenue from all of them combined is modest. The transaction count is not, and a state that counts transactions the way Illinois once did doesn't care whether they came from one $80,000 order or from 2,640 renewals of $28 apiece.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a failure to watch for nexus - the brand is watching, just at the wrong shape of number. Economic nexus, the standard every state adopted in some form after South Dakota v. Wayfair, requires an out-of-state seller to register and collect sales tax once its activity in that state crosses a threshold the state itself sets. Most merchants think of that threshold as a revenue figure, because a revenue figure is the number a single large sale can visibly approach. A meaningful share of states also count separate transactions, not just dollars - and a subscription program manufactures transactions in a way a one-time storefront simply doesn't. One subscriber signing up once produces twelve renewals a year, twelve line items against whichever threshold that state uses, from a single sale nobody would ever flag as risky.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't running a subscription program into a new state, and it isn't failing to track sales tax - most merchants do both carefully. The mistake is sizing nexus risk by the kind of order that's easy to notice - one large, one-time sale - when a recurring program crosses the same line through volume instead, a shape of growth that doesn't produce a single transaction anyone would think to check.",
+      },
+      { type: "h2", text: "Why a subscription program crosses the line differently" },
+      {
+        type: "ul",
+        items: [
+          "A revenue threshold treats every dollar the same regardless of how many orders it came from - a subscription program's dollars just tend to arrive in smaller, more frequent pieces than a wholesale or one-time-order business's do",
+          "A transaction-count threshold, where a state still applies one, treats every completed order the same regardless of size - and a subscriber who renews monthly for a year contributes twelve counted transactions from a single signup, not one",
+          "Thresholds and which prongs apply are set and revised by each state on its own timeline - some have dropped a transaction-count test in recent years, others still run it alongside a revenue figure, and a program that's clear in a state today isn't guaranteed to stay clear if that state's rules change",
+          "Nexus is evaluated per state, using each state's own look-back period - a subscriber base spread across many states rarely trips one threshold dramatically, it quietly approaches several at once",
+          "None of this shows up as a single alarming order - a wholesale spike is visible in an order list the moment it lands, but two hundred renewals accumulating over a year look, transaction by transaction, exactly like ordinary recurring revenue",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A big order is easy to notice crossing a threshold. Two hundred small ones crossing the same threshold look, individually, like nothing at all.",
+      },
+      { type: "h2", text: "Why the merchant is usually the last one watching" },
+      {
+        type: "p",
+        text: "Shopify doesn't stop a renewal because it happens to be the transaction that pushes a state's count over its limit - the charge captures, the order confirms, and the subscriber's box ships exactly the way the two hundred and nineteen before it did. There's no moment in the flow that looks different from the outside, no warning surfaced to the merchant, because from the platform's side every renewal is just another successful order. The gap only becomes visible later, and usually from the outside in - a state notice, an accountant's year-end nexus study, a marketplace facilitator report that finally totals up a full year of small transactions into one number large enough to notice. By then, registration is often already overdue, and the exposure has been accumulating quietly the entire time a merchant was correctly watching for a different kind of order altogether.",
+      },
+      {
+        type: "quote",
+        text: "The wholesale order that never came close to the threshold got checked. The two hundred and twenty renewals that quietly cleared it never looked like anything worth checking at all.",
+      },
+      { type: "h2", text: "Catching a subscription program's nexus exposure before a state does" },
+      {
+        type: "ol",
+        items: [
+          "Pull subscriber and order counts by shipping state, not just revenue by state - a transaction-count threshold needs the count, and revenue-only reporting won't surface it",
+          "Treat a subscription program's per-state numbers as a running total that grows every renewal cycle, not a figure to check once after a launch - a state that was clear at 50 subscribers can close in at 220 without any single big signup marking the moment",
+          "Review exposure by state on a recurring schedule, not just when a large one-time order prompts someone to check - the states most likely to catch a merchant off guard are the ones no single order ever flagged",
+          "Use a sales-tax automation tool (Avalara, TaxJar, or Shopify Tax's own nexus tracking) that reads transaction counts as well as revenue, since a revenue-only view will systematically undercount a subscription-heavy business's real exposure",
+          "When a state is approaching either prong of its threshold, loop in a tax advisor before registering rather than after a notice arrives - the registration and collection setup takes time a state's notice period doesn't always allow for",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription creates every renewal as its own order through Shopify's own checkout and tax infrastructure, so whatever sales-tax setup a merchant has configured - Shopify Tax, Avalara, or another provider - applies to a renewal exactly the way it applies to a first-time purchase, with nothing about the recurring billing pipeline bypassing or duplicating that calculation. Subscription analytics on the Growth plan and above break active subscriptions and renewal volume out by market, so a merchant checking exposure isn't stuck reading it out of a raw order export - the per-region counts a nexus review actually needs are already there to pull.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is track economic nexus thresholds itself or tell a merchant when a state is close - threshold monitoring and registration are tax-compliance functions that belong with Shopify Tax, a dedicated provider like Avalara or TaxJar, or a merchant's own tax advisor, the same as they would for a store with no subscription program at all. What AppFox's per-market reporting solves is the harder half of that problem for a recurring-revenue business specifically: seeing renewal volume by state as its own number, not folded invisibly into an overall revenue total, so a transaction count with real exposure behind it doesn't stay hidden until a state finds it first.",
+      },
+      {
+        type: "p",
+        text: "The candle brand didn't do anything wrong watching its wholesale orders for nexus risk - a $9,000 order is exactly the kind of thing worth checking against a threshold. What it missed wasn't a mistake so much as a blind spot: two hundred and twenty subscribers, each renewing quietly once a month, adding up to a transaction count no single order ever represented. Pull the per-state numbers a subscription program actually produces, and a threshold that would otherwise be crossed silently gets caught while there's still time to register for it on purpose.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-portal-next-billing-date-timezone",
     title: "Why a Shopify Subscriber's Portal Can Show the Wrong Next-Billing Date",
     excerpt:
