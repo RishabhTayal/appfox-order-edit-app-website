@@ -30,6 +30,77 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-cant-fall-back-to-a-backup-card",
+    title: "Why a Shopify Subscription Can't Fall Back to a Backup Card",
+    excerpt:
+      "A subscriber's renewal fails on an expired Visa. She has a Mastercard on file with a different retailer that would have worked fine - but Shopify's subscription contract only knows about the one card it was created with, and nothing about a failed renewal reaches for a second option.",
+    category: "PLAYBOOK",
+    date: "2026-10-04",
+    author: "The AppFox Team",
+    metaTitle:
+      "Why a Shopify Subscription Can't Fall Back to a Backup Card | AppFox",
+    metaDescription:
+      "A Shopify subscription contract stores exactly one payment method, so a failed renewal has nothing to retry against but the same card that just declined. Here's why backup cards aren't native to Shopify subscriptions, and how to recover the charge without one.",
+    body: [
+      {
+        type: "p",
+        text: "A skincare subscriber's renewal runs on the second of every month against a Visa that expired on the first. The charge declines. She has a Mastercard she uses for nearly everything else - the same card that renewed her gym membership and her streaming plan without a hiccup that same week - but her Shopify subscription never asks about it. The merchant's smart-retry logic tries the Visa again three days later, then again five days after that, then gives up and sends a dunning email asking her to update her payment method. The Mastercard sat in her wallet the entire time, perfectly capable of covering the charge, and nothing in the subscription's billing flow ever had a way to reach for it.",
+      },
+      {
+        type: "p",
+        text: "This isn't a retry schedule that gave up too early. A Shopify subscription contract is built around a single stored payment method - one tokenized reference to one card, captured at checkout and reused for every renewal after it. Smart retries, when a merchant has them configured, reattempt the charge against that same instrument on a spaced-out schedule, because retrying is exactly what the mechanism is designed to do: try the one card again, on the theory that an insufficient-funds decline today might clear by next week. Nothing about a subscription contract holds a second card in reserve, and nothing about a decline event asks the customer, mid-renewal, whether they'd like to try a different one. The contract doesn't have a concept of \"backup\" to fall back to - it has one payment method, and a schedule for asking that same method again.",
+      },
+      { type: "h2", text: "Why there's no second card to fall back to" },
+      {
+        type: "ul",
+        items: [
+          "A subscription contract stores one payment method reference, set at the checkout that created it - there's no array of cards on a contract, just the single instrument every renewal bills against",
+          "Smart retries reattempt the same declined charge on a schedule (often a few days apart, several attempts) because that's what the feature is built to do - it's a retry mechanism, not a routing decision between multiple funding sources",
+          "The card network's account updater can silently refresh an expired or reissued card's number and expiry behind the scenes for participating issuers, which resolves a large share of expiration declines automatically - but it updates the one card on file, it doesn't add a different one",
+          "Adding a second payment method to a subscription is a customer-initiated action in the portal, not something a failed renewal can trigger on its own - nothing about a decline event pauses the billing run and asks \"try a different card instead?\"",
+          "Because the fallback has to be requested rather than offered automatically, a subscriber with a perfectly good second card can still end up in the same dunning sequence as someone with no working card at all",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A retry schedule assumes the same card will eventually work. It has no branch for \"try the other one.\"",
+      },
+      { type: "h2", text: "What a missing backup card actually costs" },
+      {
+        type: "p",
+        text: "Expired-card declines are the easiest kind of involuntary churn to prevent and the easiest to get wrong anyway, because the fix looks automatic until it isn't. Account updater quietly resolves a meaningful share of them without anyone noticing - which is exactly why the ones it misses are so easy to lose. A subscriber whose issuer doesn't participate in updater, or whose new card number genuinely changed rather than just its expiry, gets the same three-attempt retry schedule as everyone else, running against a card that was never going to clear. By the time the dunning email lands, she's had a week of \"payment failed\" language pointed at a card she may not even remember using for this subscription - while a card that would have worked sat untouched the entire time, one field away from being useful.",
+      },
+      {
+        type: "quote",
+        text: "Retrying a declined card five times and asking for a backup card once are not the same recovery strategy - only one of them gives a subscriber with a working second card any way to use it.",
+      },
+      { type: "h2", text: "Recovering the charge without a native backup card" },
+      {
+        type: "ol",
+        items: [
+          "Confirm account updater is enabled wherever the merchant's payment provider offers it - it's the one piece of this that runs automatically, and it's worth checking rather than assuming it's already on",
+          "Send the first dunning message as soon as the decline happens, not after retries are exhausted - a subscriber who still has a few days before the next attempt has time to act instead of finding out after the fact",
+          "Put the update-payment-method link front and center in that email and point it straight at the portal, since adding a second card has to be a customer action - the shorter the path, the more likely she takes it before the retry schedule runs out",
+          "Don't let the dunning copy assume the failure is the customer's fault or that no card works - \"your card on file didn't go through\" invites an update in a way that implied blame doesn't",
+          "Watch decline reasons separately from decline counts - a spike in expired-card declines specifically is a signal account updater coverage has a gap worth investigating, not just a retry-timing problem",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's dunning sequence is built around the reality that a contract has exactly one payment method and no automatic way to reach for a second one: a decline triggers a scheduled email sequence that puts the portal's update-payment-method flow in front of the subscriber immediately, rather than waiting until retries are exhausted to say anything. The portal lets a subscriber replace the card on file in one step, which is the same action a native backup card would have needed anyway - the difference is in how early and how clearly the subscription asks for it.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is store a second card against a contract and choose between them at renewal - that would mean holding payment credentials Shopify's own subscription contract was never built to reference, which creates exactly the kind of drift between what AppFox shows and what Shopify's checkout actually charged that a subscription app should avoid. The fix AppFox ships is getting the ask to the subscriber faster and more clearly, not inventing a fallback mechanism the contract itself doesn't support.",
+      },
+      {
+        type: "p",
+        text: "The skincare subscriber's Mastercard was never going to save that renewal on its own - nothing about a Shopify subscription contract would have reached for it without being asked. What closes that gap isn't a smarter retry schedule against the same expired Visa, it's getting the request for a different card in front of her before the third attempt fails too. A dunning sequence that asks early and asks clearly turns a card she forgot to update into a card she swaps in before the subscription ever lapses.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-personalization-never-updates",
     title: "Why a Shopify Subscription's Personalization Never Updates",
     excerpt:
