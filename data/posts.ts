@@ -30,6 +30,78 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-tiktok-shop-instagram-checkout",
+    title: "Why a Shopify Subscription Can't Be Sold Through TikTok Shop or Instagram Checkout",
+    excerpt:
+      "A skincare brand's best-performing TikTok ad sends shoppers straight to a product with a subscribe-and-save plan attached. Every one of those orders comes back as a one-time purchase. TikTok Shop and Instagram checkout never hand the sale to Shopify's own checkout, and that's the only place a subscription contract gets created.",
+    category: "GUIDE",
+    date: "2026-10-02",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Subscription Can't Sell on TikTok Shop | AppFox",
+    metaDescription:
+      "TikTok Shop and Instagram/Facebook checkout run their own in-app checkout, not Shopify Checkout - so a Shopify subscription's selling plan never attaches there. Here's why, and how to still convert that traffic into subscribers.",
+    body: [
+      {
+        type: "p",
+        text: "A skincare brand's highest-converting ad on TikTok points straight at a vitamin-C serum that's set up with a subscribe-and-save plan on the product page: 15% off, ships every 45 days, cancel anytime. The ad is doing exactly what it's supposed to - a shopper taps the product tag, lands on the listing inside the TikTok app, and buys. The order lands in Shopify a minute later, clean and paid. It's a one-time purchase. Not one of the hundreds of orders that came in through that ad carries the subscription discount, the recurring schedule, or a link to the customer portal where she'd manage it. The brand's team spends a week convinced the widget is broken on that traffic source specifically, before finding out it was never in a position to run at all.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is the subscribe-and-save widget failing to load or TikTok Shop mishandling the order. A Shopify subscription is a contract created at Shopify's own checkout, the moment a shopper selects a selling plan and Shopify vaults the payment method that future renewals will charge automatically. TikTok Shop and Instagram/Facebook checkout are not that checkout - they're each platform's own in-app purchase flow, built so a shopper never has to leave the app to complete a sale. An order placed there syncs back into Shopify afterward as a completed sale on the TikTok Shop or Facebook & Instagram sales channel, the same way a marketplace order would. By the time Shopify sees it, the purchase has already happened somewhere the selling-plan picker was never present to be selected, and the vaulting step a subscription depends on never ran.",
+      },
+      {
+        type: "h2", text: "Why the checkout on TikTok or Instagram can't create the contract",
+      },
+      {
+        type: "ul",
+        items: [
+          "A Shopify subscription contract is created specifically at Shopify Checkout, where a selling plan is selected and a payment method is vaulted for future, unattended charges - it isn't a property of the product, it's an event that has to happen at that checkout",
+          "TikTok Shop and Instagram/Facebook checkout are separate, platform-owned checkouts - orders sync into Shopify as completed sales through the channel integration, arriving after the fact rather than passing through Shopify's checkout at all",
+          "Because no selling plan was ever presented or chosen, there's no discount, no recurring schedule, and no vaulted payment method attached to the order Shopify receives - it's indistinguishable from a shopper who only ever wanted the product once",
+          "The customer portal a subscriber uses to skip, pause, or swap only exists for contracts created through Shopify's own checkout - a sale that never touched that checkout has no contract for the portal to attach to",
+          "This isn't a gap either platform is likely to close soon - each social checkout is built to keep the entire purchase inside its own app, which is the opposite design goal of handing the sale off to a third party's checkout to run a subscription contract",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The ad did its job and sent a buyer straight to the subscription product. The checkout that closed the sale was never the one that knows how to start a subscription.",
+      },
+      { type: "h2", text: "Why this is worse than a missed discount" },
+      {
+        type: "p",
+        text: "A shopper who meant to subscribe and got charged once isn't likely to notice or complain - she paid a fair one-time price and got the product. The cost shows up on the merchant's side, at scale, in a channel that's often the newest and fastest-growing part of the funnel. Every dollar of ad spend sending traffic to a subscription product through TikTok Shop or Instagram checkout is buying one-time customers when the campaign was priced and targeted to buy subscribers - the LTV math behind the ad budget assumes a recurring customer that this channel structurally can't produce. Worse, there's no error and no bounce to flag it: the order looks completely normal in Shopify, so nothing in reporting distinguishes a lost subscriber from a shopper who only ever wanted one bottle.",
+      },
+      {
+        type: "quote",
+        text: "A conversion is only worth what the campaign priced it for. If TikTok Shop and Instagram checkout are quietly turning every subscriber into a one-time buyer, the ad account is still hitting its conversion goal - it's just hitting the wrong one.",
+      },
+      { type: "h2", text: "How to still get the subscriber out of that traffic" },
+      {
+        type: "ol",
+        items: [
+          "Route subscription-product ads to the Shopify online store listing instead of native in-app checkout where the platform allows it - both TikTok and Meta support sending traffic to an external product page rather than closing the sale in-app, which puts the shopper back at Shopify's own checkout",
+          "Where native checkout can't be avoided - TikTok Shop's US fulfillment model often requires it - treat that channel as a one-time-purchase acquisition source on purpose, and build the subscription pitch into what happens after: packaging insert, post-purchase SMS, or an email flow offering the subscribe-and-save discount on a second order",
+          "Tag orders from each social checkout by sales channel in Shopify so subscription conversion rate can be reported separately from the online store - blending the numbers hides exactly the gap that matters",
+          "If a landing-page workaround is in play, make the subscription discount and the one-time price visibly different on that page, so the shopper choosing to click through to the website is choosing it because it's worth more, not stumbling into an extra step",
+          "Don't wire a saved card from a TikTok Shop or Instagram order into a recurring charge outside Shopify's own subscription infrastructure to fake the contract - it skips the customer's actual consent to future billing and creates a subscription with no portal, no dunning, and no legitimate way for her to cancel it",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's contracts are created through Shopify's own checkout and held in Shopify's native subscription infrastructure - the same checkout the subscribe-and-save widget sends a shopper to from a product page. That's what makes the customer portal, auto-renewal, and dunning all work the same way regardless of which product page a subscriber signed up from. It also means AppFox has no way to reach into TikTok Shop's or Instagram's own checkout and attach a selling plan there - that boundary belongs to the social platform's checkout, not to any app sitting on top of Shopify.",
+      },
+      {
+        type: "p",
+        text: "What AppFox does help with is everything on the Shopify side of that boundary: a subscribe-and-save widget that works identically whenever a shopper does land on the actual product page, and a portal and renewal engine ready the moment she does. Pairing that with links that send social traffic to the online store rather than in-app checkout - and a follow-up flow for the orders that can't avoid it - is what turns a channel that currently converts subscribers into one-time buyers back into one that converts them into subscribers.",
+      },
+      {
+        type: "p",
+        text: "The skincare brand's ad never stopped working - it's still putting the right product in front of the right shopper at the right moment. The fix wasn't in the ad or the widget; it was routing that traffic to the one checkout that can actually start the plan being advertised. Know which checkout a sale is closing on before spending to send subscription traffic there, or a campaign built to grow recurring revenue will keep quietly buying one-time orders instead.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-renewal-orders-dont-pay-affiliate-commission",
     title: "Why Affiliate Commission Doesn't Follow a Shopify Subscription's Renewal Orders",
     excerpt:
