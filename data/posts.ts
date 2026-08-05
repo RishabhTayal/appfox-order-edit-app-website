@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-personalization-never-updates",
+    title: "Why a Shopify Subscription's Personalization Never Updates",
+    excerpt:
+      "A subscriber's name, initials, or custom message gets typed in once at signup - then printed, engraved, or embroidered on every renewal after it, exactly as first written. The customer portal can skip, pause, swap, or cancel. It has no button for \"fix what it says on the box.\"",
+    category: "PLAYBOOK",
+    date: "2026-10-03",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Subscription's Personalization Never Updates | AppFox",
+    metaDescription:
+      "A Shopify subscription's custom text - a name, initials, a dedication - is stored once as a line item property and copied onto every renewal unchanged. Here's why the portal can't edit it, and how to give subscribers a real way to fix it.",
+    body: [
+      {
+        type: "p",
+        text: "A personalized-stationery brand runs a monthly card subscription: every mailer prints the subscriber's name at the top, the way a return address would. A subscriber signs up as \"Sarah Chen,\" gets married eight months in, and wants next month's box to read \"Sarah Chen-Ruiz\" instead. She opens the customer portal expecting to find the same kind of field she used at signup - somewhere to type the new name and save it. The portal lets her skip a delivery, pause the subscription, swap the card style, update her card on file, change her address. Nowhere does it let her touch the one piece of text the entire product is built around. She emails support instead, a person fixes it by hand in Shopify admin, and the fix holds for exactly one renewal before the question comes up again the next time anything about her name or her order needs to change.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is the portal missing a feature it meant to ship. A Shopify subscription contract stores personalization - a name, initials, a dedication line, a gift message - as a line item property attached to the plan, and that property gets copied forward onto every renewal order exactly as it was written the day the subscription started. Skip, pause, swap, frequency, payment method, and shipping address are all first-class actions on a subscription contract, with native fields Shopify's own customer-account and portal APIs expose for exactly this kind of self-service edit. A custom line item property isn't one of those fields. It's freeform text a merchant's checkout captured once and Shopify's billing engine has been faithfully reproducing ever since, with no native action anywhere in the subscription lifecycle that lets a customer - or, in most setups, even the merchant - reach back in and change it after the fact.",
+      },
+      { type: "h2", text: "Why the portal can edit everything except this" },
+      {
+        type: "ul",
+        items: [
+          "Shopify's subscription contract API models skip, pause, swap, frequency, payment method, and shipping address as native, first-class fields on the contract - built for exactly this kind of self-service change, which is why a customer portal can expose an action for each of them without custom engineering",
+          "A personalization string is a line item property, not a contract field - it's the same mechanism a gift note or an engraving instruction uses on a one-time order, just captured once at the checkout that created the subscription instead of per order",
+          "A renewal doesn't re-run checkout or ask any questions again - Shopify's billing engine builds each new order directly from the contract's stored line, properties included, the same way it copies forward the product and the price",
+          "Because there's no native \"edit this contract's line item properties\" action, giving a subscriber a way to change personalization requires a merchant to build that path deliberately - it doesn't come for free the way skip or pause does",
+          "The gap is invisible until someone actually needs it - a subscription with personalization that never has to change looks identical, in the portal, to one where it silently can't",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The portal can move a renewal date, a card, and an address without a ticket. It has no field at all for the one thing printed on the product.",
+      },
+      { type: "h2", text: "What a frozen personalization field actually costs" },
+      {
+        type: "p",
+        text: "A one-time personalized order that's wrong gets fixed once, by whoever caught the typo, and it's over. A subscription repeats the same mistake on a schedule. A misspelled name at signup doesn't cost one bad box - it costs every box until somebody notices and a human intervenes, and if that intervention only edits the order in front of them rather than the contract's stored line, the fix quietly expires at the next renewal. Multiply a small error rate across a subscriber base that renews monthly for a year, and \"personalization never updates\" stops being one awkward email and turns into a standing stream of support tickets that all resolve the same way: manually, on a cadence nobody chose, for a problem the product should have let the subscriber fix herself in thirty seconds.",
+      },
+      {
+        type: "quote",
+        text: "Skip, pause, and swap all assume a subscriber might want something different next cycle. Personalization is the one field on the whole contract nobody built that assumption into.",
+      },
+      { type: "h2", text: "Giving a subscriber a real way to fix it" },
+      {
+        type: "ol",
+        items: [
+          "Decide, before launch, whether personalization is even meant to change - a subscription anchored to a fixed fact (a birth year, a wedding date already engraved) is a different product decision than one anchored to a fact that can drift (a name, a nickname, a household)",
+          "Where it should be editable, build the update path deliberately - a form in the portal, a Shopify Flow triggered from a support request, or a scheduled email that asks subscribers to reconfirm personalization ahead of a renewal - since no native contract action does this automatically",
+          "If a fix is made by hand in Shopify admin, edit the subscription contract's stored line item, not just the next order in the queue - patching the order fixes one box and leaves the contract to repeat the same mistake next cycle",
+          "Say so at signup, in plain language, if personalization can't be changed after checkout - a subscriber who knows that going in double-checks the spelling herself instead of assuming a portal she hasn't opened yet will let her fix it later",
+          "Track how often support tickets are personalization changes specifically, not folded into a general \"account update\" bucket - a cluster of them is the signal that a manual fix has quietly become a standing cost worth solving with a real feature instead",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's customer portal covers the actions Shopify's own subscription contract models natively - skip a delivery, pause, swap the product, change frequency, update the card or shipping address, cancel - each backed by a real field on the contract, which is what lets a subscriber make the change herself instead of emailing support. Custom line item properties, personalization included, sit outside that set: they're captured at whatever checkout or theme customization collected them in the first place, and neither Shopify's subscription API nor AppFox's portal expose a native action to edit them on an existing contract. That's a real boundary, not an oversight - AppFox doesn't maintain a separate personalization layer alongside Shopify's own contract data, because doing so would mean the portal's answer for \"what does this subscription say\" could drift from what Shopify's checkout and order records actually show.",
+      },
+      {
+        type: "p",
+        text: "What that means in practice: a merchant selling a personalized subscription should plan for how a subscriber updates that text before the first order ever ships, since the portal's skip, pause, and swap actions won't create that path on their own. A Shopify Flow triggered off a support tag, a small custom form outside the portal, or simply a clear policy that personalization is fixed at signup are all reasonable answers - the wrong answer is discovering the gap the same way the stationery brand did, one manually patched order at a time.",
+      },
+      {
+        type: "p",
+        text: "Sarah Chen didn't do anything unusual asking to update her name after getting married - it's exactly the kind of change a portal built for skip, pause, and swap should feel equipped to handle. What she ran into wasn't a broken feature, it was a feature nobody had decided to build, because personalization was never modeled as something a contract expects to change. Decide that answer before a subscriber has to ask for it by email, and a name change stops being a ticket that resurfaces every renewal and starts being a form that closes itself out in one visit.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-tiktok-shop-instagram-checkout",
     title: "Why a Shopify Subscription Can't Be Sold Through TikTok Shop or Instagram Checkout",
     excerpt:
