@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-renewal-orders-dont-pay-affiliate-commission",
+    title: "Why Affiliate Commission Doesn't Follow a Shopify Subscription's Renewal Orders",
+    excerpt:
+      "An UpPromote affiliate is promised commission for as long as her referral stays subscribed. The subscriber is four boxes in and still auto-renewing - but the affiliate's dashboard has shown one paid commission since January. The referral link was never in the room for a renewal, because a renewal never passes through checkout.",
+    category: "PLAYBOOK",
+    date: "2026-10-01",
+    author: "The AppFox Team",
+    metaTitle: "Why Affiliate Commission Doesn't Follow a Subscription Renewal | AppFox",
+    metaDescription:
+      "Affiliate and referral apps like UpPromote, Refersion, and Social Snowball attribute commission at checkout, off a referral cookie - not on a Shopify subscription's renewal orders, which never pass through checkout. Here's why \"recurring commission\" quietly stops after the first box, and how to close the gap.",
+    body: [
+      {
+        type: "p",
+        text: "A protein-powder subscription brand recruits affiliates with a simple pitch: promote the box, and earn ten percent commission for as long as the customer you referred stays subscribed. It's the pitch that gets serious affiliates to promote a subscription over a one-time product in the first place - recurring commission for one piece of content, instead of a single payout that never repeats. An affiliate sends a subscriber in January and gets paid on that first box, right on schedule. By April the subscriber is four renewals in, still active, still charged automatically every month without incident. The affiliate's dashboard shows exactly one paid commission, from January, and nothing since. She emails asking why a program built on \"recurring\" commission stopped paying her after the first box.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is the affiliate platform malfunctioning or the merchant shorting anyone on purpose. UpPromote, Refersion, Social Snowball, and GoAffPro all attribute a sale the same way: a referral cookie or URL parameter has to be present when a shopper arrives at a live checkout session, and the commission gets calculated once, off that one checkout's order-created or order-paid webhook, then written to a ledger against that specific order. That machinery is built entirely around a shopper actively landing on checkout with a referral link attached. A subscription renewal is a billing engine charging a stored payment method directly, with no shopper arriving at anything - no page load, no referral cookie to read, no checkout session for the tracking script to sit on. The renewal order still exists and still fires Shopify's normal order webhooks, so the affiliate app can see an order happened. It just carries no referral data at all, because nothing that would have attached it was ever in the room.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't an affiliate app tracking checkout-time referrals instead of tracking every order a referred customer ever generates - that's the standard model, and it's the right one for one-time purchases too. The mistake is a merchant advertising \"recurring commission\" as a subscription-affiliate program feature when the tracking layer underneath was only ever wired to see the first checkout, never the renewals that are the entire reason a subscription-affiliate program is worth more than a one-time-product one.",
+      },
+      { type: "h2", text: "Why a referral link only ever gets credit once" },
+      {
+        type: "ul",
+        items: [
+          "Affiliate attribution is cookie- or URL-parameter-based, tied to a shopper arriving at a live checkout session - a renewal has no arrival, no cookie, and no URL to read a referral code from",
+          "The commission is calculated and written once, against that first order's ID, at the moment of attribution - there's no standing link from an affiliate to the customer that a later, unrelated renewal order can be checked against, only a link to that one original order",
+          "A renewal order still exists and still fires Shopify's standard order webhooks, so nothing looks broken from the merchant's side - the order simply carries no referral metadata, and the affiliate app has nothing to attribute it to",
+          "Whether a program pays commission once or on every renewal is a business decision the merchant makes when setting affiliate terms - the tracking layer underneath doesn't know or enforce which one was promised",
+          "An affiliate has no visibility into whether the customer they referred is still active, paused, or canceled - their dashboard only ever shows the orders the tracking script actually saw, which stops at the first one",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The referral link got full credit for the box it was standing next to. It was never in the room for the eleven renewals that came after it.",
+      },
+      { type: "h2", text: "Why this costs more than one missed payout" },
+      {
+        type: "p",
+        text: "A subscriber not noticing a missed commission is a merchant's problem alone; an affiliate not getting paid is a channel-wide problem. Top affiliates run the numbers on what they're promoting, and a program that advertises recurring commission but pays out once is a discrepancy they're positioned to notice fast - then either raise a dispute that eats support time, or quietly stop promoting the brand and say why in the same private groups and forums where affiliates compare notes on which programs actually pay what they claim. A single subscriber's missed renewal commission is a few dollars. An affiliate program's reputation for paying what it advertises is the whole reason anyone with an audience worth having agrees to promote a subscription box over a one-time product at all.",
+      },
+      {
+        type: "quote",
+        text: "An affiliate promoting a subscription box on a promise of recurring commission is banking on every renewal paying out the way the first one did. If the tracking underneath only ever saw that first checkout, the gap isn't a technicality to the affiliate - it's the pitch not being true.",
+      },
+      { type: "h2", text: "Making recurring commission actually recurring" },
+      {
+        type: "ol",
+        items: [
+          "Ask the affiliate platform directly whether it has a subscription-aware or recurring-commission mode that attributes by customer or subscription ID rather than by checkout session - UpPromote and Social Snowball both offer versions of this, but it typically has to be turned on explicitly rather than assumed",
+          "If no recurring-attribution mode exists, decide and disclose plainly to affiliates whether the program pays on signup only - don't leave \"recurring commission\" language live in affiliate marketing if the tracking underneath can't actually deliver it",
+          "Where a subscription-aware mode does exist, confirm it fires off the renewal order's own webhook specifically, not just the original checkout, before turning it on and promising affiliates it's active",
+          "Build a manual reconciliation habit for your highest-value affiliates in the meantime - a periodic export of active subscribers matched back to their original referral source - rather than waiting for an affiliate to notice the gap and raise it first",
+          "When an affiliate disputes a missing renewal commission, check first whether the platform has any subscription-tracking mode at all before treating the report as a calculation error on a single order",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription creates every renewal as a standard Shopify order through the same native checkout and billing infrastructure a first-time purchase runs through - not a side ledger or a workaround the rest of a store has to be specially taught to read. That's what makes each renewal a real order carrying real Shopify webhooks that a merchant's other apps can react to, the same way any ordinary order does.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is run affiliate attribution itself - that's a function that belongs to whichever affiliate or referral platform a store runs, the same as it would without a subscription program at all. Because every renewal is an ordinary Shopify order, a merchant can point their affiliate app at those renewal events directly, once they've confirmed with that vendor whether its tracking is scoped to the checkout session alone or built to follow a customer across renewals. That confirmation - not a workaround inside the billing engine - is what keeps a program's \"recurring commission\" promise and the tracking that's supposed to pay it actually lined up.",
+      },
+      {
+        type: "p",
+        text: "The subscriber in the protein-powder example didn't do anything differently in April than she did in January - she just kept renewing the way the subscription was designed to work. The referral link that earned commission on her first box never disappeared; it was simply never in the room again to see the renewals that made her a genuinely valuable ongoing referral instead of a one-time sale. Confirm what an affiliate program actually tracks before promising it pays for the life of a subscription - otherwise a promise made to your best affiliates quietly stops being true right around their referred customers' fourth or fifth billing cycle.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-shipping-protection-doesnt-renew",
     title: "Why Shipping Protection Doesn't Renew With a Shopify Subscription",
     excerpt:
