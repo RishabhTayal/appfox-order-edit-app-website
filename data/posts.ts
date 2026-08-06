@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edits-dont-auto-charge-every-payment-gateway",
+    title: "Why a Shopify Order Edit Can't Auto-Charge Every Payment Gateway",
+    excerpt:
+      "Two customers swap into the same pricier variant on the same store. One sees the new total settle instantly. The other gets an email asking them to pay the difference separately - not because anything about the edit changed, but because of which gateway processed their original checkout.",
+    category: "PLAYBOOK",
+    date: "2026-10-08",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Order Edit Can't Auto-Charge Every Payment Gateway | AppFox",
+    metaDescription:
+      "Raising an order's total mid-edit is a payment operation, not just a data change - and only some payment gateways let Shopify capture that difference automatically. Here's why order-edit auto-charge depends on the gateway, and how to handle it without guessing order by order.",
+    body: [
+      {
+        type: "p",
+        text: "Two customers open the same order-edit link the same afternoon and make the same change - a swap into a pricier colorway, ten dollars more than what they already paid. The first one sees a new total, a confirmation screen, and a receipt for the ten dollars a few seconds later. The second one sees the same confirmation screen, then an email a few minutes after that asking them to click a separate link and pay the ten dollars there, because the charge couldn't go through automatically. Same store, same edit type, same price difference. The only thing that was ever different between the two orders is which payment gateway processed the original checkout.",
+      },
+      {
+        type: "p",
+        text: "That's not a bug in the edit flow, and it isn't inconsistent app behavior either. Changing what's on an order - a different variant, a different quantity - is a data operation, and Shopify's Order Editing API can make that change on any order regardless of how it was paid for. Charging more for it is a different kind of operation entirely. It's a payment instruction, and payment instructions run through whatever gateway captured the original transaction, not through Shopify itself. Some gateways can be told, after the fact, to charge a little more against the same payment method. Most can't. The edit flow isn't guessing when it treats those two orders differently - it's reporting back exactly what each gateway will and won't do.",
+      },
+      { type: "h2", text: "Why the gateway decides whether an edit can auto-charge" },
+      {
+        type: "ul",
+        items: [
+          "Editing line items - swapping a variant, changing a quantity, adding a product - is an order-data change, and it works the same way no matter which gateway processed the checkout, because nothing about it touches payment",
+          "Raising the order's total is a payment change, and it has to be settled through the same gateway that captured the original charge - Shopify doesn't have its own separate mechanism to collect the difference outside of that",
+          "Shopify Payments supports capturing an additional amount against the original payment method after the fact, which is what makes an instant, automatic edit-time charge possible in the first place",
+          "Most third-party and offsite gateways authorize and capture once, at checkout, and were never built with a way for Shopify to come back later and ask for a little more against that same authorization",
+          "None of this is configurable from the merchant's side or from an edit app's settings - it's a capability the gateway either exposes or doesn't, decided long before any specific order ever gets edited",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The item swap is only ever a data change. The extra ten dollars is a payment operation, and payment operations only work on a gateway built to take one.",
+      },
+      { type: "h2", text: "What actually happens on a gateway that can't auto-charge" },
+      {
+        type: "p",
+        text: "Without a plan for it, this usually gets handled the way the second customer above experienced it: the edit itself goes through, and the price difference gets punted to a manual step - a draft-order invoice, a separate payment link, a follow-up email asking the customer to re-enter a card somewhere else. It works, but it turns a self-service edit into a two-part process for no reason the customer can see, and it does that silently, order by order, depending on a gateway they never think about and can't tell you which one they used.",
+      },
+      {
+        type: "p",
+        text: "The inconsistency is what actually costs a store something. A customer who gets the instant version assumes that's just how the edit flow works. A customer who gets the manual-payment-link version has no way to know the difference was ever gateway-driven - to them, the same store just handled an identical request two different ways, and the version they got looks like the broken one.",
+      },
+      {
+        type: "quote",
+        text: "The customer can't see which gateway processed their order. All they see is that the exact same swap settled instantly for someone else and took two emails for them.",
+      },
+      { type: "h2", text: "Handling it without guessing order by order" },
+      {
+        type: "ol",
+        items: [
+          "Check, in your Shopify admin, which of the payment gateways you actually run support capturing an additional charge on an existing order - don't assume every edit type that works on one gateway works the same way on all of them",
+          "For orders on a gateway that can't auto-capture, decide in advance whether the edit routes to a manual payment link, a required approval step, or gets excluded from self-service entirely - don't let the app improvise an answer the first time it hits that order",
+          "If you run more than one gateway - Shopify Payments plus a regional or alternative processor for certain markets, say - expect edit behavior to differ by market, and say so plainly wherever you explain the self-service edit flow to customers",
+          "Track edit outcomes by gateway in whatever reporting you already keep, so \"why did this one need a manual invoice\" doesn't get re-diagnosed from scratch by whichever agent happens to get the ticket",
+          "Before switching or adding a payment gateway, check its documented support for post-purchase capture specifically - a gateway that handles checkout perfectly well can still be the reason an edit flow that worked yesterday needs a manual step tomorrow",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing & Upsell" },
+      {
+        type: "p",
+        text: "AppFox settles a price difference in place, through Shopify's native Order Editing API, rather than a cancel-and-reorder workaround - and on a gateway that supports it, that means the incremental charge captures automatically the same way any other auto-apply edit type does. That automatic settlement is inherited from what the order's own gateway allows, not invented by AppFox on top of it, so it's exactly as available as Shopify's own order-editing payment capture is for that order. The eligibility engine exists for exactly this kind of order-by-order variation: an edit type that raises the total can be marked auto-apply for the gateways that support automatic capture, and routed to the approval queue for the ones that don't - instead of every order getting the same setting and some of them failing the payment step silently.",
+      },
+      {
+        type: "p",
+        text: "The two customers from that Tuesday afternoon weren't treated inconsistently by chance. One of them happened to check out through a gateway that can take a second charge after the fact, and the other didn't - and nothing about the store's edit rules had any say in that. Deciding ahead of time which edit types stay auto-apply and which fall back to a queue, gateway by gateway, is what keeps a self-service edit feeling like a fixed thing to a customer, instead of a coin flip they had no way to see coming.",
+      },
+    ],
+  },
+  {
     slug: "how-to-launch-a-shopify-subscription-program",
     title: "How to Launch a Shopify Subscription Program Without the Month-One Mistakes",
     excerpt:
