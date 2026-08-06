@@ -30,6 +30,73 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-renewal-fraud-check-missing-checkout-signals",
+    title: "Why a Shopify Subscription Renewal's Fraud Check Is Missing Checkout's Signals",
+    excerpt:
+      "A stolen card can clear a $12 trial box with a clean risk score, then bill itself every month after on a renewal that never gets a live checkout's IP address, device fingerprint, or session behavior to score against - because there's no browser session to draw them from.",
+    category: "PLAYBOOK",
+    date: "2026-10-05",
+    author: "The AppFox Team",
+    metaTitle:
+      "Why a Shopify Subscription Renewal's Fraud Check Is Missing Checkout's Signals | AppFox",
+    metaDescription:
+      "Shopify's fraud analysis leans on IP address, device, and session behavior captured at a live checkout - signals a subscription renewal never has, because nothing opens a browser to charge the card again. Here's why renewal risk scores run thinner than checkout's, and how to compensate.",
+    body: [
+      {
+        type: "p",
+        text: "A $12 trial box clears checkout on a stolen card in November. Shopify's fraud analysis reads the order low-risk - the trial price is small, the billing and shipping address match, and nothing about a first-time $12 purchase looks like the start of a pattern. The subscription renews in December at full price, then January, then February, each renewal firing automatically from the billing engine with no one sitting at a keyboard to generate it. By the time the real cardholder disputes the charges, four renewals have shipped against a risk score that was accurate the day it was calculated and has not been looked at since.",
+      },
+      {
+        type: "p",
+        text: "This isn't a fraud model that got fooled twice. It's a fraud model that only ever got to look once, and at less than it had for the order before it. A live checkout hands Shopify's risk engine a browser session to read: an IP address, a device fingerprint, how the cart was built, how the page was navigated. A subscription renewal has none of that, because nothing opens a browser to produce it - the billing engine reaches into the contract, pulls the stored card and address, and creates the order server-side on a schedule. The renewal gets a risk score. It just gets one assembled from whatever persists on the contract, not from a live session that no longer exists by the time the charge runs.",
+      },
+      { type: "h2", text: "Why a renewal has less to score against than checkout did" },
+      {
+        type: "ul",
+        items: [
+          "IP address and geolocation are checkout-time signals - captured from the browser making the request - and a scheduled renewal has no browser making a request for Shopify to read",
+          "Device and browser fingerprinting work the same way: they describe the machine that submitted the order, and a background billing job isn't a machine submitting anything",
+          "Session behavior - how fast the cart was filled, whether the customer paused at the CVV field, how the checkout was reached - only exists when there's a checkout session to observe",
+          "What does carry forward is the stored card, the billing and shipping address, and the order's own history - real inputs, but a narrower set than a live checkout ever had to work with",
+          "A renewal's risk score isn't stale in the way a re-scored order-edit's would be - it was never computed against the same inputs checkout had, even on day one",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A live checkout gets scored on who showed up. A renewal gets scored on what's on file.",
+      },
+      { type: "h2", text: "What a thin renewal score actually costs" },
+      {
+        type: "p",
+        text: "The trial-box pattern is the classic case because it's built to pass exactly this test. A small first charge is deliberately unremarkable - low value, first-time customer, nothing for a risk model to flag - and it's the last moment in the relationship where Shopify has a full checkout session to draw on. Every renewal after it inherits whatever the first charge decided, scored against thinner inputs each time, while the fulfillment team keeps shipping against a risk badge that hasn't changed because nothing told it to. A card that gets reported stolen in week three doesn't trigger a re-score in week four - the subscription just keeps billing it until the dispute arrives.",
+      },
+      {
+        type: "quote",
+        text: "A renewal's fraud score isn't wrong. It's an honest answer to a narrower question than the one checkout got asked.",
+      },
+      { type: "h2", text: "Compensating for a risk score that has less to go on" },
+      {
+        type: "ol",
+        items: [
+          "Watch for a shipping or billing address change on a subscription contract in the days right before a renewal fires - it's one of the few strong signals still available after checkout, and it's worth a manual look regardless of what the stored risk score says",
+          "Treat a subscription's first renewal as worth a second look on higher-value boxes, since it's the first charge with no trial-price discount masking the total, and the first one placed with zero checkout-session signal at all",
+          "Set velocity and chargeback-rate alerts at the contract level, not just the order level - a card that's fine on renewal three but starts declining and retrying on renewal four is a pattern checkout-time scoring was never going to catch",
+          "Don't route subscription renewal disputes through the same review queue as one-time-order fraud without adjusting for what's actually knowable at renewal - reviewers checking for a mismatched IP or device on a renewal are checking for a signal that was never going to be there",
+          "When a chargeback lands on a renewal, pull the original checkout's session data if it's still available - it's the only point in the contract's life where Shopify had a full signal set, and it's usually more informative than anything the renewal itself can offer",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription doesn't run its own fraud model, and it wouldn't do a merchant any favors trying to - Shopify's risk analysis is the system of record, and duplicating it with a second, less-informed scoring layer would just be another number to reconcile. What AppFox Subscription does keep is a visible history of what actually changed on a contract - address updates, payment-method swaps, skips and pauses - in the customer portal and through its Shopify Flow integration, so a merchant can build the one check a stored risk score can't: an alert when a contract's shipping address changes shortly before its next renewal fires.",
+      },
+      {
+        type: "p",
+        text: "That's a narrower promise than \"catch subscription fraud,\" and it's meant to be - the fix here isn't a smarter risk model, it's making the handful of signals that survive past checkout easy to watch instead of buried in a contract nobody's looking at until the chargeback shows up. The $12 trial box was never going to fail Shopify's fraud check; nothing about it should have. What catches the renewals after it is watching the contract for the one thing checkout can't see coming - not asking a score built for a live session to explain a charge that never had one.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-cant-fall-back-to-a-backup-card",
     title: "Why a Shopify Subscription Can't Fall Back to a Backup Card",
     excerpt:
