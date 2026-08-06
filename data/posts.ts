@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "post-purchase-price-match-shopify-order-edits",
+    title: "Why a Price-Match Request Doesn't Fit Inside a Normal Shopify Order Edit",
+    excerpt:
+      "A customer pays $89 for a jacket, watches it drop to $69 four days later, and asks for the difference back. The item never changed, so there's nothing to edit - which is exactly why a price-match request slips through an edit flow built for items, sizes, and addresses.",
+    category: "PLAYBOOK",
+    date: "2026-10-06",
+    author: "The AppFox Team",
+    metaTitle:
+      "Why a Post-Purchase Price Match Doesn't Fit a Shopify Order Edit | AppFox",
+    metaDescription:
+      "A Shopify order edit is built to change what's on the order - items, quantities, addresses. A price-match request changes none of that, just what was paid. Here's why the two need different handling, and how to route price-match requests without breaking your edit flow.",
+    body: [
+      {
+        type: "p",
+        text: "A customer pays $89 for a jacket on Monday. By Friday it's marked down to $69 storewide. She emails asking for the $20 back - same jacket, same size, same order, just a lower price now than the one she paid four days ago. She isn't asking to change anything about what she bought. She's asking what she paid for it to change.",
+      },
+      {
+        type: "p",
+        text: "That request doesn't map onto a normal order edit, and it's worth being precise about why. A self-service edit flow is built around things that change on the order - a different size, a different address, one fewer item in the cart - and it recalculates the total because the order itself is different than it was. A price match changes nothing about the order. The jacket, the quantity, the shipping address are all identical to what shipped. The only thing that moved is the price the store is charging everyone else for the same item, and an edit tool has no field for that, because it was never built to ask \"should this have cost less.\"",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't failing to build a price-match button into the edit flow. It's assuming a price match is just a smaller version of an edit, when it's actually a different kind of request wearing the same \"can you fix my order\" subject line.",
+      },
+      { type: "h2", text: "Why a price match doesn't behave like an edit" },
+      {
+        type: "ul",
+        items: [
+          "Every other edit type - swap the size, change the address, remove a line - changes what's on the order, and the price difference is a side effect of that change. A price match has no underlying change to point to; the ask is the price difference itself",
+          "Eligibility rules for edits are built around fulfillment state - has it shipped, has it been picked - because that's what determines whether a change is still safe to make. A price match doesn't care whether the order shipped; the jacket already existing in a box doesn't affect whether the price dropped",
+          "Auto-apply rules work because most edit types are mechanical: a swap either fits your inventory and pricing rules or it doesn't. A price match is a policy decision - how many days after purchase, does it require proof, does it match a competitor's site or only your own - and policy calls don't belong on an auto-apply path built for mechanical ones",
+          "An edit's approval queue is sized around exceptions to otherwise-routine changes. Routing every price-match request through that same queue with no distinct handling buries a judgment call among decisions that were never judgment calls to begin with",
+        ],
+      },
+      {
+        type: "h3",
+        text: "An edit changes what's on the order. A price match only ever changes what it says was paid.",
+      },
+      { type: "h2", text: "What happens when a store forces it through the edit flow anyway" },
+      {
+        type: "p",
+        text: "Without a distinct path, a price-match request usually gets handled as a manual exception: someone finds the order, applies a discount by hand, and issues a partial refund for the difference outside of whatever automated the rest of the edit flow. That works, but it's slow enough that it undercuts the reason self-service edits exist in the first place, and it's inconsistent in the way any manually-judged request is - one agent honors a match on a 10-day-old order, another declines an identical one at 8 days, and neither decision is written down anywhere a customer or a teammate can check later.",
+      },
+      {
+        type: "p",
+        text: "It also muddies your own reporting. A price match settled as an ordinary partial refund looks, in your data, exactly like a return or a pricing error - not like a policy you chose to offer. Six months in, nobody can tell you how many price matches you actually honored last quarter, because none of them were ever recorded as what they were.",
+      },
+      {
+        type: "quote",
+        text: "A price match isn't a smaller edit. It's a policy question that happens to get asked through the same inbox.",
+      },
+      { type: "h2", text: "Give it its own path instead of squeezing it into edits" },
+      {
+        type: "ol",
+        items: [
+          "Set the policy once, in writing, before the first request arrives: how many days post-purchase it's honored, whether it applies only to your own storewide markdowns or third-party competitors too, and whether proof is required.",
+          "Route price-match requests to a human review queue by default, separate from the auto-apply edit types - this is a judgment call, not a mechanical one, and it shouldn't compete for the same lane as a straightforward address fix.",
+          "When approved, settle it as a partial refund on the original payment method, in place, the same way you'd settle the price difference on any other approved edit - not a cancel-and-reorder that forfeits payment processing fees you already paid once.",
+          "Log the approval as a price match specifically, not as a generic adjustment, so your reporting can actually tell you how often the policy gets used and what it costs.",
+          "Decide separately whether a storewide sale should trigger an automatic outreach to recent buyers at the old price, rather than waiting for each of them to notice and write in - that's a marketing decision, not an edit-flow one, but it's the reason the request shows up in the first place.",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing & Upsell" },
+      {
+        type: "p",
+        text: "AppFox's eligibility engine already separates edit types that can auto-apply from ones that route to an approval queue, and a price match belongs firmly in the second group - it's a policy decision, not a mechanical check against inventory or a shipping cutoff. Once a merchant approves one, AppFox settles the difference the same way it settles any other approved edit: automatically, in place, via Shopify's native Order Editing API, with payment fees preserved and the change written to the order's audit trail - so the record shows a price match was honored, not a refund that looks unexplained six months later.",
+      },
+      {
+        type: "p",
+        text: "None of this requires a special-case tool bolted onto the side of your edit flow. It requires treating a price-match request as what it is - a policy call about what something should have cost, not a change to what's on the order - and giving it a queue and a settlement path that match that, instead of asking an edit flow built for sizes and addresses to also decide what's fair.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-renewal-fraud-check-missing-checkout-signals",
     title: "Why a Shopify Subscription Renewal's Fraud Check Is Missing Checkout's Signals",
     excerpt:
