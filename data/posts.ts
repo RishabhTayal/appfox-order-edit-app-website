@@ -30,6 +30,72 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "how-to-launch-a-shopify-subscription-program",
+    title: "How to Launch a Shopify Subscription Program Without the Month-One Mistakes",
+    excerpt:
+      "Turning on a subscribe-and-save widget takes an afternoon. Deciding what a subscriber can do without a support ticket, how deep the discount runs, and what happens when a renewal card gets declined takes longer - and skipping that work is what actually costs a program its first cohort.",
+    category: "GUIDE",
+    date: "2026-10-07",
+    author: "The AppFox Team",
+    metaTitle: "How to Launch a Shopify Subscription Program the Right Way | AppFox",
+    metaDescription:
+      "Launching a Shopify subscription program is more than switching on a widget. Here's what actually needs deciding before your first subscriber signs up, and a launch sequence that survives the first renewal.",
+    body: [
+      {
+        type: "p",
+        text: "A skincare brand turns on subscribe-and-save across its full 40-SKU catalog on a Tuesday afternoon, sets the discount at 20% because a competitor uses that number, and calls the launch done. The widget works. Shopify's checkout handles the recurring charge exactly the way it's supposed to. Subscribers show up the first week, and the dashboard looks like a win. Then the first renewal date arrives three weeks later, and the cracks show up one at a time - a subscriber wants to swap a color that's since sold out, and the only path is a support ticket, because nobody built a way to do that without one. A handful see the renewal charge as a surprise, because no reminder ever went out ahead of it. One card gets declined and the subscription just quietly disappears, no retry, no second email, nothing.",
+      },
+      {
+        type: "p",
+        text: "The brand didn't launch badly. Installing the app, turning on the widget, picking a discount - that part took an afternoon and every step of it worked. The mistake is thinking that afternoon was the launch. Almost none of what determines whether the first cohort is still subscribed in month two happens on the day the widget goes live. It happens at the first renewal, the first decline, the first request a subscriber can't handle themselves - and by then, whatever wasn't decided in advance gets decided badly, in public, one subscriber at a time.",
+      },
+      { type: "h2", text: "What 'launching' actually leaves undecided" },
+      {
+        type: "ul",
+        items: [
+          "Which products go into the program first - not necessarily the newest or the most photogenic, but the subset you can commit to shipping on schedule for the next year without a discontinued SKU breaking a subscriber's next box",
+          "How deep the discount runs, and whether every plan gets the same rate - a number picked to match a competitor on day one is a number every subscriber who signs up under it expects to keep",
+          "What a subscriber can do without contacting support - skip a shipment, pause, swap a product, change frequency, cancel outright - versus what still requires a ticket",
+          "What happens the moment a renewal charge fails - whether there's a reminder before it, a retry after it, and how many attempts run before the subscription is treated as lapsed",
+          "How many plans and frequencies ship on day one, versus how many get added once there's real behavior to look at instead of a guess",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The widget is the one-afternoon part. Everything a subscriber runs into after that is the actual launch.",
+      },
+      { type: "h2", text: "Why the visible part gets finished and the rest doesn't" },
+      {
+        type: "p",
+        text: "The widget gets attention because it's the part a merchant can see, demo, and screenshot the moment it's live. Portal permissions, retry cadence, and discount depth aren't visible the same way - nothing about them looks unfinished on a product page, so they're easy to leave as defaults or skip entirely. They only become visible when a real subscriber hits the gap: the one who wants to swap and can't, the one whose card declines with no follow-up, the one who signed up at a discount rate that's now too deep to sustain. By then it isn't a setup decision anymore, it's a support ticket or a cancellation, and it's happening to a subscriber who's already formed an opinion about the brand.",
+      },
+      {
+        type: "quote",
+        text: "A subscription program's first month doesn't test whether the widget works. It tests everything nobody configured because it wasn't visible on launch day.",
+      },
+      { type: "h2", text: "A launch sequence that survives the first renewal" },
+      {
+        type: "ol",
+        items: [
+          "Start with a narrow, reliable slice of the catalog - the SKUs you can commit to shipping on schedule for the next year - and add the rest once the program is running, not before it's proven it can",
+          "Set the discount conservatively and treat it as adjustable rather than a one-time decision - a rate that looked competitive on launch day is hard to walk back once a cohort has signed up expecting it",
+          "Turn on the full self-service portal before the first subscriber signs up, not after the first ticket asking for something it should already handle - skip, pause, swap, and cancel all live from day one",
+          "Configure a renewal reminder and at least one retry attempt before the first renewal date arrives, so month one doesn't quietly lose subscribers to card declines nobody caught",
+          "Cap the number of plans and frequencies at launch, and expand once you can see which ones subscribers actually pick, instead of guessing upfront and maintaining variants nobody chooses",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's Free plan covers up to 50 active subscriptions at 0% transaction fees, which is enough runway to run the sequence above against a real cohort before compounding decisions across thousands of subscribers. The subscribe-and-save widgets and templates are pre-built, so the one-afternoon part of launching stays exactly that short. The customer self-service portal - skip, pause, swap, cancel - ships as part of the core app rather than something to add once the first support ticket makes the case for it, so a narrow initial catalog can still offer full self-service from the first signup. The recurring billing engine retries a failed renewal automatically instead of treating the first decline as the end of the relationship, and subscription analytics on the Growth plan and above shows churn and revenue by cohort, so the decision to expand past that first slice of the catalog is made from what actually happened rather than a guess made twice.",
+      },
+      {
+        type: "p",
+        text: "The skincare brand didn't launch too fast. It launched with too much left undecided - the swap nobody could self-serve, the renewal nobody was reminded about, the decline nobody retried - and every one of those was a default, not a decision anyone actually made. A narrower catalog, a portal switched on from day one, and a reminder sent before the first renewal would have caught all three before a single subscriber had to notice something was missing.",
+      },
+    ],
+  },
+  {
     slug: "post-purchase-price-match-shopify-order-edits",
     title: "Why a Price-Match Request Doesn't Fit Inside a Normal Shopify Order Edit",
     excerpt:
