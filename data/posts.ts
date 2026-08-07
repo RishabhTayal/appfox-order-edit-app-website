@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-swap-ships-from-a-different-warehouse",
+    title: "Why a Shopify Order-Edit Swap Can Ship From an Entirely Different Warehouse",
+    excerpt:
+      "A customer swaps a sold-out color for one that's in stock - just not at the warehouse her order was already shipping from. The edit goes through because the item exists somewhere. Nothing checks whether \"somewhere\" is two states farther away than the original promise.",
+    category: "PLAYBOOK",
+    date: "2026-10-12",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Order Edit Swap Ships From a Different Warehouse | AppFox",
+    metaDescription:
+      "A Shopify order-edit swap that only checks whether an item is in stock anywhere can reassign the fulfillment order to a different warehouse - changing shipping cost and delivery time without ever telling the customer. Here's why, and how to gate swaps by location, not just quantity.",
+    body: [
+      {
+        type: "p",
+        text: "A home-goods store keeps its bestselling ceramic mug in two warehouses - a large distribution center in New Jersey and a smaller regional site outside Seattle that exists mainly to get two-day shipping to West Coast customers. A shopper in Portland orders the mug in \"sand,\" and Shopify fills it from the Seattle warehouse, forty minutes up the interstate from her door. An hour later she opens the order-status page and swaps \"sand\" for \"sage\" - same mug, same price, a color she likes better. The self-service flow checks inventory, finds sage in stock, and confirms the swap instantly. What the confirmation doesn't say is that Seattle has zero units of sage. Every one of them is in New Jersey. Her two-day order just became a six-day one, and nothing in the email she got told her that.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this looks like a bug from where the eligibility engine sits. The item is real, it's in stock, and the customer paid the correct price for it. The check that ran - is this variant available - returned yes, and a swap that's available should be allowed to happen. The gap isn't in whether sage exists. It's in where.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't approving a swap because the item is in stock. It's answering \"is it in stock\" without ever asking \"is it in stock at the location this order was already going to ship from.\"",
+      },
+      { type: "h2", text: "Why in stock somewhere isn't the same as in stock here" },
+      {
+        type: "ul",
+        items: [
+          "Shopify assigns a fulfillment order to a specific location the moment an order is placed, based on where inventory was available at checkout - location and item are already linked before any edit ever happens",
+          "A swap's eligibility check that queries total inventory, or \"any location has stock,\" passes even when the exact location currently holding the fulfillment order has zero of the new variant",
+          "When the only remaining stock sits at a different location, Shopify's own order-editing logic has to either reassign the fulfillment order to that location or split the order into two separate fulfillments - and both of those are real operational changes, not cosmetic ones",
+          "Reassigning to a farther location can also change which shipping rate and carrier service applies, so a swap that looked like a free like-for-like trade can quietly cost more in freight than the original order did",
+          "None of this surfaces to the customer at the moment she confirms - the screen just says the swap went through, with no indication the box is now coming from a different building on a different timeline",
+        ],
+      },
+      {
+        type: "h3",
+        text: "\"In stock\" is a location question before it's a quantity question. A swap flow that only ever answers the second one will keep approving edits it can't actually ship on the schedule it already promised.",
+      },
+      { type: "h2", text: "What a quiet location reassignment actually costs" },
+      {
+        type: "p",
+        text: "The Portland customer isn't out anything on paper - she got the color she wanted, at the price she expected. What she lost was the delivery window she chose the item under, and she lost it without being asked. Multiply that by every swap request a two-warehouse or three-warehouse merchant approves in a week, and the pattern isn't a handful of annoyed customers - it's a support queue full of \"where's my order\" tickets that trace back to an edit the merchant's own system approved, on a delivery estimate nobody updated to match. When a swap splits the order across two locations instead of reassigning it outright, the cost lands on the merchant's side just as hard: two shipments, two labels, two freight charges, for an order that priced out as one.",
+      },
+      {
+        type: "quote",
+        text: "A swap that's in stock somewhere isn't a promise you can keep on schedule. It's a promise about the item. The schedule is a separate promise, made to the location the order was already shipping from, and a location-blind swap breaks it without anyone deciding to.",
+      },
+      { type: "h2", text: "Gating swaps by location, not just quantity" },
+      {
+        type: "ol",
+        items: [
+          "Check stock at the fulfillment order's assigned location first, not total inventory across every warehouse, before offering a variant as swappable through self-service",
+          "When the requested variant only exists at a different location, treat that as its own case - route it to an approval queue instead of auto-applying it, or show the customer the new delivery estimate before she confirms, not after",
+          "Recalculate shipping cost and delivery date at the moment of the swap, not just the price difference between the two items, since a location change moves both of those even when the item price doesn't",
+          "For merchants running more than one warehouse, cap auto-apply swaps to variants in stock at the same location as the rest of the order, and send anything that would force a location change or a split shipment to a person",
+          "Track how often swaps trigger a location reassignment or a split - a high rate is less often a sign the edit flow is broken and more often a sign inventory is unevenly distributed across warehouses in a way worth fixing upstream, before it shows up as a support ticket downstream",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's variant swaps run through Shopify's native Order Editing API, which is the same location-aware system Shopify itself uses to fulfill orders - so a swap into a variant that only exists at a different warehouse behaves exactly the way it would if a merchant made that change by hand, reassignment or split included. What AppFox adds on top is the eligibility engine: per-action rules can gate a swap on more than just \"is this variant in stock,\" and any edit that doesn't clear those rules routes to the approval queue instead of auto-applying, with the audit timeline showing why. A Shopify Flow trigger fired off that approval-queue routing can also flag the merchant or notify the customer the moment a swap would move fulfillment to a different location, before the delivery estimate she's counting on quietly changes underneath her.",
+      },
+      {
+        type: "p",
+        text: "The mug the Portland customer eventually got wasn't the wrong color and wasn't overpriced - it was just four days later than the order she thought she still had. Nothing about that required a broken swap flow. It required an eligibility check that stopped at \"does sage exist\" instead of continuing on to \"does sage exist where this order is already headed,\" and for a merchant running more than one warehouse, that second question is the one that actually decides whether a swap keeps the promise the original order made.",
+      },
+    ],
+  },
+  {
     slug: "shopify-change-shipping-address-after-order-ships",
     title: "Can You Change a Shopify Order's Shipping Address After It Ships?",
     excerpt:
