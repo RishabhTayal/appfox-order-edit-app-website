@@ -30,6 +30,75 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-change-shipping-address-after-order-ships",
+    title: "Can You Change a Shopify Order's Shipping Address After It Ships?",
+    excerpt:
+      "A customer asks to fix a shipping address two days after checkout. Support opens the order and edits the field in five seconds - but the label already on the box in a UPS truck doesn't know that happened, and the field edit was never the hard part.",
+    category: "PLAYBOOK",
+    date: "2026-10-11",
+    author: "The AppFox Team",
+    metaTitle: "Can You Change a Shopify Order's Shipping Address After It Ships? | AppFox",
+    metaDescription:
+      "Editing a Shopify order's shipping address is instant before a label exists and a carrier-intercept gamble after one does. Here's why the cutoff is the label, not the request, and how to gate self-service address edits around it instead of guessing order by order.",
+    body: [
+      {
+        type: "p",
+        text: "A customer buys a set of wireless earbuds as a birthday gift, checks out from her phone in the back of a taxi, and two days later realizes she typed her old apartment number instead of the one she's been living in for a month. She messages support that same afternoon: can you just change the address? By the time anyone reads the message, a fulfillment center three states away has already picked the order, printed a label, and handed the box to a UPS driver - and the label still says the apartment she moved out of.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't the support agent's first instinct, which is to open the order and edit the address field. It's that a shipping address change sounds like editing one field in a form, when what's actually being asked, once a label exists, is whether a package that's already left the building can be pulled back mid-transit. That's not a data problem anymore. It's a carrier problem wearing a data problem's clothes.",
+      },
+      { type: "h2", text: "Why the address field being unlocked isn't the real question" },
+      {
+        type: "ul",
+        items: [
+          "Before a fulfillment order exists, changing the shipping address is exactly what it looks like - a field update on an order nobody has acted on yet - and Shopify's Order Editing API makes that change instantly, at no cost to anyone",
+          "Once a fulfillment order is created and a label is generated, the address printed on that label is a fact the carrier has already been given, not a setting stored somewhere Shopify or an edit app can reach into and rewrite",
+          "Once a carrier scans that label - at the warehouse dock, at a regional sort facility, anywhere in transit - redirecting the package becomes a request the merchant makes of the carrier, not a change the merchant makes to the order",
+          "Updating the address on Shopify's own copy of the order does nothing to the physical label already on the box, and the label - not the database row - is the only address that actually determines where the package goes",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The address on the label is a fact about the past, not a field you can edit. Unlocking it in Shopify changes a record; it doesn't change where a truck is headed.",
+      },
+      { type: "h2", text: "What actually happens once the label exists" },
+      {
+        type: "p",
+        text: "Every major carrier offers some version of an in-transit redirect - UPS calls it Delivery Intercept, USPS has Package Intercept, FedEx runs a similar request process - and all of them work roughly the same way: a merchant or account holder files a request, pays a fee that typically runs somewhere between ten and twenty-five dollars depending on the carrier and service level, and the carrier attempts to pull the package before its next scan or reroute it if it's caught in time. None of them guarantee success. A package already loaded onto a truck for its final leg is usually past the point an intercept can catch it, and a request filed an hour too late fails exactly the way a request that was never filed does - except the merchant has also spent the fee.",
+      },
+      {
+        type: "p",
+        text: "That unpredictability is what actually makes the situation expensive to handle badly. A support team that treats every late address-change request the same way - \"let me see what I can do\" - ends up either promising a reroute the carrier hasn't confirmed, or quietly filing intercepts on packages that were never going to catch it in time and eating the fee for nothing. Neither failure really comes from the shipping carrier. Both come from not having a clear line, before the request ever arrives, for which side of the label cutoff a given order falls on.",
+      },
+      {
+        type: "quote",
+        text: "A shipping label is a promise already kept to a carrier. Once it exists, the only leverage left over where the package goes belongs to the carrier, not the merchant.",
+      },
+      { type: "h2", text: "Handling it without guessing order by order" },
+      {
+        type: "ol",
+        items: [
+          "Set a self-service address-edit window that closes meaningfully before your fulfillment process would ever generate a label - not at the moment the order is placed, but at whatever lead time your actual warehouse or 3PL needs to pick and pack",
+          "Route any address-change request that arrives after that cutoff to a queue a person reviews, instead of auto-applying it to the order and hoping the label hasn't printed yet",
+          "Give support a standing script for the post-label conversation that names the carrier intercept option, its typical fee, and its lack of a guarantee up front, so nobody promises a reroute that hasn't happened",
+          "Track how often address-change requests land after your cutoff - a high rate isn't evidence that customers are careless, it's usually a sign the window is tighter than how customers actually behave, and worth widening",
+          "For merchants who ship a lot of gift orders, where the buyer's context can change days after checkout, consider trading a slightly longer processing delay for a wider edit window on purpose, instead of ending up with a wide window by accident because fulfillment ran behind",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing & Upsell" },
+      {
+        type: "p",
+        text: "AppFox updates a shipping address on the order the moment a customer submits the change, through Shopify's native order-editing tools, and that update is instant for any order that hasn't been handed to a carrier yet. What it can't do - because no order-editing app can - is reach into a UPS truck and relabel a box that's already been scanned. The eligibility engine is built around exactly that cutoff: a merchant sets an edit window tied to when their own fulfillment process actually creates a label, self-service address changes auto-apply inside that window, and anything after it routes to the approval queue instead of silently succeeding on the order while doing nothing to the box already in transit.",
+      },
+      {
+        type: "p",
+        text: "The audit timeline on a routed request shows support what they need to make the call fast - when the label was created against when the customer asked - instead of a blank text box someone has to reconstruct from three separate systems before answering. The earbuds customer from that taxi might still not get her package rerouted. But the merchant finds out whether it's worth trying within seconds of her message arriving, instead of finding out three days later that support spent an afternoon chasing an intercept on a package that was already sitting on a porch.",
+      },
+    ],
+  },
+  {
     slug: "how-to-calculate-shopify-subscription-ltv",
     title: "How to Calculate Shopify Subscription LTV (Without the Formula That Lies to You)",
     excerpt:
