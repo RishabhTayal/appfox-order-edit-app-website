@@ -30,6 +30,91 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "how-to-calculate-shopify-subscription-ltv",
+    title: "How to Calculate Shopify Subscription LTV (Without the Formula That Lies to You)",
+    excerpt:
+      "A coffee subscription roaster runs the standard LTV formula, gets a number that clears her ad budget with room to spare, and green-lights spend. The formula was built for a flat-rate SaaS plan - it never saw the discount, the skip, or the churn curve hers actually has.",
+    category: "REVENUE",
+    date: "2026-10-10",
+    author: "The AppFox Team",
+    metaTitle: "How to Calculate Shopify Subscription LTV | AppFox",
+    metaDescription:
+      "The textbook ARPU-over-churn LTV formula overstates a Shopify subscription program's real value once discounts, skips, and an uneven cycle-to-cycle churn curve enter the math. Here's how to calculate a number you can actually spend a CAC budget against.",
+    body: [
+      {
+        type: "p",
+        text: "A coffee subscription roaster wants to know how much she can afford to pay Meta for a new subscriber before the next round of ad spend goes out. She pulls up a standard formula - average order value, divided by monthly churn rate, times gross margin - plugs in her numbers, and gets $340. Her cost per acquisition on Meta is running $85. The math says she has room to spend three times that and still come out ahead, so she doubles the ad budget for the quarter.",
+      },
+      {
+        type: "p",
+        text: "Five months later, the finance review tells a different story. Actual revenue per subscriber, measured the slow way - what a cohort of signups actually paid before they left - comes in closer to $190. The $340 was never wrong arithmetic. It was the right formula applied to the wrong kind of subscription, and the gap between the two numbers is most of what the extra ad spend was supposed to buy.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't calculating LTV before setting a CAC budget - that's the correct instinct, and skipping it is worse. The mistake is trusting a formula built for a flat-rate SaaS plan, where every subscriber pays the same amount every month until the day they cancel, on a Shopify subscription program where almost none of that is true.",
+      },
+      { type: "h2", text: "Why the textbook formula doesn't survive a real subscription program" },
+      {
+        type: "ul",
+        items: [
+          "Average order value isn't flat - a subscribe-and-save discount, a multi-box trial rate, and a steady-state price can all apply to the same subscriber at different points in the same subscription, so one \"average\" blurs three different revenue numbers into one",
+          "A single blended churn rate hides where subscribers actually leave - cancellations cluster heavily in the first two or three cycles and thin out for subscribers who make it past that window, so \"1 ÷ monthly churn\" run on a blended rate doesn't match how either group actually behaves",
+          "Skip and pause stretch calendar tenure past billing tenure - a subscriber active for twelve months who skipped two of them generated ten renewal charges, not twelve, and a formula built on elapsed time overstates what she actually paid",
+          "Involuntary churn - a card that expires or a bank that declines a renewal - gets bundled into the same churn rate as a subscriber who chose to cancel, even though one is often recoverable with a retry and the other isn't",
+          "None of this is a Shopify-specific quirk - it's true of any subscription with variable pricing and self-service flexibility, which is most of what actually gets built on top of Shopify's subscription contracts",
+        ],
+      },
+      {
+        type: "h3",
+        text: "ARPU ÷ churn was built for a subscriber who pays the same amount every month until one day they don't. A subscribe-and-save discount, a skip, and a trial rate all break that assumption before the formula ever runs.",
+      },
+      { type: "h2", text: "Build LTV from a cohort curve, not a blended average" },
+      {
+        type: "p",
+        text: "The fix isn't a more complicated formula. It's tracking the actual thing the simple formula was trying to approximate: what happened to a group of subscribers who signed up in the same window, cycle by cycle, instead of collapsing everyone into one average rate. A cohort curve answers a narrower, more honest question than \"what's our LTV\" - it answers \"of the 100 people who signed up in March, how many were still paying in cycle two, cycle three, cycle six, and what did each of them pay at that point\" - and the LTV number falls out of that curve instead of being guessed at from two blended inputs.",
+      },
+      { type: "h2", text: "A worked example" },
+      {
+        type: "p",
+        text: "Take a cohort of 100 signups on a monthly coffee subscription. The first box ships at a discounted trial rate; every renewal after that bills at the steady-state price, minus whatever subscribe-and-save discount the subscriber locked in. Cycle-by-cycle survival and revenue might look like this:",
+      },
+      {
+        type: "ul",
+        items: [
+          "Cycle 1 (trial rate): 100 subscribers pay $18 each - $1,800, before the highest-churn window has even started",
+          "Cycle 2: 71 remain after the steepest early drop-off, paying the steady-state rate of $32 each - $2,272",
+          "Cycle 3: 58 remain, still at $32 - $1,856",
+          "Cycles 4-6: churn slows to a much shallower rate per cycle, the group settles around 45-49 subscribers each month, paying $32 - roughly $4,600 across the three cycles",
+          "Total through six cycles: about $10,530 from a cohort that started at 100, or roughly $105 per original signup - a very different number than ARPU ÷ churn produces from the same underlying data",
+        ],
+      },
+      {
+        type: "quote",
+        text: "ARPU ÷ churn asks one blended question about a group that actually behaves in at least two distinct phases. A cohort curve asks the question the formula was trying to shortcut, and it doesn't need the shortcut to still get an answer.",
+      },
+      { type: "h2", text: "The LTV number that actually clears a CAC decision" },
+      {
+        type: "ol",
+        items: [
+          "Group subscribers by signup month, not by whatever slice happens to be active today - a cohort has to share a start date or the survival curve underneath it doesn't mean anything",
+          "Track net revenue per cycle per cohort, after discounts, not gross order value - the trial rate and the steady-state rate are two different numbers and collapsing them into one average understates the early cycles and overstates the later ones",
+          "Count renewal charges actually billed, not elapsed calendar months - a paused subscriber's skipped cycles shouldn't be counted as revenue any more than they should be counted against tenure",
+          "Split involuntary churn (failed payment, no successful retry) from voluntary churn (subscriber canceled) before it enters the survival curve - a recoverable decline and a deliberate cancellation are different events with different odds of coming back",
+          "Sum net revenue across enough cycles to cover where the curve actually flattens, then divide by the original cohort size - that per-subscriber figure, not a formula run on two blended averages, is the number a CAC budget should be set against",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "Subscription analytics, on the Growth plan and above, breaks renewals down cycle by cycle rather than reporting one blended figure - which is exactly the raw material a cohort curve needs and a single ARPU-over-churn calculation throws away. It won't run the cohort math for you; that's a spreadsheet exercise, not a dashboard toggle. What it gives you is retention by cycle and net revenue after discounts, split cleanly enough that building the curve is a matter of pulling numbers off the dashboard instead of reconstructing them from raw order data first.",
+      },
+      {
+        type: "p",
+        text: "The roaster's $340 wasn't a mistake in her arithmetic - it was a formula answering a question her subscription program had already outgrown. A trial rate, a subscribe-and-save discount, and a churn curve that's steep in month one and shallow by month four don't fit inside two averages. They fit inside a cohort, tracked cycle by cycle, which is a slower number to build and the only one that would have told her the real budget was closer to $190 before the ad spend went out instead of five months after.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-minimum-commitment-doesnt-enforce-itself",
     title: "Why a Shopify Subscription's Minimum-Commitment Promise Doesn't Enforce Itself",
     excerpt:
