@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-minimum-commitment-doesnt-enforce-itself",
+    title: "Why a Shopify Subscription's Minimum-Commitment Promise Doesn't Enforce Itself",
+    excerpt:
+      "A skincare brand sells its subscription as \"3-box minimum, cancel anytime after that.\" A subscriber cancels after box one anyway, and the portal lets her - because nothing on Shopify's subscription contract ever knew a minimum existed to enforce.",
+    category: "PLAYBOOK",
+    date: "2026-10-09",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Minimum Commitment: Why It Doesn't Enforce Itself | AppFox",
+    metaDescription:
+      "A Shopify subscription marketed with a minimum commitment - \"cancel anytime after your third box\" - has no matching lock anywhere in Shopify's subscription contract. Here's why the platform never stops an early cancellation, and how to write a policy that actually holds.",
+    body: [
+      {
+        type: "p",
+        text: "A skincare brand prices its subscription to work over time: box one ships a full-size starter kit close to cost, and the plan only turns a profit starting with box three. The product page says so plainly - \"3-box minimum, cancel anytime after that\" - and checkout repeats it before the subscriber confirms. She joins, gets box one, decides the routine isn't for her, and opens the customer portal to cancel the same week. The cancellation goes through immediately. No warning, no fee, no screen asking her to confirm she's canceling before her third box. The contract just stops, exactly the way it would for a subscriber on cycle twelve.",
+      },
+      {
+        type: "p",
+        text: "Nothing about that is a bug in the portal or a setting someone forgot to flip. A Shopify selling plan defines a price, a delivery frequency, and a billing policy - it has no field for \"earliest cycle a subscriber is allowed to cancel.\" Canceling a subscription contract is a status change that Shopify's subscription API executes the moment it's called, and that call carries no memory of how many renewal orders the contract has already billed. The \"3-box minimum\" the subscriber read lived in the product description and the checkout copy - two places nowhere near the selling plan itself, and nothing that populates a field the contract could check against even if it wanted to.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't marketing a minimum commitment - loss-leader-then-profit pricing is a legitimate, common way to structure a subscription box, and plenty of subscribers are fine with a stated minimum in exchange for a better starter price. The mistake is assuming that because the offer states a minimum, canceling early will run into a limit somewhere in Shopify's plumbing, when nothing downstream of the checkout page ever agreed to enforce it.",
+      },
+      { type: "h2", text: "Why the platform doesn't stop an early cancellation" },
+      {
+        type: "ul",
+        items: [
+          "Selling plans define price, delivery frequency, and billing policy - not a minimum number of cycles a subscriber has to complete before the cancel action is allowed to run",
+          "Canceling a subscription contract is a status change Shopify's API executes as soon as it's requested - there's no built-in check against how many renewal orders that contract has already billed",
+          "The minimum-commitment promise usually lives in marketing copy - a product page, a checkout note, a confirmation email - not in any field on the selling plan group itself, so there's no number on the backend to check against even in principle",
+          "A subscription portal, whatever app runs it, has no reason to build a minimum-term gate unless someone specifically asks for one - \"let a subscriber cancel\" is the default assumption behind every subscription tool, not \"let her cancel once she's paid for three\"",
+          "This isn't specific to one app or theme - it's true of Shopify's subscription infrastructure itself, the same rails every subscription app, AppFox included, is built on top of",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A minimum commitment is a sentence on a product page. Until something is built to enforce it, the cancel button has no way to know the sentence exists.",
+      },
+      { type: "h2", text: "What an unenforced commitment actually costs" },
+      {
+        type: "p",
+        text: "The number that doesn't show up anywhere by default: how many subscribers cancel between box one and box three, and what letting them leave early actually did to the pricing that assumed they wouldn't. A program built on the skincare brand's math - box one near cost, margin starting at box three - isn't broken by any single early cancellation. It's broken by nobody tracking how often that happens, so a subscription line that looked profitable at the cohort level turns out to have been subsidizing first-box discounts for subscribers who were never going to see box three, and nobody notices until a quarterly margin review asks why acquisition cost isn't paying back the way the model promised.",
+      },
+      {
+        type: "quote",
+        text: "A subscription priced to break even by the third box isn't broken by a subscriber who cancels after the first. It's broken by nobody knowing how often that happens until the same math shows up in a spreadsheet a quarter later.",
+      },
+      { type: "h2", text: "Setting a minimum-commitment policy Shopify won't enforce for you" },
+      {
+        type: "ol",
+        items: [
+          "Decide upfront whether \"3-box minimum\" is meant to be a hard technical gate - cancellation disabled until the third renewal - or a soft policy backed by an early-cancellation fee or a final invoice, since Shopify's contract has no native lock and only one of those two paths is buildable without custom development",
+          "If it's a hard gate, that logic has to live somewhere explicit - a Shopify Function, a Flow automation, or a subscription app feature built for it - that checks completed order count before a portal cancel action is allowed to complete, not in the checkout copy alone",
+          "If it's a soft policy, state the fee or final charge plainly next to the minimum-commitment language at signup - a subscriber who reads a minimum, cancels for free at box one anyway, and gets away with it will tell every other prospective subscriber the minimum isn't real",
+          "Track cancellations by cycle number, not just cancellations overall - \"canceled after box one\" is the figure that shows whether a minimum commitment is doing any work at all, and it's invisible inside a raw cancellation count",
+          "Revisit the first-box pricing itself if early cancellation turns out to be common - a program priced to lose money until the third cycle only works if the third cycle reliably arrives, and a policy that doesn't enforce that needs pricing that doesn't depend on it either",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription runs contracts on Shopify's native subscription infrastructure the same as any selling-plan-based app, which is exactly why this gap shows up the same way everywhere: a contract with a price and a delivery frequency, and a customer portal where cancellation completes on request, with skip and pause offered first. Nothing in that flow reads a minimum-commitment sentence off a product page, because a selling plan was never given a field to hold one. Building a hard gate - blocking cancellation until a set number of renewals has billed - is upstream of that, in a Shopify Flow automation or custom logic a merchant sets up deliberately, not something a subscription portal does by default.",
+      },
+      {
+        type: "p",
+        text: "What AppFox does surface is the number that actually tells a merchant whether a stated minimum is working: subscription analytics, on the Growth plan and above, breaks cancellations down by how many cycles a contract completed before it stopped, so \"how many subscribers leave after box one\" is a figure a merchant can check on a dashboard - not something discovered for the first time when a subscription program that looked profitable in aggregate turns out to have been losing money on exactly the cohort a minimum commitment was supposed to cover.",
+      },
+      {
+        type: "p",
+        text: "The skincare subscriber didn't do anything wrong, and neither did the portal that let her cancel in one click. She just found the one gap between what a product page promised and what a selling plan actually knows how to check - and until a merchant builds something to close it, every subscriber who reads \"3-box minimum\" is reading a policy that only holds if she decides to honor it herself.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edits-dont-auto-charge-every-payment-gateway",
     title: "Why a Shopify Order Edit Can't Auto-Charge Every Payment Gateway",
     excerpt:
