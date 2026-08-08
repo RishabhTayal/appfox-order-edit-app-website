@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "automate-shopify-order-edit-approvals-with-shopify-flow",
+    title: "How to Automate Shopify Order Edit Approvals with Shopify Flow",
+    excerpt:
+      "A pending order edit that only gets approved when someone happens to check the queue is an edit that misses its own fulfillment cutoff. Shopify Flow turns AppFox's approval queue into triggers and actions, so a sensitive edit gets routed, escalated, and logged without depending on anyone remembering to look.",
+    category: "GUIDE",
+    date: "2026-10-14",
+    author: "The AppFox Team",
+    metaTitle: "Automate Shopify Order Edit Approvals with Shopify Flow | AppFox",
+    metaDescription:
+      "Shopify Flow can route, escalate, and log order-edit approvals automatically. Here's how to turn AppFox's approval queue into a Flow-driven workflow that doesn't rely on someone checking a dashboard.",
+    body: [
+      {
+        type: "p",
+        text: "A home-goods store sets its order-edit rules the way most stores do: address changes and swaps under $50 auto-apply, anything that changes the order total by more than $150 or touches a shipping address outside the original delivery zone waits in the approval queue for a human to look at it. The rule is sound - those are exactly the edits worth a second set of eyes. What the setup doesn't account for is that the person who checks the queue is also running receiving, answering phones, and packing orders between 9 and 5, and the queue only gets opened when there's a lull. A customer's $180 upcharge sits for eleven hours before anyone sees it, misses the day's fulfillment cutoff by forty minutes, and ships a full day later than the edit confirmation promised. The edit wasn't wrong to require approval. Nobody was watching for it.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't putting sensitive edits behind a human approval. High-value upcharges and out-of-zone address changes are exactly the edits that deserve a second look before they're final. The mistake is routing that approval through a queue that only works if someone remembers to open it, on a schedule nobody wrote down anywhere - when Shopify Flow exists specifically to remove the \"someone remembers to check\" step from a process like this one.",
+      },
+      { type: "h2", text: "What Shopify Flow actually does with an order edit" },
+      {
+        type: "p",
+        text: "AppFox exposes an order-edited trigger to Shopify Flow the moment an edit is submitted - whether it auto-applies instantly or lands in the approval queue because your rules flagged it. That trigger carries the details a workflow needs to branch on: the edit type, the dollar difference, and whether it's sitting in the queue waiting on someone. From there, Flow's own actions - the ones your team is probably already using for other parts of the store - take over: notify a specific person or Slack channel, tag the order, hold a fulfillment, or push a note to whatever system runs receiving or the 3PL.",
+      },
+      {
+        type: "ul",
+        items: [
+          "A trigger that fires on submission, not on some polling schedule, so the workflow starts the moment the edit exists rather than the next time a dashboard happens to refresh",
+          "Enough data on the trigger - edit type, amount, approval status - to branch the workflow instead of notifying the same person about every edit regardless of what it actually is",
+          "A wait step that can hold for a set number of hours and re-check the edit's status, so a queue item that's still pending after your SLA window gets escalated automatically instead of aging in silence",
+          "Actions that reach outside the approval queue entirely - a Slack DM to a specific manager, a tag written to the order, a note sent to whatever system the warehouse actually watches",
+          "A record of every automated step Flow ran, sitting next to AppFox's own audit timeline, so a delayed approval is traceable instead of a mystery six weeks later",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The queue was never the failure. The assumption that a person is watching it was - and that's the exact assumption Flow is built to remove.",
+      },
+      { type: "h2", text: "Five workflows worth wiring up before your queue backs up" },
+      {
+        type: "ol",
+        items: [
+          "Route by dollar threshold, not just approve-or-don't - send anything above your real comfort level (not the flag threshold itself) straight to a manager's Slack DM, and let smaller queued edits stay with whoever's on approval duty that day.",
+          "Add an escalation step - a Flow wait action that holds for your actual SLA window, then re-notifies a second person or channel if the edit is still sitting unapproved, so nothing ages past a fulfillment cutoff because the first notification got buried.",
+          "Put a hold tag on the order the moment an edit enters the queue, and clear it automatically on approval or decline - so a warehouse checking order status never picks against an order that's still in flux.",
+          "Fast-track edits from tagged customer segments - a known-good wholesale account or a VIP tag can skip straight to a lighter-touch review instead of sitting in the same queue as a first-time buyer's address change.",
+          "Log every approval and decline to a single Slack channel, not just individual DMs, so there's a searchable record of who decided what without anyone having to reconstruct it from memory during a chargeback dispute.",
+        ],
+      },
+      {
+        type: "quote",
+        text: "An approval queue with no escalation path isn't control. It's a delay with your name quietly attached to it.",
+      },
+      { type: "h2", text: "Not every edit belongs on autopilot" },
+      {
+        type: "p",
+        text: "None of this means routing every sensitive edit away from a human as fast as possible. An edit that swaps to a variant with almost no remaining stock, or a refund that approaches the order's full value, is exactly the kind of decision that should still land in front of a person - Flow's job there isn't to skip the review, it's to make sure the right person sees it inside your SLA instead of whenever the queue happens to get opened. The threshold and escalation rules above are about making sure a human approval actually happens on time, not about removing the human from edits that genuinely need one.",
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's eligibility engine already decides, per edit type, whether an edit auto-applies or lands in the approval queue - edit windows, fulfillment cutoffs, and rules like the dollar-threshold and out-of-zone examples above are configured once and evaluated on every order. Shopify Flow triggers fire off that same decision, so wiring up a workflow means acting on rules you've already set, not rebuilding them a second time in Flow. Slack alerts for pending approvals and SLA breaches ship as a native integration alongside Flow, and every edit - automated or manually approved - lands on the same audit timeline, so a decline six weeks ago and an approval from this morning are equally easy to trace back to who made the call.",
+      },
+      {
+        type: "p",
+        text: "The home-goods store's $180 upcharge didn't need a stricter rule - the rule was right the day it was written. It needed the queue to stop depending on someone happening to check it between phone calls. A Flow trigger on submission, a wait step for escalation, and a Slack channel that logs every decision turn an approval queue from a to-do list someone might get to into a workflow that runs on the clock your fulfillment cutoff actually keeps.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-renewal-orders-dont-fire-your-ad-pixel",
     title: "Why Shopify Subscription Renewals Never Fire Your Ad Pixel",
     excerpt:
