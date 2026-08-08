@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "automate-shopify-subscription-retention-with-shopify-flow",
+    title: "How to Automate Shopify Subscription Retention Workflows With Shopify Flow",
+    excerpt:
+      "A failed card that finally lapses after three retries disappears into the billing log the moment it resolves - unless something's listening. Shopify Flow turns AppFox Subscription's renewal, pause, and cancellation events into triggers, so a churn moment gets routed and acted on instead of surfacing six weeks later as a number on a report.",
+    category: "GUIDE",
+    date: "2026-10-15",
+    author: "The AppFox Team",
+    metaTitle: "Automate Shopify Subscription Retention with Shopify Flow | AppFox",
+    metaDescription:
+      "Shopify Flow can turn AppFox Subscription's renewal, pause, and cancellation events into automatic retention workflows - alerts, tags, and win-back triggers - instead of relying on someone to notice churn in a dashboard.",
+    body: [
+      {
+        type: "p",
+        text: "A coffee roaster's dunning sequence retries a declined card three times over nine days, exactly as configured, and then the subscription quietly lapses on the tenth day - no alert to anyone, no note on the account, nothing in a manager's inbox. The subscriber didn't cancel; the card just failed one time too many, and the only place that fact lived was a billing log nobody happened to be looking at. By the time someone notices the account went quiet, six weeks have passed and a bag of beans that used to renew every three weeks like clockwork has just evaporated from the count.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't retrying a failed card three times over nine days - that's a sane default, and pushing much harder starts to feel like harassment rather than customer service. The mistake is letting the outcome of that retry sequence, success or final failure, disappear into the billing engine the moment it resolves, instead of routing it somewhere a human or a win-back flow can actually act on it. Shopify Flow exists specifically to catch that moment and do something with it.",
+      },
+      { type: "h2", text: "What Shopify Flow actually does with a subscription event" },
+      {
+        type: "p",
+        text: "AppFox Subscription's auto-renewal engine already retries a failed payment automatically, and the customer portal already lets a subscriber skip a delivery, pause, swap products, or cancel without ever opening a ticket. What none of that does on its own is tell anyone else it happened. Shopify Flow is the layer that listens for those moments - a renewal, a pause, a final failed retry, a cancellation - and turns them into action elsewhere in the store: a Slack alert, a customer tag, a wait-and-recheck sequence, a note pushed into whatever tool actually runs retention.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Events fire off the actual outcome, not a nightly batch job, so a lapsed subscription or a canceled contract shows up in a workflow within the same window a save is still realistic",
+          "Enough detail on the event - which action fired, how many renewal cycles the subscriber had banked before it - to branch a workflow instead of treating a brand-new signup's drop-off the same as a twelve-box regular's cancellation",
+          "A wait step that can hold for a set stretch and recheck whether a paused subscription ever got resumed, so a pause meant to last one cycle doesn't quietly turn permanent unnoticed",
+          "Actions that reach past the subscription record itself - a tag on the customer, a Klaviyo flow trigger, a Slack ping to whoever owns retention that week",
+          "A trail of what Flow ran, sitting next to the portal's own subscription history, so a win-back discount that fired automatically at 2am is exactly as traceable as one a support agent applied by hand",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A canceled subscription and a used-to-be-loyal customer's last order look identical in a billing log. Only one of them is a lead Flow can hand to a win-back email before the moment actually passes.",
+      },
+      { type: "h2", text: "Five workflows worth wiring before your dunning sequence runs out" },
+      {
+        type: "ol",
+        items: [
+          "Route a final-failure notice - not each individual retry attempt - to whoever owns retention, with the subscriber's cycle count attached, so a twelve-box regular gets a personal outreach and a first-time subscriber gets the standard win-back email.",
+          "Hold a wait step across a pause's expected return date, then re-check status - a pause still paused well past when the subscriber said \"just skip a month\" is worth a check-in, not silence until they notice a box never came.",
+          "Tag the customer record the moment a cancellation fires, and trigger the win-back sequence in Klaviyo off that tag instead of a manual export someone remembers to run once a quarter.",
+          "Alert a manager's Slack channel on any cancellation from an account above your top-tier spend threshold, so a genuinely high-value subscriber gets a phone call before the churn number becomes just another line in a report.",
+          "Log every renewal, pause, skip, and cancellation to one channel or sheet, not scattered individual notifications, so a pattern - a spike in Tuesday cancellations, say - is visible before it's a quarter-old trend nobody flagged in time.",
+        ],
+      },
+      {
+        type: "quote",
+        text: "A retention program that only reacts to churn a spreadsheet caught last month isn't reacting to churn. It's documenting it after the fact.",
+      },
+      { type: "h2", text: "Not every event needs a workflow" },
+      {
+        type: "p",
+        text: "None of this means wiring Flow to fire on absolutely everything a subscription does. A successful renewal on a subscriber's second or third cycle doesn't need a Slack ping - that's the system working as intended, and flooding a channel with routine renewals just trains everyone to stop reading it. Save the automation for the moments that are actually decisions: a final payment failure, a cancellation, a pause that's run long past when it should have ended. Flow's value here is in surfacing the events worth a human noticing, not in making noise about the ones that don't need one.",
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's own retry logic and customer portal already handle the mechanics - a failed card gets retried automatically, and a subscriber can skip, pause, swap, or cancel without ever opening a ticket. Shopify Flow sits on top of that, turning the same events the portal already tracks into triggers a workflow can act on, so building a retention flow means routing decisions you're already making, not rebuilding subscription logic a second time inside Flow. Wire it in through the same Shopify Flow connection that sits alongside the Klaviyo and Loyalty Lion integrations, and every automated step lands next to the portal's own subscription history - so a win-back discount that fired overnight is exactly as traceable as one a support agent applied by hand.",
+      },
+      {
+        type: "p",
+        text: "The coffee roaster's dunning sequence didn't need a fourth retry or a harsher policy - three tries over nine days was already the right call. It needed the outcome of that sequence to go somewhere the moment it resolved, instead of sitting in a billing log nobody had a reason to open. A Flow trigger on final failure, a wait step on an open-ended pause, and a Slack channel that logs every cancellation turn subscriber retention from a task someone gets to when the queue is quiet into a workflow that runs the moment the moment worth catching actually happens.",
+      },
+    ],
+  },
+  {
     slug: "automate-shopify-order-edit-approvals-with-shopify-flow",
     title: "How to Automate Shopify Order Edit Approvals with Shopify Flow",
     excerpt:
