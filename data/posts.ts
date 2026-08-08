@@ -30,6 +30,71 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "who-should-approve-a-shopify-order-edit",
+    title: "Who Should Be Allowed to Approve a Shopify Order Edit?",
+    excerpt:
+      "A fulfillment temp who got Shopify staff access to print packing slips ends up clearing a $1,400 order-edit upcharge, because the approval queue never distinguished \"has a login\" from \"should be allowed to say yes.\" Most stores tune the rules that route edits to review and never touch the list of who's actually allowed to clear them.",
+    category: "PLAYBOOK",
+    date: "2026-10-16",
+    author: "The AppFox Team",
+    metaTitle: "Who Should Approve a Shopify Order Edit? | AppFox",
+    metaDescription:
+      "A Shopify order-edit approval queue open to every staff login concentrates real financial judgment on whoever happens to be logged in, not whoever's accountable for it. Here's how to separate staff access from approval permission, and what to log once you do.",
+    body: [
+      {
+        type: "p",
+        text: "A weekend fulfillment temp at a home-electronics store gets Shopify staff access for one reason: it lets her print packing slips without logging into a shared workstation across the room. Six weeks later, a customer's order-edit request lands in the same browser tab she already has open to check shipping labels - a swap from a $60 phone charger to a $1,400 laptop, over the store's threshold for auto-apply and routed instead to a human for a look. She clicks approve because the button is sitting right there and nobody ever told her not to, not because anyone at the store decided a fulfillment temp should be the one signing off on four-figure upcharges.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a technical failure. The approval queue worked exactly as configured - an edit above the auto-apply threshold went to a human, and a human approved it. The mistake isn't that the store gave a fulfillment temp Shopify staff access; printing labels is a legitimate reason to need it. The mistake is treating \"has a staff login\" and \"should be allowed to approve an order edit\" as the same permission, when a Shopify staff account and an order-edit approval queue are two entirely separate gates that most stores never actually pull apart.",
+      },
+      { type: "h2", text: "A staff login and an approval permission aren't the same gate" },
+      {
+        type: "ul",
+        items: [
+          "Shopify's staff permissions decide what a login can see and touch inside the admin - packing slips, inventory counts, order details - not what it should be trusted to decide, and printing a label isn't the same kind of action as waving through a four-figure discretionary charge just because both happen from the same account",
+          "An approval queue visible to every staff login concentrates real financial judgment on whoever happens to have the tab open when a request lands, not on whoever the store actually holds accountable for pricing exceptions",
+          "The queue rarely distinguishes \"granted access because the job requires it\" from \"granted access because nobody ever scoped it down,\" so a role added for one narrow task quietly inherits every other capability that account touches",
+          "A merchant who tunes the eligibility rules that route edits into the queue - dollar thresholds, edit types - rarely also reviews the list of who can act on what lands there; one gets adjusted regularly, the other gets set once during setup and forgotten",
+          "The gap almost never shows up in normal operation, because most approvals really are routine - it shows up exactly once, on the one edit large enough to matter, cleared by whoever happened to be logged in that day",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A staff account that can print a packing slip and a staff account that can approve a $1,400 upcharge aren't the same kind of trusted. They just look identical until something forces the difference into view.",
+      },
+      { type: "h2", text: "Four rules worth setting before an oversized edit lands" },
+      {
+        type: "ol",
+        items: [
+          "Set the auto-apply threshold low enough that anything above it always requires a named approver, not \"anyone with the queue open\" - a dollar cap only works as a control if a specific person, not a general staff pool, sits on the other side of it",
+          "Scope the approval queue to a named role or a short list of accounts, separate from whatever staff permissions were granted for fulfillment, support, or inventory work - printing a label shouldn't come bundled with a vote on a discretionary upcharge",
+          "Log which staff account approved each edit next to the edit itself, not just that it was approved, so a pattern of one login clearing all of its own high-value requests is visible in the audit trail before it turns into a chargeback dispute",
+          "Revisit the approval list whenever a staff role changes - a seasonal hire who moves from fulfillment into support keeps whatever queue access she started with unless someone deliberately updates it, and most stores don't have a process that catches that",
+        ],
+      },
+      {
+        type: "quote",
+        text: "An approval queue with the wrong people in it isn't a control. It's a formality with an audit trail nobody's read yet.",
+      },
+      { type: "h2", text: "Not every store needs a separate approvals role" },
+      {
+        type: "p",
+        text: "None of this means every store needs a dedicated approvals role wired up before its first order edit ships. A store where the owner is the only staff account, or a two-person team that already reviews every order by hand, doesn't gain much from separating approval permission out of general staff access - the owner clearing her own high-value edit isn't the same risk as a rotating cast of hourly staff doing it. The rule starts to matter once a store has more staff logins than people it actually trusts with discretionary dollar decisions, which describes most stores past a handful of employees, but not all of them.",
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's eligibility engine decides which edits route to the approval queue in the first place - dollar thresholds, edit types, out-of-zone address changes among them - but who can act on what lands there is still governed by Shopify's own staff permissions, not by AppFox. Combining the two means setting the eligibility rules and restricting queue visibility to the accounts a merchant actually wants making that call, instead of installing the app and leaving it on whatever staff permission set Shopify already had granted for other work. The approval history in AppFox's queue records which login cleared each request, so pairing that log with a scoped permission set turns \"who approved this\" from a question support has to dig for into something visible on the edit itself.",
+      },
+      {
+        type: "p",
+        text: "The home-electronics store didn't need a new rule for four-figure swaps - the $1,400 laptop upcharge should have gone to review, and it did. What it needed was a smaller list of who that review actually reaches, so the person clearing it was the ops manager who owns pricing exceptions, not whoever happened to have the approval queue open on a second monitor while printing labels for the day's shipments.",
+      },
+    ],
+  },
+  {
     slug: "automate-shopify-subscription-retention-with-shopify-flow",
     title: "How to Automate Shopify Subscription Retention Workflows With Shopify Flow",
     excerpt:
