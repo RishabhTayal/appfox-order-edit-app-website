@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-revenue-recognition-deferred-revenue",
+    title: "Shopify Subscription Revenue Recognition: Why Cash Collected Isn't Revenue Earned",
+    excerpt:
+      "A dog-treat brand collects $204 upfront for a 12-box prepaid plan, and Shopify's Sales report books the full amount the day it's paid. Eleven of those boxes haven't shipped yet - and under accrual accounting, neither has most of that revenue actually been earned, even though the cash already has.",
+    category: "REVENUE",
+    date: "2026-10-20",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Revenue Recognition, Explained | AppFox",
+    metaDescription:
+      "A prepaid Shopify subscription charge is booked as a full sale the day it's paid, but GAAP-consistent revenue recognition spreads it across every box you still owe. Here's why the gap forms, what it costs a merchant who ignores it, and how to fix your books.",
+    body: [
+      {
+        type: "p",
+        text: "A dog-treat brand sells its monthly box two ways: a standard auto-renewing subscribe-and-save plan that bills $19 every month, and a \"Pay Annually, Save 15%\" plan that bills $204 once for twelve months of boxes. In January, forty subscribers sign up for the annual plan. Shopify's Sales report books all $8,160 of it that same week, because that's when the orders were created and paid. The finance lead closes January's books off that report and it's the best month the brand has ever had. February's Sales report - almost entirely the smaller monthly plan, since the annual promotion has ended - looks like a steep drop by comparison, even though the warehouse packed roughly the same number of boxes both months and the brand still owes those forty subscribers eleven more boxes each against money it already spent January's marketing budget as if it had fully earned.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a bug. Shopify's Sales report is doing exactly what it's built to do: record a completed, paid order on the date it was paid. That's a cash-basis view of the business, and it's the correct number for reconciling what actually hit the bank account. It was never built to answer a different question - how much of that $204 was actually earned in January, as opposed to still owed in the form of eleven boxes not yet shipped. Recognizing revenue as it's earned rather than when it's collected is an accounting standard, not a Shopify feature, and nothing in an order confirmation or a subscription contract does that math on its own.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't collecting $204 upfront - prepaid billing is a legitimate, common structure that funds inventory ahead of time and cuts the failed-payment churn a monthly card can rack up over a year. The mistake is treating the Shopify Sales report figure as \"January's revenue\" when it's actually driving decisions - ad budgets, channel performance, a lender or investor's read on the business - without ever splitting it into what was earned this period and what's still owed as deferred revenue against boxes that haven't shipped.",
+      },
+      { type: "h2", text: "Why a prepaid subscription's cash and revenue never land in the same period" },
+      {
+        type: "ul",
+        items: [
+          "Shopify's Sales and Finance reports record an order's full total on the date it's created and paid - there's no field for spreading that total across twelve future periods, because Shopify has no concept of a delivery schedule separate from a completed order",
+          "A prepaid selling plan's billing policy funds several future deliveries with a single charge, but the order behind that charge is one completed transaction the moment it's paid - reporting can't distinguish it from an ordinary one-time $204 sale",
+          "Recognizing revenue as it's earned instead of when it's collected is a standard accounting practice (ASC 606 in the US, IFRS 15 internationally), not a Shopify feature or a subscription app feature - it requires a ledger entry no ecommerce platform generates automatically",
+          "A subscription app's own analytics - MRR, active subscriber count, LTV - are operational and billing metrics built to show growth and churn, not GAAP-consistent recognized revenue; they answer a different question than what a period actually earned",
+          "The gap stays invisible until someone reconciles a period's Shopify Sales total against a P&L built for taxes, a loan application, or an investor update, and finds a number cash-basis reporting says one thing and accrual accounting says another",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A cash-basis Shopify report and an accrual-basis P&L are both correct. They're answering two different questions, and a prepaid subscription is where the gap between them stops being theoretical.",
+      },
+      { type: "h2", text: "What an unrecognized gap actually costs" },
+      {
+        type: "p",
+        text: "The cost rarely shows up as an obvious accounting error - it shows up as decisions made on the wrong number. A month with a prepaid-plan promotion reads as a breakout success, so ad spend scales up chasing whatever seemed to work. The next month reads as a slump by comparison, so spend gets pulled back on a channel that didn't actually change. Neither read is about marketing performance at all; it's the same subscriber base, with revenue landing in one period's report instead of the twelve periods it was actually earned across. The same distortion shows up at tax time and in front of a lender or investor, where a P&L that doesn't separate cash from recognized revenue either overstates a strong prepaid month or forces an accountant to manually reconstruct a year of prepaid orders into monthly figures after the fact, order by order.",
+      },
+      {
+        type: "quote",
+        text: "A brand that reads its Shopify Sales report as January's revenue isn't wrong about the cash. It's wrong about which month actually earned it.",
+      },
+      { type: "h2", text: "How to recognize prepaid subscription revenue correctly" },
+      {
+        type: "ol",
+        items: [
+          "Separate the billing date from the delivery schedule for every prepaid plan - know exactly how many future deliveries a single charge is funding before trying to recognize anything against it",
+          "Book the initial prepaid charge to a deferred revenue (unearned revenue) liability account, not straight to revenue - the same treatment a gift card or an annual SaaS plan gets, and for the same reason",
+          "Recognize an even slice of that deferred balance as revenue each period a box actually ships, not each period a charge lands, so income is matched to the delivery that earned it",
+          "Reconcile deferred revenue against active prepaid contracts on a regular schedule, since a subscriber who cancels mid-term needs their remaining deferred balance moved out immediately, not left recognizing on a plan that no longer exists",
+          "Loop in an accountant or subscription-aware accounting software before scaling prepaid plans, not after the first year-end close turns into a manual, order-by-order reconstruction of a full year's billing",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription creates every prepaid or auto-renewing plan as a native Shopify subscription contract and order, so whichever billing policy a merchant picks, the underlying order and payment data flows into Shopify's own Sales and Finance reports exactly the way any other order does - nothing about billing through AppFox changes what Shopify records as a completed sale.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is recognize revenue or maintain a deferred-revenue ledger - that's an accounting function, not a subscription-billing one, and it belongs with a merchant's accountant or accounting software the same way it would for any business selling gift cards or annual plans. What subscription analytics, on the Growth plan and above, does provide is the operational half of the picture: active contracts broken out by billing policy - prepaid versus auto-renew - and how many delivery cycles remain on each, which is the exact input an accountant needs to build a deferred-revenue schedule, instead of reconstructing it by hand from a raw order export.",
+      },
+      {
+        type: "p",
+        text: "The dog-treat brand didn't do anything wrong offering an annual prepaid plan - it's a reasonable way to fund inventory ahead of a busy season and give price-sensitive subscribers a discount for committing early. What tripped it up was reading a cash-basis report as if it were an earned-revenue one, and letting a single strong billing month set a budget that the eleven quieter months of actual box shipments then had to live up to. Split the two the moment a prepaid plan launches, not the first time a P&L and a bank statement stop telling the same story.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-portal-screen-reader-accessibility",
     title: "Why a Screen Reader Can't Complete a Shopify Order Edit",
     excerpt:
