@@ -30,6 +30,77 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-combined-listing-order-edit-swap",
+    title: "Why a Combined Listing Color Swap Doesn't Work Like a Normal Order Edit",
+    excerpt:
+      "A customer swaps her shirt from moss to rust the same way she's swapped a color a hundred times before. On a Shopify combined listing, rust isn't a variant of the product she bought - it's a different product entirely, and most swap tools were never built to look for it there.",
+    category: "PLAYBOOK",
+    date: "2026-10-18",
+    author: "The AppFox Team",
+    metaTitle: "Combined Listings Break a Normal Shopify Order Edit | AppFox",
+    metaDescription:
+      "Shopify's combined listings feature merges separate products into one storefront listing, but the products underneath keep separate IDs, inventory, and prices. Here's why a color swap on a combined listing doesn't work like an ordinary order edit, and what has to change to fix it.",
+    body: [
+      {
+        type: "p",
+        text: "An apparel brand sells its best-selling t-shirt in six colors, and last year rebuilt the product page using Shopify's combined listings feature - each color used to be its own standalone product, cluttering search and collection pages with six near-identical listings, and combining them into one page with a color swatch picker fixed that overnight. The storefront looks exactly the way a normal multi-variant product would: one URL, one add-to-cart button, six swatches across the top. A customer orders the shirt in moss, and two days later opens the self-service edit link to swap it for rust instead - the same swap she's made on a dozen other stores, on a dozen other shirts, without a second thought. This time the swap either throws an error, or quietly does nothing at all. Rust was never a color option on the product she bought. It's a different product, with its own product ID, that Shopify's combined listings feature is only stitching together with moss's at the storefront layer.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a bug in the edit flow or in combined listings. Both features work exactly as built. The mistake is a swap tool's oldest, most reasonable-looking assumption: that changing a shirt's color means picking a different variant of the same product. That's true for almost every multi-variant product a store has ever sold. It stops being true the moment a merchant reaches for combined listings to solve a completely unrelated problem - too many near-duplicate listings crowding search - and never revisits what that changes for anything downstream that was built around the old, single-product assumption.",
+      },
+      { type: "h2", text: "What a combined listing actually merges, and what it doesn't" },
+      {
+        type: "ul",
+        items: [
+          "Combined listings merge products at the storefront - one page, one URL, one set of swatches that look and behave like ordinary variant options to a shopper browsing the page",
+          "Underneath that merge, each color stays a fully separate product: its own product ID, its own variant IDs, its own inventory pool, and its own price, exactly as it was before the products were combined",
+          "Nothing about combining the listings moves moss's inventory or pricing into rust's record, or the reverse - the two products track completely independently, the same way any two unrelated products on the store would",
+          "A tool that fetches \"this product's variants\" to populate a swap picker gets back moss's own variant list and nothing else - rust was never a variant of moss's product, so it was never going to show up in that call regardless of how identical the two look on the page",
+          "None of this throws an error at checkout, because checkout doesn't care which product a shopper is looking at - it only surfaces once something downstream tries to swap within a product boundary that combined listings quietly stopped matching to what the shopper sees",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A shopper sees one product with six colors. Shopify still sees six products that happen to share a page - and a swap tool built for the first picture breaks on the second.",
+      },
+      { type: "h2", text: "Where a normal swap tool loses the other five colors" },
+      {
+        type: "p",
+        text: "The failure mode splits two ways, and neither tells the customer what actually happened. A swap widget that only queries the purchased product's own variant list won't offer rust at all - the customer sees a color picker with nothing that matches the swatch she remembers from the product page, because the widget was never told to look past the product she bought. A more permissive tool that lets her search the whole catalog can technically complete the swap - remove moss, add rust - but treats it as an edit between two unrelated products, not a same-item color change, which is exactly the distinction that matters for price. If rust was ever discounted or priced independently of moss, a swap that assumes \"same product, different color\" carries the wrong price across without anyone noticing.",
+      },
+      {
+        type: "quote",
+        text: "Combined listings were built to fix a search results page, not to redefine what a variant swap means. Everything downstream that assumed the old boundary still has to be told where the new one actually is.",
+      },
+      { type: "h2", text: "What has to change to make the swap work" },
+      {
+        type: "ol",
+        items: [
+          "Resolve a swap request against the full combined-listing group, not just the purchased product's own variant list - the group is the shopper's actual mental model of \"this product's colors,\" even though Shopify still tracks it as several products",
+          "Pull live price and inventory from whichever underlying product the customer is swapping to, rather than assuming it matches the product she's swapping from - a combined listing never guaranteed the two stay in sync",
+          "Show the customer the same swatch set she saw on the product page, sourced the same way, so the edit screen and the product page never disagree about which colors are actually available",
+          "Test the swap in both directions on every combined listing before launch - moss to rust and back - since a group's products don't have to be priced or stocked symmetrically",
+          "Flag combined-listing products distinctly wherever edit or swap rules get configured, so a rule written for an ordinary multi-variant product doesn't get applied unchanged to one where \"variant\" and \"color\" no longer mean the same thing",
+        ],
+      },
+      { type: "h2", text: "Most stores never need to think about this" },
+      {
+        type: "p",
+        text: "None of this matters for a store that hasn't touched combined listings, or that uses them only on a handful of legacy SKUs nobody actively sells anymore. The gap is specific to products actively using the feature, and it only shows up the moment a customer tries to swap across the colors a combined listing groups together - a swap within a single product's ordinary variants, which is still the overwhelming majority of edits any store processes, works exactly the way it always has. The check is worth running once, on whichever product lines actually use combined listings, not on the catalog as a whole.",
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's variant swap reads live from Shopify's own product and inventory data at the moment a customer opens the edit flow, rather than a cached copy of what a product looked like at checkout - which is what keeps a normal swap accurate down to the current price and stock level. Combined listings sit above that: they're a storefront-presentation feature, and the underlying products still resolve as the separate records they've always been. For a store running combined listings on its catalog, that means confirming the swap options a customer sees actually span the full group Shopify presents on the product page, not just the one product her order happens to reference - a setup check worth making once per combined-listing product line, the same way a merchant would confirm any other catalog restructuring didn't leave a gap behind it.",
+      },
+      {
+        type: "p",
+        text: "The apparel brand's combined listing did exactly what it was built to do - six cluttered search results became one clean product page, and nothing about that decision was wrong. What it didn't do was carry its own boundary forward into every tool downstream that still assumed a color swap stayed inside one product. Match the swap flow to the group the storefront actually shows, and a customer swapping moss for rust stops depending on whether the tool she's using happens to know that, behind that one clean page, she's really choosing between six.",
+      },
+    ],
+  },
+  {
     slug: "how-many-shopify-subscription-frequency-options-should-you-offer",
     title: "How Many Subscription Frequency Options Should You Offer on Shopify?",
     excerpt:
