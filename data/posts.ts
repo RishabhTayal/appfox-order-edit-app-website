@@ -30,6 +30,45 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "how-many-shopify-subscription-frequency-options-should-you-offer",
+    title: "How Many Subscription Frequency Options Should You Offer on Shopify?",
+    excerpt:
+      "A specialty coffee roaster's subscribe-and-save widget offers fifteen selectable frequency-and-size combinations, and most first-time subscribers pick one out of decision fatigue, not conviction - then head straight to the portal to change it. Here's how to size a frequency menu to what subscribers actually renew on instead of every interval they might hypothetically want.",
+    category: "GUIDE",
+    date: "2026-10-17",
+    author: "The AppFox Team",
+    metaTitle: "How Many Subscription Frequency Options to Offer? | AppFox",
+    metaDescription:
+      "A long list of Shopify subscription frequency options doesn't help subscribers - it just moves the guessing from checkout to the customer portal. Here's how to size the menu to real renewal data instead of every interval a subscriber might hypothetically want.",
+    body: [
+      { type: "p", text: "A specialty coffee roaster's subscribe-and-save widget offers five roast frequencies - weekly, every two weeks, every three weeks, monthly, and every six weeks - crossed against three bag sizes, which works out to fifteen selectable combinations sitting on a single product page before a first-time visitor has decided whether she even wants a subscription. She picks something close enough to what she wants, more out of decision fatigue than conviction, and finishes checkout. Eleven days later she's in the customer portal changing frequency for the first time, and by her third renewal she's changed it twice more - not because anything went wrong, but because none of the fifteen options she was shown at signup were the one she actually wanted. They were just the closest guess among too many to compare." },
+      { type: "p", text: "Nothing here is a widget bug. Every one of those fifteen combinations renders correctly, bills correctly, and ships correctly on schedule. The mistake isn't offering flexibility - it's offering it without a default anyone would actually pick. A frequency menu built to cover every plausible cadence a subscriber might someday want optimizes for the smallest number of people who'd ever complain an option was missing, not for the much larger number who now have to compare fifteen near-identical rows before they can finish checking out." },
+      { type: "h2", text: "A long frequency list solves the wrong problem" },
+      { type: "ul", items: [
+          "More frequency options at signup doesn't reduce how often subscribers change frequency later, it just moves the decision from a rushed comparison on the product page to an equally rushed guess, because a first-time subscriber has no billing history yet to know whether monthly or every-six-weeks actually matches how fast she uses the product",
+          "Every added combination multiplies the surface area of \"what if I picked wrong,\" and a frequency variant only 2% of subscribers ever choose still adds a full row of comparison for the other 98% scanning the whole list before they can check out",
+          "A subscriber who changes frequency inside her first thirty days isn't a portal engagement win, she's a signal that the initial choice was a guess - and a longer menu makes wrong first guesses more likely, not less",
+          "Signup-mix reports on frequency read like genuine subscriber preference, when for stores with long menus they more often reflect which option was listed first, priced lowest, or pre-selected as the default",
+          "Support tickets that open with \"can I change how often this ships\" trace back to the same root cause almost every time: the subscriber picked from a list too long to actually evaluate, not too short to find what she wanted",
+        ] },
+      { type: "h3", text: "A subscription menu with fifteen frequency options doesn't give a shopper fifteen genuine choices. It gives her one overwhelming one, made in the ten seconds before she either checks out or closes the tab." },
+      { type: "h2", text: "Four questions worth answering before you add another frequency" },
+      { type: "ol", items: [
+          "Look at actual consumption data for the product - a bag of coffee, a bottle of shampoo - and offer the two or three frequencies that match how fast a typical subscriber goes through it, not every interval a subscriber could hypothetically want",
+          "Set a sensible default frequency, pre-selected on the widget from that same consumption data, so a subscriber who isn't sure what to pick isn't left guessing among options weighted to look equally valid",
+          "Push the outlier frequencies - the once-a-week superuser, the twice-a-year gift order - into the portal's change-frequency control instead of the initial widget, where a subscriber who already knows her own usage can adjust later without every other shopper having to scroll past that option first",
+          "Track how often subscribers change frequency inside their first billing cycle, not just what they picked at signup - a high early-change rate on one product is a more honest signal that the starting menu is too long or the default is wrong than the raw mix of what got selected",
+          "Revisit the list once the program has real renewal history behind it, since the frequencies chosen at launch are usually a guess, and the ones subscribers actually settle into after a few cycles are the ones worth keeping on the widget",
+        ] },
+      { type: "quote", text: "A frequency menu that never gets shorter isn't a feature list. It's a decision nobody at the store was willing to make for the subscriber." },
+      { type: "h2", text: "Not every store needs to trim its frequency list" },
+      { type: "p", text: "None of this means every subscription program should default to two options and call it done. A store selling a genuinely seasonal or gift-driven product - a holiday box, an annual renewal, a curated drop - may have real, distinct demand for both a once-a-year and a quarterly cadence, and shortening that list to match a replenishment product's usage pattern would cut an option subscribers are actually choosing on purpose. The rule isn't \"fewer is always better\" - it's that every frequency on the list should map to a real reason a subscriber picks it, not to a guess about a customer segment nobody's confirmed exists yet." },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      { type: "p", text: "AppFox Subscription's widget renders whatever frequency options a merchant configures in plan settings - weekly, monthly, or anything between - and the self-service portal's change-frequency control is the same place a subscriber can adjust that choice later without opening a ticket. Neither piece decides how many options belong on the list; that's a merchant call, made from the subscription analytics AppFox already surfaces on which frequencies subscribers actually renew on, versus which ones sit unused past the first cycle. Pairing the widget's default selection with that renewal data turns \"how many frequencies should we offer\" from a guess made once at setup into a number a merchant can actually revisit once subscribers start showing what they use." },
+      { type: "p", text: "The coffee roaster's fifteen combinations weren't wrong because flexibility is bad - a subscriber who genuinely wants her beans every six weeks should still get that option. They were wrong because nobody had gone back to check which of the fifteen were actually being chosen on purpose versus picked because comparing all of them sounded like more work than just picking something. Trim the list to the frequencies real renewal data supports, set a default from that same data, and push the rest into the portal where a subscriber can find them once she actually knows what she wants - and the widget stops asking a first-time visitor to make a decision she doesn't have the information to make yet." },
+    ],
+  },
+  {
     slug: "who-should-approve-a-shopify-order-edit",
     title: "Who Should Be Allowed to Approve a Shopify Order Edit?",
     excerpt:
