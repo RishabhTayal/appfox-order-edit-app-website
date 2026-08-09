@@ -30,6 +30,77 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-portal-screen-reader-accessibility",
+    title: "Why a Screen Reader Can't Complete a Shopify Order Edit",
+    excerpt:
+      "A shopper using VoiceOver opens her order status page to swap a shirt size, the same edit she's made on a dozen other stores without a second thought. The swatch picker announces six identical unlabeled buttons and nothing tells her which one is selected. Most order-edit portals are built and tested by sighted people clicking a demo, and nobody checks what a screen reader actually hears.",
+    category: "PLAYBOOK",
+    date: "2026-10-19",
+    author: "The AppFox Team",
+    metaTitle: "Make Your Shopify Order Edit Portal Accessible | AppFox",
+    metaDescription:
+      "Most self-service Shopify order-edit portals are tested by sighted users clicking a demo, not screen readers. Here's what actually breaks for assistive-tech customers, and the WCAG fixes that make an order-edit flow usable for everyone.",
+    body: [
+      {
+        type: "p",
+        text: "A shopper who's legally blind opens her order confirmation email the same way she always does - VoiceOver reads the subject line, she taps through to the order status page, and starts navigating by heading and by form control the way she navigates every other page on the web. She's here to swap a size, an edit she's made on a dozen other stores without asking anyone for help. This time, VoiceOver reads the variant picker as six identical unlabeled buttons in a row, and when she taps one, nothing announces whether it selected or which size is now active. She can't tell if her edit even registered. She closes the tab and emails support instead - the exact ticket the self-service portal was built to avoid.",
+      },
+      {
+        type: "p",
+        text: "Nothing here is a bug in the usual sense. The swap almost certainly works - a sighted shopper clicking the same control sees it highlight instantly. The failure is narrower and easier to miss: the portal was built and QA'd by people clicking through a demo with a mouse, and nobody opened it with a screen reader before shipping. That gap is common, not careless. Accessibility rarely surfaces in a normal test pass, because everything a sighted tester checks - does the swap apply, does the price update, does the confirmation email send - still happens correctly. It just happens invisibly to anyone who can't see it happen.",
+      },
+      { type: "h2", text: "Where an order-edit flow quietly stops working without a mouse" },
+      {
+        type: "ul",
+        items: [
+          "A variant swatch picker built from styled divs or unlabeled buttons has no accessible name - a screen reader announces \"button\" six times in a row with nothing to tell one color or size from another",
+          "A total that updates live when an edit changes the order needs an ARIA live region to be announced at all - without one, the new total exists on screen but a screen reader user never hears that it changed",
+          "Custom dropdowns for quantity or variant selection that aren't built on a native select, or don't implement listbox roles correctly, can trap keyboard focus or never open at all without a mouse",
+          "An address autocomplete field that surfaces suggestions visually but doesn't wire them into aria-expanded and aria-activedescendant leaves a keyboard user stuck typing into a field that looks like it's working",
+          "A validation error - an incomplete address, a payment request that failed - shown only as a color change or an icon next to the field never reaches a screen reader unless focus moves to it and it's announced as an error",
+        ],
+      },
+      {
+        type: "h3",
+        text: "An order-edit portal that never throws a visible error can still be completely unusable - the failure isn't in what happens, it's in what never gets announced.",
+      },
+      { type: "h2", text: "Why this is a bigger risk than a missed edit" },
+      {
+        type: "p",
+        text: "The cost of this gap isn't just a shopper who has to reroute to support - it's the exact ticket volume a self-service edit flow exists to prevent, landing disproportionately on customers who already have the hardest time reaching a human alternative. It's also a live legal exposure: ecommerce accessibility lawsuits under the ADA have been filed against thousands of online retailers in recent years, and the standard plaintiffs' counsel and the DOJ point to is WCAG 2.1 Level AA - not a vague \"make it usable\" bar, but a documented, testable checklist. A store that's never audited its checkout is exposed already; a store that's never audited the order-edit widget layered on top of it usually doesn't realize that widget is a separate piece of injected UI its theme's accessibility work never touched.",
+      },
+      {
+        type: "quote",
+        text: "The thank-you page and order status page inherit your theme's accessibility work by default. A third-party edit widget injected into that page doesn't inherit anything - it has to earn its own audit.",
+      },
+      { type: "h2", text: "What actually needs to change" },
+      {
+        type: "ol",
+        items: [
+          "Give every variant and swatch control a real accessible name - a labeled button like \"Size: Large\", not a styled div with no label - so a screen reader announces what's being selected, not just that something is clickable",
+          "Wrap anything that updates without a page reload - a new total, a payment request, an \"edit saved\" confirmation - in an ARIA live region, so the change is announced the moment it happens instead of only existing visually",
+          "Build dropdowns and pickers on native form controls wherever possible, and where a custom component is unavoidable, implement full keyboard support - tab, arrow keys, escape - along with the matching ARIA roles",
+          "Move focus to validation errors when they appear, and describe them in text, not color or an icon alone, so a screen reader user knows what failed and where to fix it",
+          "Test the actual edit flow with a screen reader before launch - VoiceOver on Mac and iOS, NVDA on Windows, both free - not just an automated scanner, since automated tools catch missing labels but miss whether the flow is actually usable end to end",
+        ],
+      },
+      { type: "h2", text: "Most stores don't need a full accessibility rebuild" },
+      {
+        type: "p",
+        text: "None of this means every store needs to hire an accessibility consultant before shipping an edit flow. A store running a widget provided by its edit-flow app is really auditing that app's work, not rebuilding its own, and a quick automated scan plus a manual pass through the actual edit paths catches most of what matters. The useful question isn't \"is our whole site WCAG-certified\" - it's narrower and more answerable: can a screen reader user complete the three or four edits your flow actually offers - address change, variant swap, cancellation - end to end, without getting stuck on a control that only makes sense to a mouse.",
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's edit flow lives on your store's own thank-you and order status pages, so it inherits your theme's accessibility baseline rather than opening a separately-styled portal elsewhere - but the edit controls themselves, the variant swatches, quantity steppers, address autocomplete, and save action, are still AppFox's own components layered into that page, and worth confirming independently the way you'd confirm any embedded widget. If you're evaluating a self-service edit tool, ask what screen reader it was tested with and when, the same way you'd ask about its uptime or how it talks to Shopify's Order Editing API - \"we ran an automated scanner once\" and \"we tested every edit path with VoiceOver before this release\" are very different answers.",
+      },
+      {
+        type: "p",
+        text: "The shopper swapping her size didn't need a redesigned order-edit flow. She needed the same swatch picker every sighted customer already uses to actually tell her what it was doing. Most of the fixes here are small and mechanical once someone knows to look for them - a label on a button, a live region on a total, focus that moves to an error instead of just changing its color. The expensive part isn't building any of it. It's remembering to check, because nothing about a missing label ever shows up in a normal QA pass.",
+      },
+    ],
+  },
+  {
     slug: "shopify-combined-listing-order-edit-swap",
     title: "Why a Combined Listing Color Swap Doesn't Work Like a Normal Order Edit",
     excerpt:
