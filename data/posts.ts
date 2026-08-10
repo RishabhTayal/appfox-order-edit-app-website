@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-bundle-locked-renewal-frequency",
+    title: "Why a Shopify Subscription Bundle Locks Every Item to One Renewal Frequency",
+    excerpt:
+      "A coffee brand bundles a bag of beans with a reusable filter into one subscription box, set to renew every four weeks because that's how fast the beans run out. The filter is good for three months, but the box doesn't know that - it ships a filter nobody needs in box two, box three, and every box after, because a subscription contract has exactly one renewal frequency, not one per item inside it.",
+    category: "PLAYBOOK",
+    date: "2026-10-23",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Bundles Can't Mix Renewal Frequencies | AppFox",
+    metaDescription:
+      "A Shopify subscription contract has one billing policy, so every product bundled into a subscription box renews on the same frequency - even when the items inside deplete at different rates. Here's why that's a contract-level limit, not a bug, and how to design a bundle around it.",
+    body: [
+      {
+        type: "p",
+        text: "A coffee roaster bundles a bag of whole-bean coffee with a reusable stainless steel filter into a single subscription box, set to renew every four weeks - about how long a bag lasts a typical two-cup-a-day household. The bundle sells well through the first quarter, until subscribers start emailing about the filter. It shows up in box two. It shows up in box three. By box six, a subscriber who only needed one filter to begin with has four sitting in a drawer, and support is fielding a steady trickle of \"can you just send the coffee\" requests from people who like the box otherwise and don't want to cancel over a reusable part they already have.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the filter reshipping every cycle is a bug. A Shopify subscription contract carries exactly one billing policy - one frequency, one set of renewal dates - and every line item riding on that contract renews against it, whatever that item actually is. The coffee runs out every four weeks and the filter doesn't, but the contract has no way to know that, because a billing policy isn't attached to a product inside the box - it's attached to the contract the whole box belongs to. Shopify built subscription contracts to answer one question - when does this contract renew - not a second one sitting right next to it: does every item riding along in this contract actually need to renew that often.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't bundling two products with different lifespans into one subscription - a filter genuinely belongs next to the coffee it makes, and plenty of subscription boxes work exactly because they pair a consumable with the equipment that uses it. The mistake is assuming the contract will quietly sort out that the filter needs a slower clock than the coffee, when a subscription contract was never built to run two clocks at once - it only has the one, and every item on it inherits that one whether it needs it or not.",
+      },
+      { type: "h2", text: "Why a bundle can't split its own renewal frequency" },
+      {
+        type: "ul",
+        items: [
+          "A Shopify subscription contract has a single billing policy and a single delivery policy applied to the whole contract, not one per line item, so a coffee bag and a filter added to the same contract are locked to the identical interval the moment they're bundled together",
+          "The billing policy lives on the contract Shopify creates at checkout, not in an app layered on top of it - a subscription app can decide what products go into a box and how it's priced, but it reads and writes the same one-frequency-per-contract object Shopify's API defines, the same as every other app built on the platform",
+          "Nothing about a build-a-box or curated-bundle feature changes this - bundling multiple products into one subscribable unit still produces one contract with one renewal date, because bundling happens at the product and plan level, while the frequency constraint happens one layer down, at the contract level",
+          "The only way two products actually renew on two different clocks is if they live on two separate contracts - which means two separate subscriptions a customer opts into individually, not one bundle a merchant assembles on their behalf",
+          "A subscriber can see this immediately by looking at their portal: one active subscription, one next-billing date, one set of contents - there's no per-item date to check, because the contract genuinely doesn't track one",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A subscription contract keeps one calendar, not one per item riding on it. Whatever gets bundled in reads that same date, coffee or filter, wanted or not.",
+      },
+      { type: "h2", text: "What one shared frequency actually costs" },
+      {
+        type: "p",
+        text: "For the coffee roaster, the cost shows up first as waste sitting in a customer's kitchen drawer - a filter reshipped five times to someone who needed it once is a real cost against a subscription box's margin, multiplied across every subscriber who signed up for the same bundle. It shows up second as a support queue that never fully clears, because \"can you stop sending the filter\" isn't a one-time question - it's the same email arriving from a new subscriber every time someone reaches box two. And it shows up worst as cancellations that have nothing to do with the coffee: a subscriber who likes the product but feels like the box keeps sending something she didn't ask for a second time is a subscriber who starts reading the whole subscription as poorly thought through, not just the one item that's wrong.",
+      },
+      {
+        type: "quote",
+        text: "The coffee wasn't the problem. The filter riding on the coffee's clock was.",
+      },
+      { type: "h2", text: "Designing a bundle around one shared clock instead of fighting it" },
+      {
+        type: "ol",
+        items: [
+          "Set the contract's single frequency to match whichever item actually depletes fastest - the consumable, not the durable part - since that's the item a mismatched cadence actually damages if it's set wrong",
+          "Stop treating the slow item as a fixed line item on every box, and instead build it into only the first shipment or an occasional one - inventory decisions about what ships in a given cycle live in the box's contents, not in the contract's frequency, so that's the lever that actually has room to move",
+          "Sell the slow-depleting item as its own separate subscription instead of bundling it permanently - a second, independent contract can run on its own longer frequency, because the one-frequency limit is per contract, not per customer, and a subscriber can hold two contracts on two different clocks without either one bending its own rules",
+          "Say the cadence out loud at signup - this box ships every four weeks, filter included every time - so a subscriber is choosing the shared frequency on purpose instead of discovering it by getting a fourth filter she didn't expect",
+          "Track how often the slow item gets returned, complained about, or cited as a cancellation reason, and treat a rising number as the actual signal to unbundle it - not a reason to look for a per-item frequency setting that doesn't exist",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's bundling and build-a-box tools, on the Business plan and up, let a merchant assemble multiple products into one subscribable box with its own pricing and contents. Underneath that, every contract those bundles create is a native Shopify subscription contract, carrying the same single billing policy every other subscription on the platform carries - AppFox doesn't run a private billing engine that could split one contract into two frequencies even if it wanted to. What the app does give a merchant working around the limit is the ability to run a second, independent subscribable product - its own selling plan, its own frequency, its own contract - so an item like the filter can be its own opt-in subscription instead of a fixed passenger on the coffee's.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is let one contract track two renewal clocks - no app built on Shopify's subscription APIs can, because the billing policy is a property of the contract Shopify creates, not something an app's logic sits in front of and overrides. What it does provide is a customer portal showing a subscriber every contract she holds, side by side, so if the fix ends up being two subscriptions instead of one, she can see and manage both without two separate account experiences pretending to be one.",
+      },
+      {
+        type: "p",
+        text: "The coffee roaster's bundle wasn't a bad idea - a filter next to the beans that fill it is exactly the kind of pairing that makes a subscription box worth keeping over buying the parts separately. What broke wasn't the pairing, it was assuming the contract would quietly give the filter its own clock once it was assembled into the box. It won't, because it only has the one. Match the shared frequency to the item that actually needs it, and let the slower one either ride along on purpose or leave and become its own subscription - and box two stops being the box where a customer starts wondering what else the bundle got wrong.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-cant-be-bought-as-a-gift",
     title: "Why a Shopify Subscription Can't Be Bought as a Gift the Way a Product Can",
     excerpt:
