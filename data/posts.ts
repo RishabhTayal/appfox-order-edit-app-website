@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-deposit-partial-payment-balance",
+    title: "Why Editing a Shopify Order With a Deposit Doesn't Settle Like a Paid-in-Full One",
+    excerpt:
+      "A custom-furniture order gets a leg upgrade added mid-build. The edit saves cleanly and the balance-due field updates - but the 50% deposit the customer already paid quietly stops covering half the order, and nothing in the edit flow says so.",
+    category: "PLAYBOOK",
+    date: "2026-10-21",
+    author: "The AppFox Team",
+    metaTitle: "Editing a Shopify Order With a Deposit or Partial Payment | AppFox",
+    metaDescription:
+      "Editing a Shopify order that's only partially paid changes the balance due, not the deposit ratio behind it. Here's what actually happens when you add or remove items on a deposit order, and how to keep self-service edits away from open-balance orders.",
+    body: [
+      {
+        type: "p",
+        text: "A custom-furniture shop takes a 50% deposit on every build-to-order piece: $600 down on a $1,200 sofa, the remaining $600 invoiced when it ships. Two weeks into the build, the customer calls in to add a leg-height upgrade - $200 more, easy enough. Someone in the shop opens the order and edits it, adding the upgrade line item. The order total updates to $1,400, the balance-due field updates to $800, and the edit saves without a single warning. Nobody notices that the $600 already collected now covers 43% of the order instead of the 50% the shop's own deposit policy requires on every custom build - until three more orders get the same treatment over the month and the shop is suddenly carrying meaningfully more unsecured work-in-progress than its deposit policy was ever supposed to allow.",
+      },
+      {
+        type: "p",
+        text: "Nothing about that edit is wrong, and nothing in Shopify silently failed. Editing an order with an existing payment recalculates exactly one number: the balance still owed, which is simply the new total minus whatever's already been collected. That's the correct arithmetic for the question Shopify's order-editing tools are built to answer - what does this customer still owe on this order. It was never built to answer a second question sitting right next to it: does the amount already collected still satisfy the deposit percentage the merchant's own payment terms promised. Shopify has no concept of a required deposit ratio living on an order after checkout - only a total, a paid amount, and whatever's left. The edit did its job. The job it did just wasn't the one the shop needed done.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't collecting a deposit and letting an order change after the fact - a build-to-order business has to allow upgrades and changes mid-build, that's the nature of custom work. The mistake is treating a deposit order's edit like a fully-paid order's edit, when the one thing that made the deposit order different in the first place - the ratio between what's collected and what's owed - is exactly the thing a routine line-item edit quietly moves without telling anyone.",
+      },
+      { type: "h2", text: "Why an edit changes the balance but not the deposit ratio" },
+      {
+        type: "ul",
+        items: [
+          "A deposit or partial payment isn't a distinct object Shopify tracks against a required percentage - it's just a payment transaction recorded against the order, and the order-editing API only ever recalculates total minus paid, not paid divided by total",
+          "Adding a line item raises the total while the amount already collected stays fixed, so the same dollars that satisfied a 50% deposit on the original total automatically cover a smaller share of the new one - the drop isn't a glitch, it's the math working correctly on a number nobody asked it to protect",
+          "Removing a line item or lowering a quantity can push the paid amount past the new total entirely, putting the order into a credit position - Shopify surfaces that as a balance owed to the customer, but doesn't refund it automatically or flag it as urgent",
+          "None of this is specific to B2B payment terms or Shopify Plus deposit orders specifically - any order with a partial payment recorded against it, from a manual draft-order deposit to a preorder app's upfront charge, behaves the same way once it's edited",
+          "The order-status page and admin order screen both show the updated balance due after an edit, but neither one shows what percentage of the new total that balance represents - the ratio a deposit policy actually depends on is a number the merchant has to compute themselves, every time",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The edit gets the subtraction right every time. It's the ratio - deposit collected over order total - that drifts, and nothing in the flow is watching it.",
+      },
+      { type: "h2", text: "What an unwatched deposit ratio actually costs" },
+      {
+        type: "p",
+        text: "On one order, a few points of drift on a deposit ratio is nothing - the furniture shop still collects the rest before the sofa ships, upgrade or not. The cost shows up at volume, the same way any silent policy drift does: a shop that requires 50% down specifically to cover material costs on a custom build is, order by order, quietly extending more unsecured credit than its own pricing assumed, and the person editing each order has no way to see it happening because nothing on screen ever shows the ratio, only the balance. On the other side, an edit that removes items and creates a credit sits there unrefunded until someone happens to notice a negative balance during reconciliation - which, for a customer who now feels they've overpaid and heard nothing about it, reads as the shop keeping money it wasn't owed.",
+      },
+      {
+        type: "quote",
+        text: "The balance-due field is always correct. It just isn't the number a deposit policy was actually written to protect.",
+      },
+      { type: "h2", text: "Keeping a deposit order's edit inside its own policy" },
+      {
+        type: "ol",
+        items: [
+          "Decide, before any edit touches a deposit order, whether an added item requires topping up the deposit to the same percentage the original total was collected at - if it does, that's a second charge to collect, not a balance-due field that quietly absorbs the gap",
+          "Flag orders carrying a partial payment as their own category wherever edits get made, so whoever's editing sees the deposit percentage next to the balance due, not just the balance due on its own",
+          "For an edit that reduces the total below what's already been collected, treat the resulting credit as something to resolve immediately - refund it or apply it to the next invoice on purpose - rather than leaving a negative balance for reconciliation to eventually surface",
+          "If deposit percentage matters enough to be a real policy rather than a rough guideline, check it on a schedule against every order that's been edited since it was placed, not just at the moment the deposit was first collected",
+          "Keep deposit or payment-terms orders out of any self-service or auto-apply edit flow entirely - a customer changing their own order has no visibility into a deposit ratio and no way to know an edit just moved it, which makes this one of the clearer cases for routing to a person instead of applying automatically",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing & Upsell" },
+      {
+        type: "p",
+        text: "AppFox's eligibility engine checks an order's payment status before deciding whether an edit type is even offered, and an order carrying an open balance - a deposit, a payment-terms invoice, anything short of paid in full - is exactly the case built for the approval queue rather than auto-apply. That's a deliberate default, not a gap: a self-service edit assumes the customer making the change is the same party who can settle whatever it costs instantly, which is true for a paid-in-full DTC order and generally isn't true for a deposit-based custom build or a B2B account running on payment terms.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is track a merchant's required deposit percentage or manage the top-up charge itself - that's a payment-terms policy that lives with the merchant's own accounting setup, and it varies by product line and by customer. What routing a deposit order's edits to the approval queue does is put a person in front of the decision before the balance-due field quietly absorbs a ratio nobody meant to change, instead of letting an edit that reads as routine on a paid-in-full order run the same way on one that isn't.",
+      },
+      {
+        type: "p",
+        text: "The furniture shop's leg upgrade wasn't a mistake - a customer asking to change a custom order mid-build is exactly the kind of edit a shop has to be able to say yes to. What needed catching wasn't the edit itself, it was the fact that saying yes moved a number the shop's own deposit policy depended on, with nothing in the flow built to notice. Treat an order's deposit ratio as its own thing to protect, separate from the balance-due field an edit updates automatically, and a mid-build upgrade stays a yes instead of a policy nobody realized they'd quietly stopped enforcing.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-revenue-recognition-deferred-revenue",
     title: "Shopify Subscription Revenue Recognition: Why Cash Collected Isn't Revenue Earned",
     excerpt:
