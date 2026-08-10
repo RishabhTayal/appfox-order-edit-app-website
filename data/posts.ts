@@ -30,6 +30,79 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-cant-be-bought-as-a-gift",
+    title: "Why a Shopify Subscription Can't Be Bought as a Gift the Way a Product Can",
+    excerpt:
+      "A customer buys her brother three months of a coffee subscription for his birthday, paying with her own card and shipping to his address. Nothing stops the plan from renewing on her card a fourth month, a fifth, a tenth - because the standard subscribe-and-save plan she checked out on was never built to know the word \"gift\" was involved.",
+    category: "PLAYBOOK",
+    date: "2026-10-22",
+    author: "The AppFox Team",
+    metaTitle: "Selling a Gift Subscription on Shopify: What Actually Works | AppFox",
+    metaDescription:
+      "A standard Shopify subscription bills and ships to the same customer indefinitely, which is exactly what breaks when someone tries to buy it as a gift. Here's why gifting a subscription fails on the standard auto-renew plan, and how a prepaid selling plan fixes it.",
+    body: [
+      {
+        type: "p",
+        text: "A coffee roaster's best-selling product is a monthly bag subscription, and every December a wave of customers buy it as a holiday gift. One of them checks out for her brother: her card, his shipping address, the standard subscribe-and-save plan the product page already offers. The order confirms, the first bag ships in time for his birthday, and as far as she's concerned she just gave a three-month coffee subscription. Nothing on the checkout ever asked her how long the gift should last, because the plan she bought doesn't have an end - it's the same auto-renewing subscription every other customer signs up for, and it will keep charging her card and shipping to her brother for as long as neither of them cancels it. Six months later she notices the recurring charge on her statement and has no idea it was still running.",
+      },
+      {
+        type: "p",
+        text: "Nothing about that is a bug in the subscription app or a setting the roaster forgot to configure. A Shopify subscription contract is built around one customer: one payment method on file, one shipping address per line item, and a billing policy that either renews indefinitely or runs for a fixed number of prepaid cycles - decided when the plan was created, not by whatever a shopper meant to happen at checkout. There's no native field on a selling plan for \"buyer\" versus \"recipient,\" and no mechanism that reads a gift note and quietly converts an auto-renewing plan into a three-month one on its own. The checkout did exactly what the standard plan told it to do: charge this card, ship to this address, keep doing both until told to stop.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't selling a subscription that can be given as a gift - plenty of subscription categories (coffee, wine, book clubs, snack boxes) sell especially well as gifts, and turning that demand away leaves real revenue on the table. The mistake is offering only the standard auto-renewing plan at that moment and letting a customer assume a word she never typed into any field - \"gift,\" \"three months,\" \"just for his birthday\" - was somehow understood by a plan that only ever knows how to keep renewing.",
+      },
+      { type: "h2", text: "Why a subscription's billing model leaves no room for a separate gift role" },
+      {
+        type: "ul",
+        items: [
+          "A standard auto-renewing selling plan has no built-in end date - it bills the same card every cycle until the subscriber (or whoever's account the contract lives under) cancels it, which for a gift buyer means remembering to cancel someone else's subscription months after the occasion that prompted it",
+          "The subscription contract belongs to the purchaser's customer account, not the recipient's, so renewal reminders, receipts, and the \"your card was charged\" notification all go to the person who paid - the recipient typically has no login of her own to see what's shipping, skip a box, or change a flavor",
+          "Shopify's checkout has no native \"gift\" toggle for subscription products the way it does for a one-time gift card purchase - a subscribe-and-save widget offers the same open-ended plan to every shopper, gift-giver or not, because the widget can't distinguish the two intents",
+          "A prepaid billing policy - pay once upfront for a fixed number of deliveries - does have a natural end built in, but it only behaves like a gift if a merchant sets one up as its own selling plan; nothing converts the standard auto-renewing plan into one automatically just because a shopper is buying it for someone else",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A subscription contract only ever knows one customer, one card, and one end condition. \"Gift\" isn't a field it has - it's a shape a merchant has to build on purpose, out of the billing policies that already exist.",
+      },
+      { type: "h2", text: "What an open-ended \"gift\" actually costs" },
+      {
+        type: "p",
+        text: "For the coffee roaster, the cost shows up on both ends of the gift at once. The purchaser gets charged for months she thought she'd paid for once, notices eventually, and cancels feeling misled by a checkout that never said \"this renews\" anywhere she read it - a bad experience wrapped around what was supposed to be a gesture of generosity. The recipient, meanwhile, has no way to end it himself: he's not the customer of record, so he can't log into a portal and cancel his own gift even if he wanted to, and if the subscription lapses because his sister's card expires or gets declined, he just stops getting coffee with no explanation and no way to fix it on his side either. Support ends up in the middle of both conversations - a purchaser asking why she's still being charged, a recipient asking why his coffee stopped - for the same root cause: a gift that was never built to end.",
+      },
+      {
+        type: "quote",
+        text: "A subscription that renews until someone remembers to cancel it isn't a three-month gift. It's an indefinite one with a start date and no end, billed to a card that isn't the recipient's.",
+      },
+      { type: "h2", text: "Building a subscription that's actually a gift" },
+      {
+        type: "ol",
+        items: [
+          "Create a separate prepaid selling plan for gifting - a fixed number of deliveries (three, six, twelve) charged once upfront - rather than pointing gift buyers at the same open-ended auto-renew plan every other subscriber sees",
+          "Label it clearly as a gift option at the point a shopper is choosing a plan, not buried in fine print after checkout - the goal is for \"this ends after box three, no further charges\" to be something she reads and chooses, not something she discovers later on a statement",
+          "Route the delivery notifications and shipping updates to the recipient's email if the checkout captures one, while keeping the receipt and any renewal-adjacent communication with the purchaser, so each side only hears about the part that's actually theirs",
+          "If a gift plan can optionally convert to a normal auto-renewing subscription once its prepaid term ends, make that conversion an opt-in the recipient takes, not a default the contract falls into on its own - a gift that quietly starts billing someone's card without them choosing to continue is the same problem in a different shape",
+          "Keep the gift plan's inventory and pricing in sync with the standard plan by hand if they share a product, since a separate selling plan means separate plan-level settings, not something Shopify keeps aligned automatically",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription supports both prepaid and auto-renewing billing policies as native Shopify subscription contracts, and subscription analytics on the Growth plan and above breaks active contracts out by which policy they're running on - which is exactly the view that catches a gift-intent purchase quietly sitting on the wrong plan before it renews a fourth or fifth time on a card nobody meant to keep charging.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is decide for a merchant whether a given plan is a gift - that's a product and checkout decision that has to be made explicitly, by setting up a distinct prepaid plan and presenting it as the gift option at the moment a shopper is choosing. Once that plan exists, it's still owned by whichever customer account completed the checkout, same as any other subscription contract - which is exactly why a fixed, self-ending prepaid term matters here more than it does on a standard plan: it's the one setting that keeps a gift from depending on the purchaser to remember it's still running.",
+      },
+      {
+        type: "p",
+        text: "The coffee roaster's holiday sale wasn't the mistake - gift demand for a subscription product is real, and worth building for on purpose. What needed fixing wasn't the checkout, it was the assumption that the standard plan, built to renew indefinitely for one customer, would somehow behave like a three-month gift just because a shopper typed someone else's address into the shipping field. Give gifting its own plan with its own end date, and a customer buying coffee for her brother's birthday stops being a subscriber neither of them signed up to keep.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-deposit-partial-payment-balance",
     title: "Why Editing a Shopify Order With a Deposit Doesn't Settle Like a Paid-in-Full One",
     excerpt:
