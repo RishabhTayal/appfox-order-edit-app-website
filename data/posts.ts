@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-quantity-break-volume-discount",
+    title: "Why a Shopify Order Edit Doesn't Apply Your Volume Discount",
+    excerpt:
+      "A customer adds a third candle to a two-candle order to hit the 3-for-10%-off tier advertised right on the product page. The edit goes through - total updates, order saves - but the volume discount never re-checks the cart, so all three ship at the price of one.",
+    category: "PLAYBOOK",
+    date: "2026-10-24",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Order Edit Won't Apply Your Volume Discount | AppFox",
+    metaDescription:
+      "Adding a unit through a Shopify order edit can push a customer past your quantity-break threshold, but the volume discount that applies at checkout never re-evaluates an order after the fact. Here's why, and how to catch it before the customer does.",
+    body: [
+      {
+        type: "p",
+        text: "A candle shop runs a standard quantity-break offer right on the product page: buy one at $28, buy three or more and every candle in the order drops to $25.20, buy five or more and it's $23.80 each. A customer orders two as a hostess gift, then a few days later opens the order and uses a self-service edit to add a third - she noticed the discount tier on the page and figures three on one order should qualify same as it would at checkout. The edit goes through. The order total goes up by $28, the full base price of the new candle. The two candles she already paid for stay at $28 each too. She now has three candles on one order, the exact quantity the product page says gets 10% off, and she's paid full price for all three.",
+      },
+      {
+        type: "p",
+        text: "Nothing about that edit malfunctioned. A quantity-break or volume discount is almost always built as a Shopify Function - a piece of discount logic that runs once, at checkout, against whatever's sitting in the cart at that exact moment. It looks at the cart, counts matching units, and prices the line items accordingly. Shopify's order-editing tools don't call that function. Adding a line item to an existing order is a direct write - a product, a quantity, a price - and unless something explicitly recomputes the tier and rewrites every affected line, the new unit is priced at whatever it was told to charge, and the units already on the order stay exactly where checkout left them. The order editor did the edit correctly. It just never asked the discount engine a question it wasn't built to ask after checkout.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't offering a quantity-break discount, and it isn't letting customers add to an order after checkout - both are normal, useful things for a store to do on their own. The mistake is assuming the two features were ever wired together, when a volume discount was only ever built to answer one question - what does this cart qualify for right now - and an order edit happens well after \"right now\" has already been priced and closed out.",
+      },
+      { type: "h2", text: "Why an edit doesn't re-trigger the tier" },
+      {
+        type: "ul",
+        items: [
+          "A volume or quantity-break discount is scoped to the cart Shopify evaluates at checkout, not to an order as an ongoing object - once checkout completes, that evaluation is over, and nothing in Shopify's order-editing API re-runs it afterward",
+          "The discount is calculated across the full matching quantity in the cart, not per unit added, so even an edit that touches only the new line item has no way to reach back and reprice units that were already paid for on a separate transaction",
+          "Order editing has no built-in awareness of a merchant's tier structure - it adds a line item at whatever price it's given, which defaults to the product's base price unless something upstream explicitly checks the new total quantity against the discount rule and overrides it",
+          "This is the same blind spot that breaks a bundle discount on an edited order or lets a discount code skip an item added after checkout - any automatic discount tied to cart contents stops being watched the moment the cart becomes an order",
+          "The order status page shows exactly what was charged, correctly - it just has no way to flag that the total quietly stopped matching what a new customer buying the identical quantity today would pay at checkout",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A volume discount prices the cart Shopify sees at checkout. An edit builds a cart Shopify never checks again.",
+      },
+      { type: "h2", text: "What a stale tier actually costs" },
+      {
+        type: "p",
+        text: "For the candle shop, the gap is small on any one order - $2.80 a candle, times one edit. It stops being small once a shopper compares notes. A customer who added a third item specifically because the product page promised a lower price on three, then checks her receipt and finds three full-price candles, isn't looking at a rounding error - she's looking at a store that advertised a discount and didn't honor it on the one order where she actually tried to earn it. That's a support ticket that starts from a place of feeling misled rather than merely confused, and it's a worse one to answer than most edit-related tickets, because the fix - manually repricing every unit on the order and refunding the difference - has to happen order by order, with someone remembering to check the current quantity against the tier table every time. Skip that step during a gifting season when add-on edits spike, and a store can be quietly underdelivering on its own advertised pricing across a meaningful share of edited orders without anyone noticing until a customer says so publicly.",
+      },
+      {
+        type: "quote",
+        text: "The candle wasn't overpriced. It was priced correctly for a cart that stopped existing the moment checkout ended.",
+      },
+      { type: "h2", text: "Keeping volume tiers honest through an edit" },
+      {
+        type: "ol",
+        items: [
+          "Flag products carrying an active quantity-break or volume rule the same way a bundle-linked item gets flagged, so the edit flow knows a threshold exists before it needs to check one",
+          "When an edit changes the quantity of a flagged product - adding a unit, raising an existing line's quantity - recompute the tier against the item's full quantity on the order, not just the unit being added",
+          "Reprice every matching line for that product to the new tier, not only the line the edit touched, since the discount was never meant to apply to one unit at a time - it applies to the total",
+          "Settle the resulting difference automatically the moment the edit is confirmed, the same way any other price change on an edit gets settled, instead of leaving mismatched per-unit prices sitting on the order for someone to eventually catch",
+          "Where no automatic recalculation path exists for a given discount app, route the edit to manual review and show the correct tier price before the customer confirms - don't let the order save at a price the storefront wouldn't charge a new shopper buying the same quantity",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing & Upsell" },
+      {
+        type: "p",
+        text: "AppFox's eligibility engine already flags line items tied to a merchant's active discount rules - bundles included - and holds a quantity change on a flagged item for reprice rather than letting it auto-apply at base price. A volume or quantity-break rule falls into that same category: an edit that raises a flagged product's quantity gets checked against the merchant's tier structure before the total is confirmed, so an add that crosses a threshold prices the whole line the way checkout would, not the way a blind quantity write would.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is run the discount itself - the quantity-break rule still lives in whatever discount function or app the merchant already has configured, the same as it does at checkout, and AppFox isn't a substitute for it. What flagging the product and holding the edit does is put the correct tier in front of the total before the customer confirms, instead of letting an order quietly settle at a price the product page never advertised.",
+      },
+      {
+        type: "p",
+        text: "The candle shop's third candle wasn't a bad request - a customer trying to reach the discount tier the store itself put on the product page is doing exactly what the pricing was designed to encourage. What broke wasn't the discount or the edit, it was assuming the two would talk to each other without anything actually connecting them. Flag the products a tier depends on, recompute the whole quantity instead of just the new unit, and a self-service add stops being the one order where the advertised price quietly stops applying.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-bundle-locked-renewal-frequency",
     title: "Why a Shopify Subscription Bundle Locks Every Item to One Renewal Frequency",
     excerpt:
