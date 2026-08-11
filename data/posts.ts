@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-can-cost-you-the-shop-promise-badge",
+    title: "Why a Shopify Order Edit Can Cost You the Shop Promise Badge",
+    excerpt:
+      "A customer swaps into a backordered cushion color through the order-edit portal, pushing her ship date two weeks past what checkout promised. Shopify's on-time delivery tracking counts that delay against the merchant anyway, because the metric behind the Shop Promise badge has no way to tell a customer-approved edit apart from a merchant mistake.",
+    category: "PLAYBOOK",
+    date: "2026-10-27",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Order Edit Can Cost You the Shop Promise Badge | AppFox",
+    metaDescription:
+      "A self-service order edit that pushes a ship date later can count against a Shopify store's on-time delivery rate - even when the customer requested the change. Here's why the Shop Promise metric can't tell the difference, and how to protect the badge.",
+    body: [
+      {
+        type: "p",
+        text: "An outdoor-furniture store earns the Shop Promise badge the honest way: real delivery-date accuracy, tracked order after order, that tells shoppers browsing in the Shop app this merchant ships what it says it'll ship, when it says it'll ship it. A customer buys a lounge chair in a canvas colorway, checkout quotes nine days, and the estimate holds - it's built off real stock at the fulfillment center closest to her. Two days later she opens the order-status page and swaps into a different colorway through the self-service edit flow, because the canvas she wanted is suddenly showing low stock and she doesn't want to risk it. The edit applies cleanly - new colorway, new confirmation, nothing about the order looks unusual. What she doesn't see is that the colorway she swapped into is backordered three weeks out. Her order, which was on track to arrive right on the original promise, now lands eleven days late. Shopify's delivery-accuracy tracking logs it as exactly that: eleven days late, no context attached, on a store whose whole badge depends on that number staying small.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the edit was wrong, and nothing about the original estimate was dishonest - it was accurate the moment it was quoted, for the order that existed at that moment. Shop Promise's accuracy tracking runs off a straightforward comparison: the delivery window shown at checkout against when the order actually arrives. It has no field for \"the customer changed her mind two days later and picked a slower option knowingly.\" A self-service order edit is a different system entirely, built to let a customer change a line item after checkout without a support ticket - it was never wired to tell Shopify's delivery-tracking pipeline that the promise it's about to grade against is no longer the promise that applies. The edit succeeds. The original estimate goes stale. The metric that watches the gap between them doesn't know the difference between a merchant who blew a ship date and a customer who traded one for a different item with her eyes open.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't offering a customer the option to swap into an item that isn't in stock at the fast-shipping location - refusing that trade-off entirely would just turn into a cancellation instead of a slower order, which is worse for everyone. The mistake is letting that swap apply without ever recalculating - or at least re-flagging - the delivery promise it just broke, on the assumption that an edit is a customer-service convenience with no downstream consequence, when for a store carrying the badge, every edit that changes fulfillment timing is quietly being graded.",
+      },
+      { type: "h2", text: "Why an order edit never reaches the on-time delivery metric" },
+      {
+        type: "ul",
+        items: [
+          "Shop Promise's delivery-accuracy tracking compares the delivery window quoted at checkout to the date an order actually arrives - a single fixed number set once, with no listener for anything that happens to the order afterward",
+          "A self-service order edit talks to Shopify's order-editing API to change a line item, a variant, or an address - it has no reason to know a delivery-accuracy calculation exists downstream, let alone a way to reset the promise it's about to invalidate",
+          "The original estimate was true when it was quoted, which is exactly what makes the gap invisible - nothing about the edit confirmation, the order timeline, or the shipping label looks wrong, right up until the delivery date arrives and the order isn't there",
+          "A backordered swap, a variant sourced from a farther warehouse, and an edit that sits in an approval queue past a fulfillment cutoff all produce the identical failure mode: a real delay the customer chose or accepted, counted by the metric as one the merchant failed to hit",
+          "This is the same blind spot that breaks a checkout-side discount rule or a fraud check on an order an app never sees the checkout event for - any logic scoped to the moment of checkout stops running the instant an order changes outside of it",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The estimate was never a lie. It just stopped describing the order the moment the order changed - and nothing told the one system still grading against it.",
+      },
+      { type: "h2", text: "What a string of these edits actually costs" },
+      {
+        type: "p",
+        text: "One late order from one edited swap doesn't move a rolling on-time rate much. The risk is that backordered swaps and approval-queue delays aren't rare, isolated events - they're a predictable slice of a store's edit volume, month after month, and every one of them lands in the same bucket as a genuine fulfillment failure. A merchant watching the delivery-accuracy number drift can spend weeks auditing the warehouse, the carrier, and the pick-and-pack process looking for the operational problem, when the actual driver is upstream of all of it: a self-service flow quietly letting customers opt into slower delivery without ever telling the one system whose whole job is grading delivery speed. The badge that took months of clean fulfillment to earn can slip for a reason that has nothing to do with how well the warehouse is running.",
+      },
+      {
+        type: "quote",
+        text: "A customer who knowingly trades speed for the color she actually wants isn't a broken promise. The metric that grades the badge doesn't know that - it only knows a date came and went.",
+      },
+      { type: "h2", text: "Keeping edits from quietly eroding the badge" },
+      {
+        type: "ol",
+        items: [
+          "Flag any edit type that can plausibly change fulfillment timing - a swap into a different variant, a change of shipping address, anything routed through an approval queue - as a category worth watching separately from routine, same-day edits",
+          "Where an edit swaps in a backordered or farther-sourced item, surface the new delivery estimate to the customer before she confirms, so the trade-off is explicit rather than something that only shows up when the original date quietly passes",
+          "Keep approval-queue SLAs tight enough that a request sitting in review doesn't, on its own, push an order past a fulfillment cutoff it would have otherwise made - a slow approval is a self-inflicted delay, not a customer's choice",
+          "Review the on-time delivery rate alongside edit volume and edit type, not in isolation, so a dip that tracks with backordered swaps reads as what it is instead of triggering a warehouse-side investigation that won't find anything",
+          "For a store carrying the badge, treat delivery-timing edits as worth a second look the same way a price-changing edit already gets one - not to block them, but to know when a promise is being knowingly reset instead of accidentally broken",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's eligibility engine already lets a merchant route specific edit types to an approval queue instead of auto-applying, and the audit timeline stamps exactly what changed on an order and when - which is the raw material a merchant needs to see which edits are shifting fulfillment timing, not just which ones are shifting price. A merchant can flag variant swaps or address changes as their own eligibility category, and Shopify Flow triggers on those edit types can kick off a follow-up - a revised-estimate email, an internal flag, whatever closes the gap the edit just opened.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is calculate Shopify's delivery-accuracy metric or manage Shop Promise eligibility itself - that scoring lives entirely inside Shopify, runs off data AppFox has no access to, and isn't something a third-party app can read or correct after the fact. What AppFox's approval queue and audit timeline give a merchant is visibility into which edits are the kind likely to move that number, early enough to warn the customer or reroute the fulfillment before the ship date - not a way to erase a promise Shopify already logged as broken.",
+      },
+      {
+        type: "p",
+        text: "The furniture store didn't do anything wrong, and neither did the customer who picked the colorway she actually wanted over the one that happened to ship fast. What put the badge at risk was an edit flow that let the swap through without ever telling the delivery-accuracy calculation that the promise it was about to grade no longer applied. Treat delivery-timing edits as their own category worth a second look, and a customer's honest trade-off stops reading as a broken promise to a metric that was never built to see the difference.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-renewal-ships-from-wrong-warehouse",
     title: "Why a Shopify Subscription Renewal Ships From the Wrong Warehouse",
     excerpt:
