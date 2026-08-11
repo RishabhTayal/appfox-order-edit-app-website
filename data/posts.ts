@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-gift-wrap-half-wrapped",
+    title: "Why a Shopify Order Edit Can Leave a Gift Order Half-Wrapped",
+    excerpt:
+      "A candle shop's gift set ships with a flat gift-wrap quantity set once at checkout. When a shopper uses the self-service edit portal to swap a scent and add a fifth candle, nothing tells the wrap count it no longer matches what's shipping - and a packer finds out one bare candle at a time.",
+    category: "PLAYBOOK",
+    date: "2026-10-28",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Order Edit Can Leave a Gift Order Half-Wrapped | AppFox",
+    metaDescription:
+      "A Shopify order edit that adds or swaps an item can leave a gift order's wrap count out of sync with what's actually shipping. Here's why gift wrap never updates with a post-purchase edit, and how to catch the mismatch before a box ships.",
+    body: [
+      {
+        type: "p",
+        text: "A candle shop's best-selling gift set ships four scents in a ribbon-tied box, and at checkout a shopper buying it as a gift checks a box that adds gift wrap for $4 - a line item the theme adds to the cart, counted against the four candles already sitting in it. The order confirms, the gift-wrap charge shows up on the receipt, and the pick list that reaches the warehouse floor says wrap 4. Two days before the ship date, the shopper opens the order-status page and uses the self-service edit portal to swap the pomegranate candle - out of stock - for a fig one, and while she's there, taps to add a fifth candle as a solo gift for a second friend riding along in the same box. Both edits apply cleanly. The order total updates, the confirmation email goes out, and the order that reaches the warehouse two days later is a five-candle order with a gift-wrap line that still reads 4, because nothing about either edit ever touched it.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a picking mistake. The pick list is accurate for what it says - four units of gift wrap, because four units of gift wrap is what the order had the moment gift wrap was added to the cart. Gift wrap is almost never stored as a property that travels with a specific line item; it's a flat quantity or a single order-level attribute set once, at checkout, against whatever the cart looked like in that instant. A self-service order edit changes the order after that instant - swapping a scent, adding a unit, removing one - through Shopify's order-editing API, which has no reason to know a gift-wrap count exists downstream, let alone that it was sized to a cart that no longer matches the order it's attached to. The edit succeeds, the gift-wrap line sits untouched, and the mismatch between what was ordered and what was paid to be wrapped doesn't surface until a packer is standing in front of five candles and four sheets of tissue paper.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't letting a customer add a candle to a gift order after checkout - that's exactly the kind of easy top-up a self-service edit portal exists to enable. The mistake is treating gift wrap as a fact about the order captured once at checkout, when a self-service edit can change the order's contents at any point afterward, and nothing in that edit flow was ever built to ask whether the wrap count still matches what's actually shipping.",
+      },
+      { type: "h2", text: "Why gift wrap doesn't scale with an order edit" },
+      {
+        type: "ul",
+        items: [
+          "Gift wrap is almost always implemented as a flat order-level attribute or a fixed-quantity line item set once at checkout, not a property attached to each individual line item it's meant to cover",
+          "A self-service order edit changes line items, quantities, and variants through Shopify's order-editing API, which has no concept of a gift-wrap count and no trigger that fires when one exists",
+          "The gift-wrap charge itself still settles correctly regardless - the customer was billed $4 and $4 is still on the order - so nothing about the payment or the order total flags that the wrap no longer covers what's inside the box",
+          "A swap that keeps the same item count looks identical to one that changes it, from the wrap line's point of view - both leave the flat quantity untouched, so an edit that adds or removes an item is invisible to gift wrap even though it's the exact case that breaks it",
+          "This is the same blind spot that breaks a checkout-side discount rule or a fraud check on an order an app never sees the checkout event for - any logic scoped to the moment of checkout stops running the instant an order changes outside of it",
+        ],
+      },
+      {
+        type: "h3",
+        text: "Gift wrap isn't wrong on the receipt. It's wrong in the box - and a packer only finds out by counting candles against a pick list that stopped being accurate the moment the order was edited.",
+      },
+      { type: "h2", text: "What a half-wrapped gift order actually costs" },
+      {
+        type: "p",
+        text: "A four-candle order that ships as five with one candle bare mostly costs an awkward moment for whoever unwraps it - and if the fifth candle is the one going to a second recipient inside the same box, it can read as the more careless kind of afterthought, exactly the impression a gift purchase is meant to avoid. The support ticket that follows is a hard one to route: nothing about the order looks wrong in Shopify admin, the gift-wrap line item billed correctly, and the edit history shows two ordinary, approved changes. The store isn't missing a wrapping supply or a training step - it's missing a link between two systems that were each doing their job correctly on their own. For a store where gift orders are a meaningful share of revenue around a holiday, a pattern of half-wrapped shipments discovered order by order, after the fact, is a worse way to find the gap than catching it before a single box ships.",
+      },
+      {
+        type: "quote",
+        text: "A candle that ships bare isn't a packing error. It's an order edit that changed what shipped, next to a gift-wrap count that was never told to change with it.",
+      },
+      { type: "h2", text: "Keeping gift orders intact through an edit" },
+      {
+        type: "ol",
+        items: [
+          "Flag any order carrying a gift-wrap attribute or line item as its own eligibility category, so an edit that changes item count on that order routes to a person instead of auto-applying silently",
+          "Where gift wrap is tracked as a flat quantity, tie it to line-item count at the point an edit is reviewed, not just at checkout, so a swap that adds or removes a unit surfaces the mismatch before the order ships",
+          "Surface the gift-wrap status on the edit confirmation itself - to the customer adding an item, and to whoever approves the edit - instead of leaving it as a detail only visible on the original checkout receipt",
+          "Put the gift-wrap count on the packing slip next to the current line-item count, not as a separate total, so a packer comparing the two catches a mismatch without needing to know an edit ever happened",
+          "Review gift-order edits as their own category during peak gifting periods, since that's when both edit volume and the cost of a bare candle in someone's gift box are highest at the same time",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's eligibility engine can flag any order carrying a gift-wrap line item or attribute as its own category, and route edits that change item count on those orders to the approval queue instead of letting them auto-apply - the same pattern a merchant already uses for discount-flagged bundles or deposit-based orders. The audit timeline shows exactly which edit changed the count and when, so a merchant reviewing a flagged order can see the mismatch - four wrap units, five candles - before it reaches a packer instead of after a customer opens the box.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is manage the gift-wrap product or attribute itself, or recalculate a wrap quantity automatically - gift wrap almost always lives in the storefront theme or a dedicated gift-wrap app, and reconciling its count against a changed order is a merchant decision, not something a third-party edit tool can safely make on its own. What the approval queue and audit timeline give a merchant is the moment to catch it: a flagged order sitting in review long enough for someone to add the extra sheet of tissue paper before the box is sealed, rather than a gift that ships looking like it was an afterthought.",
+      },
+      {
+        type: "p",
+        text: "The candle shop didn't do anything wrong - the swap and the add-on were exactly the kind of edits a self-service portal exists to make easy. What broke was the link between an order's contents and a wrap count that was only ever set once, at checkout, with no reason to know the order it was sized to wouldn't stay that way. Flag gift orders as their own category, and a packer stops discovering the gap between what was wrapped and what shipped one bare candle at a time.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-can-cost-you-the-shop-promise-badge",
     title: "Why a Shopify Order Edit Can Cost You the Shop Promise Badge",
     excerpt:
