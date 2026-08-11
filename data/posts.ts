@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-renewal-ships-from-wrong-warehouse",
+    title: "Why a Shopify Subscription Renewal Ships From the Wrong Warehouse",
+    excerpt:
+      "A subscriber's first box routes to the fulfillment location nearest her, the same location-based routing that runs at checkout for every order. Her renewal three weeks later ships from a warehouse twelve hundred miles farther away, because a subscription renewal never passes through the checkout session that routing logic depends on.",
+    category: "PLAYBOOK",
+    date: "2026-10-26",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Subscription Renewal Ships From the Wrong Warehouse | AppFox",
+    metaDescription:
+      "A Shopify subscription's first order can route to the nearest warehouse while every renewal after it ships from a default location instead. Here's why renewal orders skip the routing logic checkout relies on, and how to fix it before it costs a subscriber their delivery promise.",
+    body: [
+      {
+        type: "p",
+        text: "A fresh-pasta subscription runs two kitchens - one in New Jersey, one in Oregon - built specifically so a two-day delivery promise holds for subscribers on either coast. A Portland subscriber signs up, and her first box routes correctly: the checkout-side logic that assigns orders to the nearest stocking location sends it out of the Oregon kitchen, and it lands on her doorstep still cold two days later. Her second box - the first renewal, three weeks after that - ships out of New Jersey instead. Six days in transit, half the box arrived soft, and the support ticket she files reads like a fulfillment mistake, because it is one - just not the kind anyone on the team made on purpose.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the renewal order was built wrong. The routing that sent her first box to Oregon almost always lives in checkout-side logic - a delivery customization or a routing app hooked into the checkout session - that looks at the cart and the shipping address in that exact moment and decides which stocking location should fulfill it. A subscription renewal never creates that moment. It's built directly by the subscription contract through Shopify's billing engine, with no live checkout session for a routing rule to attach to, so the location-assignment logic that ran correctly on day one simply never gets asked to run again. What fills the gap is Shopify's own default: the location priority order set in Settings, filtered to whatever's in stock, with no idea the customer on the other end lives three time zones from a warehouse it just defaulted to anyway.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't building nearest-location routing to begin with - splitting fulfillment across two kitchens to protect a delivery-time promise is exactly the right call for a perishable subscription. The mistake is assuming that routing logic, once built and working, keeps working on every order a subscriber ever generates, when it was only ever wired into the one moment - checkout - that a renewal doesn't pass through.",
+      },
+      { type: "h2", text: "Why a renewal order skips the routing logic entirely" },
+      {
+        type: "ul",
+        items: [
+          "Location-based routing is almost always checkout-side logic - a delivery customization or an app that evaluates the cart and shipping address at the moment an order is placed, then assigns the fulfilling location accordingly",
+          "A subscription renewal is created by the billing engine directly, not by a shopper moving through checkout, so there's no checkout session in that moment for a routing rule to hook into or run against",
+          "Without that logic in play, Shopify falls back to its own default location assignment - priority order set in Settings > Locations, narrowed to whichever locations have the item in stock - which has no concept of proximity to the customer at all",
+          "The first order and every renewal after it use the exact same shipping address and the exact same product, which is what makes the mismatch invisible until someone compares tracking numbers - nothing about the renewal looks different from the order that routed correctly",
+          "This is the same blind spot that breaks a checkout-side discount or a fraud check on an order an app never sees the checkout event for - any logic scoped to checkout stops running the moment an order stops being created through checkout",
+        ],
+      },
+      {
+        type: "h3",
+        text: "Nearest-location routing runs once, at checkout, for a shopper standing in front of it. A renewal is never that shopper - it's a background job with the same address and none of the logic that used to route around it.",
+      },
+      { type: "h2", text: "What a wrong-warehouse renewal actually costs" },
+      {
+        type: "p",
+        text: "For a shelf-stable product, a renewal shipping from the wrong location mostly costs money quietly - a few extra dollars of freight per box, absorbed into margin, that nobody flags because nothing visibly breaks. For a perishable one, it costs the exact promise the second location was built to keep. The Portland subscriber didn't sign up for \"usually two days\" - she signed up for a delivery-time guarantee that held on order one and quietly stopped holding on order two, with no notice that anything had changed. That's a harder support conversation than most: the merchant can't point to a stated policy that slipped, because nothing was ever communicated as tied to the fulfilling location in the first place - a subscriber has no way to know two kitchens exist, only that the pasta used to arrive cold and now it doesn't.",
+      },
+      {
+        type: "quote",
+        text: "The first box routed correctly because a shopper was standing at checkout when the routing logic ran. Every renewal after it is a shopper who was never there - and the logic that used to run for her never got told to run again.",
+      },
+      { type: "h2", text: "Catching a misrouted renewal before it ships" },
+      {
+        type: "ol",
+        items: [
+          "Audit the location priority order in Settings > Locations on its own terms, since it's what every renewal falls back to - a list ranked once at launch and never revisited is exactly what silently overrides nearest-location routing on every renewal after the first",
+          "Check whether a routing app or delivery customization actually fires on renewal orders or only on checkout-created ones - most are scoped to checkout by default, and the gap only shows up once someone asks the question directly",
+          "Where the routing logic can't be extended to renewals, use Shopify Flow to reassign the fulfillment location on a renewal order the moment it's created, keyed off the shipping address the same way the checkout logic would be",
+          "Compare fulfilling location across a subscriber's order history periodically, not just her most recent order - a location that quietly drifted between order one and order four is easy to miss looking at either order alone",
+          "For any subscription where delivery time is part of the pitch, treat routing as something to verify on renewal orders specifically, not something that's proven itself once a first order ships correctly",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription builds the renewal order and fires an event the moment it's created, before fulfillment begins - which is the hook a merchant's routing app or a Flow workflow needs to reassign the fulfilling location on a renewal the same way checkout would have. What AppFox doesn't do is own that routing decision itself: which warehouse should fulfill a given order is a question about a merchant's locations, stock, and shipping profiles, and AppFox has no visibility into a routing app's checkout-side logic to replicate it on a renewal.",
+      },
+      {
+        type: "p",
+        text: "That's a deliberate boundary rather than a gap - duplicating a merchant's own routing rules inside the subscription app would mean maintaining two copies of logic that need to agree with each other forever, which is a worse failure mode than the one it would fix. What AppFox gives a merchant instead is the renewal-created event fast enough that a Flow automation or routing app can act on it before the order ships, so the fix lives in the one system that already knows the routing rules, not in a second one guessing at them.",
+      },
+      {
+        type: "p",
+        text: "The pasta shop's routing logic never broke - it did exactly what it was built to do, for the one order that gave it a checkout session to run in. Every renewal after that was always going to fall back to a default location list nobody had reason to look at, right up until a subscriber three time zones from it started getting warm pasta. Catching that means testing routing on a renewal order specifically, not just trusting that whatever routed the first order correctly will keep doing it on its own.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-digital-access-doesnt-renew-with-payment",
     title: "Why a Shopify Subscription Renewal Doesn't Restore Digital Access",
     excerpt:
