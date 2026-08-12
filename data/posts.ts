@@ -30,6 +30,84 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-confirmation-email-lands-in-spam",
+    title: "Why a Shopify Order Edit Confirmation Email Lands in Spam",
+    excerpt:
+      "A customer's size swap on the order-status page auto-charges a small price difference, and the receipt confirming it lands in spam - sent from the order-editing app's shared domain, the same one thousands of other stores' confirmations ride on. Weeks later, an unrecognized charge on her statement becomes a chargeback instead of a receipt she never saw.",
+    category: "PLAYBOOK",
+    date: "2026-10-29",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Order Edit Confirmation Email Lands in Spam | AppFox",
+    metaDescription:
+      "A Shopify order-edit confirmation that carries a price difference often lands in spam when it ships from a shared app domain. Here's why that turns an approved edit into a disputed charge, and how a custom sending domain fixes it.",
+    body: [
+      {
+        type: "p",
+        text: "A denim brand's self-service order-edit portal lets a customer size up after checkout without touching a support queue - exactly the kind of edit AppFox's auto-apply rules exist to speed through without a human in the loop. A customer swaps a 30 for a 32, the on-screen confirmation shows the new size and a $0 price difference since both sizes are priced the same, and the edit applies instantly. Three weeks later a different customer runs the identical swap, except her pair costs $6 more in the larger size, and the difference gets charged automatically to the card already on file. She never sees a receipt for it - the confirmation email quoting the new total and the extra charge lands in her spam folder, sent from the order-editing app's default transactional domain, the same one thousands of other stores' edit confirmations ride on. Two weeks after that, a $6 charge she doesn't recognize shows up on her statement next to a merchant name she barely remembers, and she calls her bank to dispute it.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the edit was wrong, and nothing about the charge was unauthorized - she approved the swap herself, on the order-status page, in the same session where she picked the new size. What broke is the one message meant to connect the two: the transactional email confirming what changed and what it cost. That email, like every automated receipt an order-editing app sends, goes out through the app's own shared sending infrastructure by default - a domain built for deliverability across thousands of stores at once, with a reputation that's the average of all of them, not one any single merchant has built a relationship with. A spam filter doesn't know this particular message is the only proof a customer has that a card charge she doesn't remember approving is actually hers. It just sees an unfamiliar domain with a middling reputation, and files it exactly where it files everything else that looks like it.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't auto-charging a price difference on an edit the customer approved herself - that's the entire point of a self-service flow that doesn't route every size swap through a support agent. The mistake is treating the email that documents the charge as a formality, when for the one customer whose swap actually costs more, it's the only paper trail standing between an approved edit and a chargeback.",
+      },
+      { type: "h2", text: "Why a shared sending domain works against an edit confirmation specifically" },
+      {
+        type: "ul",
+        items: [
+          "A default sending domain is shared across every store on the order-editing app, so one store's spam complaints or bounce rate quietly drags down the reputation every other store's edit confirmations ride on, including yours",
+          "Spam filters check whether a sending domain's reputation and authentication match the \"from\" name it's using - a generic app domain can pass the technical checks and still lose on the trust check, because that reputation isn't the merchant's to build",
+          "Most edits carry a $0 price difference and generate a routine confirmation nobody needs to act on - which means the rare edit that does carry a charge gets the same low-priority treatment from an inbox provider as every zero-dollar swap before it",
+          "A customer who never sees the confirmation has no way to tell \"the edit didn't go through\" apart from \"the edit went through and I owe more\" - and the two failure modes point her toward two very different, both unwanted, next steps: resubmitting the edit, or disputing the charge",
+          "This is the same trust problem a subscription renewal or decline notice runs into on a shared domain - a message riding on a reputation that belongs to every other store on the platform equally, not to the one store whose customer actually needs to see it",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A missed edit confirmation isn't a missed courtesy email. On the one swap that actually cost money, it's the only thing standing between an approved edit and a customer who's already forgotten she approved it.",
+      },
+      { type: "h2", text: "What a missed confirmation actually costs" },
+      {
+        type: "p",
+        text: "A $0 swap confirmation landing in spam is invisible - nothing about the edit needed the customer to see it, and nothing breaks when she doesn't. A price-difference confirmation landing in spam is a different problem entirely, because it's the only record a customer has connecting a card charge to a decision she made herself, days or weeks earlier. Without it, a charge that's completely legitimate reads exactly like one that isn't - and the store, not the app, is the one whose name appears on the dispute.",
+      },
+      {
+        type: "p",
+        text: "That turns a deliverability gap into a chargeback problem wearing a different name. Every dispute costs a processing fee whether the merchant wins it or not, and winning one on an edit that auto-applied outside a support conversation means reconstructing a paper trail - the edit timestamp, the price change, the charge - that the confirmation email was supposed to hand the customer directly. A store running an auto-apply edit flow specifically to avoid manual review ends up trading a support ticket it never had to answer for a dispute it now has to fight, over a message that never needed a human on either end - it just needed to land.",
+      },
+      {
+        type: "quote",
+        text: "An edit confirmation nobody reads for a free size swap costs nothing. The same email landing in spam on the one swap that charged a card is a customer who's already forgotten she approved it - and a bank that's about to hear her side of it first.",
+      },
+      { type: "h2", text: "Fixing the channel, not just the message" },
+      {
+        type: "ol",
+        items: [
+          "Send order-edit confirmations from a domain the merchant actually owns and authenticates, not the order-editing app's shared default - so the reputation a spam filter is judging is the merchant's own, not an average across every other store on the app",
+          "Set up SPF, DKIM, and DMARC alignment on that domain before relying on it for anything that documents a charge, since a domain that fails alignment checks can lose deliverability even while sending mail the customer genuinely wants",
+          "Keep the \"from\" name consistent with the brand the customer just checked out from, so a confirmation quoting a new charge doesn't look like an unfamiliar sender at the exact moment it needs to look the most trustworthy",
+          "Treat a price-difference confirmation as higher priority than a routine $0 edit receipt when monitoring deliverability - a missed zero-dollar confirmation is a shrug, a missed charge confirmation is a customer heading toward a dispute",
+          "Track open rate on edit confirmations that carry a charge separately from the ones that don't, so a deliverability gap on the message that actually matters doesn't hide inside a blended open rate that looks fine on average",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's audit timeline logs the edit, the price change, and the charge the moment an auto-apply rule fires - the exact record a merchant needs on hand if a customer disputes a charge she genuinely approved. Custom branding and white-label on the Pro plan let confirmation emails send under the merchant's own look and sender identity instead of a generic app template, which is the first thing a spam filter - and a skeptical customer - checks against.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is manage a merchant's sending domain or DNS records directly - authenticating a domain with SPF, DKIM, and DMARC is a decision about a merchant's own email infrastructure, not something an app can safely make on a store's behalf. What the audit timeline gives a merchant instead is the receipt to point to when a dispute comes in: proof the customer approved the exact edit and charge in question, even on the rare occasion the email confirming it never reached her inbox.",
+      },
+      {
+        type: "p",
+        text: "The denim brand didn't do anything wrong - the auto-apply rule did exactly what it was built to do, on an edit the customer chose herself. What put the charge at risk was a confirmation email riding on a reputation that belonged to every other store on the same app, landing in the one inbox where it needed to be seen the most. Move edit confirmations that carry a charge onto a domain the store actually owns, and a dispute stops being the first place a customer's forgotten approval shows up.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-gift-wrap-half-wrapped",
     title: "Why a Shopify Order Edit Can Leave a Gift Order Half-Wrapped",
     excerpt:
