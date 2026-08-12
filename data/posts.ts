@@ -30,6 +30,77 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-portal-screen-reader-accessibility",
+    title: "Why a Screen Reader Can't Skip a Shopify Subscription Delivery",
+    excerpt:
+      "A subscriber using NVDA tries to skip her coffee box before a two-week trip. The toggle in the customer portal is a styled div with no role and no state, so nothing tells her whether the skip registered. She finds out it didn't when the box - and the charge - arrive while she's away.",
+    category: "PLAYBOOK",
+    date: "2026-10-31",
+    author: "The AppFox Team",
+    metaTitle: "Make Your Shopify Subscription Portal Accessible | AppFox",
+    metaDescription:
+      "Most self-service Shopify subscription portals are tested by sighted users clicking a demo, not screen readers. Here's what breaks for assistive-tech subscribers, and the WCAG fixes that make skip, pause, swap, and cancel actually work.",
+    body: [
+      {
+        type: "p",
+        text: "A coffee subscriber who's blind opens her account page the way she opens every other page on the web - NVDA reading headings, then form controls, as she navigates toward the one thing she came to do: skip next week's bag before a two-week trip. She's skipped before, on this same subscription, without a second thought. This time the \"Skip this delivery\" control is a small pill-shaped switch built from a styled div and a background-color change, with no role and no checked state attached to it. NVDA announces it as clickable text and nothing else. She clicks it, hears no confirmation, and has no way to tell whether the skip took or whether she just clicked a decoration. She logs out assuming it worked. Ten days later, while she's out of the country, the bag ships and the card on file gets charged.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the skip itself was broken in the way a bug report usually means. A sighted subscriber clicking the identical control sees it slide and change color instantly, and the request goes through correctly on the backend either way. The gap is narrower than that and easier to miss entirely: the portal was built and clicked through by people using a mouse, and nobody opened it with a screen reader before it shipped. That's an ordinary blind spot, not a careless one - every check a sighted QA pass runs still passes. The skip works. The confirmation email still goes out. It just goes out to someone who already left, because the one moment that mattered - telling her the toggle had actually changed state - never reached her in the first place.",
+      },
+      { type: "h2", text: "Where a subscription flow quietly stops working without a mouse" },
+      {
+        type: "ul",
+        items: [
+          "A \"one-time purchase\" vs. \"subscribe & save\" choice built from two styled buttons instead of radio inputs has no group name and no selected state, so a screen reader can't tell which option - or whether either - is currently chosen",
+          "A skip or pause toggle without role=\"switch\" and aria-checked announces as plain clickable text, so activating it gives no confirmation the state actually flipped, which is exactly the control a subscriber most needs to trust before she stops paying attention to it",
+          "A custom frequency dropdown - \"every 30 days,\" \"every 60 days\" - that isn't built on a native select can trap keyboard focus or simply never open without a mouse, leaving a keyboard user stuck on whatever interval she started with",
+          "A portal summary line that updates the next-billing or next-shipment date after a skip or swap needs an ARIA live region to be announced at all - without one, the new date exists on screen and nowhere else",
+          "A cancellation flow that opens a modal with a retention offer or a reason dropdown often fails to move focus into the dialog or trap it there, so a screen reader user can end up navigating a background page while an invisible dialog is technically still open",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A subscriber who successfully skips a delivery and one who thinks she skipped it but didn't land on the identical-looking screen. Only a screen reader tells them apart - and only if the control announced anything to begin with.",
+      },
+      { type: "h2", text: "Why this is a bigger risk than a missed skip" },
+      {
+        type: "p",
+        text: "The cost isn't just one subscriber who gets shipped and charged for a box she tried to stop. It's a subscription portal built specifically to keep skip, pause, swap, and cancel requests out of a support inbox, quietly funneling its least accessible paths back into that inbox anyway - and doing it to customers who already have the hardest time reaching a human alternative. It's also two overlapping legal exposures, not one: ecommerce accessibility lawsuits under the ADA have been filed against thousands of online retailers, with WCAG 2.1 Level AA as the documented bar plaintiffs' counsel points to, and several states' auto-renewal laws separately require that canceling a subscription be at least as easy as signing up for it. A cancel flow a screen reader user genuinely cannot complete isn't just an accessibility gap - it's a flow that fails the \"as easy as signup\" test for a specific subscriber, even while it passes cleanly for everyone testing it with a mouse.",
+      },
+      {
+        type: "quote",
+        text: "A subscribe & save widget and a customer portal are two separate pieces of injected UI on two separate pages. Passing an audit on one tells you nothing about whether the other was ever tested at all.",
+      },
+      { type: "h2", text: "What actually needs to change" },
+      {
+        type: "ol",
+        items: [
+          "Build the one-time vs. subscribe choice on real radio inputs, or give a custom version role=\"radio\" and aria-checked wired to the actual selection, so a screen reader announces which option is chosen, not just that two buttons exist",
+          "Give every skip, pause, or auto-renew toggle role=\"switch\" with aria-checked kept in sync, or use a real checkbox styled to look like a switch, so activating it confirms the state it landed on instead of leaving that to guesswork",
+          "Build the frequency and quantity pickers on native form controls wherever possible, and where a custom listbox is unavoidable, implement full keyboard support - arrow keys, enter, escape - along with the matching ARIA roles",
+          "Wrap the next-billing date, next-shipment date, and any confirmation text in an ARIA live region, so \"delivery skipped - your next box ships March 14\" is announced the moment a self-service action completes, not just written to the screen",
+          "Move focus into the cancellation modal when it opens, trap it there until it closes, and label the dialog and its controls clearly - a retention step that only a mouse user can navigate out of undermines the same easy-cancel standard the flow is legally supposed to meet",
+        ],
+      },
+      { type: "h2", text: "Most stores don't need a full accessibility rebuild" },
+      {
+        type: "p",
+        text: "None of this calls for an accessibility consultant before the next release ships. A store running a subscribe & save widget and a customer portal supplied by its subscription app is really auditing that app's work, not rebuilding its own - a quick automated scan plus a manual pass through the actual subscriber paths catches most of what matters. The useful question isn't \"is our whole site WCAG-certified\" - it's narrower and answerable in an afternoon: can a screen reader user subscribe from the product page, then skip, pause, swap, and cancel from the portal, end to end, without landing on a control that only makes sense to a mouse.",
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox's subscribe & save widget renders on your own product pages and the customer portal renders on your account page, so both inherit your theme's accessibility baseline rather than opening a separately-hosted portal elsewhere - but the controls themselves, the plan toggle, the frequency picker, and the skip, pause, swap, and cancel actions, are still AppFox's own components layered into those pages, and worth confirming independently the way you'd confirm any embedded widget. If you're evaluating a subscription app, ask what screen reader its widget and its portal were each tested with and when - a widget audited last year and a portal that shipped last month are not the same claim, even inside the same app.",
+      },
+      {
+        type: "p",
+        text: "The subscriber trying to skip a box before her trip didn't need a redesigned portal. She needed the same toggle every sighted subscriber already uses to actually tell her what it had just done. Most of the fixes here are small and mechanical once someone knows to check for them - a role on a switch, a live region on a confirmation, focus that moves into a modal instead of leaving it behind. The expensive part was never the fix. It's remembering that a control which works perfectly for a mouse can still be entirely silent to everyone using something else.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-tiktok-shop-instagram-checkout",
     title: "Why a Shopify Order Edit Doesn't Work on a TikTok Shop or Instagram Checkout Order",
     excerpt:
