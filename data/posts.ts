@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-tiktok-shop-instagram-checkout",
+    title: "Why a Shopify Order Edit Doesn't Work on a TikTok Shop or Instagram Checkout Order",
+    excerpt:
+      "A streetwear brand's self-service edit portal has handled thousands of size swaps on the website. A customer who buys the wrong size through TikTok Shop can't find an edit link anywhere, because her order never passed through the checkout the portal lives on.",
+    category: "GUIDE",
+    date: "2026-10-30",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Order Edit Fails on a TikTok Shop Order | AppFox",
+    metaDescription:
+      "TikTok Shop and Instagram checkout orders never pass through Shopify's own checkout, so a Shopify order-edit portal has no page and no vaulted card to reach that customer with. Here's why, and how to still handle her edit.",
+    body: [
+      {
+        type: "p",
+        text: "A streetwear brand's self-service edit portal handles thousands of size swaps a month on the website - a customer picks the wrong size, opens the order-status page, and fixes it herself in under a minute. The same brand's TikTok Shop listing, running off the same product catalog, sells out of mid sizes just as often. A customer buys a large through TikTok Shop when she meant to buy a medium, and goes looking for the same edit link she's used before. It isn't on her confirmation. It isn't on any order-status page, because TikTok never sends her to one - she tracks the order and requests changes entirely inside the TikTok app, the same place she bought it. The brand's support inbox gets the message instead, three days later, after the wrong size has already shipped.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the edit portal failed to load for her. A self-service order-edit portal lives on the thank-you and order-status pages Shopify generates for its own checkout - pages that exist because a customer completed a purchase there, in a session Shopify hosted and can hand a link back to. A TikTok Shop or Instagram/Facebook checkout order is placed and paid for entirely inside that platform's app, using that platform's own checkout and payment method. It reaches Shopify afterward, through the channel's sales-channel app, as an order that's already closed - not as a checkout session Shopify ran and can build a post-purchase page for. The customer was never on a page Shopify controls at any point in her purchase, so there was never a page for an edit link to live on.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't building the edit portal to live on Shopify's own order-status page - that's the one page a merchant fully controls, and the one page every order placed through Shopify's checkout reliably generates. The mistake is assuming every completed sale sitting in Shopify's order list arrived the same way, when a channel order arrives already closed, with its post-purchase experience already claimed by the platform that sold it.",
+      },
+      { type: "h2", text: "Why a channel order skips the edit portal entirely" },
+      {
+        type: "ul",
+        items: [
+          "Self-service order editing runs on the thank-you and order-status pages Shopify generates for its own checkout - pages that only exist for a customer who actually checked out on Shopify",
+          "A TikTok Shop or Instagram/Facebook checkout order is placed and paid for entirely inside that platform's app, then lands in Shopify's order list through the channel's sales-channel app - arriving as an already-completed sale, not a checkout session",
+          "The customer never sees a Shopify order-status page for that purchase - her tracking and post-purchase screen is the one the channel renders inside its own app, and Shopify has no page of its own to route her to instead",
+          "The payment method for a channel order is vaulted in the channel's own payment system, not in Shopify - so even a customer who reaches an edit link some other way has no card on file in Shopify an auto-apply price difference could run against",
+          "It's the same boundary that keeps a subscription's selling plan from attaching to a TikTok Shop sale: the order only reaches Shopify after the one moment - checkout - that both a self-service edit portal and a subscription contract depend on",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The order-status page a customer would click \"edit\" from only exists for a checkout Shopify actually ran. A TikTok Shop sale never gives Shopify that checkout to build the page on.",
+      },
+      { type: "h2", text: "What a silently unreachable edit portal costs" },
+      {
+        type: "p",
+        text: "Nothing looks broken on the merchant's side - the order syncs, shows paid, shows fulfilled, same as any other. What's missing stays invisible until support volume from that channel gets compared against the website's, because nothing in Shopify admin flags a channel order as one the edit portal could never have reached. A customer who'd have swapped a size herself in under a minute on the website instead files a ticket, or opens a return through TikTok's own resolution center once the wrong item arrives - a path that routes the dispute through the platform, not the merchant. For a brand that built the edit portal specifically to keep routine changes out of a support queue, a channel that structurally can't reach that portal quietly reintroduces the exact ticket volume the portal exists to prevent, just filed somewhere the support team isn't necessarily watching first.",
+      },
+      {
+        type: "quote",
+        text: "A self-service edit rate that looks strong across the whole store can still be a total blackout on one channel - not because the portal is unreachable everywhere, but because that one channel never sends a customer to the page it lives on.",
+      },
+      { type: "h2", text: "Handling edits on a channel order without the portal" },
+      {
+        type: "ol",
+        items: [
+          "Tag orders by sales channel in Shopify - TikTok Shop, Facebook & Instagram - so support can see which tickets are coming from a channel where self-service was never in reach, instead of reading them as an unexplained spike",
+          "Give channel-order customers a direct path to a human early - a note in the channel's own messaging, or a link to a merchant-hosted contact page in the packing slip - rather than assuming she'll find her way to a Shopify order-status page nothing about her purchase ever pointed her to",
+          "Handle the change as a manual edit in Shopify admin, and process any refund or additional charge back through the same channel and payment method the original order used - not by charging a card Shopify never vaulted in the first place",
+          "Where a channel supports linking out to an external product page instead of closing the sale in-app, route repeat shoppers there so their next order actually originates at Shopify's checkout and can use the edit portal like any other website order",
+          "Track post-purchase support volume per channel as its own number, not blended into one site-wide ticket count - a rising trend on a single channel is the signal that a channel-side workaround is overdue, not a portal bug to chase",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's edit portal renders on the thank-you and order-status pages Shopify generates for its own checkout, and reads and writes against the payment method Shopify vaulted there - which is what lets a size or address change apply instantly, and lets a price difference charge or refund the same card the customer paid with. That's the same checkout-bound design that makes edits reliable on every order placed through the website, regardless of which product page or ad sent the shopper there in the first place.",
+      },
+      {
+        type: "p",
+        text: "What AppFox can't do is reach into TikTok Shop's or Instagram's own post-purchase experience and place an edit link inside it, or draw against a payment method that was never vaulted in Shopify to begin with - both belong to the channel's own checkout and ledger, not to any app sitting on top of Shopify's order data. AppFox's audit trail and manual-edit tools still work on a channel order once a merchant opens it from Shopify admin; the piece that's missing is only the self-service layer, because there's no Shopify-hosted page left for a channel customer to reach it from.",
+      },
+      {
+        type: "p",
+        text: "The streetwear brand's edit portal wasn't broken - it was doing exactly what it always does for every order that starts at Shopify's own checkout. The TikTok Shop order just never gave it one to run on. Knowing which orders in a store's list actually passed through Shopify's checkout, and which arrived already closed from somewhere else, is what keeps a self-service edit rate honest instead of a support team finding the gap first.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-confirmation-email-lands-in-spam",
     title: "Why a Shopify Order Edit Confirmation Email Lands in Spam",
     excerpt:
