@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-add-one-time-item-single-renewal",
+    title: "Why You Can't Add a One-Time Item to Just One Shopify Subscription Renewal",
+    excerpt:
+      "A snack-box subscriber emails asking to add an extra bag of trail mix to next month's box for a road trip - just that one time, nothing permanent. There's no button for it, because the portal that lets her skip, pause, or swap has nothing built for touching a single upcoming renewal without touching the plan itself.",
+    category: "PLAYBOOK",
+    date: "2026-11-01",
+    author: "The AppFox Team",
+    metaTitle: "Add an Item to a Shopify Subscription Renewal | AppFox",
+    metaDescription:
+      "A Shopify subscription's self-service portal can swap, skip, or pause a plan, but it can't bolt a one-time item onto a single upcoming renewal. Here's the contract-versus-cart boundary behind that gap, and three ways to actually get the item there.",
+    body: [
+      {
+        type: "p",
+        text: "A snack-box subscriber writes in two weeks before her next box ships, asking if she can add an extra bag of trail mix this one time - she's driving cross-country and wants the bigger bag for the trip, nothing about her regular plan needs to change. She's used the portal before to skip a delivery and swap a flavor, so she goes looking for the same kind of control: an \"add an item\" button next to her upcoming renewal. It isn't there. The only options on that box are skip, swap what's already in it, or cancel - nothing that lets her bolt on something extra for a single cycle and have everything else renew exactly as it always has.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the portal is missing a feature it was supposed to ship with. A Shopify subscription contract doesn't hold a cart that a merchant or a subscriber can drop an extra item into for one cycle - it holds a selling plan and a set of line items that Shopify's billing engine reads at renewal time and turns into an order, the same items every time, on schedule, with no live checkout session in between for anyone to add something to. Skip, pause, and swap all work because they change something durable on the contract itself - the next billing date, a status flag, which variant a line item points to. \"Add this one item, just this once, then go back to normal\" isn't a durable change to the contract. It's a one-time exception the contract has no concept of, because a contract is built to keep renewing the same thing until someone tells it otherwise.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't building a portal around skip, pause, and swap - those cover the vast majority of what a subscriber actually needs to control between renewals. The mistake is a subscriber assuming that because those three controls exist, a fourth one for \"add something extra to just this box\" must exist too, when it's actually a different kind of request entirely - a one-time purchase wearing a subscription's clothing.",
+      },
+      { type: "h2", text: "Why a single-cycle add-on doesn't fit the subscription model" },
+      {
+        type: "ul",
+        items: [
+          "A subscription contract's line items are a standing instruction - ship these products, on this schedule, until changed - not a cart that gets rebuilt and can be edited fresh before each renewal",
+          "Skip, pause, and swap all mutate a field on the contract itself (next billing date, status, or the variant a line item points to) and stay changed until the subscriber changes them again - there's no equivalent field for \"just this one time\"",
+          "Shopify's billing engine creates a renewal order directly from the contract with no checkout session in between, so there's no cart moment for a subscription app to inject an extra line item into on just one occasion",
+          "Swapping the line item to the trail mix would work, but it changes the plan permanently going forward - every renewal after the road trip would ship trail mix too, until someone remembers to swap it back",
+          "A subscription app that wanted to support a genuine one-cycle add-on would need to intercept the billing engine's order-creation step specifically for that one contract on that one date - a much heavier mechanism than flipping a field, and one most portals don't build for a request that's really a one-time purchase",
+        ],
+      },
+      {
+        type: "h3",
+        text: "Swap changes what ships forever. Skip changes whether anything ships this time. Neither one is \"ship the usual, plus this, just once\" - that request doesn't have a home on the contract at all.",
+      },
+      { type: "h2", text: "What the swap-only workaround actually costs" },
+      {
+        type: "p",
+        text: "Support ends up handling this one of two ways, and both cost more than the request should. One path is telling the subscriber no - the portal can't do it, sorry - which turns a subscriber trying to spend more money into a subscriber who now knows the portal has a hole in it. The other is a support agent manually swapping the line item to add the extra bag, which works for the one upcoming box but silently changes the standing plan too, so the trail mix keeps shipping on every renewal after the road trip until someone catches it and swaps it back. Neither path is what the subscriber asked for, and the second one turns a single support ticket into two - one now, and one a month later when she notices she's still getting a bag of trail mix she never meant to keep.",
+      },
+      {
+        type: "quote",
+        text: "A subscription contract only knows how to keep doing what it's already doing. Asking it to do something different exactly once isn't a smaller version of that request - it's a different request altogether.",
+      },
+      { type: "h2", text: "How to actually get the extra item to her" },
+      {
+        type: "ol",
+        items: [
+          "Sell the add-on as a genuine one-time purchase, timed to arrive with the subscription - most stores can offer a one-time product in the same theme, checked out separately, and note that it'll ship alongside the next box rather than trying to merge it into the subscription order itself",
+          "If a swap is used as the workaround, pair it with a calendar reminder or a Shopify Flow automation that reverts the line item after the next renewal fires, so \"just this once\" doesn't quietly become the new standing plan",
+          "For items subscribers request often enough to be a pattern rather than an exception, build a permanent add-on or upgrade tier into the plan itself, so it's a real menu option instead of a one-off support request each time",
+          "Where a subscription runs on a build-a-box or curated model already, check whether the box-building flow supports a one-cycle extra directly - some do, because the box itself is closer to a rebuildable cart than a fixed contract line item",
+          "Whatever the workaround, tell the subscriber plainly what actually happens - a separate order, a reverted swap, whatever it is - so she isn't left assuming the extra item folded invisibly into her existing subscription when it didn't",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's customer portal covers skip, pause, swap, and cancel - the standing changes a subscriber makes to a contract that stays true until she changes it again. It doesn't currently support injecting a one-off extra line item into a single upcoming renewal, for the same reason no subscriptions app does this by default: it means intercepting Shopify's billing engine for one contract on one date, not flipping a field the way the rest of the portal does. Stores running AppFox's bundled offerings can build a recurring add-on into the plan itself if subscribers keep asking for the same extra item, and for a genuine one-off request, the honest answer is a separate one-time order alongside the subscription rather than something bolted onto the renewal.",
+      },
+      {
+        type: "p",
+        text: "That's a boundary worth being upfront about rather than papering over with a swap-and-remember-to-revert workaround, which fixes one box and quietly breaks the next four. The snack-box subscriber didn't need her whole plan to change for a road trip - she needed one extra bag, once, and everything else to keep arriving exactly the way it always has. Getting her that isn't a portal feature so much as a clear answer: here's what we can do, here's what it isn't, and here's what ships with your next box either way.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-portal-screen-reader-accessibility",
     title: "Why a Screen Reader Can't Skip a Shopify Subscription Delivery",
     excerpt:
