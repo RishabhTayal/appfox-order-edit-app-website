@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-oversell-low-stock-variant",
+    title: "Why a Shopify Order Edit Can Oversell a Low-Stock Variant",
+    excerpt:
+      "A limited hoodie drop sells down to one unit in a colorway, and two customers separately swap into it through the self-service edit portal within minutes of each other. Both swaps go through - not because the portal lied about the stock count, but because an order edit doesn't hold the same reservation on a shrinking number that Shopify's checkout does.",
+    category: "PLAYBOOK",
+    date: "2026-11-03",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Order Edit Can Oversell a Low-Stock Variant | AppFox",
+    metaDescription:
+      "A self-service order edit doesn't hold the same inventory reservation Shopify's checkout does, so swapping into a nearly sold-out variant can oversell it. Here's why order edits and checkout treat stock differently, and how to keep a swap from creating a unit that doesn't exist.",
+    body: [
+      {
+        type: "p",
+        text: "A streetwear brand's limited hoodie drop sells through a colorway in the first four minutes, down to a single unit of the burgundy in a large. Two customers who ordered a different colorway that same morning each go back into their order through the self-service edit portal that afternoon, spot the burgundy sitting in the swap options, and each successfully swap into it - the portal shows it in stock right up until the moment they click confirm, and both clicks land within nine minutes of each other. The brand now has two orders confirmed for one hoodie, and it isn't because either portal lied to either customer. The burgundy was in stock exactly as shown, right up until the swap that ran first was the one that actually consumed the unit.",
+      },
+      {
+        type: "p",
+        text: "Nothing about either swap failed, and nothing about the edit portal misrepresented stock at the moment either customer looked. Shopify's checkout holds a short reservation on whatever's in a shopper's cart the instant they start paying, which is exactly why two shoppers can't both complete checkout on a store's last unit of anything - one of them hits a sold-out wall before the payment finishes. An order edit isn't a checkout, and it was never built to run through that same reservation step: a customer opens the edit portal, looks at a swap option, and however long it takes them to decide, the portal reads the variant's stock count once and shows it, then writes the swap once they confirm - with nothing holding that unit in between. If the variant is set to stop selling once it hits zero, only one of two racing edits actually succeeds and the other bounces at the last second with a stock error the customer has to notice and work around. If it's set to continue selling out of stock - the setting a lot of limited-drop and made-to-order lines run on for exactly the demand these products create - both edits go through clean, and the store is confirmed for a unit it doesn't have.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't letting customers swap into whatever a limited drop has left - a self-service portal that only ever showed pre-drop stock levels would be useless for exactly the kind of high-demand product this problem shows up on. The mistake is treating a variant swap in the edit portal like it carries the same one-shopper-at-a-time guarantee a checkout does, when the two flows are built on different assumptions about how long it's safe to leave open between showing a number and acting on it.",
+      },
+      { type: "h2", text: "Why an order edit can oversell a low-stock variant" },
+      {
+        type: "ul",
+        items: [
+          "Order edits read a variant's stock count and write the swap as two separate steps, with no reservation held on the unit in between the way a checkout cart holds one from the moment a shopper starts paying",
+          "A variant set to \"continue selling when out of stock\" - common on limited drops, pre-orders, and made-to-order lines specifically because demand outruns supply - lets two racing edits both confirm even though only one unit actually exists",
+          "Even on a variant that stops selling at zero, the customer whose edit loses the race gets a stock error at the last step, after they've already picked the swap and expected it to go through, not a warning up front that someone else might beat them to it",
+          "The eligibility engine that decides whether a swap is offered at all checks edit windows, fulfillment cutoffs, and per-action rules - it isn't a live stock check, so a variant showing one unit left is offered to every customer looking at the swap screen at that moment, not reserved for whoever gets there first",
+          "The risk concentrates on exactly the products where it's most visible: single-unit or near-zero stock on something in enough demand that more than one customer is editing into it in the same window, which is the definition of a limited drop",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The portal never lied about the stock count. It just never promised that count would still be true by the time the click landed.",
+      },
+      { type: "h2", text: "What an oversold swap actually costs" },
+      {
+        type: "p",
+        text: "One oversold unit from a swap is a fulfillment problem before it's anything else - the warehouse has one burgundy hoodie and two confirmed orders for it, and someone has to decide, hours or days later, which customer keeps it and which one gets an apology, a refund, or a wait for a restock that might not come. Neither confirmation email said anything different at the time it sent, which makes whichever customer loses the pick feel like the store overpromised on purpose, not like they lost a race they never knew they were running. And it isn't a rare event scaled down - it concentrates on the highest-attention drops a brand runs, the ones customers are most likely to talk about publicly if the fulfillment doesn't match what the confirmation promised.",
+      },
+      {
+        type: "quote",
+        text: "A checkout race for the last unit fails visibly, in the moment, with a sold-out message the shopper sees before they hand over a card. An order-edit race for the same unit fails invisibly, after both confirmations already went out.",
+      },
+      { type: "h2", text: "Keeping a low-stock swap from overselling" },
+      {
+        type: "ol",
+        items: [
+          "Turn off \"continue selling when out of stock\" on limited-run and drop variants specifically, even if it stays on elsewhere in the catalog - it's the one setting that turns a losing race into a clean stock error instead of a second confirmation",
+          "Route variant swaps into an approval queue rather than auto-apply for any product tagged as limited or low-stock, so a person checks current inventory before confirming rather than the portal confirming off a number that's already stale",
+          "Set a floor - two units, five units, whatever fits the catalog - under which a swap into that variant requires approval automatically, even if every other swap on the store auto-applies",
+          "Reconcile confirmed swaps against actual on-hand stock for limited drops specifically in the hours after they launch, rather than assuming a clean confirmation email means the unit is actually accounted for",
+          "When an oversell happens anyway, decide the tie-break rule in advance - first edit timestamped, first order placed, whatever's fairest for the brand - so the choice isn't made under pressure with a customer already asking where their hoodie is",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing & Upsell" },
+      {
+        type: "p",
+        text: "AppFox's eligibility engine decides whether a swap is even offered based on edit windows, fulfillment cutoffs, and the per-action rules a merchant sets - auto-apply for the swaps a merchant trusts to run themselves, an approval queue for the ones that need a person to look first. A merchant running a limited drop can put variant swaps into that approval queue specifically, so a race on the last unit lands in front of someone who can check current inventory before confirming instead of confirming off a stock count that's already gone stale by the time the customer clicks.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is watch a variant's live stock count itself and decide in real time whether a given swap is safe to auto-apply - that runs on Shopify's own inventory settings and whatever rule a merchant configures around them, not on a number AppFox is tracking independently. What the approval queue and audit trail do give a merchant is a place to catch a stock-sensitive swap before it turns into two confirmations for one hoodie, and a full record of when each swap happened if an oversell needs sorting out anyway.",
+      },
+      {
+        type: "p",
+        text: "Neither customer who swapped into the burgundy hoodie did anything wrong, and neither did the portal that showed it as available exactly when they looked. What ran out wasn't the stock count on screen - it was the time between that number being true and a customer acting on it, and nothing in an order edit was ever built to hold that gap shut the way a checkout does. On a product with fifty units in stock, the gap never matters. On the last one, it's the only thing that does.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-ai-agent-refunds-wrong-item",
     title: "Why an AI Support Agent Can Refund the Wrong Item After a Shopify Order Edit",
     excerpt:
