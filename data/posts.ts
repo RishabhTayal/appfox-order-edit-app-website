@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-review-request-wrong-product",
+    title: "Why a Shopify Order Edit Can Trigger a Review Request for the Wrong Product",
+    excerpt:
+      "A ceramics studio's review-request app emails a customer eleven days after her mug arrives, asking her to rate the matte black glaze she ordered - the one she swapped for terracotta through the self-service edit portal a week before it shipped. The mug on her shelf and the review the email wants have never matched.",
+    category: "PLAYBOOK",
+    date: "2026-11-04",
+    author: "The AppFox Team",
+    metaTitle: "Order Edits Can Trigger the Wrong Shopify Review Request | AppFox",
+    metaDescription:
+      "Most review-request apps queue off the product on the order at checkout, not a live read after a self-service edit swaps it. Here's why an edited order can ask a customer to review the wrong product, and how to keep review requests in sync with what shipped.",
+    body: [
+      {
+        type: "p",
+        text: "A ceramics studio's customer orders a matte black mug, then changes her mind two days later and swaps it for the terracotta glaze through the self-service edit portal on her order-status page - a clean, auto-applied swap with no price difference and no support ticket. The terracotta mug ships, arrives, and she uses it every morning for the next week and a half. Eleven days after fulfillment, the studio's review-request app - installed to email every customer once a product's had time to be used - lands in her inbox asking her to rate the matte black mug, product photo and all, with a review link that goes straight to the black mug's listing. She never owned a black mug. She deletes the email, and the studio loses a review from exactly the kind of customer a review app exists to reach: one who used the product, liked it, and would have said so if the app had asked about the right one.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the swap was the problem, and nothing about the review app's logic was wrong on its own terms - it did exactly what it was built to do, for the order it thought was still current. Most review-request apps aren't reading a store's orders live at send time; they queue off an order-created or order-fulfilled webhook, capture the line items on the order at that moment, and hold that snapshot until the delay timer - a week, ten days, whatever the merchant set to give the product time to be used - runs out and the email fires. A self-service edit changes what's actually on the order after that snapshot is taken, and the review app has no listener for it, the same way most AI support agents and ad-platform pixels don't. The email that goes out eleven days later is built entirely from a version of the order that stopped being true nine days earlier.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't giving every fulfilled order a delayed review request - that delay is precisely what makes the ask land after a customer has actually formed an opinion instead of the day the box arrives unopened. The mistake is assuming the product on that snapshot is still the product in the customer's hands by the time the delay runs out, when any order that's been through an edit in between almost certainly isn't.",
+      },
+      { type: "h2", text: "Why a review request can reference the pre-edit product" },
+      {
+        type: "ul",
+        items: [
+          "Most review-request apps queue their ask off an order-created or order-fulfilled webhook, capturing the line items on the order at that moment - not a live read of the order in the seconds before the email actually sends",
+          "A swap made through the edit portal changes what ships, but the review app's snapshot has no listener for an order-editing API changing line items after it was already captured",
+          "The email template pulls product name, image, and review link straight from that snapshot, so both the ask and the link it sends the customer to point at the pre-edit product, not the one that arrived",
+          "The delay built into most review requests - a week to three weeks post-fulfillment, specifically to give the customer time to use the product - is the same window a self-service edit has usually already come and gone in",
+          "Where the platform ties a submitted review to a specific product ID for on-page display, a customer who reviews honestly anyway can end up with an accurate review of terracotta published on the black mug's listing",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The email doesn't ask her to review what's on her shelf. It asks her to review what the order said before she changed her mind.",
+      },
+      { type: "h2", text: "What a mismatched review request actually costs" },
+      {
+        type: "p",
+        text: "One confused email is a lost review, not a broken order - the mug still shipped correctly, the customer's still satisfied, and the only casualty is a review that never gets written because the ask referenced a product she never received. That's a quiet cost precisely because nothing looks wrong anywhere: the review app's dashboard shows a request sent, the delay logic ran on schedule, and the failure is invisible unless someone checks which customers who edited an order actually left a review afterward. Multiply it across every swap that happens between checkout and a review app's delay window, and a store isn't just missing a handful of five-star reviews from its happiest customers - it's specifically missing the reviews from customers who used the self-service portal, the same portal a merchant installed to keep those customers satisfied enough to leave one.",
+      },
+      {
+        type: "quote",
+        text: "A review request that fires on schedule looks like a working automation. It's only actually working if the product it's asking about is the one the customer is holding.",
+      },
+      { type: "h2", text: "Keeping review requests in sync with what shipped" },
+      {
+        type: "ol",
+        items: [
+          "Confirm whether your review app queues off a snapshot captured once, or re-reads the order's current line items right before the email sends - most vendors will answer this directly if asked, and most stores never ask",
+          "Where the app supports it, suppress or delay the automated request on any order that shows edit history, and route it to a manual or segmented send instead of letting it fire on the standard schedule",
+          "Flag edited orders at the moment the edit applies - AppFox's audit trail already timestamps this - so a review platform's exclusion rules, if it has any, have a signal to check before queuing the standard request",
+          "If the review platform lets you trigger off a later event, like delivery instead of fulfillment, don't assume that alone fixes it - later isn't safer if the underlying read still only happens once, before the edit",
+          "When a mismatched review does land in the moderation queue, reassign or correct it to the right product before it publishes, so an honest review about terracotta doesn't end up seasoning the black mug's star rating instead",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's audit trail stamps exactly what changed on an order and when - the SKU it changed from, the SKU it changed to, and the timestamp the swap applied through Shopify's native Order Editing API. That's the record a review app, or the merchant running one, would need to check to know an order's product no longer matches whatever snapshot the review app captured at fulfillment. AppFox doesn't operate or feed data directly into third-party review-request apps - what a review platform reads and acts on when it builds its own send queue is entirely that vendor's integration, built to whatever schedule and depth of order-read they decided on.",
+      },
+      {
+        type: "p",
+        text: "What AppFox does give a merchant is a live source of truth - current line items, current SKU, current fulfillment record - sitting one Admin API call away from any app willing to make it, instead of a snapshot taken once and never revisited. Whether a specific review platform actually calls it, or offers a way to exclude edited orders from its default send schedule, is a question worth putting to that vendor directly rather than assuming either way.",
+      },
+      {
+        type: "p",
+        text: "The ceramics studio's customer didn't do anything unusual - she used the portal exactly the way it's meant to be used, to fix an order before it shipped rather than return it after. What broke wasn't her swap or the review app's delay logic; it was the assumption, baked into that app the day it was built, that the product on an order at fulfillment would still be the product on that order by the time enough days had passed to ask about it. On a store where nothing gets edited, that assumption never gets tested. On one running a self-service portal well enough that customers actually use it, it's tested constantly - and every review request that loses that test is a review the store never gets to see.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-oversell-low-stock-variant",
     title: "Why a Shopify Order Edit Can Oversell a Low-Stock Variant",
     excerpt:
