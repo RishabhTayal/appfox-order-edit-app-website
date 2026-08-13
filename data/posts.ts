@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-quantity-change-discount-tier",
+    title: "Why Increasing a Shopify Subscription's Quantity Doesn't Raise the Subscribe & Save Discount",
+    excerpt:
+      "A coffee subscriber bumps her order from one bag to three through the portal, expecting the deeper buy-more-save-more discount the product page advertises for that quantity. The confirmation shows three bags at the same 10% she signed up with - the tier she just qualified for was never re-checked.",
+    category: "PLAYBOOK",
+    date: "2026-11-05",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Quantity Changes Don't Update the Discount Tier | AppFox",
+    metaDescription:
+      "A quantity-tiered subscribe-and-save discount is usually evaluated once, at signup, not re-checked every time a subscriber changes quantity in the portal. Here's why a Shopify subscription's discount tier can get stuck, and how to make it respond to quantity the way the product page promises.",
+    body: [
+      {
+        type: "p",
+        text: "A coffee roaster's subscribe-and-save program is priced to reward bigger orders: one bag is 10% off, two bags is 15% off, three or more is 20% off, all clearly laid out in a table on the product page. A subscriber who started on one bag a month opens the portal after her second delivery and bumps the quantity to three - she's been sharing with her office and wants more, and she remembers the pricing table well enough to expect the order to land at 20% off. The confirmation email shows three bags, same as she asked, still discounted at 10%. She isn't being shorted much in dollar terms, a few dollars a month, but the math on the screen doesn't match the math on the product page she read before increasing the order, and now she doesn't trust either one.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the portal malfunctioned. The quantity field on her subscription line item updated exactly the way she asked - three bags will ship, on schedule, at the price the contract already carries. What didn't happen is a second, separate step: re-checking which discount tier three bags actually qualifies for and updating the contract's discount to match. Those are two different operations wearing one \"change quantity\" button, and most subscribe-and-save setups only wire up the first one, because quantity and discount tier were only ever evaluated together once - at signup, when a shopper picked a quantity on the product page and the tier logic ran a single time before the subscription contract was even created.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't offering a quantity-tiered discount, and it isn't letting subscribers change quantity from the portal - both are ordinary, useful pieces of a subscription program. The mistake is assuming the tier logic that ran once at signup is still watching the line item after that, when in most builds it was never anything more than a one-time price lookup, with nothing left listening for the quantity to change again.",
+      },
+      { type: "h2", text: "Why a quantity change doesn't retrigger the discount tier" },
+      {
+        type: "ul",
+        items: [
+          "A quantity-tiered subscribe-and-save discount is typically applied as a one-time lookup at the moment a selling plan is selected - it checks the quantity on the product page once and attaches the matching discount to the line item it creates",
+          "A subscription contract's line item then carries that discount as a fixed value going forward - the same way it carries the product and the price - with nothing on the contract itself re-running the tier lookup on a schedule or an event",
+          "The customer portal's quantity control is usually built to update one field: how many units renew next - it wasn't necessarily built to also call back into the same tier logic that ran once at signup and ask it to run again",
+          "Because the renewal order is generated straight from the contract with no live checkout session in between, there's no natural moment - the way there is at checkout - for a discount function to re-evaluate the cart against the merchant's tier table",
+          "The gap is invisible in testing that only checks signup: a shopper who picks three bags on the product page gets 20% off correctly, because that's the one moment the tier logic is actually built to run",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The discount table on the product page describes what a cart earns once, at checkout. Nothing about a portal quantity change was ever told that promise is supposed to keep being true.",
+      },
+      { type: "h2", text: "What a stuck discount tier actually costs" },
+      {
+        type: "p",
+        text: "The dollar amount on any one order is usually small - a few percentage points on a handful of bags - but the trust cost is disproportionate, because the subscriber did exactly what the pricing table told her to do. She increased her order specifically because the product page promised a better rate for doing so, and the confirmation she gets back contradicts the page she read minutes earlier. Some subscribers email support, and support either has to manually apply a discount code to patch one order or explain that the table doesn't apply the way it reads, both of which sound like a bait-and-switch even though nobody intended one. Others don't email - they just notice the total doesn't match the table, assume the discount was never real, and stop trusting the pricing page for the next decision, which is usually whether to increase again or cancel instead.",
+      },
+      {
+        type: "quote",
+        text: "A subscriber who orders more because the pricing table told her to isn't asking for a favor. She's asking the contract to keep the promise the product page already made - and a discount that was only ever checked once can't keep a promise that's supposed to hold every time the quantity changes.",
+      },
+      { type: "h2", text: "How to make the discount actually track the quantity" },
+      {
+        type: "ol",
+        items: [
+          "Decide whether tier eligibility is meant to be live - re-checked every time quantity changes - or fixed at signup, and say so plainly next to the pricing table, since both are legitimate models but only one matches what most tables imply",
+          "If it's meant to be live, re-run the tier lookup as part of the portal's quantity-change action itself, not just at renewal - the subscriber is looking at the confirmation screen in that moment, and a discount that updates a cycle later still reads as broken today",
+          "Where the discount also needs to hold at renewal (not just the moment of the change), make sure whatever recomputes the renewal order re-checks quantity against the tier table each cycle, not just once when the contract was created",
+          "Model each tier as its own selling plan or plan variant where the platform supports it, rather than one plan with a discount that's supposed to shift underneath a changing quantity - a quantity change then reads as a deliberate plan swap, which is easier to test and easier to get right than a discount that has to recalculate itself invisibly",
+          "Test the actual portal flow - not just the product page - by increasing and decreasing quantity through a live subscription and confirming the tier moves both directions, since a fix that only handles upgrades usually leaves the downgrade path just as stuck",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's subscribe-and-save tiers are built as separate plans rather than a discount that has to watch a raw quantity field for changes - a coffee roaster running 1-bag, 2-bag, and 3-bag tiers configures each as its own plan with its own rate, on Growth and above. When a subscriber changes quantity from the portal in a way that crosses a tier boundary, that's handled as a plan swap on the existing contract, the same modification skip, pause, and swap already use - not a silent field update that leaves an old discount attached to a new quantity. The rate she sees at checkout on the new quantity is the rate that renews with it.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is invent a tier structure a merchant hasn't configured - if a store only sets up one flat subscribe-and-save rate regardless of quantity, there's no separate tier for a quantity change to swap into, and that's a merchant pricing decision, not a gap in the portal. For a store that does want buy-more-save-more pricing, the fix isn't a cleverer discount calculation running in the background - it's making the quantity change itself the deliberate, visible event that picks the new tier, the same way a size or flavor swap already is.",
+      },
+      {
+        type: "p",
+        text: "The coffee subscriber didn't misread the pricing table, and the portal didn't fail to save her change - three bags really will ship. What broke was the second half of the promise the table made: that ordering more comes with paying less per bag, checked again every time the quantity does. Wire the tier lookup to the moment it's supposed to run, or build each tier as its own plan so there's no lookup to forget, and a subscriber who does exactly what the pricing table asked stops being the one who has to notice the total doesn't match it.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-review-request-wrong-product",
     title: "Why a Shopify Order Edit Can Trigger a Review Request for the Wrong Product",
     excerpt:
