@@ -30,6 +30,84 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-welcome-gift-ships-every-renewal",
+    title: "Why a Shopify Subscription's Welcome Gift Ships With Every Renewal, Not Just the First",
+    excerpt:
+      "A skincare brand promises a free travel-size cleanser with a new subscriber's first box. Her fourth box has one too - the incentive that was supposed to say thank-you-for-signing-up became a standing line item nobody told to stop.",
+    category: "PLAYBOOK",
+    date: "2026-11-06",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Welcome Gift Ships Every Box | AppFox",
+    metaDescription:
+      "A free welcome gift added to a Shopify subscription's line items renews with every box, not just the first, because nothing on the contract tells it to stop. Here's why the freebie keeps repeating, and how to scope it to a single order.",
+    body: [
+      {
+        type: "p",
+        text: "A skincare brand launches its subscribe-and-save program with a hook on the product page: sign up and the first box ships with a free travel-size cleanser, a $12 item, as thanks for trying the program. The offer works - conversions tick up the week it goes live. Three months in, a subscriber emails asking why her fourth box included a travel-size cleanser identical to the one in her first, second, and third. She isn't wrong to ask. The \"free gift with your first box\" line on the product page was true the day she read it. It just never stopped being true after that.",
+      },
+      {
+        type: "p",
+        text: "Nothing about her subscription malfunctioned. The travel-size cleanser is one more line item on the same contract that holds the full-size cleanser and moisturizer she's actually paying for, and Shopify's billing engine doesn't distinguish \"the promotional item that earned the signup\" from \"the product she's paying to keep receiving\" - it reads whatever line items are currently on the contract and turns them into an order, the same set, every cycle, until someone edits the contract to say otherwise. The gift was added once, at signup, the same way the rest of the box was, and nothing about adding it that way carried an expiration.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't offering a free item to win a signup - that's an ordinary, effective piece of a launch offer. The mistake is adding that item to the subscription the same way you'd add a recurring product, when what was actually meant was a one-time bonus wearing a subscription box's clothing.",
+      },
+      { type: "h2", text: "Why a one-time gift keeps reappearing on every renewal" },
+      {
+        type: "ul",
+        items: [
+          "A Shopify subscription contract holds a set of line items - the products it ships - and a promotional gift added at signup becomes just another line item, indistinguishable on the contract from the product a subscriber is actually paying for",
+          "Shopify's billing engine builds each renewal order directly from whatever line items currently sit on the contract; it has no concept of \"this one was only meant for cycle one\" unless something explicitly removes it before the next renewal fires",
+          "There's no native flag on a subscription line item for \"one-time bonus\" the way there's a flag for whether it's taxable or requires shipping - a gift and a staple product look identical to the contract that holds them",
+          "The offer usually gets built once, at launch, by adding the free SKU to the plan or the welcome flow - and once it's wired in, it ships until a merchant remembers to go back and take it out, which nothing on the contract ever prompts them to do",
+          "The mistake is invisible from the merchant's side, too - the order looks completely normal, one more line item on a box that shipped correctly - so it usually isn't caught by a support ticket. It's caught by an inventory count that doesn't add up, or not caught at all",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The product page said \"free gift with your first box.\" The contract never learned there was a difference between the first box and the fourth.",
+      },
+      { type: "h2", text: "What a repeating gift actually costs" },
+      {
+        type: "p",
+        text: "The dollar math is straightforward and easy to underestimate: a $12 item shipped once to every new signup is a marketing cost with a clear return. The same item shipped on every renewal to every subscriber who's ever signed up is a recurring cost with no return at all, quietly eating margin on every single box for as long as the line item stays on the contract. It also throws off inventory forecasting in a way that's hard to trace back to its cause - the promotional SKU depletes at the pace of total active subscribers, not new signups, so a merchant who planned enough stock for a launch month's worth of new customers runs short well before the promotion was ever supposed to still be running.",
+      },
+      {
+        type: "p",
+        text: "Unlike most of the mistakes a subscription program makes, this one doesn't usually make a subscriber angry - she got more than she was promised, not less. But it's not free of cost on the trust side either: a subscriber who notices the gift didn't stop when the page said it would starts wondering what else on her account isn't tracking the way it's supposed to, and the ones who do email in are asking a question support has no good answer for, because nobody built the contract to know the gift was ever meant to be temporary.",
+      },
+      {
+        type: "quote",
+        text: "A gift that was supposed to say thank you for signing up stops meaning that the moment it stops being a moment and starts being an expectation nobody budgeted for.",
+      },
+      { type: "h2", text: "How to make a welcome gift ship exactly once" },
+      {
+        type: "ol",
+        items: [
+          "Add the incentive to the first order as a genuine one-time item at checkout - not as a line item on the subscription contract itself - the same distinction that separates a real one-time purchase from a change that's only supposed to be temporary",
+          "If the gift has to live on the contract because that's the only way to bundle it with the first box, remove it from the contract the moment that first order is created - before the second renewal has any chance to run - not on some later cleanup pass",
+          "Where a platform or app supports a bundle component scoped to a single cycle, use that instead of a bare line item, so removal isn't a manual step anyone has to remember",
+          "Automate the removal with a workflow tool triggered off the first renewal firing, rather than trusting a person to log in and edit every contract by hand once volume grows past a handful of signups a week",
+          "Audit renewal orders past cycle one on a regular cadence for the promotional SKU - it's the cheapest way to catch a leak that's otherwise invisible until an inventory count or a subscriber's email surfaces it",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's contracts work the way described above - whatever's on the contract renews until changed, the same mechanism that makes skip, pause, and swap durable rather than one-off. For merchants on Business and above running bundling and build-a-box, a welcome incentive can be built as a component of the box, but AppFox doesn't currently tag a bundle component as first-cycle-only, separate from the rest of the box - a component added once ships every cycle the way the rest of the box does, same as everything else on the contract.",
+      },
+      {
+        type: "p",
+        text: "The honest fix is on the merchant side, not a feature AppFox is standing in for: add the gift to the first order as a one-time item at checkout instead of a subscription line item, so it never reaches the contract to renew in the first place. Where a gift genuinely has to be added to the contract to ship in the same box, AppFox's contracts sit in Shopify's native subscription infrastructure, so a Shopify Flow automation triggered off the first renewal can remove the line item the same way it can trigger any other contract change - it just has to be built, the same way the free gift had to be.",
+      },
+      {
+        type: "p",
+        text: "The skincare subscriber wasn't upset so much as confused, and the fix isn't making the welcome offer smaller or less generous. It's making \"first box\" on the contract as literal as it was on the product page - so the gift keeps being a reason to sign up, instead of becoming a line item nobody remembers deciding to keep.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-quantity-change-discount-tier",
     title: "Why Increasing a Shopify Subscription's Quantity Doesn't Raise the Subscribe & Save Discount",
     excerpt:
