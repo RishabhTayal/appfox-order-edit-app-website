@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscribe-save-widget-missing-pagefly-page",
+    title: "Why Your Subscribe & Save Widget Doesn't Show Up on a PageFly Page",
+    excerpt:
+      "A supplement brand builds a Black Friday landing page in PageFly for its flagship subscription bundle. The page looks perfect - except the subscribe-and-save toggle that sits on every ordinary product page is nowhere on it, and nobody touched a setting to make that happen.",
+    category: "PLAYBOOK",
+    date: "2026-11-08",
+    author: "The AppFox Team",
+    metaTitle: "Subscribe & Save Widget Missing on a PageFly Page | AppFox",
+    metaDescription:
+      "A Shopify subscribe-and-save widget can render perfectly on your default product template and go missing on a PageFly-built landing page. Here's why page builders skip theme app blocks, and how to get the widget back before traffic runs.",
+    body: [
+      {
+        type: "p",
+        text: "A supplement brand builds a Black Friday landing page for its flagship subscribe-and-save bundle using PageFly, the drag-and-drop builder it already runs for every paid-traffic page on the store. The page looks right in every way the team checked: hero image, bundle pricing, trust badges, an add-to-cart button styled to match the campaign. What isn't there is the subscribe-and-save widget that sits on the store's ordinary product pages - the toggle that lets a shopper pick a recurring plan and the discount that comes with it. Nobody removed it. Nobody touched the widget's settings at all. The exact same product still shows the exact same toggle on its default product page, one click away. On the PageFly page - the one built specifically to sell the subscription to a paid-traffic audience - there's just an add-to-cart button and a single one-time price.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the widget broke, and nothing about PageFly is misconfigured. A subscribe-and-save widget on Shopify typically ships as a theme app extension - an app block a merchant drops onto a section of the theme's own Online Store 2.0 template, the same mechanism Shopify's own search bar or a chat widget uses to inject itself onto a page without anyone touching a line of Liquid. The default product template already has that block placed on it from setup, which is the entire reason the widget just shows up the first time anyone looks. A page built in PageFly isn't a Shopify section running on that template at all - it's a canvas PageFly renders with its own component library and its own layout engine, sitting on top of Shopify's storefront rather than inside the theme's section-and-block structure that app blocks depend on. An app block a merchant placed on a theme section has nowhere to attach on a canvas that isn't using that structure, so it doesn't fail to render there. It was never asked to render there in the first place.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't building campaign landing pages in PageFly instead of the theme's own product template - a page builder exists precisely to ship something faster and more tailored than a section-by-section theme edit allows, and most stores that run PageFly do it because it's genuinely better at that job. The mistake is assuming a widget that installs itself onto the default template installs itself everywhere a product can be sold, when a page builder rendering outside the theme's block system was never in that installation's path to begin with.",
+      },
+      { type: "h2", text: "Why a page builder skips an app block a theme template never does" },
+      {
+        type: "ul",
+        items: [
+          "A subscribe-and-save widget ships as a theme app extension - an app block a merchant adds to a section on the store's Online Store 2.0 template, not a script that scans every page on the domain looking for a product to attach itself to",
+          "The default product template already has that block placed on it from setup, which is the entire reason the widget shows up automatically on every product using that template",
+          "PageFly builds a page as its own canvas, with its own components and its own rendering path sitting on top of Shopify rather than inside the theme's section-and-block structure that app blocks depend on",
+          "Because the two systems don't share a placement mechanism, a PageFly page isn't missing a step from the widget's install - the widget's install never had a route onto a PageFly canvas to begin with",
+          "The gap doesn't surface in a general QA pass either, because the default product page - the one most merchants check first - keeps showing the widget correctly the entire time, which is exactly what makes a spot check feel sufficient",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The widget didn't fail to load on the PageFly page. It was never told the page existed.",
+      },
+      { type: "h2", text: "What a missing widget costs on exactly the wrong page" },
+      {
+        type: "p",
+        text: "A PageFly page usually isn't a random corner of the storefront - it's the page a store built on purpose, often the one a merchant is about to point paid traffic at for a specific campaign. Losing the subscribe option there doesn't spread a small conversion hit evenly across the site; it concentrates the entire loss onto the highest-intent audience a campaign was built to reach, on the one page where the subscription discount was supposed to be the headline offer. Nothing about the checkout looks broken from the shopper's side - the one-time price is real, the add-to-cart button works, the order goes through - so there's no error to catch and no reason for anyone to suspect the page is missing a whole purchase path. It usually gets found the way most silent conversion problems do: after the campaign has already spent its budget, when someone finally asks why the subscription take rate on this one landing page looks nothing like the rest of the site.",
+      },
+      {
+        type: "quote",
+        text: "A subscribe-and-save widget doesn't need to be broken everywhere to cost a campaign. It only needs to be missing on the one page a store paid to send traffic to.",
+      },
+      { type: "h2", text: "Getting the widget back onto a PageFly page" },
+      {
+        type: "ol",
+        items: [
+          "Before building a campaign page in PageFly, check whether the destination is a customized version of an existing Online Store 2.0 product template or a page built from scratch on PageFly's own canvas - a template customization keeps the app block, a from-scratch canvas doesn't",
+          "If PageFly supports embedding a third-party app's block or a custom HTML/Liquid element - most page builders do, under some kind of \"app block\" or \"custom code\" component - add the subscription widget explicitly to that page rather than assuming it inherited from the template",
+          "Where PageFly can't reach the theme app extension directly, ask the subscription app for a standalone embed snippet built for exactly this case - a way to render the widget without depending on the section it normally sits inside",
+          "Treat every new landing page built outside the default template as something to click through and check for the widget before traffic runs, the same way a merchant would already check that the price and the buy button are showing - not as a page-builder detail that can wait",
+          "Once a working setup is found, template it, so the fix travels to the next campaign page automatically instead of getting rediscovered by whoever builds the next one under a deadline",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's widget ships as a theme app extension, which is what lets it drop onto a default Online Store 2.0 product template with no code and no theme surgery - and that same mechanism is what carries it cleanly onto a PageFly page built as a customization of that template. What it doesn't do on its own is appear on a PageFly page built as an entirely separate canvas, for the same structural reason no theme-app-extension widget does: that canvas isn't running the theme's section-and-block system the extension depends on. AppFox integrates with PageFly specifically because this gap is common enough to plan for rather than discover mid-campaign, and subscription analytics on the Growth plan and above can be filtered by landing page, which turns \"this page's take rate looks low\" from a guess into something a merchant can catch before a campaign's budget is spent finding out the hard way.",
+      },
+      {
+        type: "p",
+        text: "The Black Friday landing page didn't lose its subscription toggle to a bug, and the team that built it didn't misconfigure anything - the page simply never had a route for a theme app extension to reach it in the first place. Checking a new campaign page for the widget the same way a merchant already checks the price and the buy-now button is a small habit against a real gap: the pages built specifically to sell a subscription are exactly the ones a page builder is most likely to leave it off of.",
+      },
+    ],
+  },
+  {
     slug: "how-to-sunset-a-shopify-subscription-program",
     title: "How to Sunset a Shopify Subscription Program Without Blindsiding Subscribers",
     excerpt:
