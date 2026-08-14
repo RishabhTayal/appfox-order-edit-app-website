@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "how-to-sunset-a-shopify-subscription-program",
+    title: "How to Sunset a Shopify Subscription Program Without Blindsiding Subscribers",
+    excerpt:
+      "A pet-treats brand turns off its subscribe-and-save selling plan to end the program, and three weeks later forty-one subscribers get charged for a box that was never packed. Archiving a selling plan stops new signups. It does nothing to the contracts that already exist under it.",
+    category: "GUIDE",
+    date: "2026-11-07",
+    author: "The AppFox Team",
+    metaTitle: "How to Sunset a Shopify Subscription Program | AppFox",
+    metaDescription:
+      "Disabling a selling plan doesn't cancel the contracts already running on it. Here's what actually happens when you try to shut down a Shopify subscription program, and how to wind one down without blindsiding the subscribers still on it.",
+    body: [
+      {
+        type: "p",
+        text: "A pet-treats subscription decides to shut its program down: leadership wants to focus on wholesale, and the subscribe-and-save option has been shrinking for two quarters running. The founder does what looks like the obvious fix - opens the selling plan in Shopify admin and turns it off, so the subscribe option disappears from every product page that same afternoon. Three weeks later, forty-one subscribers get charged for a box that was never packed, because turning off a selling plan stops new customers from signing up for it. It does nothing at all to the subscription contracts that already exist under it, and those keep renewing on schedule until somebody cancels each one.",
+      },
+      {
+        type: "p",
+        text: "A selling plan and a subscription contract are two different objects in Shopify's subscription model, and only one of them the visibility toggle actually touches. The selling plan is the offer - the discount, the frequency options, the thing a shopper opts into on the product page - and hiding or archiving it only ever controls whether new customers can create new contracts from it going forward. A subscription contract, once created, is its own independent record with its own billing schedule, and it keeps running that schedule completely unaware of whatever happened to the selling plan that spawned it. Shutting off the tap doesn't drain the tank; the water already in it keeps flowing out on its own timer.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't deciding to end a subscription program - plenty of good reasons exist to sunset one, and a shrinking take rate is a perfectly legitimate one. The mistake is treating \"stop new signups\" as the same action as \"stop billing everyone already in it,\" when a Shopify subscription program is really two separate shutdowns wearing one name.",
+      },
+      { type: "h2", text: "Why turning off the selling plan isn't the same as ending the program" },
+      {
+        type: "ul",
+        items: [
+          "Archiving or deleting a selling plan removes it from checkout and the storefront widget, but it doesn't cascade to any subscription contract already created from it - those contracts hold their own pricing, schedule, and status independent of the plan",
+          "Shopify's subscription APIs treat \"cancel a contract\" and \"retire an offer\" as two different actions, run against two different objects, so there's no single admin toggle that does both at once",
+          "A contract on a prepaid plan adds a second layer: a subscriber who paid for three boxes upfront still has a balance owed in deliveries, regardless of whether the selling plan behind that balance still exists",
+          "The renewal keeps generating a normal order, a normal charge, and a normal shipping-confirmation email - nothing about it looks abnormal to a warehouse team or a subscriber, right up until someone asks why a discontinued program just charged them again",
+          "A program can look shut down from the storefront - no widget, no way to sign up - for weeks while it's still fully live and billing on the back end, which is exactly the gap that turns a deliberate wind-down into a support incident",
+        ],
+      },
+      {
+        type: "h3",
+        text: "Turning off the storefront doesn't turn off the ledger. Those are two different switches, and only one of them got flipped.",
+      },
+      { type: "h2", text: "What an incomplete shutdown actually costs" },
+      {
+        type: "p",
+        text: "A subscriber who gets charged for a box that never ships isn't confused about pricing - she's confused about whether the company is still operating the thing it just charged her for, which is a much harder complaint to walk back than a pricing error. Every one of those charges is also a chargeback risk sitting on a program nobody's actively monitoring anymore, since the team that used to watch subscription metrics has usually already moved its attention to whatever the program is being replaced with. It creates real financial cleanup too: refunding prepaid balances weeks after the decision to shut down was made, out of a budget that's already been reallocated to whatever the subscription revenue used to fund.",
+      },
+      {
+        type: "quote",
+        text: "A subscription program doesn't stop the day you decide to end it. It stops the day the last active contract does - and every day in between is still billing on the schedule it was built to keep.",
+      },
+      { type: "h2", text: "How to wind down a subscription program without blindsiding subscribers" },
+      {
+        type: "ol",
+        items: [
+          "Pull the full list of active contracts before touching anything in the storefront - archiving the selling plan first and figuring out who's still on it second is how a shutdown turns into a support queue",
+          "Decide the prepaid-balance policy before the first cancellation goes out, the same way you'd decide it for a single customer cancelling mid-term - full refund, store credit, or one final shipment to close out the balance - and apply it the same way to every subscriber, not case by case as tickets arrive",
+          "Email the active list with a real date, not a vague one - \"your subscription ends after your next delivery on August 12th\" gives a subscriber something to plan around, where \"we're ending the program soon\" just produces the same question forty-one times over",
+          "Cancel contracts in batches timed against each subscriber's own renewal date, not all on one calendar day - a subscriber three weeks from her next charge doesn't need to be rushed through a shutdown a subscriber three days out is already living",
+          "Archive or delete the selling plan last, after every contract under it is closed out, so there's no window where the storefront looks shut down while the billing behind it still isn't",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "Subscription contracts in AppFox run on Shopify's native subscription infrastructure, which means canceling one at a time works exactly the way the portal already lets a subscriber cancel herself - there's no separate bulk-delete action that skips past each contract's own status and schedule, because a shutdown handled contract by contract is also the version that leaves room to check a prepaid balance or a renewal date before it fires. What AppFox does give a merchant is visibility: subscription analytics, on the Growth plan and above, lists every active contract with its billing type and next renewal date in one place, which is what makes step one - knowing exactly who's still on the program before touching the storefront - possible without exporting order data by hand.",
+      },
+      {
+        type: "p",
+        text: "Shopify Flow triggers can be wired to fire the wind-down email off a contract's actual cancellation rather than a one-time blast, so the notice a subscriber gets lines up with when her own subscription actually ends instead of a date that was only accurate for whoever the email was drafted around.",
+      },
+      {
+        type: "p",
+        text: "The pet-treats subscription's forty-one surprise charges weren't a billing bug - the contracts did exactly what they were built to do, on schedule, because nothing had told them to stop. A subscription program doesn't end when the decision gets made or the widget disappears from the product page. It ends when the last contract on it does, and a shutdown that treats those as the same moment is the one that gets the calls.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-welcome-gift-ships-every-renewal",
     title: "Why a Shopify Subscription's Welcome Gift Ships With Every Renewal, Not Just the First",
     excerpt:
