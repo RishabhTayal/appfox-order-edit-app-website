@@ -30,6 +30,72 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-3d-secure-authentication-decline",
+    title: "Why a Shopify Order-Edit Charge Can Fail 3D Secure Even on a Good Card",
+    excerpt:
+      "A customer in Berlin swaps into a pricier size four days after checkout, the edit confirms, and the twelve-euro difference comes back declined - not for insufficient funds, but because the card's issuing bank wants an authentication step nobody in the flow is there to complete.",
+    category: "PLAYBOOK",
+    date: "2026-11-09",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Order-Edit 3D Secure Declines: Why It Happens | AppFox",
+    metaDescription:
+      "A Shopify order-edit charge can fail with an authentication-required decline even on a fully funded card - PSD2's Strong Customer Authentication rules let an issuing bank challenge an edit-time charge the customer isn't there to approve. Here's why it happens and how to handle it.",
+    body: [
+      {
+        type: "p",
+        text: "A customer in Berlin checks out for a jacket, then opens the order status page three days later and swaps into a size that costs twelve euros more. The edit flow shows the new total and a confirmation screen - the same screen that's handled dozens of swaps that week without incident. A few seconds later, the incremental charge comes back declined. Not \"insufficient funds.\" Not \"card expired.\" The reason code reads authentication_required. Support pulls up the order: same card, same customer, same balance that cleared the original checkout four days earlier without a hitch. Nothing about the card is the problem.",
+      },
+      {
+        type: "p",
+        text: "This isn't a broken integration, and it isn't a fluke of one unlucky bank. It's PSD2's Strong Customer Authentication rule doing exactly what it's built to do, to a transaction shaped exactly the way it's built to flag. The original checkout charge was a customer-initiated transaction - the shopper's own browser, in session, on a screen built to run a 3D Secure challenge if the issuer asked for one. The edit-time charge is a merchant-initiated transaction: fired by the edit flow's settlement step in the background, days after the customer closed that tab, with nobody standing in front of a device to answer a challenge even if one arrives. The card didn't get worse between Tuesday and Friday. The shape of the transaction asking for money did.",
+      },
+      { type: "h2", text: "Why an edit-time charge reads differently to an issuing bank than checkout did" },
+      {
+        type: "ul",
+        items: [
+          "The original checkout charge is a customer-initiated transaction (CIT) - cardholder present, in-browser, able to complete a 3D Secure challenge on the spot if the issuer requires one",
+          "An edit-time incremental charge is a merchant-initiated transaction (MIT) - triggered by the settlement step of the edit flow itself, with no cardholder session open to answer a challenge",
+          "SCA rules do carve out an exemption for a MIT that follows a properly authenticated CIT - it's the same exemption that lets a subscription renewal skip a challenge on every cycle - but the exemption only applies when the charge is sent to the card network with the correct stored-credential and MIT indicators, which not every order-edit payment integration passes",
+          "Even correctly flagged, an edit-time charge doesn't have the recognizable shape a subscription renewal has - not a fixed amount, not a fixed schedule - and some issuing banks' risk models lean on exactly that pattern to wave a MIT through without a challenge, which a one-off, irregular size swap simply doesn't offer them",
+          "SCA scores risk per transaction, not per card or per customer history - a twelve-euro size upgrade can get challenged the same way a two-hundred-euro one can, if the bank's model doesn't like the shape of the charge more than it likes the amount",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The original charge had a customer standing in front of it. The edit-time charge doesn't - and that's the entire difference an issuing bank is reacting to.",
+      },
+      { type: "h2", text: "What this costs beyond one declined swap" },
+      {
+        type: "p",
+        text: "An ordinary decline - insufficient funds, an expired card - tells you something true about the card, and a retry or a new card usually resolves it. An authentication-required decline tells you something true about the transaction instead, and no amount of retrying fixes that: the bank isn't questioning whether the money is there, it's asking for a cardholder to complete a step the merchant-initiated charge has no way to trigger. A blind automatic retry just asks the same unanswerable question a second time, burns a retry attempt the gateway may rate-limit, and leaves the order sitting in the same ambiguous state - swapped on the order, unpaid on the ledger - for exactly as long as nobody notices the reason code was different from every other decline in the queue.",
+      },
+      {
+        type: "quote",
+        text: "A retry doesn't fix a transaction the bank is asking to see a cardholder for. It just asks the same unanswerable question twice.",
+      },
+      { type: "h2", text: "Handling an authentication-required decline without guessing" },
+      {
+        type: "ol",
+        items: [
+          "Read the decline reason code specifically, not just \"declined\" - authentication_required or an equivalent SCA-specific code is a different problem than a normal decline and needs a different response, not the same retry logic",
+          "Don't schedule a blind automatic retry for this decline type - a merchant-initiated retry can't complete a 3D Secure challenge any better the second time than the first",
+          "Confirm your payment gateway sends the correct stored-credential and MIT indicators on edit-time charges, not just on checkout - the SCA exemption for a MIT following an authenticated CIT only works if the network actually sees the transaction flagged that way",
+          "When the challenge can't be exempted, give the customer a live way to re-enter and re-authenticate their card inside the edit flow itself - a hosted payment step that can actually run a 3D Secure prompt - instead of an email asking them to call in",
+          "For stores with meaningful EEA or UK order volume, route edit-time charges to an approval queue or a pending-payment hold rather than auto-apply, so a challenge doesn't silently resolve itself into a rolled-back edit nobody reviewed",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing & Upsell" },
+      {
+        type: "p",
+        text: "AppFox settles a price difference in place, through Shopify's native Order Editing API's payment capture, rather than a side channel of its own - so when the underlying gateway sends an edit-time charge as a properly flagged merchant-initiated transaction, the same SCA exemption that protects a subscription renewal applies to it too. When it can't be exempted, AppFox's audit trail logs the decline reason as its own fact rather than a generic failure, which is what lets an authentication-required decline route straight to the approval queue instead of getting retried the same way an ordinary decline would. The eligibility engine can hold edit-time charges above a chosen amount - or for orders on cards issued in the EEA and UK specifically - to that same queue by default, so a customer who needs to re-authenticate gets a person and a live retry option instead of a silent rollback.",
+      },
+      {
+        type: "p",
+        text: "The size swap in Berlin was never really about the card. It was about a transaction shape - initiated by a merchant's system, days after the session that opened it, with no cardholder in the loop - that Strong Customer Authentication is specifically built to notice. Reading the decline reason instead of treating every failed charge the same is what turns that into a two-minute re-authentication instead of a support ticket nobody can explain.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscribe-save-widget-missing-pagefly-page",
     title: "Why Your Subscribe & Save Widget Doesn't Show Up on a PageFly Page",
     excerpt:
