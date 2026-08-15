@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-repeat-free-trial-abuse",
+    title: "Why a Canceled Shopify Subscriber Can Just Sign Up for the Same Free Trial Again",
+    excerpt:
+      "A subscription box brand's ops lead notices the trial-box count keeps outpacing new-customer growth in a channel that isn't growing. The same address is getting the free first box every few weeks - under a new name and a new email every time - and nothing in the signup flow ever asked whether it had seen that address before.",
+    category: "PLAYBOOK",
+    date: "2026-11-18",
+    author: "The AppFox Team",
+    metaTitle: "Why Shopify Subscribers Can Repeat a Free Trial | AppFox",
+    metaDescription:
+      "A canceled Shopify subscriber can sign up for the same free trial again under a new email and shipping name. Here's why a subscription contract can't tell the difference, and how to catch the pattern before it becomes a habit.",
+    body: [
+      {
+        type: "p",
+        text: "A subscription box brand runs a standard offer: the first box free, card charged starting on the second. Three months in, the ops lead pulls trial-box fulfillment numbers against new-customer signups and the two lines have quietly come apart - trial boxes shipping faster than new customers are actually showing up anywhere else in the funnel. She starts pulling addresses instead of names, and the pattern is right there: the same apartment number getting a free first box every six or seven weeks, a different first name and a fresh email domain attached each time, no card ever charged because the account cancels a day or two before the second box would bill.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a gap in the subscription app, and nothing about it is a failure of Shopify's checkout. A subscription contract is built around a customer account, a payment method, and a delivery schedule - it was never built to ask whether the person behind a new email has already run this exact offer under a different one. Shopify's own customer records treat a new email as a new customer by design, the same way a store would want it to for a shopper who genuinely has two email addresses. There's no field on a subscription contract for \"has this shipping address seen this trial before,\" because nothing about a contract's job is to remember addresses across separate accounts.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't running a free-trial offer to get new subscribers in the door - it's one of the highest-converting things a subscription program can do, and most merchants running one lean on it hard. The mistake is assuming a free trial that converts well also gates itself, when nothing in a standard subscription signup flow checks a new account against the addresses and cards that already ran the same trial before it.",
+      },
+      { type: "h2", text: "Why a subscription contract can't tell a repeat trial from a real one" },
+      {
+        type: "ul",
+        items: [
+          "A new email address creates a new Shopify customer record by default - there's no built-in step that cross-checks it against shipping addresses or payment methods already on file under a different account",
+          "Canceling before the second charge is a normal, expected action for a genuine first-time subscriber who tries a box and decides it isn't for her - the same cancel-before-renewal pattern that makes a repeat trial invisible is also just how a real trial is supposed to work",
+          "A shipping address is reused constantly by real households - roommates, family members, a couple sharing an apartment - so flagging every repeat address as abuse catches as many real customers as it catches anyone gaming the offer",
+          "A payment method can be swapped even by someone re-running the same offer on purpose, whether that's a second card, a digital wallet, or simply paying with someone else's card for the free box specifically",
+          "The people most likely to notice the pattern - support, or whoever ships the boxes - aren't the ones who set up the trial offer, and a per-order view of one canceled trial after another never adds up to a trend unless someone is looking for the trend on purpose",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A repeat trial doesn't look like fraud from inside any single order. It only looks like a pattern from outside all of them - which is exactly the view nobody's set up to check by default.",
+      },
+      { type: "h2", text: "What a repeat trial costs beyond one free box" },
+      {
+        type: "p",
+        text: "One free box run twice is a rounding error - product cost, a shipping label, gone. The real cost shows up in what the free trial was supposed to buy: a conversion rate the merchant is reporting to justify the offer's cost, and an acquisition number that's supposed to represent actual new customers. A trial that's quietly being repeated by a small, motivated slice of existing traffic inflates trial signups without moving the number that offer exists to move - subscribers who stick around past the free box and actually pay. Left unchecked, the offer starts looking like it's working exactly as designed while the paid-subscriber math underneath it slowly stops adding up.",
+      },
+      {
+        type: "quote",
+        text: "A repeat trial doesn't cost you a box. It costs you a conversion number you're trusting to mean something it doesn't.",
+      },
+      { type: "h2", text: "Catching the pattern before it becomes a habit" },
+      {
+        type: "ol",
+        items: [
+          "Pull trial signups against shipping address at least monthly, not per order - a repeat address is invisible one cancellation at a time and obvious the moment two or three line up in the same view",
+          "Set the review threshold at the address and card level, not the email or name - those are the two things that survive a fresh email address, and the two things worth actually checking before flagging anything",
+          "Don't auto-block a repeat address outright - real households share one, so route a repeat hit to a manual review instead of a blanket rejection that risks turning away a genuine second subscriber at the same building",
+          "If the trial is genuinely getting run more than once by the same shopper, consider whether the offer itself is too easy to repeat - a smaller discount on box two instead of a fully free box removes most of the incentive to keep re-running it",
+          "Watch the gap between trial signups and second-box conversion rate over time, not just the raw trial count - a rising signup number with a falling conversion rate is often the first sign the trial is being run by people who never intended to become subscribers",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox doesn't try to verify whether two signups are the same real person - identity and fraud checks sit outside what any subscription app is built to run, the same way they sit outside Shopify's own checkout. What AppFox does keep is contract history the way Shopify's native subscription infrastructure holds it: every trial, active, and canceled contract belongs to a customer account and a payment method, not a floating order that disappears once it cancels. A support team that's already suspicious of an address or a card isn't starting from a blank page - the account's full contract history is there to check against, trial-only or not, instead of one canceled order that looks unremarkable entirely on its own.",
+      },
+      {
+        type: "p",
+        text: "The ops lead didn't catch her repeat trial by watching for it order by order - nothing about any single cancellation looked wrong, because a canceled free trial is supposed to happen sometimes. She caught it by checking a number a free-trial offer is supposed to move against a number that hadn't actually moved. That's still the only real test for any trial offer: not whether the boxes are shipping, but whether the customers behind them are the new ones the offer was built to bring in.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-signals-before-a-cancellation",
     title: "The Shopify Subscription Signals That Show Up Before a Cancellation",
     excerpt:
