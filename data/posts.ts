@@ -30,6 +30,88 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-signals-before-a-cancellation",
+    title: "The Shopify Subscription Signals That Show Up Before a Cancellation",
+    excerpt:
+      "A skincare brand's retention lead opens a cancellation email and finds the same subscriber had skipped two renewals in a row and stopped opening the last three reminders - two full cycles of warning that never got read as one until it was too late to act on.",
+    category: "GUIDE",
+    date: "2026-11-17",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Cancellation Warning Signs | AppFox",
+    metaDescription:
+      "A Shopify subscriber rarely cancels out of nowhere - a skip, a stalled retry, and a run of unopened renewal emails usually come first. Here's how to read those signals and act on them before the cancellation, not after.",
+    body: [
+      {
+        type: "p",
+        text: "A skincare subscription brand's retention lead opens the week's cancellation report and clicks into one she doesn't recognize by name but recognizes instantly by pattern: skipped last month, skipped the month before that, zero opens on the last three renewal reminder emails. The subscriber had been drifting for two full billing cycles before she ever clicked cancel. Nothing about her account looked urgent enough to flag while it was happening - a skip here, a quiet inbox there - and by the time all of it landed in one place, it was a cancellation report, not a save opportunity.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a failure in the cancellation flow. Shopify's own cancel action does exactly what it's built to do - end billing immediately, with no friction for a subscriber who's already made up her mind. The gap isn't in how a subscription ends. It's in the cycles before it, where a subscriber who's already drifting keeps generating signals that nothing on the merchant's side is set up to read as one thing.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't building a win-back offer for subscribers who've already canceled - that's still worth doing, and most retention programs get at least that far. The mistake is treating the cancellation as the first sign of trouble instead of the last one, when the contract itself had been showing the same subscriber pulling away for weeks.",
+      },
+      { type: "h2", text: "Why cancellation is the last signal, not the first" },
+      {
+        type: "ul",
+        items: [
+          "A subscriber who skips two renewals in a row is a different signal than one who skips once and comes right back - a single skip is life getting in the way, a second consecutive skip on the same contract is someone quietly deciding the next box isn't worth the charge either",
+          "A renewal that needs more than one retry before it clears isn't only a payment problem - a subscriber who lets a card sit expired without updating it, or who's slow to fix a decline once she's notified, is already giving the subscription less attention than she did at signup",
+          "A pause that gets extended past its original resume date, or a subscriber who pauses again within a cycle or two of resuming, reads as hesitation with an off-ramp already built in, not a temporary break",
+          "A subscriber who stops opening renewal reminders or check-in emails after months of engaging with them has gone quiet in the one channel most retention flows are built to reach her through - and a flow that only fires after cancellation never gets the chance to use it",
+          "A downgrade in frequency or quantity right before a skip or pause often means a subscriber is trying to make the subscription cheaper or lighter before deciding whether to keep it at all, which reads differently than a downgrade that happens once and then holds steady",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A subscriber doesn't cancel out of nowhere. She skips, then skips again, then stops opening the email that used to bring her back - and the cancellation is just the last step nobody was watching for.",
+      },
+      { type: "h2", text: "Turn the signals into a risk tier, not a prediction model" },
+      {
+        type: "p",
+        text: "None of this requires a churn-prediction model, and a program without a data team can still build it. What it needs is a simple rule that turns two or three signals a merchant already has - skip, pause, retry, and open rate - into a tier a support or retention team can act on, instead of five separate numbers nobody's cross-referencing against the same subscriber.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Green: no skip or pause in the trailing 90 days, renewals clear on the first attempt, renewal emails still get opened",
+          "Yellow: exactly one signal in the trailing 90 days - a single skip, a single pause, or one renewal that needed a retry - worth counting, not worth an offer yet",
+          "Red: two or more of the above in the same 90-day window, or any subscriber who's stopped opening the last three renewal-related emails outright",
+        ],
+      },
+      {
+        type: "quote",
+        text: "A prediction model gives you odds. A risk tier gives you a subscriber to call this week. For a program running on the data Shopify already has, the second one is the version a team can actually act on.",
+      },
+      { type: "h2", text: "Acting on a red-tier subscriber before the cancellation, not after" },
+      {
+        type: "ol",
+        items: [
+          "Pull skip, pause, and retry history by individual subscriber, not as one blended churn rate - the aggregate number hides exactly the subscriber-level pattern a risk tier depends on",
+          "Set the red-tier threshold at two or more signals within a rolling 90-day window, not one - a single skip or pause is common enough on its own that flagging it alone floods the list with subscribers who were never actually at risk",
+          "Route red-tier subscribers to a save offer or a personal check-in before the next renewal fires, not after a cancellation lands - the same discount offered a cycle earlier is often enough to keep the renewal from failing in the first place, where offered post-cancel it's just a win-back",
+          "Leave the yellow tier visible but untouched by automation - a single skip doesn't deserve a discount pitch, it deserves to be counted, so it can turn into a red flag if a second signal shows up next cycle",
+          "Re-check the tier definitions against actual cancellations every quarter - if red-tier subscribers are still canceling at close to the same rate as everyone else, the signals or the threshold need adjusting, not the outreach built on top of them",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "Subscription analytics, on the Growth plan and above, reports paused subscriptions and retention by cycle as their own segments rather than folding everything into one blended active-or-canceled split - which is the same subscriber-level detail a risk tier is built from, instead of a single churn percentage that hides where a subscriber actually started drifting. AppFox doesn't run the tiering logic itself; deciding what counts as red and what counts as yellow is a policy call a retention team makes, not a dashboard toggle. What the analytics give a team building that policy is skip, pause, and renewal history broken out cleanly enough to check against it.",
+      },
+      {
+        type: "p",
+        text: "AppFox Subscription's Klaviyo integration passes subscription status - active, paused, skipped, canceled - as its own property, not just order events, so a flow built to catch a red-tier subscriber can trigger off a second consecutive skip or an extended pause the same day the signal lands, instead of waiting on a nightly order-based sync to notice a subscriber who's already gone quiet.",
+      },
+      {
+        type: "p",
+        text: "The skincare brand's retention lead didn't miss anything by only reading the cancellation report the week it arrived - that's when most merchants ever look. What cost her the chance to save that subscriber was two cycles of skips and unopened emails that had already answered the question, sitting unread in a contract nobody had reason to open until the cancellation forced the issue. A cancellation is a decision a subscriber already made by the time it reaches a merchant's queue. The two cycles before it are the only window anyone actually has to change her mind.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-ai-agent-checkout-duplicate-billing",
     title: "Why an AI Shopping Agent Can Create a Duplicate Shopify Subscription",
     excerpt:
