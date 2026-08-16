@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-apple-pay-google-pay-balance-due",
+    title: "Why a Shopify Order Edit Can't Auto-Charge an Apple Pay or Google Pay Balance",
+    excerpt:
+      "A running-shoe brand's customer swaps into the grippier winter sole three days after checkout - a $16 difference that settles itself automatically on a saved card. On the Apple Pay order she actually paid with, there's no reusable payment method behind the order for anything to charge.",
+    category: "PLAYBOOK",
+    date: "2026-11-22",
+    author: "The AppFox Team",
+    metaTitle: "Why Order Edits Can't Auto-Charge Apple Pay or Google Pay | AppFox",
+    metaDescription:
+      "A Shopify order edit that raises the total can auto-charge a saved card in seconds - but Apple Pay and Google Pay checkouts are device-tokenized wallets that leave no reusable payment method behind. Here's why the balance can't be silently collected, and how to close it without a support ticket.",
+    body: [
+      {
+        type: "p",
+        text: "A running-shoe brand's order status page lets a customer swap her trail-runners from the standard sole to the grippier winter sole three days after checkout - a $16 upgrade, same size, same order. She confirms the swap the same way she'd expect any self-service edit to work, and the difference is supposed to settle automatically against whatever she paid with at checkout. On a saved card, that's exactly what happens, in under a second. On this order - paid through Apple Pay from her phone at 11 p.m. the night she ordered - the automatic charge never fires. The edit itself goes through fine; the order now shows the winter sole. The $16 balance just sits uncollected, and nothing on the confirmation screen she sees says why.",
+      },
+      {
+        type: "p",
+        text: "Nothing about her card is the problem, because there isn't a card behind this the way there is behind a saved-card checkout. Apple Pay and Google Pay authorize a purchase through a device-level token - a one-time credential Face ID or a fingerprint unlocks at the moment of checkout - and Shopify never receives or stores a reusable card number behind that token the way it does when a shopper types card digits directly or saves one through Shop Pay. The wallet paid for the order once, completely, and then the credential that made that possible is gone - not expired, not declined, just never handed to the merchant to charge again. An order edit that raises the total works by asking the original payment method for a little more money in the background, the same way a subscription renewal charges a card on file. That only works if there's a reusable payment method sitting behind the order to ask. A wallet checkout doesn't leave one behind.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't accepting Apple Pay and Google Pay at checkout - they clear faster and convert better than a typed-in card for exactly the customers most likely to buy from a phone, which by now is most customers. The mistake is assuming every completed order carries the same kind of payment method behind it, when a wallet checkout and a saved-card checkout look identical on the order page and behave completely differently the moment an edit tries to collect more money.",
+      },
+      { type: "h2", text: "Why a wallet checkout can't be recharged the way a saved card can" },
+      {
+        type: "ul",
+        items: [
+          "Apple Pay and Google Pay authorize a purchase through a one-time device token, not a card number Shopify stores and can charge again later - the wallet, not a card on file, is what would have to authorize any further payment",
+          "A directly-entered card, or one saved through Shop Pay, leaves a reusable payment method behind the order - that's what an order edit's automatic payment request actually charges when it raises a total",
+          "A wallet-paid order and a card-paid order look identical on the order detail page - nothing flags the difference until an edit actually tries to collect a balance and finds there's nothing left to charge",
+          "The wallet's authorization was scoped to the original checkout total at the moment it was granted - Face ID or a fingerprint approved that specific number, not an open-ended promise to cover whatever an edit adds later",
+          "Google Pay and Apple Pay behave the same way here for the same underlying reason - both are device-tokenized wallets, not stored merchant-side payment methods, regardless of which one a shopper's phone happens to default to",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The card wasn't declined. There was never a card behind the payment to charge again - only a one-time authorization that already did its job and closed.",
+      },
+      { type: "h2", text: "What an unpaid balance costs when nobody catches it" },
+      {
+        type: "p",
+        text: "An edit that raises the total and silently fails to collect the difference doesn't look broken to anyone checking the order - the order record shows the upgraded item, the customer got the confirmation screen, and the edit itself completed exactly the way it was supposed to. What's missing is $16 that was never actually charged to anything, sitting as a gap between what the order says it costs and what the store actually collected for it. On one order that's a rounding error nobody would notice. Run a self-service edit flow at real volume with wallet checkouts making up a third or more of mobile traffic - which is ordinary for a store that took Apple Pay seriously - and the gap compounds into an unpaid-balance problem nobody built a process to watch for, usually discovered only when someone reconciles order totals against actual deposits and can't make the two numbers match.",
+      },
+      {
+        type: "quote",
+        text: "A saved card and a wallet checkout look identical on the order page. They only stop looking identical the moment an edit tries to collect money from one of them.",
+      },
+      { type: "h2", text: "Collecting a balance an edit can't auto-charge" },
+      {
+        type: "ol",
+        items: [
+          "Detect the original payment method before attempting an automatic charge - a wallet-funded order needs a different collection path than a saved-card order, not a retry of the same one",
+          "For a balance that can't be auto-charged, surface a secure payment link inside the same edit confirmation the customer already saw, instead of a follow-up email asking them to call in",
+          "Hold the edited order in a pending-balance state until that link is paid, rather than treating the edit as complete the moment the customer confirms their side of it",
+          "Reconcile order totals against actual captured payments on a regular cadence, specifically flagging orders where an edit raised the total - that's exactly the gap a failed wallet auto-charge produces",
+          "Tell customers up front, at the moment they submit an edit that raises their total, whether the difference will charge automatically or needs one more step - a customer who thought they were done is a support ticket even when the amount is small",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing & Upsell" },
+      {
+        type: "p",
+        text: "AppFox's automatic payment request is what settles a price difference the instant an eligible edit raises an order's total - and for the saved-card and Shop Pay checkouts that make up most stores' order volume, that's exactly what a customer sees: confirm the edit, the difference clears, done. When AppFox's payment step reads back a wallet-funded order with no reusable payment method behind it, that edit routes through the same eligibility and approval-queue mechanism that handles any charge AppFox can't apply automatically - the order holds in a pending-balance state, and AppFox generates a payment link the customer can complete without a support ticket in the loop, instead of quietly leaving the edit half-settled.",
+      },
+      {
+        type: "p",
+        text: "AppFox doesn't change how Apple Pay or Google Pay authorize a purchase - no order-edit tool can make a device-tokenized wallet behave like a stored card, because the wallet never handed Shopify a card to store in the first place. What AppFox controls is what happens next: recognizing that gap the moment an edit tries to collect against it, instead of letting an automatic charge fail silently and leaving an order that looks fully edited on screen but isn't fully paid for in the ledger.",
+      },
+      {
+        type: "p",
+        text: "The trail-runner upgrade wasn't a broken edit or a declined card - it was a payment method that already did exactly what it was authorized to do, once, for the original total, with nothing left to give when the edit asked for more. Treating a wallet checkout differently from a saved card at the moment of collection - not at checkout, where they already behave the same - is what keeps a $16 upgrade from becoming an order that looks finished on the screen and isn't finished in the ledger.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-deep-link-becomes-one-time-sale",
     title: "Why a Shopify Subscription Deep Link Can Quietly Become a One-Time Sale",
     excerpt:
