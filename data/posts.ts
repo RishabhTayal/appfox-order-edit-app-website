@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-cant-ship-to-multiple-addresses",
+    title: "Why a Single Shopify Subscription Can't Ship to Multiple Addresses",
+    excerpt:
+      "A tea shop's customer buys three \"Tea of the Month\" subscriptions as holiday gifts and splits them across three addresses the same way she's always split one-time gift orders on the store. The checkout accepts it and charges her once - but only one contract gets created, and only one of the three people she bought for ever sees a box.",
+    category: "PLAYBOOK",
+    date: "2026-11-23",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Subscription Can't Ship to Multiple Addresses | AppFox",
+    metaDescription:
+      "A Shopify subscription contract stores exactly one shipping address, so the split-address checkout that works for one-time gift orders can't fork a selling-plan line the same way. Here's why a subscription bought for several recipients can quietly collapse onto one address, and how to give it its own contract per person instead.",
+    body: [
+      {
+        type: "p",
+        text: "A specialty tea shop's customer builds a Black Friday cart with three \"Tea of the Month\" subscriptions - one gift each for her sister, her mother, and her best friend, all billed to her own card. At checkout she splits the order across three shipping addresses, the same way she's split one-time gift orders on this exact store every December for years. The page accepts all three addresses, the payment clears once, and she gets a single confirmation listing three gifts. A month later her sister mentions how much she's enjoying the tea. Her mother and her best friend never mention it, because neither of them ever got a box - the cart split three units across three addresses, but underneath it created exactly one subscription contract, attached to exactly one of those addresses, and it's been quietly renewing there every month since.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is checkout lying to her or the app failing to charge correctly. A one-time cart's address split works by Shopify generating a separate order per address at the moment of purchase - three units in, three orders out, each shipping independently. A selling-plan checkout doesn't generate an order at all in that same sense; it generates a subscription contract, and a subscription contract stores exactly one shipping address as part of its delivery policy, the same field every future renewal reads to know where to ship next. There's no mechanism for one contract to fork into three the way a one-time line splits into three orders, because a contract isn't a snapshot of a single purchase - it's a standing instruction Shopify's billing engine runs again and again, and that instruction only ever points at one place.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't offering split-address checkout - it's a genuinely useful convenience for one-time gifting, and most stores that have it are right to keep it. The mistake is assuming that convenience extends to every line sitting in the same cart, when a subscription line was never built to behave like a one-time line once checkout starts dividing an order into pieces.",
+      },
+      { type: "h2", text: "Why a subscription contract can only carry one address" },
+      {
+        type: "ul",
+        items: [
+          "Each Shopify subscription contract stores exactly one shipping address as part of its delivery policy - the same field that determines where every future renewal ships, not just the first box",
+          "A one-time cart's address split works by generating a separate order per address at the moment of purchase; a selling-plan checkout instead generates a subscription contract, and Shopify's subscription model doesn't support attaching one contract's renewals to more than one destination",
+          "Billing inherits the same one-to-one shape as shipping - one contract, one saved payment method, one address - which is exactly what lets a renewal run unattended without asking anyone which of several addresses this particular cycle should use",
+          "Many storefronts don't block a subscription item from entering a multi-address cart at all - the split only fails silently at the point where checkout tries to fork the subscription line and can't, typically defaulting every unit onto whichever address the cart treats as primary",
+          "What survives the split correctly is the unit count on the order; what doesn't survive is which unit was meant for which person - a receipt that lists three tea subscriptions can still resolve to one address getting all three, every month, with nothing on the confirmation screen flagging the difference",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The checkout didn't reject her order or warn her the gifts wouldn't separate. It just did exactly what a subscription contract is built to do: ship to the one address it knows about.",
+      },
+      { type: "h2", text: "What a collapsed gift subscription costs" },
+      {
+        type: "p",
+        text: "A one-time gift order that ships to the wrong address is one mistake, caught and fixed once. A subscription that collapses onto one address is the same mistake on a recurring contract - it doesn't happen once, it happens every renewal until someone notices, which for a gift nobody's actively checking on can run for months. The buyer keeps paying the full three-subscription total each cycle; two of the three people she bought for keep getting nothing, with no failed charge, no oversell, and no automated alert to flag it, because from Shopify's side the contract is doing precisely what it was set up to do. The gap only shows up when a recipient who should have received something says nothing showed up, or when the buyer finally audits what she's actually paying for against what she meant to buy - by which point it's not one missed box, it's however many cycles have passed since the purchase.",
+      },
+      {
+        type: "quote",
+        text: "A one-time gift order that ships to the wrong address is one mistake. A subscription that ships to the wrong address is the same mistake, on repeat, for as long as nobody catches it.",
+      },
+      { type: "h2", text: "Handling a subscription gift that needs more than one address" },
+      {
+        type: "ol",
+        items: [
+          "Keep subscription products out of split-address checkout entirely, or detect a selling-plan item mid-cart and prompt the shopper toward separate subscriptions instead of letting the split fail silently on it",
+          "Build a dedicated flow for gifting a subscription to several people that creates one contract per recipient up front, all billed to the buyer's card, instead of relying on cart-level address splitting to do a job it was never built to do for a recurring line",
+          "Show the buyer a clear per-recipient summary before she pays - one line per contract, one address each - so three tea subscriptions read as three separate contracts, not one order with three units in it",
+          "Where the storefront can't yet support a true multi-recipient subscription flow, say so plainly the moment a subscription item and a multi-address cart collide, rather than letting checkout complete and leaving the gap to surface as a complaint",
+          "For gifts already purchased and collapsed onto one address, split the existing contract into separate ones for each recipient going forward instead of trying to patch the shared one - the sooner it's caught, the fewer renewal cycles ship to the wrong place",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox's subscribe & save widget attaches a selling plan to a product the same way at every entry point - product page or cart drawer - and every subscription it creates carries its own contract, its own payment method, and its own address the way Shopify's subscription model expects: one recipient, one destination, renewal after renewal, with no ambiguity about which of several addresses a given cycle is supposed to use.",
+      },
+      {
+        type: "p",
+        text: "AppFox doesn't add multi-address splitting to checkout - that's a cart-level behavior the storefront's checkout controls, not something a subscription app sits in front of. What AppFox's portal does give a merchant is a straightforward way to set a shopper up with several distinct subscription contracts - one per recipient - from the very first purchase, so a \"send this to three people\" order is three contracts from the start instead of one contract a merchant has to notice went to the wrong place and untangle three renewal cycles later.",
+      },
+      {
+        type: "p",
+        text: "The tea shop's holiday order wasn't a broken checkout or a declined card - it was three gifts asked of a contract type that was only ever built to hold one address, with nothing at checkout drawing the line between what a one-time cart can split and what a subscription can't. Treating a subscription gift as several contracts from the moment it's purchased, not one order to untangle after the first missed box, is what keeps \"buy three, gift three\" from quietly becoming \"buy three, ship one.\"",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-apple-pay-google-pay-balance-due",
     title: "Why a Shopify Order Edit Can't Auto-Charge an Apple Pay or Google Pay Balance",
     excerpt:
