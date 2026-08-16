@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-deep-link-becomes-one-time-sale",
+    title: "Why a Shopify Subscription Deep Link Can Quietly Become a One-Time Sale",
+    excerpt:
+      "A coffee roaster's Black Friday email links straight into a \"$1 trial\" checkout with a specific selling plan attached. The trial ends, the roaster retires the plan, and months later a shopper who saved the email clicks it expecting the same offer - and gets billed once, for one bag, with no subscription behind it at all.",
+    category: "PLAYBOOK",
+    date: "2026-11-21",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Subscription Deep Link Can Become a One-Time Sale | AppFox",
+    metaDescription:
+      "A Shopify subscription deep link carries a selling plan ID that's only valid as long as that plan exists - delete the plan and a stale link can quietly complete a one-time sale instead of starting a subscription. Here's why it happens and how to keep a promo link from outliving its plan.",
+    body: [
+      {
+        type: "p",
+        text: "A coffee roaster's Black Friday email links straight to a \"3 bags for $1, then $34 a month\" trial - a one-click deep link built to skip the product page entirely and drop the offer directly into checkout, selling plan already attached. The email converts well for the two weeks it's fresh. In mid-December, the roaster retires the Black Friday trial once the season's over, deletes that specific selling plan from the group, and replaces it with an ordinary 15%-off subscribe-and-save plan for the new year. In late January, a shopper who'd starred the email months earlier finally gets around to clicking it. The link still loads. The product still adds to her cart. She checks out expecting the same $1 trial the email promised. What lands two weeks later isn't a renewal reminder - it's nothing, because there was never a subscription to renew. The link added the coffee as a one-time purchase at full price, with no trial, no discount, and no contract behind it, and nothing in the order itself says why.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is the deep link breaking outright, and nothing about it is the roaster doing anything unusual by retiring a seasonal offer. A cart deep link that adds a subscription product carries a selling plan as a specific ID in its URL, right alongside the product variant - a merchant builds that ID once, at the moment the promo goes live, and bakes it into an email, an ad, or a landing page as a literal value. Shopify's selling plan IDs never get reassigned to mean something else; once a plan is deleted, that ID is gone for good, not recycled onto whatever plan replaces it. The trouble isn't that the ID starts pointing at the wrong plan. It's that the moment the plan behind it is deleted, the ID stops pointing at any plan at all - and a cart line that asks for a selling plan ID Shopify can't find doesn't reliably fail loudly. Depending on the theme and how the add-to-cart call is wired, it often just adds the product without one, silently, the same as if no selling plan had ever been requested.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't sending a direct one-click trial link instead of routing shoppers through the product page - deep links convert better precisely because they skip a step, and merchants build them for exactly that reason. The mistake is treating a selling plan ID baked into a link as good indefinitely, when it's only ever guaranteed to be good for as long as that exact plan stays live in the selling plan group - which for a seasonal trial is usually measured in weeks, not the months a marketing email keeps circulating in inboxes, bookmarks, and forwards.",
+      },
+      { type: "h2", text: "Why a stale selling plan ID turns into a one-time sale instead of an error" },
+      {
+        type: "ul",
+        items: [
+          "A subscription deep link typically passes two things in the URL: a product or variant ID and a selling_plan ID - the second one tells Shopify's cart which plan to attach, and it's only valid for as long as that specific plan still exists in the group it belongs to",
+          "Deleting a selling plan doesn't archive it in a way another plan can inherit - it's gone, and Shopify never reassigns that ID to a different plan later, so a stale link can't accidentally point at the wrong plan either, only at no plan",
+          "How the cart responds to a selling_plan ID it can't find isn't uniform - some themes surface a clear error and block the add, but many built for a smooth one-click flow catch that failure quietly and fall back to adding the item without a selling plan at all, since that's the safer failure mode for checkout completion rates",
+          "A one-time add-to-cart completes normally in every way a merchant's analytics would notice - the sale counts, the payment clears, the order looks ordinary - so nothing about the transaction itself flags that a subscription funnel just produced a non-subscription order",
+          "The gap between when a promo plan gets built and deleted and when the last click on that link actually happens can run for months - an email sits in an inbox, a landing page stays indexed by search engines, a screenshot gets forwarded to a friend - far outliving the seasonal window the plan itself was designed around",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The link didn't send her to the wrong plan. It sent her to no plan at all - and a one-time sale that completes without errors looks, from every angle except the customer's mailbox, exactly like success.",
+      },
+      { type: "h2", text: "What a silently-downgraded trial actually costs" },
+      {
+        type: "p",
+        text: "The advertised offer promised recurring value - a dollar now, a membership later - and the shopper who clicked it planned around that. When the link quietly downgrades to a one-time sale, the acquisition spend that drove the click is sunk on a sale that never converts to any renewal revenue, the same as if the ad had never run. The subscriber either emails support asking where her renewal went, adding a ticket that starts with \"but I signed up for a subscription\" and has no clean answer, or she doesn't email at all and just assumes the brand never followed through - churning silently before she was ever really a subscriber to begin with. Meanwhile the marketing dashboard counts the click and the completed sale as a win, and subscription analytics never sees a contract that was never created, so nothing about the promo's own numbers looks broken until someone manually compares how many people clicked the link against how many are actually paying $34 a month three cycles later.",
+      },
+      {
+        type: "quote",
+        text: "A failed trial signup is loud - a decline, an error, a support ticket the same day. A trial that quietly becomes a one-time sale is silent, and it stays silent until someone compares clicks on the link against contracts it actually produced.",
+      },
+      { type: "h2", text: "Keeping a promo link from outliving the plan it points to" },
+      {
+        type: "ol",
+        items: [
+          "Give every seasonal or promotional selling plan its own dedicated link built from that plan's current ID, and treat the link as disposable - retiring the plan means retiring the link the same day, not weeks or months later",
+          "Redirect traffic on a retired promo link instead of leaving it live - an expired selling plan link should land on the current subscribe offer or a clear \"this offer has ended\" page, not silently complete a different transaction",
+          "Reconcile click-through counts on a promo link against the number of new subscription contracts it actually produced, on a regular cadence, not just against completed orders - a gap between the two is exactly what a stale ID produces, and order-volume reporting alone won't surface it",
+          "Set an expiration on time-boxed promo links wherever the platform distributing them supports it - an email tool's link-expiry setting, a landing page unpublish date - so a forwarded or bookmarked link ages out on its own instead of depending on someone remembering to delete the plan on the right day",
+          "Before deleting a selling plan a live campaign still references, check whether the campaign is actually done running - an email's send date isn't the same as the date every recipient stops clicking it",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's subscribe-and-save widget builds its add-to-cart calls dynamically against whatever selling plans are currently live on a product, so a shopper landing on the product page itself always sees and enrolls in a plan that actually exists today. Subscription analytics, on the Growth plan and above, reports new contracts created against traffic and click sources, which is the number that catches a promo quietly producing one-time sales instead of subscriptions before it shows up as an unexplained gap in subscriber growth.",
+      },
+      {
+        type: "p",
+        text: "AppFox doesn't control what a merchant's email platform, ad network, or landing-page builder bakes into a deep link outside the storefront - a link built once and distributed for months is a marketing-tooling decision, not something a subscription app's widget touches once a shopper has already left the product page for a direct cart URL. What AppFox keeps accurate is the plan itself and the record of what actually got created from it - which contracts exist, when, and from what traffic - so a merchant running promo links elsewhere has the data to catch a stale one before it quietly drains a season's worth of trial signups into one-time sales.",
+      },
+      {
+        type: "p",
+        text: "The roaster's Black Friday trial wasn't undersold by the offer or oversold by the email - it was undone by a link that outlived the plan it pointed to by six weeks, with nothing in the checkout flow built to notice the difference. The fix isn't warmer marketing copy or a better dollar hook. It's treating every promo link as tied to the exact plan it was built against, and retiring both on the same day - because a subscription funnel with an expired link doesn't fail the way a coupon code does. It just quietly stops being a subscription funnel, one full-price bag of coffee at a time.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-renewal-inventory-forecasting",
     title: "Why Shopify Subscription Renewals Break Standard Inventory Forecasting",
     excerpt:
