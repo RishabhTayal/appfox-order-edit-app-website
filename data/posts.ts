@@ -30,6 +30,84 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-renewal-inventory-forecasting",
+    title: "Why Shopify Subscription Renewals Break Standard Inventory Forecasting",
+    excerpt:
+      "A skincare brand's reorder point is set off a 30-day trailing sales average - the same method that's worked for years on one-time orders. Then a signature serum sells out for six straight days because an entire acquisition cohort renews in the same four-day window, and the average never saw it coming.",
+    category: "PLAYBOOK",
+    date: "2026-11-20",
+    author: "The AppFox Team",
+    metaTitle: "Why Subscription Renewals Break Inventory Forecasting | AppFox",
+    metaDescription:
+      "Shopify subscription inventory forecasting fails when a reorder model built for one-time demand gets pointed at renewal volume that arrives in scheduled cohorts, not smooth daily variance. Here's why the mismatch happens and how to build a renewal-aware forecast instead.",
+    body: [
+      {
+        type: "p",
+        text: "A skincare subscription brand's ops manager sets reorder points off a 30-day trailing daily sales average - the same forecasting method that's kept the warehouse stocked on one-time SKUs for years without much drama. Late one month, the brand's signature serum sells out and stays out for six straight days. Nothing about demand actually spiked; the same number of subscribers who've always bought that serum are still buying it. What changed is timing: a spring acquisition promo is now three renewal cycles old, and every subscriber it brought in bills on the same four-day window because they all signed up within days of each other and inherited the same renewal schedule. The trailing average never had a chance to see it coming, because a trailing average assumes tomorrow looks roughly like the last 30 days - and the last 30 days had nothing in them that resembled a renewal cohort about to land all at once.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a bug in the subscription app or a forecasting mistake anyone made carelessly. A trailing-average reorder model is built on an assumption that holds for most one-time order flow: this week's demand resembles recent weeks' demand, with ordinary variance scattered around it. That assumption is reasonable for organic, unscheduled purchases. It doesn't hold for subscription renewals, which aren't random at all - they're scheduled, in bulk, on dates set months earlier by whatever acquisition push, welcome offer, or default billing interval put each subscriber on the calendar in the first place.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't using a trailing-average model - it's the standard approach for a reason, and it's usually right for one-time demand. The mistake is running subscription renewal volume through the same model without asking whether that volume is actually the smooth, random kind the model was built to smooth out.",
+      },
+      { type: "h2", text: "Why subscription renewal demand doesn't smooth out the way one-time demand does" },
+      {
+        type: "ul",
+        items: [
+          "Subscribers who sign up on the same day are typically billed on the same day-of-month or interval afterward by default, so a cohort acquired in a single push - a launch, a discount code, an affiliate spike - tends to keep renewing together instead of spreading out over time",
+          "Free-trial and welcome-offer subscribers usually convert to their first paid renewal a fixed number of days after signup, so a strong acquisition week turns into an equally concentrated renewal spike 30, 60, or 90 days later, not before - the gap between cause and effect is exactly what makes it easy to miss",
+          "A merchant who runs sitewide sales or influencer pushes on predictable dates stacks new cohorts on top of each other, and every cohort's future renewal date inherits that same clustering, compounding it further out on the calendar",
+          "Skips and pauses move volume in the other direction - a wave of subscribers pausing before a renewal date doesn't reduce total future demand, it just relocates it to whichever date they resume, which a trailing average has no mechanism to anticipate either",
+          "None of this shows up as ordinary noise on a daily sales chart the way normal demand variance does - it shows up as a small number of days carrying a disproportionate share of a month's total volume, surrounded by days that look ordinary or even slow",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A one-time order arrives whenever a customer happens to decide to buy. A renewal arrives on a date someone decided months ago - and a lot of other subscribers decided the exact same date at the exact same time.",
+      },
+      { type: "h2", text: "What a renewal-blind forecast actually costs" },
+      {
+        type: "p",
+        text: "A stockout on an ordinary SKU costs a merchant some lost sales and maybe a backorder email. A stockout on a renewal date costs more than that, because the customer on the other end of it isn't shopping - she's already paid. An order that can't ship on schedule because a serum ran out isn't a missed sale to recover later; it's a subscriber whose box is now late, whose renewal charge already cleared, and whose next interaction with the brand is a support ticket instead of a package. The same clustering that empties a shelf for six days can also swing the other way and leave a warehouse overstaffed and overstocked for a quiet week sandwiched between two renewal spikes, tying up cash in inventory that a smoother forecast would never have ordered.",
+      },
+      {
+        type: "quote",
+        text: "A trailing average tells you what an ordinary week looked like. A subscription cohort tells you what one specific day is going to look like - and the two numbers can disagree by an order of magnitude and both be correct.",
+      },
+      { type: "h2", text: "Building a forecast that accounts for renewal cohorts" },
+      {
+        type: "ol",
+        items: [
+          "Pull upcoming renewal dates forward from active subscription contracts rather than backward from historical order dates - a contract's next-renewal date is already known today, weeks before the order that bills it even exists, which is exactly the lead time a reorder decision needs",
+          "Group upcoming renewals by day or week instead of folding them into a monthly total, so a cluster sitting inside an otherwise quiet month shows up as a cluster instead of getting averaged away into an unremarkable number",
+          "Track a cohort's size back to its acquisition source - a launch-week cohort and a steady-trickle cohort renewing on the same calendar day carry very different volume, and only one of them actually needs an inventory response",
+          "Layer skip and pause activity on top of the renewal calendar before finalizing a purchase order - a subscriber who paused isn't removed from demand, she's rescheduled to a different date that also needs a place on the calendar",
+          "Reforecast a renewal spike close to the date rather than locking a number in weeks out, since skip, pause, and cancellation activity in the days right before a renewal changes what actually bills on it",
+        ],
+      },
+      {
+        type: "p",
+        text: "None of this matters much for a subscription program that grew slowly and organically, with new subscribers trickling in a handful at a time on scattered dates - a trickle like that approximates the smooth demand a trailing average already handles well. The gap shows up specifically where acquisition was concentrated: a launch, a viral moment, a paid push that ran hard for a week and then stopped. Those are exactly the events worth checking a renewal calendar against, not the catalog as a whole.",
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "Every active contract in AppFox Subscription already carries its own next-renewal date - it's the same field that powers the customer portal's countdown to her next order and the renewal reminder emails going out on schedule. Subscription analytics, on the Growth plan and above, reports that renewal activity broken out by cycle rather than blended into one monthly total, along with skip and pause history sitting alongside it. Pulled by day instead of read one contract at a time, that's the dataset a renewal-aware forecast needs - not a separate system an ops team has to build from scratch by cross-referencing signup dates against billing intervals by hand.",
+      },
+      {
+        type: "p",
+        text: "AppFox doesn't forecast inventory or place purchase orders - that's a merchant's inventory or demand-planning system's job, the same way it would be for any other product line. What AppFox keeps accurate is the input that system actually needs: which contracts are billing when, which ones just skipped or paused into a different date, and which ones belong to a cohort that renews together because they signed up together. A forecast built on that data sees the same four-day cluster coming that a trailing average never could.",
+      },
+      {
+        type: "p",
+        text: "The skincare brand's serum wasn't oversold by any one order - it was oversold by a forecasting model that had no way to know an entire acquisition cohort was about to bill on the same four days. The fix wasn't more safety stock across the board; that just trades a stockout for tied-up cash in a slow week. It was pointing the reorder decision at the renewal calendar subscription contracts already carry, instead of a trailing average that was only ever built to smooth out demand that shows up one random customer at a time.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-renewal-stuck-payment-pending",
     title: "Why a Shopify Subscription Renewal Gets Stuck in Payment Pending Instead of Failing Outright",
     excerpt:
