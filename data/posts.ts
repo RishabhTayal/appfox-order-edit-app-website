@@ -30,6 +30,84 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-combined-listing-swap",
+    title: "Why a Combined Listing Swap Doesn't Carry a Shopify Subscription's Discount With It",
+    excerpt:
+      "A subscriber swaps her subscribe-and-save shirt from moss to rust in the customer portal, the same way she's swapped colors on a dozen other renewals. On a Shopify combined listing, rust is a different product with its own selling plan - and if that plan doesn't match the one she signed up on, the swap can quietly drop her discount, her frequency, or both.",
+    category: "PLAYBOOK",
+    date: "2026-11-27",
+    author: "The AppFox Team",
+    metaTitle: "Combined Listings Can Break a Shopify Subscription Swap | AppFox",
+    metaDescription:
+      "Shopify's combined listings feature merges separate products into one storefront page, but each color keeps its own product ID and its own selling plan. Here's why a subscriber's color swap can silently lose her subscribe-and-save discount, and how to keep it intact.",
+    body: [
+      {
+        type: "p",
+        text: "An apparel brand sells its subscribe-and-save t-shirt in six colors, and rebuilt the product page last year using Shopify's combined listings feature - six near-identical listings, each with its own subscription option, collapsed into one page with a single color swatch picker. A subscriber signed up for moss on the every-eight-weeks plan, locked in the 15% subscribe-and-save discount that ran at signup. Two months later, ahead of her third renewal, she opens the customer portal and swaps to rust - the same kind of swap she's made before on other stores, picking a different color the same way she'd pick a different size. The swap goes through. Her next invoice bills her at full price. Nothing in the portal told her that would happen, and nothing about the swap looked like it failed.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a bug in the portal or in combined listings. Both features work exactly as built. Combined listings merge products at the storefront - one page, one URL, one swatch picker - but underneath, moss and rust stay two fully separate products, each with its own product ID and its own selling plan group. A subscription discount isn't a property of the shirt; it's a property of the specific selling plan attached to the specific product the subscriber bought. When a swap tool resolves \"rust\" as just another color option on the same product, it's making an assumption combined listings quietly broke: that the plan the subscriber is already on will still be sitting there on the other side of the swap.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't building combined listings, and it isn't offering subscribers a color swap - both are ordinary, reasonable things for a merchant to do. The mistake is not knowing that a swap across a combined listing isn't a swap within one product's variants anymore. It's a swap between two products, each with its own subscription setup, and nothing forces those two setups to match.",
+      },
+      { type: "h2", text: "Why a color swap can quietly change what a subscriber is billed" },
+      {
+        type: "ul",
+        items: [
+          "Combined listings merge products only at the storefront - one page, one set of swatches that read as ordinary variant options to a shopper - while each color keeps its own product ID, its own variants, and its own selling plan group underneath",
+          "A selling plan group is created per product, not shared across a combined listing, so rust's subscribe-and-save discount, its available frequencies, and its trial terms are configured separately from moss's and can drift out of sync without anyone intending it to",
+          "A swap tool that resolves the new color as \"a variant on the same product\" will carry the subscriber's existing selling plan ID across the swap - and if rust was never attached to that same plan, the swap either fails silently or falls back to a one-time purchase price, because the plan ID it's holding doesn't resolve on rust's product at all",
+          "Even when rust does carry its own subscribe-and-save plan, that plan can be configured with a different discount percentage or a different set of frequency options than moss's - a subscriber who swaps expecting her locked-in 15% and eight-week cadence can land on whatever rust happens to offer instead",
+          "None of this throws an error at the moment of the swap - the portal shows a confirmation, the contract updates, and the mismatch only surfaces on the next invoice, by which point the subscriber has already been billed the wrong amount at least once",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A subscription contract doesn't remember a discount percentage on its own. It remembers a selling plan ID - and a combined listing's other colors were never guaranteed to have one that matches.",
+      },
+      { type: "h2", text: "Why this costs more than a normal price mismatch" },
+      {
+        type: "p",
+        text: "A one-time order that swaps to the wrong price is a single bad line item, refunded or corrected once and forgotten. A subscription that swaps onto the wrong plan keeps billing that way every renewal until someone notices - and the subscriber most likely to notice first is the one who feels shorted, not the merchant. She signed up for a discount, renewed on it twice without issue, and now sees a bill that doesn't match what she agreed to. Whether she files a dispute, opens a support ticket, or just cancels depends on how charitable she's feeling that day, but none of those outcomes were available to her before the swap - the merchant created the gap, not her choice of color.",
+      },
+      {
+        type: "quote",
+        text: "The subscriber didn't ask for a different deal. She asked for a different color, on a portal that let her believe those were the same request.",
+      },
+      { type: "h2", text: "Keeping a subscription discount intact across a combined listing" },
+      {
+        type: "ol",
+        items: [
+          "Flag every product that's part of a combined listing wherever subscription rules get configured, so a swap involving one of them routes through a check that an ordinary same-product color swap never needs",
+          "Before offering a color as a swap target in the portal, confirm the underlying product carries an active selling plan group with a discount and frequency set that actually matches - or is an intentional, disclosed substitute for - the plan the subscriber is currently on",
+          "When a combined listing's colors don't share matching plans, either bring them into parity before enabling swaps between them, or show the subscriber the real terms of the plan she'd be moving to before she confirms the swap, not after the next invoice",
+          "Test a swap in both directions on every combined listing that carries subscribers - moss to rust and back - since nothing about combined listings guarantees a group's selling plans stay symmetrical as the catalog changes",
+          "Re-check this any time a combined listing group changes - a color added, a plan edited, a discount updated on one color but not another - the same way a price change gets re-verified anywhere else it could affect an active subscriber",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Most subscription programs never need to think about this",
+      },
+      {
+        type: "p",
+        text: "This only matters for a merchant actively selling subscriptions on a product line that's also using combined listings - a small, specific overlap for most catalogs. A subscriber swapping within an ordinary multi-variant product, which is still the overwhelming majority of subscription swaps any store processes, keeps working exactly the way it always has, because a normal variant swap never crosses a product boundary in the first place. The check is worth running once, on whichever subscribed product lines actually use combined listings, rather than treated as a standing risk across the whole catalog.",
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's customer portal resolves a swap against the subscriber's live selling plan, not a cached copy of what was available at signup, which is what keeps an ordinary swap accurate to whatever discount and frequency options are actually configured today. Combined listings sit above that: they're a storefront-presentation feature, and each color underneath still carries its own, independently configured selling plan group the way it did before the listings were combined. For a merchant running combined listings on a subscribed product line, that means confirming each color in the group actually carries a matching plan before it's offered as a swap target in the portal - a setup check worth making once per combined-listing product, the same way a merchant would confirm any other catalog restructuring didn't leave a gap behind it.",
+      },
+      {
+        type: "p",
+        text: "The apparel brand's combined listing did exactly what it was supposed to do - six cluttered listings became one clean product page, and that decision was the right one. What it didn't do was carry a subscriber's discount and frequency along with it, because that was never stored on the product page at all - it was stored on a selling plan attached to one specific product underneath it. Confirm every color in a combined listing shares a matching plan before it's offered as a swap, and a subscriber choosing a new color stops depending on whether the two products happened to agree on what she signed up for.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-breaks-gift-registry-purchase-tracking",
     title: "Why a Shopify Order Edit Can Break a Gift Registry's Purchase Tracking",
     excerpt:
