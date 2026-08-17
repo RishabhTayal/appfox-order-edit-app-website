@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-skip-doesnt-update-klaviyo-flow",
+    title: "Why a Skipped Shopify Subscription Renewal Still Triggers a Klaviyo Reminder",
+    excerpt:
+      "A coffee roaster's subscriber skips her next bag three days before it's due - the portal confirms it instantly. Two days later she gets a Klaviyo email warning her card is about to be charged for a renewal that no longer exists, and cancels the whole subscription rather than trust the portal a second time.",
+    category: "PLAYBOOK",
+    date: "2026-11-24",
+    author: "The AppFox Team",
+    metaTitle: "Why a Skipped Shopify Subscription Still Triggers a Klaviyo Reminder | AppFox",
+    metaDescription:
+      "A subscriber skips her Shopify subscription renewal, but her Klaviyo flow still emails a charge reminder for a date that no longer applies. Here's why skip events and billing events sync differently - and how to keep a reminder flow honest.",
+    body: [
+      {
+        type: "p",
+        text: "A small-batch coffee roaster's subscriber opens her portal three days before her next bag is due and skips the renewal - she's traveling, and she doesn't want beans going stale on her porch for a week. The portal confirms it instantly: next charge pushed out a month, nothing shipping this cycle. Two days later, the exact day she would have been charged, she gets a Klaviyo email anyway - \"Heads up, your card will be charged tomorrow for your Coffee Club renewal.\" She's certain the skip didn't take. She emails support to double-check, doesn't fully trust the answer, and cancels the whole subscription rather than risk finding out the hard way that the portal lied to her once already.",
+      },
+      {
+        type: "p",
+        text: "Nothing about her skip failed on the merchant's side. The subscription contract updated the moment she confirmed it - Shopify's own record of her next billing date moved out a month, correctly, immediately. But the reminder email came from Klaviyo, and Klaviyo only knows what the merchant's systems tell it. Most subscription-to-Klaviyo integrations forward a handful of billing events - renewal charged, payment failed, subscription canceled - because those are the moments a marketing team usually builds flows around first: a receipt, a dunning email, a win-back offer. A skip isn't a billing event. Nothing gets charged, nothing fails, no order gets created - a portal action just moves a date field, quietly, with no dollar figure attached, and that's exactly the kind of \"nothing happened\" most integrations never learned to report. So the reminder flow, wired weeks earlier off \"X days before the charge,\" keeps counting down to a date that no longer exists.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't building a pre-renewal reminder in Klaviyo - it's a genuinely useful flow that cuts failed payments and \"why was I charged\" tickets. The mistake is wiring that flow off a date the subscription app only pushes forward on a charge or a failure, when a skip is the one action a subscriber takes specifically to move that date without either.",
+      },
+      { type: "h2", text: "Why a skip doesn't reach the events a Klaviyo flow listens for" },
+      {
+        type: "ul",
+        items: [
+          "Most subscription apps forward billing-shaped events to Klaviyo - renewal charged, payment failed, subscription canceled - because those are what a marketing team asks to build flows around first",
+          "A skip changes the subscription's next-billing date without creating an order, charging a card, or triggering a decline, so there's no billing event for the integration to notice or forward",
+          "A reminder flow built from a stored profile property like next_renewal_date only updates when something re-syncs that property - if only charge and cancel events trigger the re-sync, a skip leaves the old date sitting there, still true in Klaviyo and no longer true in Shopify",
+          "The subscriber sees the mismatch as one experience, not two systems out of sync - she has no way to know the portal recorded her skip while the email platform never heard about it",
+          "The stale reminder isn't wrong on its own clock, either - it fires exactly on schedule, for exactly the date it was told, which is what makes it read as deliberate instead of broken",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The email wasn't a mistake - it was accurate to the date Klaviyo had. That date just stopped being true the moment she clicked skip.",
+      },
+      { type: "h2", text: "What a stale reminder costs beyond one confused subscriber" },
+      {
+        type: "p",
+        text: "One mistimed email is recoverable with a support reply. The problem is that a flow which doesn't know about skip fires this way for every subscriber who skips, every cycle, not once. A subscriber who gets a false charge warning after skipping doesn't file it away as a marketing glitch - she stops trusting that skip does anything, which pushes the next subscriber in the same spot toward canceling outright rather than skipping, because canceling is the one action she's sure will actually stop the charge. That's the opposite of what a skip option is for: it exists so a subscriber with a full pantry has an alternative to canceling, and a reminder flow that contradicts it quietly removes that alternative for anyone who's been burned by it once.",
+      },
+      {
+        type: "quote",
+        text: "A skip is supposed to be the polite alternative to canceling. A reminder email that ignores it turns the polite alternative into the reason she cancels instead.",
+      },
+      { type: "h2", text: "How to keep a reminder flow honest about a skip" },
+      {
+        type: "ol",
+        items: [
+          "Forward a skip as its own event to Klaviyo - \"Subscription Skipped\" - rather than a silent date change, so a flow can react to the action itself instead of inferring it from a billing event that never arrives",
+          "Re-sync the next-billing-date profile property on every date-changing portal action - skip, pause, swap, frequency change - not only on charge and cancel, so any flow reading that property is reading the current one",
+          "Build the reminder flow to check the profile property right before the email sends, rather than trusting the date it was queued against days earlier",
+          "Add a short suppression window after a skip event so the scheduled reminder for that cycle doesn't fire into a charge date that no longer applies",
+          "Test the flow the way a subscriber actually uses it - skip a real test subscription two days before a scheduled reminder and see what actually lands in the inbox, not just what the flow diagram says should happen",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox's Klaviyo integration forwards skip, pause, swap, and cancel as their own events, not just renewal-charged and payment-failed, so a flow built to react to a skip can listen for the skip instead of guessing at it from an absence. Every one of those portal actions also pushes the subscriber's updated next-billing date the moment it changes, rather than waiting for the next charge to re-sync it.",
+      },
+      {
+        type: "p",
+        text: "AppFox doesn't build the reminder flow itself - the sequence, the copy, the timing are still whatever a merchant designs in Klaviyo. What the integration is responsible for is making sure the events and the date it's built on stay current the instant a subscriber acts in the portal, so a flow a merchant already trusts is reading what actually happened, not what happened to be true the last time something got charged.",
+      },
+      {
+        type: "p",
+        text: "The coffee roaster's subscriber never had a reason to distrust the skip button - it worked exactly as advertised. The reminder email was the only thing in the picture still running on old information, and it's what convinced her the portal couldn't be trusted at all. Wiring a marketing flow off a subscriber's actual portal action, not a stale copy of her billing date, is what keeps a skip from becoming the reason she cancels instead.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-cant-ship-to-multiple-addresses",
     title: "Why a Single Shopify Subscription Can't Ship to Multiple Addresses",
     excerpt:
