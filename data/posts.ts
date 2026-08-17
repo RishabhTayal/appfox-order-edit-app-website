@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-breaks-gift-registry-purchase-tracking",
+    title: "Why a Shopify Order Edit Can Break a Gift Registry's Purchase Tracking",
+    excerpt:
+      "A wedding guest swaps the stand mixer she bought off a couple's registry from cream to sage green using the store's self-service order edit link - the color she's just been told the couple actually wants. The registry never learns the swap happened; it still lists the mixer as unclaimed, and a second guest buys the same gift a week later.",
+    category: "PLAYBOOK",
+    date: "2026-11-26",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Order Edit Breaks Gift Registry Purchase Tracking | AppFox",
+    metaDescription:
+      "A Shopify order edit removes the original line item and adds a new one, which means a registry app watching that line item for 'purchased' status can lose track of it entirely. Here's why a swapped registry gift can look unclaimed again, and how to keep registry tracking accurate through an edit.",
+    body: [
+      {
+        type: "p",
+        text: "A home goods shop runs wedding and baby registries through a dedicated registry app layered on top of its Shopify checkout. A wedding guest opens the couple's registry, picks the stand mixer in cream, and pays for it - the registry page updates within the hour, marking the mixer as purchased so the next guest who visits sees it's already covered. Three days later the guest gets a text from the bride: the kitchen ended up going sage green after all, could she possibly swap the color before it ships. The guest opens her order confirmation, clicks the store's self-service edit link, and swaps the mixer from cream to sage green - same price, same order number, confirmed instantly. A week later, a second guest checks the registry, sees the stand mixer still listed as needed, and buys it too. The couple ends up with two stand mixers and a handful of gifts they never got, because every dollar that second guest spent went to a duplicate instead of something still genuinely on the list.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the swap failed on the merchant's side, and nothing about the registry app malfunctioned in any way its own logs would show. A Shopify order edit doesn't change a line item in place - it removes the original line item and adds a new one for the replacement variant, all under the same order number, so the order the registry app is watching genuinely no longer contains the line it originally logged as purchased. Registry apps mark an item as claimed by matching the exact product-and-variant pairing that was on the registry page at checkout, because that's the only reliable way to track which specific guest bought which specific gift off a list with dozens of options on it. When that line item disappears from the order and gets replaced by one for a different variant, most registry integrations have no event built for \"this order's line items changed after the fact\" - they were built to watch a purchase happen once, not to watch it change shape three days later.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't offering guests a way to swap a color or size after they've already paid - for a gift, that flexibility is exactly the kind of thing a good merchant builds in on purpose. The mistake is assuming a swap on a registry-linked order behaves the same as a swap on any other order, when the registry sitting on top of that order was never built to notice the difference between \"this line item changed\" and \"this purchase never happened at all.\"",
+      },
+      { type: "h2", text: "Why an order edit can undo a registry's purchased status" },
+      {
+        type: "ul",
+        items: [
+          "A Shopify order edit doesn't modify a line item in place; it removes the original line item and adds a new one for the new variant, all under the same order number, so the order object genuinely no longer contains the line the registry app matched against",
+          "Registry apps mark an item claimed by matching the exact product-and-variant pairing that was on the registry page at the moment of purchase, not the order as a whole, because that's the only way several guests buying different items off the same registry get tracked separately",
+          "Most registry integrations wire their \"mark as purchased\" logic to the order-created event and stop there; a smaller number also listen for order-updated events, and those can misread a line item disappearing as a cancellation, walking the item back to \"still needed\" instead of leaving it alone",
+          "The replacement line item the edit creates carries no registry history at all - a variant swap made after checkout never routes back through the registry page the way the original purchase did, so nothing tells the integration this new line fulfills the same gift",
+          "None of this throws an error anywhere in the flow - the edit completes, the guest gets a confirmation, and the registry keeps rendering exactly what its last known event told it to render, with no signal anywhere that a downstream edit changed what actually shipped",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The mixer didn't go unbought. A registry built to watch the moment a purchase happens has no way to hear about the moment it changed color - so a swap made in good faith looks, to the registry, indistinguishable from a purchase that never happened at all.",
+      },
+      { type: "h2", text: "What a desynced registry actually costs" },
+      {
+        type: "p",
+        text: "A duplicate gift is the visible cost, and it's the one that shows up first - a merchant fields a return or exchange request from a second guest who bought something the couple already owns, and now has to decide whether to process a registry return the same way as an ordinary one. The quieter cost is what a duplicate crowds out: every dollar a second guest spends on a gift the couple already has is a dollar that didn't go toward something still genuinely needed on the list, and a registry with a few items double-bought this way can leave a couple short on gifts they were actually counting on. For the merchant, it's also a trust problem that outlives the one order - a registry that shows stale information is a registry guests stop checking carefully before they buy, and a feature built to make gift-giving easier starts making it worse instead.",
+      },
+      {
+        type: "quote",
+        text: "A gift registry that still shows an item as needed after someone already bought it doesn't just risk a duplicate gift - it spends every later guest's trust that checking the registry first meant anything at all.",
+      },
+      { type: "h2", text: "Keeping a registry synced through an order edit" },
+      {
+        type: "ol",
+        items: [
+          "Map registry purchases by order ID plus registry item ID, not only by product and variant ID, so an edit that swaps the variant but keeps the order number doesn't sever the connection to the wish it was fulfilling",
+          "Have the registry integration listen for order-edit events, not only order-created and cancellation events, and re-map the fulfilling line item on a swap instead of only ever incrementing or decrementing a purchased count",
+          "When an edit touches a line item tied to a known registry order, route it for a manual check rather than letting the registry app's default reconciliation logic guess whether the swap still counts as fulfilled",
+          "Surface inside the order-edit flow itself that the item being swapped came from a registry, and note the swap somewhere the registry's owner will actually see it, not only in the store's own order history",
+          "Periodically reconcile a registry's \"still needed\" list against the order's actual current line items instead of trusting a single webhook fired days or weeks earlier, especially for registries that stay open long enough for edits to accumulate before anyone checks",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing & Upsell" },
+      {
+        type: "p",
+        text: "AppFox's order edits run through Shopify's native Order Editing API the same way any other edit does, which means a registry-linked order keeps its original order number and a full audit timeline no matter how many times a line item gets swapped - a merchant checking that order later can see exactly which line item was removed, which one replaced it, and when, instead of a single line item that silently changed underneath everyone. Eligibility rules can also route orders carrying a specific tag or attribute - the kind a registry app typically writes onto an order at checkout - into the approval queue instead of letting them auto-apply the same as any other edit, so a swap on a registry order gets a second look before it ships.",
+      },
+      {
+        type: "p",
+        text: "AppFox doesn't build the registry itself, and it doesn't reach into a registry app's own reconciliation logic to tell it a swap happened - that connection, where it exists at all, has to be built on the registry app's side, listening for the right event. What AppFox's approval queue and audit trail give a merchant is the visibility to catch the gap before it becomes a duplicate gift: a tagged registry order that gets edited shows up for review instead of slipping through as an auto-approved swap nobody checked against the registry itself.",
+      },
+      {
+        type: "p",
+        text: "The guest who swapped that mixer to sage green did exactly what the bride asked, through exactly the flow the store built for her to do it. The registry was the only thing in the picture still running on old information, and it's what let a thoughtful color swap turn into a duplicate gift and a gap somewhere else on the list. Treating a registry-linked edit as its own case - tracked by order and item, not just by variant, and checked before it auto-applies - is what keeps a guest's good intentions from quietly costing the couple a gift they actually needed.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-referral-reward-pays-out-before-renewal",
     title: "Why a Shopify Subscription Referral Reward Can Pay Out Before the Referral Ever Sticks",
     excerpt:
