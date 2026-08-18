@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-apple-pay-renewal-decline",
+    title: "Why Apple Pay Subscribers Are Most Likely to Miss a Shopify Subscription Renewal",
+    excerpt:
+      "A subscriber checks out with Apple Pay because it's the fastest button on the page - one tap, no card number, no typed billing address. Thirty days later, her renewal tries to charge and finds nothing to charge, because the token that paid for her first order was never a card Shopify could bill again.",
+    category: "PLAYBOOK",
+    date: "2026-11-28",
+    author: "The AppFox Team",
+    metaTitle: "Why Apple Pay Declines on Subscription Renewals | AppFox",
+    metaDescription:
+      "Apple Pay and Google Pay hand a store a one-time device token, not a saved card. Here's why Shopify subscription renewals paid for that way can silently fail, and how to keep those subscribers billing.",
+    body: [
+      {
+        type: "p",
+        text: "A specialty coffee subscription built its checkout the way most stores do: turn on every payment method Shopify offers and let the customer pick. Close to a third of new subscribers chose Apple Pay, because it was the fastest button on the page - one tap, no card number to find, no billing address to retype on a phone. Their first bag shipped without a hitch. Thirty days later, when the recurring charge tried to run, roughly one in five of those Apple Pay subscriptions failed to renew. Not because the card behind the wallet was expired or over its limit - the charge never reached a card at all.",
+      },
+      {
+        type: "p",
+        text: "Nothing about Apple Pay or Shopify's checkout malfunctioned here. Both did exactly what they're built to do. When a shopper pays with Apple Pay or Google Pay, the wallet hands the store a device-generated token good for that one transaction, authorized in that moment by Face ID, Touch ID, or a PIN - it isn't a stored card number the way a typed-in card is. Whether that token can be turned into a saved payment method the store can bill again later depends entirely on the payment processor: some vault the underlying card when a wallet transaction settles, others discard it the moment the sale completes. A subscription contract assumes a chargeable payment method exists on the billing date. When the gateway never kept one, the renewal order gets created, and there's simply nothing behind it to charge.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't offering Apple Pay at checkout - it's a fast, trusted way to pay and shoppers reach for it for good reason. The mistake is routing subscription products through the same payment options as one-time purchases without confirming which of those methods can actually be charged again automatically, weeks after the shopper has closed the tab and forgotten which button they tapped.",
+      },
+      { type: "h2", text: "Why an Apple Pay renewal fails where a typed-in card doesn't" },
+      {
+        type: "ul",
+        items: [
+          "Apple Pay and Google Pay authorize a device-specific token tied to a single transaction, not a saved card capable of being billed again without the customer present",
+          "Whether that token gets converted into a chargeable payment method on file depends on the payment processor's own support for merchant-initiated transactions from a wallet - not on anything the merchant configures in Shopify",
+          "A selling plan and its subscription contract don't check whether a chargeable payment method exists until the billing date arrives, so the gap between a wallet checkout and a vaulted card stays invisible all the way through the first order",
+          "When the gateway has nothing to bill, the renewal order still gets created on schedule - it just comes back unpaid, indistinguishable at a glance from any other declined renewal in a merchant's reporting",
+          "Because the failure looks identical to a normal decline, it gets treated with the same dunning message asking the subscriber to update an expired card - even though the card behind the wallet was never the problem",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A subscription checkout succeeds the moment it fits a shopper's thumb. It only survives thirty days later if the payment method behind that tap can be charged again without her.",
+      },
+      { type: "h2", text: "What this actually costs" },
+      {
+        type: "p",
+        text: "A subscriber whose renewal fails this way gets an email telling her to update her card - a card that was never declined, because it was never charged in the first place. She either ignores an instruction that doesn't match what she remembers doing, or she opens a support ticket confused about why a payment method that worked fine a month ago suddenly doesn't. Either way, the merchant loses a renewal that had nothing to do with the subscriber's ability or willingness to pay, and loses it disproportionately among exactly the subscribers who chose the fastest, most frictionless checkout option available - the ones a merchant would least expect to churn.",
+      },
+      {
+        type: "quote",
+        text: "A one-tap checkout that can't be charged a second time isn't convenience. It's a subscription that already canceled itself, thirty days early.",
+      },
+      { type: "h2", text: "Keeping Apple Pay and Google Pay subscribers renewing" },
+      {
+        type: "ol",
+        items: [
+          "Confirm with your payment processor, in writing, whether Apple Pay and Google Pay transactions are vaulted for future merchant-initiated charges before offering those wallets on any product attached to a selling plan",
+          "If the processor doesn't support it, keep wallets enabled for one-time purchases but steer subscription checkout toward payment methods you've confirmed can be billed again - typed card fields or a processor that does support recurring wallet billing",
+          "Label wallet-originated payment methods distinctly in your admin instead of showing every subscriber simply as \"card,\" so a failed renewal can be triaged by its actual cause instead of assumed to be a normal decline",
+          "Write a separate dunning message for wallet-token failures that asks the subscriber to add a standard card, rather than reusing \"your card has expired\" copy that doesn't match what actually happened",
+          "Review failed-renewal logs monthly for gateway-level \"no payment method on file\" errors as their own category, separate from bank declines, so this gap doesn't quietly inflate your churn number without anyone noticing the pattern",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription runs the selling plans, the customer portal, and the retry and dunning sequence on a failed renewal, but it doesn't control which payment methods your gateway agrees to vault in the first place - that's set by Shopify's checkout configuration and your payment processor, and it's worth verifying before a subscription product goes live with every wallet switched on. What AppFox can do is help a merchant tell the two failure types apart: a genuine decline from an expired or over-limit card, versus a renewal with no chargeable method on file at all, so the follow-up message a subscriber gets actually matches what went wrong.",
+      },
+      {
+        type: "p",
+        text: "The coffee subscription didn't turn Apple Pay off - it confirmed with its processor that wallet transactions were being vaulted for recurring billing, and fixed the one product line where they weren't. Subscribers kept the one-tap checkout they'd chosen, and the merchant stopped losing a fifth of them to a payment method that was never actually the problem.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-combined-listing-swap",
     title: "Why a Combined Listing Swap Doesn't Carry a Shopify Subscription's Discount With It",
     excerpt:
