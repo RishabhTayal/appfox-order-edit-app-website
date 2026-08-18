@@ -30,6 +30,91 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-cancellation-survey-questions",
+    title: "The Shopify Subscription Cancellation Survey Questions That Actually Reduce Churn",
+    excerpt:
+      "Most Shopify subscription cancellation flows end with one open text box - \"why are you leaving?\" - and nobody on the team ever reads the answers twice. Here's what a cancellation survey should ask instead, and how to route each answer to something that actually happens.",
+    category: "GUIDE",
+    date: "2026-11-30",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Cancellation Survey Questions | AppFox",
+    metaDescription:
+      "A cancellation survey that asks \"why are you leaving\" in a free-text box collects opinions nobody reads. Here's what to ask instead on a Shopify subscription program, and how to act on every answer.",
+    body: [
+      {
+        type: "p",
+        text: "A monthly houseplant subscription adds a cancellation survey after watching subscribers leave with no explanation for two straight quarters. The flow does what a cancellation survey is supposed to do: before the cancel button submits, a text box appears - \"Why are you leaving? (optional)\" - and about a third of departing subscribers type something into it before confirming. Three months later, the team pulls every response into one document to look for a pattern, and finds ninety-one lines of free text that agree on almost nothing: \"just not for me,\" \"too many plants,\" \"moving,\" \"changed my mind,\" \"no reason really.\" The survey collected data. It didn't collect a single answer anyone could act on.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the survey malfunctioned. An open text box asked exactly the question it was built to ask, and subscribers answered exactly as honestly as an optional freeform field tends to get answered - in a hurry, on a phone, thumb already reaching for confirm. The problem isn't that people didn't answer. It's that a free-text box has no way of turning an answer into a category a team can count, prioritize, or route anywhere else. Each reply just becomes one more line in a document nobody has time to hand-code into \"fixable\" and \"not fixable\" once there are ninety-one of them sitting in it.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't asking why a subscriber is leaving - that's the right instinct, and most cancellation flows leave real information on the table by skipping the question entirely. The mistake is asking it in a way that produces prose instead of a category: a form that treats \"tell us why\" as the whole job, when the actual job is separating the reasons a team can fix from the reasons it can't, in a shape that shows up as a number on a dashboard instead of a paragraph nobody has time to read.",
+      },
+      { type: "h2", text: "Why most cancellation surveys collect answers nobody uses" },
+      {
+        type: "ul",
+        items: [
+          "Free text feels thorough but produces no two answers a team can compare directly - \"too expensive,\" \"a bit pricey,\" and \"cost\" are the same reason typed three different ways, and nothing forces them into one bucket",
+          "An optional field gets skipped most by the subscribers a team would learn the most from - the ones leaving out of quiet drift rather than a single sharp complaint are the least likely to stop and type a paragraph on their way out",
+          "A survey shown only after cancellation is already confirmed asks for a reason once there's nothing left to offer in response - by the time the question appears, a smaller plan, a pause, and a swap are all off the table",
+          "Even when answers get read, most cancellation flows have no route from a reason to any action - no automated response, no flag on a retention dashboard, nothing that turns \"too expensive\" into anything but a data point that dies in a spreadsheet",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A cancellation survey that asks \"why\" and gets back ninety-one different sentences hasn't learned ninety-one things. It's learned that asking wasn't the hard part - turning an answer into an action was.",
+      },
+      { type: "h2", text: "Ask a forced choice first, then earn the follow-up" },
+      {
+        type: "p",
+        text: "A cancellation survey works when its first question is a forced choice built from the reasons a team already sees in support tickets and win-back replies, not a blank field waiting for a subscriber to invent a category from scratch. Six or seven options cover almost every real reason a subscription gets canceled, and each one points at a different fix - or at no fix at all, which is worth knowing on its own:",
+      },
+      {
+        type: "ul",
+        items: [
+          "\"It's too expensive for what I'm getting\" - fixable with a smaller plan, a longer interval, or a loyalty discount",
+          "\"I'm receiving too much / too often\" - fixable with a longer frequency, not a price cut",
+          "\"The product didn't fit what I expected\" - fixable with a swap, not necessarily with a discount",
+          "\"I'm dealing with a temporary change (moving, budget, timing)\" - fixable with a pause, not a cancellation",
+          "\"I found a better option elsewhere\" - not fixable by portal mechanics; a competitive signal for whoever owns pricing or product",
+          "\"I no longer need it\" - not fixable; the honest expiration of a real need",
+          "\"Something else,\" paired with a short optional text field, kept last for the genuine edge cases a six-option list can't anticipate",
+        ],
+      },
+      { type: "h2", text: "Only the reason should decide what happens next" },
+      {
+        type: "ol",
+        items: [
+          "Route \"too expensive\" and \"too much left over\" straight to the retention offer already sitting in the portal - a smaller plan, a longer interval, or a one-time skip - shown before the cancellation confirms, not after",
+          "Route \"didn't fit expectations\" to a swap prompt instead of a discount, since a lower price on the wrong product doesn't fix the actual complaint",
+          "Route \"temporary change\" straight to the pause option - a subscriber who says this out loud is telling a merchant exactly which lever to pull",
+          "Log \"found a better option\" and \"no longer need it\" separately from every fixable reason, since the count and share of genuinely unfixable exits is the number that tells a team whether they have a demand problem or a retention problem",
+          "Feed the forced-choice answer into whatever a merchant already runs - Shopify Flow, an email platform, a support tool - as a tag on the canceled subscription, not just a line in a document nobody reopens",
+        ],
+      },
+      {
+        type: "quote",
+        text: "A cancellation reason isn't useful because it's honest. It's useful because it comes back in the same three words as the ninety other subscribers who left for the same cause - and only a forced choice guarantees that.",
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's cancellation flow already interrupts before a cancel completes, offering skip or pause first, on the theory that most cancellations start as \"I just need to move this month's box,\" not a decision to leave for good. That interruption is the biggest lever in the flow, and it does more than any survey sitting after it ever will. Pairing it with a forced-choice reason step, shown at the same moment and before the subscriber reaches confirm, costs a merchant nothing they don't already have: the portal is already the last screen a leaving subscriber sees, and it's already wired into Shopify Flow, so a tagged cancellation reason can trigger its own automation the same way a skip or a pause event already can - routing a \"too expensive\" cancellation into a win-back sequence in Klaviyo with a smaller-plan offer, or flagging a \"found a better option\" cancellation for whoever owns pricing, without a developer building a new integration to do it.",
+      },
+      {
+        type: "p",
+        text: "None of that replaces reading a handful of real answers now and then - an optional follow-up field still catches what a six-option list can't anticipate, and it's worth skimming even without time to code every one of them by hand. What it stops is a team learning less from a hundred cancellations than it should, because the only thing captured on the way out was ninety-one sentences of noise nobody had time to sort.",
+      },
+      {
+        type: "p",
+        text: "The houseplant subscription didn't need more subscribers willing to explain themselves on their way out - it already had those, ninety-one of them in one quarter. What it needed was a question shaped so that \"too expensive\" from one subscriber and \"a bit pricey\" from another landed in the same bucket, routed to the same fix, before either of them finished clicking cancel. A survey that asks why doesn't save a subscription by itself. It only helps once the answer points a team at a lever they can actually pull - and a forced choice is what makes sure it does.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-widget-disappears-after-theme-switch",
     title: "Why Your Subscribe & Save Widget Disappears After a Theme Switch",
     excerpt:
