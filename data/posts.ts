@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-widget-disappears-after-theme-switch",
+    title: "Why Your Subscribe & Save Widget Disappears After a Theme Switch",
+    excerpt:
+      "A skincare brand relaunches its storefront on a new theme for the holidays. The rebrand looks sharp everywhere the team checked - except the subscribe-and-save toggle that used to sit on every product page, which nobody removed and nobody can find.",
+    category: "PLAYBOOK",
+    date: "2026-11-29",
+    author: "The AppFox Team",
+    metaTitle: "Subscribe & Save Widget Missing After a Theme Switch | AppFox",
+    metaDescription:
+      "Shopify app embeds and app blocks live inside a theme's own settings, not on the app or the store. Here's why a new theme can silently turn off a subscribe-and-save widget, and how to catch it before launch.",
+    body: [
+      {
+        type: "p",
+        text: "A skincare brand spends six weeks building a new storefront for its holiday relaunch - new theme, new photography, a checkout flow the team is genuinely proud of. They QA the launch the way any careful team does: click through the homepage, add a product to cart, run a test order, check that the price and the buy button render correctly. Everything passes. Two weeks after publishing, someone finally asks why subscribe-and-save signups have fallen from around 40 a day to fewer than 5. The product pages look right. The one-time price is correct. The subscribe-and-save toggle that used to sit under every add-to-cart button - the one that drove close to a third of the store's new subscriptions - simply isn't there anymore, on a single product or on any of them.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the subscription app broke, and nobody touched its settings during the relaunch. A subscribe-and-save widget on Shopify typically ships as a theme app extension: an app embed or app block that renders through the theme's own Online Store 2.0 section structure, not a script that attaches itself independently to every product page on the domain. That placement - and whether the embed is switched on at all - is stored as configuration inside the specific theme it was set up on, the same way a section's color settings are. A brand-new theme, whether installed fresh from the Theme Store or built from scratch, starts with its own blank configuration. It doesn't inherit the previous theme's embed toggle or block placement, because that data was never attached to the app, the store, or the merchant account in the first place - it lived inside the old theme, and the old theme is no longer the one running.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't switching themes for a relaunch - a storefront that never changes its theme eventually looks like it. The mistake is assuming that because the widget worked perfectly on the last theme, it's a store-level setting that simply carries forward, when it was actually a per-theme configuration that has to be set again, deliberately, every time the published theme changes underneath it.",
+      },
+      { type: "h2", text: "Why a new theme resets a widget that was already working" },
+      {
+        type: "ul",
+        items: [
+          "An app embed's on/off state and an app block's placement are both stored inside the theme's own settings data, not on the app's install record or anywhere tied to the merchant account",
+          "Publishing a brand-new theme - installed fresh or built from a blank starting point - loads that theme's default configuration, which has the embed off and no app blocks placed until someone adds them by hand",
+          "Duplicating an existing theme and editing the copy carries its settings over intact, so the gap only shows up on themes that weren't started as a duplicate of one already carrying the widget",
+          "The standard pre-launch QA pass - homepage, product page, test checkout - catches a broken price or a dead button, but a missing widget doesn't throw an error or block a purchase, so nothing in that checklist is built to notice its absence",
+          "The one-time add-to-cart flow keeps working the entire time, which is exactly what makes a quick click-through feel like sufficient testing",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The widget didn't get turned off. It just never got turned on for the theme that's actually live.",
+      },
+      { type: "h2", text: "What this actually costs" },
+      {
+        type: "p",
+        text: "A theme relaunch is rarely a quiet moment - it's often timed to a campaign, a press mention, or a seasonal push that's about to send the store its highest traffic of the year. Losing the subscribe option during exactly that window doesn't spread a small conversion hit evenly across a slow month; it concentrates the loss into the days a merchant most needed the subscription path working. And because nothing about the storefront looks broken - orders still come through, revenue still shows up, just as one-time purchases instead of subscriptions - there's no error to trace and no obvious reason to suspect the theme switch itself. It tends to surface the way most silent conversion problems do: weeks later, when someone finally asks why subscriber growth flattened right around the same week the new theme went live.",
+      },
+      {
+        type: "quote",
+        text: "A theme switch isn't a redesign to a subscribe-and-save widget. It's a fresh install wearing the same name, on a page that used to know it was there.",
+      },
+      { type: "h2", text: "Keeping the widget alive across a theme switch" },
+      {
+        type: "ol",
+        items: [
+          "Before publishing any new theme, open the Theme Editor's app embeds panel specifically and confirm the subscription widget is toggled on for that theme - not the one it's replacing",
+          "Check the product template for the app block's placement the same way, since a new theme can have the embed on but the block missing from the section it needs to sit in",
+          "When starting a new theme from scratch rather than duplicating an existing one, treat every third-party app embed and block as unconfigured by default, and rebuild that list deliberately instead of assuming anything carried over",
+          "Test on the theme's own preview URL before publishing, not on the theme you're about to replace - a widget visible on the live site during testing can simply mean you're still looking at the old theme in another tab",
+          "Add \"subscribe-and-save widget renders on a live product page\" as its own line item on every theme-launch checklist, separate from the general cart-and-checkout test, since it's the one thing that keeps passing QA by accident until it doesn't",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's widget ships as a theme app extension specifically so it installs with no code and no theme surgery on a default Online Store 2.0 template - but that same mechanism means the app embed toggle and block placement live inside Shopify's own theme settings, outside anything AppFox controls or can carry over automatically when a new theme is published. What doesn't reset is everything the widget displays: discount tiers, frequency options, plan names, and portal behavior are all stored in the app itself, not in the theme, so getting the widget back onto a new theme is a matter of re-enabling one embed and re-placing one block - never rebuilding the subscription program those elements are showing.",
+      },
+      {
+        type: "p",
+        text: "The skincare brand's relaunch didn't lose its subscribe-and-save program to a bug in the app or a mistake anyone could point to - the new theme simply never had the embed switched on, because that setting belonged to the theme it replaced. Once the team enabled it in the new theme's editor and confirmed the block's placement on the product template, signups returned to their usual run rate within a day. The fix took minutes. Finding it took two weeks, because nothing about the relaunch looked like it was missing anything until someone finally checked the one setting that doesn't travel with a theme switch on its own.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-apple-pay-renewal-decline",
     title: "Why Apple Pay Subscribers Are Most Likely to Miss a Shopify Subscription Renewal",
     excerpt:
