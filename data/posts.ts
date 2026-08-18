@@ -30,6 +30,81 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-renewal-misses-local-delivery-route",
+    title: "Why a Shopify Subscription Renewal Can Miss the Local Delivery Route It Was Supposed to Ship On",
+    excerpt:
+      "A local delivery route gets built every morning from whatever orders exist by a fixed cutoff. A subscription renewal that settles an hour later - after a retried card finally clears - never makes that list, and nothing about a \"successful renewal\" tells anyone the box just missed its own delivery day.",
+    category: "PLAYBOOK",
+    date: "2026-12-01",
+    author: "The AppFox Team",
+    metaTitle: "Subscription Renewals That Miss the Local Delivery Route | AppFox",
+    metaDescription:
+      "A local delivery route is built from whatever subscription renewals have settled by a fixed cutoff, not from the renewal date. Here's why a late-clearing charge can leave a subscriber's box off today's route, and how to set a cutoff that matches renewal timing.",
+    body: [
+      {
+        type: "p",
+        text: "A bakery running weekly bread-subscription deliveries across one city uses a routing app that pulls every local-delivery order sitting in Shopify each morning at 7am and builds the day's route before the first driver leaves. On a Tuesday, a subscriber's card declines on the first renewal attempt - insufficient funds, nothing unusual - and the automatic retry succeeds two hours later, at 9:14am, once her paycheck clears. Her subscription renews. Her order exists, paid and correct, sitting in Shopify exactly where any renewal should be. It's just not on the route, because the route was already built two hours before her charge went through, and nothing about a subscription renewing on schedule tells a routing app that already pulled its list to go pull it again.",
+      },
+      {
+        type: "p",
+        text: "The instinct is to treat this as a payment problem - the retry took too long, or the bakery should charge earlier in the day. That's not quite it. A retried card clearing two hours after a cutoff isn't a failure of the payment flow; three tries over several days, with retries landing at whatever hour a customer's bank actually approves them, is the normal, correct way dunning is supposed to work. The gap isn't in how the renewal billed. It's in treating \"renewed today\" and \"included in today's route\" as the same fact, when a routing app only knows about orders that existed at the exact minute it pulled its list.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't running local delivery on a fixed daily cutoff - a route has to be generated at some point, and picking a time is unavoidable. The mistake is assuming a subscription's renewal date is the same thing as its renewal time, and that a route built once each morning will always catch whichever renewals happened to clear before it ran - when a subscription's actual settlement time moves around by design, one retry at a time.",
+      },
+      { type: "h2", text: "Why renewal timing and a route's cutoff drift apart" },
+      {
+        type: "ul",
+        items: [
+          "A subscription's renewal date is fixed weeks in advance, but the exact minute the charge actually clears isn't - the first attempt might settle at 6am, or it might decline and not clear until a second or third retry, hours or days later",
+          "A routing app has no visibility into which of today's local-delivery orders were paid on the first attempt and which are still mid-retry - it just pulls whatever exists in Shopify as a real, fulfillable order at the moment it runs",
+          "A retried card that finally clears counts as a normal renewal the instant it settles, with nothing in the order that flags it as created after the route already ran versus created before",
+          "Fulfillment teams built around a single daily cutoff for one-time orders inherit that same cutoff for subscriptions without adjusting for the fact that a subscription's charge, unlike a one-time checkout, isn't guaranteed to finish clearing before the store opens",
+          "A late-settling renewal doesn't fail loudly - the order sits in Shopify looking exactly like every other paid, unfulfilled order, with nothing distinguishing \"missed today's route\" from \"waiting for tomorrow's, as planned\"",
+        ],
+      },
+      { type: "h2", text: "What happens when nobody catches the gap" },
+      {
+        type: "ul",
+        items: [
+          "The box ships a day late without anyone deciding it should - not because the bakery is behind, but because the order simply wasn't visible when the day's route got built",
+          "The subscriber sees a renewal charge and a delivery day that don't match, with no explanation, because nothing about a successful renewal notice mentions that the delivery itself slipped a day",
+          "A support ticket lands framed as \"my subscription didn't ship\" - the wrong assumption, since the subscription renewed exactly on schedule - and a rep has to dig through routing logs to find that the actual gap was a cutoff time, not a billing failure",
+          "The pattern repeats every time a card needs more than one attempt, which means the subscribers most likely to hit a stray decline are also the ones most likely to have their box quietly slip a route",
+        ],
+      },
+      {
+        type: "quote",
+        text: "A subscription renewing on schedule and a box shipping on schedule sound like the same promise. A routing app built around one daily cutoff only ever kept one of them.",
+      },
+      { type: "h2", text: "Setting a cutoff that matches renewal timing, not just renewal date" },
+      {
+        type: "ol",
+        items: [
+          "Find out what time of day renewal charges actually clear - not the scheduled renewal date, but the real settlement time across first attempts and retries - before assuming a single morning cutoff catches all of them",
+          "Treat a renewal that settles after the route-generation cutoff as belonging to the next route by default, not as an exception someone has to notice and fix by hand",
+          "If the routing tool supports it, run a second, smaller pull later in the day for local-delivery orders that renewed after the first cutoff, rather than waiting until the next morning's full route",
+          "Track local-delivery subscription orders still unfulfilled past the route window as their own number - not folded into a general unfulfilled-orders count where a one-day slip doesn't stand out",
+          "Tell subscribers upfront what a renewal's delivery timing actually is - same-day if it clears by a stated cutoff, next route day if it doesn't - so a retried card that clears a few hours late doesn't read as a broken promise",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's auto-renewal engine already retries a failed card automatically and posts the outcome - success or final failure - as a Shopify Flow event the moment it resolves, with the settlement time attached, not just the renewal date. That's the piece a routing app can't see on its own: exactly when a given renewal actually cleared, first attempt or third. Wiring that event into whatever pulls a local-delivery route lets a merchant's own logic decide whether a late-clearing renewal belongs on today's route or tomorrow's, instead of a routing app finding out the same way a subscriber does - by checking a manifest that already left the building.",
+      },
+      {
+        type: "p",
+        text: "AppFox doesn't build or run the routing app itself - which orders get sequenced into which van is a merchant's own logistics stack to own. What the portal and the Flow trigger together are good for is making sure a late renewal never disappears silently: the subscriber can see the exact charge and delivery status in their own portal instead of guessing, and the merchant gets an event to route the moment a retry clears, cutoff or no cutoff.",
+      },
+      {
+        type: "p",
+        text: "The bakery's Tuesday subscriber didn't do anything unusual - her card declined once, the retry worked two hours later, and her bread showed up a day behind schedule anyway, because the route that mattered had already left before her renewal cleared. Local delivery on a fixed daily cutoff isn't the problem; a cutoff has to sit somewhere. The problem is a route built once a day with no way of knowing which renewals settled before it ran and which were still one retry away - and a subscription program that doesn't check which of those two groups a subscriber landed in tends to find out from a support ticket, well after the van already came and went.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-cancellation-survey-questions",
     title: "The Shopify Subscription Cancellation Survey Questions That Actually Reduce Churn",
     excerpt:
