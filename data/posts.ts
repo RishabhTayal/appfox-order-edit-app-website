@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-onboarding-email-sequence",
+    title: "The Shopify Subscription Onboarding Email Sequence Most Merchants Skip",
+    excerpt:
+      "Shopify sends one confirmation email at signup, then goes quiet until the first renewal receipt lands. A subscriber who spends those weeks not knowing her renewal date, her price, or how to skip a box isn't loyal - she's just unsurprised for now, and the first surprise she does get is often the last thing she sees from the brand.",
+    category: "GUIDE",
+    date: "2026-12-04",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Onboarding Email Sequence That Cuts Early Churn | AppFox",
+    metaDescription:
+      "Most Shopify subscription cancellations trace back to the gap between the signup confirmation and the first renewal receipt. Here's the onboarding email sequence that closes it - what to send, when to send it, and why the built-in confirmation isn't enough.",
+    body: [
+      {
+        type: "p",
+        text: "A candle brand launches subscribe-and-save on its bestselling scent, and the first cohort signs up fast - forty subscribers in the first week, each one getting Shopify's standard order confirmation the moment they check out. Then nothing. Three weeks later the first renewal fires, a charge appears on forty bank statements next to a descriptor half of them don't immediately place, and the brand spends the following two days answering the same message over and over: \"I didn't approve this,\" \"how do I cancel,\" \"what is this charge.\" Nobody was scammed. Every one of them agreed to a recurring subscription three weeks earlier and forgot, because nothing arrived in between to remind them, and a Shopify subscription onboarding email sequence that stops at the signup receipt leaves exactly that gap open.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't skipping a \"thanks for subscribing\" email - Shopify sends one automatically, and it does its one job correctly. The mistake is treating that single transactional message as the whole onboarding sequence, when the first thirty days of a subscription are the only window a merchant gets to teach a subscriber how the program actually works before the billing machinery takes over on its own schedule, silently, whether anyone remembers signing up or not.",
+      },
+      { type: "h2", text: "What a single confirmation email leaves a subscriber to guess" },
+      {
+        type: "ul",
+        items: [
+          "The exact date her first renewal will bill - not \"monthly,\" a specific calendar date she'd have to dig into an account page to find on her own",
+          "That she can skip, pause, or swap a box before a renewal fires at all, and where to actually go to do it - a self-service portal she was never shown isn't self-service to her",
+          "What the charge will look like on her bank statement, since a descriptor that doesn't match the brand name reads as unfamiliar even to someone who signed up on purpose",
+          "What happens if her card declines - whether there's a retry, a grace period, or the subscription just quietly stops, none of which she can plan around if she doesn't know it's coming",
+          "How to cancel if the subscription turns out not to be for her - a subscriber who can't find a cancel button doesn't stay subscribed, she disputes the next charge instead",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A confirmation email proves the order went through. It doesn't teach a subscriber how her own subscription works.",
+      },
+      { type: "h2", text: "Why the gap opens even when the widget works fine" },
+      {
+        type: "p",
+        text: "Shopify's checkout handles the recurring order correctly the moment someone subscribes, and that's usually where a merchant's attention stops - the payment flow works, the widget looks right, the launch checklist gets checked off. But a subscriber doesn't experience \"the payment flow works\"; she experiences whatever shows up in her inbox, and for most Shopify subscription programs that's exactly one message before the billing goes quiet. Building the onboarding sequence around that gap isn't a billing problem to fix - it's a teaching problem nobody assigned to anyone, because it's invisible on a demo and doesn't show up in a QA pass. It only shows up three weeks later, in a support queue.",
+      },
+      {
+        type: "quote",
+        text: "The subscriber who emails \"I didn't approve this\" almost always did approve it. What she didn't get was anything, in three weeks, that would have reminded her she had.",
+      },
+      { type: "h2", text: "A first-30-days sequence that actually reduces early churn" },
+      {
+        type: "ol",
+        items: [
+          "Day 0 - keep Shopify's order confirmation, but follow it within the hour with a short \"here's how your subscription works\" email that states the next renewal date, the exact price, and a direct link to the self-service portal, not a generic account-settings link",
+          "Day 2-3 - a plain orientation email, not a sales pitch: how to skip a shipment, how to pause, how to swap a product, and how to cancel, each pointing straight at the portal action instead of a support-ticket form",
+          "3-5 days before the first renewal - a reminder stating the exact date and amount about to bill, so the charge is something she was expecting rather than something she's discovering on a bank statement",
+          "The moment a first renewal declines - an immediate, specific notice naming the card and linking straight to updating payment, not a generic \"there was a problem with your order\" that reads like spam",
+          "Right after the first successful renewal clears - a short note marking the milestone, since a subscriber who makes it through the first renewal without a surprise is the one most likely to make it through the tenth",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's recurring billing engine sends a renewal reminder ahead of each charge and retries automatically on a decline, so the two highest-stakes moments in that sequence - the upcoming charge and the failed one - don't depend on a merchant remembering to build them by hand. The customer self-service portal - skip, pause, swap, cancel - is the same portal every onboarding email in the sequence above should link to directly, so \"here's how to manage your subscription\" points at something a subscriber can actually use in two clicks instead of a support form. The Klaviyo integration lets a merchant build the richer day-0 and day-2 orientation emails around that same portal and billing data, rather than maintaining a second, disconnected system just for onboarding copy.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is write that orientation copy for you - the day-2 \"here's how your subscription works\" email is a merchant decision about tone and content, not something a subscription engine can author on its own. And a fully branded version of the sequence - a custom email domain so a renewal reminder arrives from the brand's own address rather than a shared one, or custom HTML so onboarding emails match the rest of a merchant's lifecycle marketing - sits on AppFox's Business and Pro plans rather than the free tier, since that level of polish is a growth-stage decision, not a day-one requirement for closing the gap.",
+      },
+      {
+        type: "p",
+        text: "The candle brand's forty subscribers hadn't forgotten they liked the product - they'd forgotten they'd agreed to be billed again, because nothing in three weeks gave them a reason to remember. A renewal date stated plainly on day zero, a portal link that actually works, and a reminder sent before the charge instead of a receipt sent after it would have turned most of those support tickets into renewals nobody had to think twice about.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-presentment-currency-mismatch",
     title: "Why a Shopify Order Edit Can Charge a Different Currency Amount Than Checkout Did",
     excerpt:
