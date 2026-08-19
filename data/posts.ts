@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-renewal-email-wrong-language",
+    title: "Why a Shopify Subscription Renewal Email Doesn't Match the Language a Customer Signed Up In",
+    excerpt:
+      "A bilingual storefront lets a subscriber sign up in French, and Shopify's checkout confirms the order in French too. Three weeks later her renewal reminder - and then the decline notice that actually needed her attention - arrives in English, from a template nothing in the signup flow ever asked her to expect.",
+    category: "PLAYBOOK",
+    date: "2026-12-05",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Renewal Emails in the Wrong Language | AppFox",
+    metaDescription:
+      "A Shopify subscription renewal email can land in a different language than the storefront a customer subscribed on, because Shopify Markets translates the checkout while most subscription apps send a single-locale transactional template. Here's why the mismatch happens and how to close it.",
+    body: [
+      {
+        type: "p",
+        text: "A skincare brand sells to both English and French speakers out of the same Shopify store, running Shopify Markets with a translated storefront so a shopper in Quebec sees product pages, the subscribe-and-save widget, and checkout entirely in French. A subscriber in Montreal picks the recurring cleanser set on the French version of the product page, signs up for a monthly plan, and gets Shopify's order confirmation - in French, matching everything she just clicked through. Three weeks later her card is charged for the first renewal, and the receipt shows up in French too, since Shopify's checkout keeps rendering in whatever language the storefront was set to. The next month, her card declines. The dunning email that's supposed to get her to update her payment method before the subscription lapses arrives in English - a language nothing else in her signup ever used with her. She skims it, doesn't immediately place it as something from a brand she trusts, and the subscription cancels for non-payment before she ever updates the card.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't running a bilingual storefront - Shopify Markets and its translation tooling exist precisely so a merchant can sell in a customer's own language without maintaining two separate stores. The mistake is assuming that once checkout speaks French, everything downstream of checkout does too, when a subscription's renewal reminders, receipts, and dunning notices usually come from a different system entirely - one that was never wired to the storefront's translation settings in the first place.",
+      },
+      { type: "h2", text: "Why a translated storefront doesn't carry through to renewal emails" },
+      {
+        type: "ul",
+        items: [
+          "Shopify Markets translates storefront pages and Shopify's own checkout using the language a shopper's browser or market maps to, and that translation is scoped to the checkout session - it isn't a customer-level setting that other systems can read later on their own",
+          "A subscription app's renewal reminders, receipts, and dunning notices are typically generated from the app's own transactional email templates, sent from the app's backend rather than rendered by the translated storefront theme, so they don't automatically inherit the language the original page was in",
+          "Most subscription apps ship with a single default template per email type, in one language, because that's what covers the majority of merchants who sell in a single market and never notice the gap exists",
+          "Nothing at signup captures \"this customer transacted in French\" as a piece of data the renewal-email system later checks before sending - the language choice lives and dies inside that one checkout session unless a merchant explicitly wires it forward",
+          "The mismatch is invisible until a renewal or a decline actually fires weeks later, so it never shows up in a launch checklist that only ever tests the widget and the first checkout - the same gap that made the confirmation email look fine can leave every email after it wrong",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A checkout that speaks a customer's language proves the storefront was translated. It doesn't prove anything sent afterward will be.",
+      },
+      { type: "h2", text: "What the gap actually costs" },
+      {
+        type: "p",
+        text: "A renewal reminder in the wrong language is a minor annoyance most subscribers shrug off - the charge still lands, the product still ships, and nobody cancels over a mistranslated footer. A dunning email in the wrong language is a different problem, because it's the one message in the entire subscription lifecycle that has to be read, understood, and acted on within a short window or the subscription lapses. A subscriber who doesn't immediately recognize an English-language email from a French-language relationship is more likely to treat it as spam, set it aside, or simply not act in time - and every one of those outcomes ends the same way a merchant's dunning system was built specifically to prevent: an involuntary cancellation that shows up in churn reporting as \"payment failed\" when the actual cause was a customer who never understood she needed to do anything at all.",
+      },
+      {
+        type: "quote",
+        text: "A subscriber doesn't experience \"the checkout was localized.\" She experiences whichever language shows up in her inbox when the one email that actually mattered arrived - and a mismatch there reads as a wrong number, not a translation gap.",
+      },
+      { type: "h2", text: "Keeping renewal emails in step with the storefront a customer signed up on" },
+      {
+        type: "ol",
+        items: [
+          "Capture the customer's storefront language or market at signup as a stored attribute on the subscription, not just as a property of the checkout session that ends when checkout does",
+          "Build renewal, receipt, and dunning templates per language the storefront actually sells in, rather than a single default template merchants assume is universal until a subscriber says otherwise",
+          "Route each transactional send through the stored language attribute instead of a store-wide default, so a French-market subscriber gets French mail on renewal three, not just on the day-zero confirmation",
+          "Test the full lifecycle in every supported language before launch - not just the widget and the first checkout, since a translated product page proves nothing about what a decline notice will say weeks later",
+          "Have support flag any \"I didn't understand this email\" ticket as a possible language-routing bug first, before assuming it's a one-off confused customer - a single report is often the first visible sign of every subscriber in that market getting the same wrong-language send",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's renewal billing runs through Shopify's native checkout, so the charge itself and Shopify's own receipt inherit whatever language Shopify Markets already has configured for that customer's storefront - the part of the flow least likely to drift is the part Shopify controls directly. For the app's own renewal reminders and dunning emails, Business and Pro plans can replace the default template with custom HTML, which is where a merchant builds a language-specific version of the one email that actually has to land correctly: the payment-failure notice a subscriber needs to read and act on before the subscription lapses.",
+      },
+      {
+        type: "p",
+        text: "AppFox doesn't automatically detect a subscriber's storefront language and route her toward a matching template on its own - that per-language branching is something a merchant sets up once, using the stored subscriber and market data available through the app, rather than something the app infers on every send. For a store selling in more than one language, that's worth building before the first renewal in the second language fires, not after a support ticket points at it.",
+      },
+      {
+        type: "p",
+        text: "The Montreal subscriber who signed up in French didn't do anything unusual, and the brand's checkout didn't do anything wrong - Shopify Markets translated exactly what it was supposed to translate. What broke was everything downstream of that one session, in a system nobody had told which language to use. A stored language attribute and a matching dunning template would have turned an English-language email she didn't recognize into a French one she'd have acted on the same day.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-onboarding-email-sequence",
     title: "The Shopify Subscription Onboarding Email Sequence Most Merchants Skip",
     excerpt:
