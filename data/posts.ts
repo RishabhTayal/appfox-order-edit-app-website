@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-presentment-currency-mismatch",
+    title: "Why a Shopify Order Edit Can Charge a Different Currency Amount Than Checkout Did",
+    excerpt:
+      "A Shopify Markets storefront locks a shopper's local-currency conversion rate once, at checkout. A self-service order edit placed days later needs a fresh conversion for whatever it adds - and if that conversion runs at today's rate instead of the one already sitting on the order, the same size upgrade can charge two different customers two different stories for one honest number.",
+    category: "PLAYBOOK",
+    date: "2026-12-03",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Order Edit Currency Mismatch on Markets Orders | AppFox",
+    metaDescription:
+      "A Shopify order edit currency mismatch happens when a self-service edit converts its price difference at today's exchange rate instead of the rate locked on the order at checkout. Here's why a Shopify Markets order can bill a euro or pound amount that doesn't match the product page, and how to keep an edit's currency math tied to the order it's editing.",
+    body: [
+      {
+        type: "p",
+        text: "A Toronto-based skincare brand sells worldwide through Shopify Markets, pricing everything in Canadian dollars and letting checkout convert the total into whatever currency a shopper's storefront is set to - euros in Germany, pounds in the UK, yen in Japan, all converted automatically at the exchange rate live the moment checkout completes. A shopper in Berlin buys the starter cleanser, and three days later opens the order-status page and upgrades to the full-size bottle through the brand's self-service edit portal - a straightforward CA$8 difference, the same upgrade any customer anywhere is offered. Her card is charged something in euros. It just isn't the €7.20 the product page implies CA$8 should be today, because the euro moved against the Canadian dollar in those three days, and the edit converted the CA$8 fresh, at today's rate, instead of the rate her original checkout already locked in. Nothing about her order is wrong. The number just doesn't match the one she can do the arithmetic on herself.",
+      },
+      {
+        type: "p",
+        text: "Nothing about accepting local currency at checkout caused this, and nothing about the size upgrade was mispriced - a Shopify order edit currency mismatch like this one comes from treating a presentment-currency conversion as something that happens continuously, when it actually happens exactly once. Shopify Markets converts a shop-currency total into a shopper's local currency at the instant checkout completes, and that rate gets stored against the order as a historical fact - a snapshot, not a live feed. A merchant's edit pricing, meanwhile, almost always lives in the store's own base currency, because that's the currency the merchant actually thinks and reports in. The gap opens the moment an edit has to convert that base-currency figure into the customer's local currency again, days after the original conversion happened, using whatever rate is live right then instead of the one the order already has on file.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't offering checkout in a shopper's own currency - that's exactly what converts better and disputes less than forcing an international customer to do mental math in a currency she doesn't use. The mistake is assuming the conversion a shopper saw once, at checkout, is the same conversion an edit will reach for later, when nothing forces the two to use the same rate unless a merchant's edit flow explicitly goes back and reads the one already sitting on the order.",
+      },
+      { type: "h2", text: "Why a checkout rate and an edit rate can quietly diverge" },
+      {
+        type: "ul",
+        items: [
+          "Shopify Markets converts a shop-currency total into a shopper's presentment currency once, at the moment checkout completes, and stores that rate against the order as a historical fact - not a value it looks up again on demand",
+          "A merchant's edit rules - \"the full size costs CA$8 more\" - are almost always authored in the store's own base currency, because that's the currency the merchant prices and reports revenue in, not the shopper's local one",
+          "When an edit fires days after checkout, the base-currency amount it needs to collect still has to be converted into the customer's billing currency, and the exchange market has had exactly as many days to move as have passed since the original order",
+          "Nothing in a typical edit confirmation screen shows which rate was used, so a shopper checking her own math against the product page's converted price has no way to see that a mismatch is an exchange-rate gap rather than a pricing mistake",
+          "The drift is invisible on the merchant's own dashboard too - order totals reconcile cleanly in the store's base currency, which is the only currency most back-office reporting actually tracks, so nothing there flags that a local-currency amount quietly drifted from what a customer's own bank statement will show",
+        ],
+      },
+      {
+        type: "quote",
+        text: "A locked checkout rate and a live one both arrive at a defensible answer. They just don't arrive at the same one - and a customer only ever sees the one number that doesn't match her own math, never the nine that would have.",
+      },
+      { type: "h2", text: "What a silent rate drift turns into" },
+      {
+        type: "p",
+        text: "One customer noticing a euro amount that's a few cents off from what she calculated is a shrug, not a ticket - most people expect currency conversion to be approximate. The pattern gets expensive at volume, and mostly in one direction: it lands hardest on the shoppers a merchant already has to work harder to support, the international ones, because a mismatch between \"what the product page implies\" and \"what my card actually shows\" reads less like rounding and more like being overcharged, especially when the difference happens to run against the customer rather than in her favor. A bank statement that doesn't match a merchant's own product-page math is exactly the kind of gap that turns into a chargeback instead of an email, since a shopper disputing an unfamiliar-looking charge in her own currency rarely emails a store first. And because the mismatch never shows up in the merchant's base-currency reconciliation, nobody on the finance side has a reason to go looking for it until the dispute rate on international orders starts looking worse than the domestic one, with no obvious cause attached.",
+      },
+      { type: "h2", text: "Keeping an edit's currency math tied to the order it's editing" },
+      {
+        type: "ol",
+        items: [
+          "Read the presentment-currency rate already stored on the order at checkout, and reuse that same rate for anything an edit adds, rather than calling a live conversion service again for a partial, after-the-fact charge",
+          "If reusing the checkout-time rate genuinely isn't possible for a given payment setup, treat that as a deliberate exception with its own logic - not a default that happens silently because nobody built the historical-rate lookup in the first place",
+          "Show the actual currency and rate an edit used directly on the confirmation the customer sees, not just the converted total, so \"CA$8 became €7.35\" is a number she can trace instead of one she has to trust",
+          "Price a differential rule once, in the store's base currency, and convert it exactly once at the point of collection - don't let a display step and a charge step each run their own independent conversion of the same figure",
+          "Track dispute and support-ticket rates for international orders separately from domestic ones in your edit reporting - a currency-conversion seam is exactly the kind of gap that shows up there first, long before it shows up anywhere in base-currency accounting",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing & Upsell" },
+      {
+        type: "p",
+        text: "AppFox's automatic payment collection reads the payment and currency context already sitting on an order before it calculates what a size upgrade, an added item, or any other edit needs to collect - it doesn't treat every order as if it settled in the store's base currency and reconvert from scratch. On a Shopify Markets order, that means the amount AppFox charges runs against the same presentment currency and gateway context the original checkout established, instead of a fresh conversion invented at the moment the edit fires days or weeks later.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is set a store's presentment currencies or choose its exchange-rate source - that configuration lives entirely in Shopify Markets, the same system that decided which currency a given shopper checked out in to begin with. If a merchant's own edit-pricing rules are authored without any thought to conversion timing - a flat base-currency table with no awareness that days can pass between checkout and an edit - AppFox can still charge accurately against the rate on file for that order, but it can't rewrite a pricing rule that was never built with currency drift in mind.",
+      },
+      {
+        type: "p",
+        text: "The Berlin shopper's card wasn't overcharged by a bug, and the size upgrade wasn't mispriced - she was charged an honestly converted amount, on a rate that had simply moved since the day she checked out. The fix was never to freeze exchange rates for three days. It's making sure the rate an edit reaches for is the one already sitting on the order it's editing, and showing the customer that number instead of hoping her own math quietly lines up with it.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-renewal-doesnt-pause-for-a-recall",
     title: "Why a Shopify Subscription Renewal Doesn't Pause for a Product Recall",
     excerpt:
