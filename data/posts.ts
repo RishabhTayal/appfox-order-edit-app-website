@@ -30,6 +30,81 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-renewal-doesnt-pause-for-a-recall",
+    title: "Why a Shopify Subscription Renewal Doesn't Pause for a Product Recall",
+    excerpt:
+      "A recall notice arrives on one lot number. A Shopify subscription contract only ever points to a product and a variant - it has no field for which lot a renewal is about to ship. That gap is why pulling a product from your storefront doesn't tell you which scheduled renewals still need to be stopped.",
+    category: "PLAYBOOK",
+    date: "2026-12-02",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Product Recall: Why Renewals Don't Pause | AppFox",
+    metaDescription:
+      "A Shopify subscription contract tracks a product and variant, never a lot or batch number - so a recall on one lot can't be matched against the renewals about to ship it. Here's why auto-renewal keeps going during a recall, and how to build a response before you need one.",
+    body: [
+      {
+        type: "p",
+        text: "A pet-supplement brand sells a monthly joint-care chew subscription, fulfilled out of one warehouse from whatever pallet is currently open. At 9:04am on a Monday, the manufacturer calls: lot 4471 tested with a potency issue and has to stop shipping immediately, full stop. The brand's ops lead does the obvious first thing and does it fast - by 9:20am the product is unpublished from the storefront, off every product page, unavailable to any new customer. It feels like the recall is handled. It isn't, because roughly sixty subscribers have renewals scheduled to bill and ship over the next several days from that exact same warehouse, and nothing about unpublishing a product page reaches into a single one of those subscription contracts to tell it to stop.",
+      },
+      {
+        type: "p",
+        text: "The deeper problem isn't that unpublishing missed the existing contracts - that's a known gap, the same one that shows up whenever a product gets discontinued out from under a running subscription. It's narrower and sharper than that here: a Shopify subscription contract stores a reference to a product and a variant, set at signup and updated on a swap, and nothing more granular than that. It has no field for a lot number, a batch code, or a manufacture date, because Shopify's subscription model was never built to track inventory at that resolution - that's the warehouse's or 3PL's job, in a completely separate system a subscription engine never queries. Even a merchant who pauses every contract on that SKU the moment the recall hits is pausing based on the only thing the contract can see - which product it's on - not on which lot each of those renewals was actually going to pick.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't unpublishing the product fast - that's the correct, necessary first move, and it stops the bleeding on new signups the instant it happens. The mistake is stopping there, and treating \"off the storefront\" as if it were the same fact as \"nothing is still going to ship it,\" when a subscription's renewal instruction was created days or weeks before the recall and has no listener built in for a recall notice at all - it just keeps executing on schedule against a product reference that still technically resolves.",
+      },
+      { type: "h2", text: "Why a recall doesn't automatically stop a subscription program" },
+      {
+        type: "ul",
+        items: [
+          "A subscription contract stores a reference to a product and variant, fixed at signup or the last swap - never a lot, batch, or manufacture date, because that level of detail was never part of what a subscription contract was built to track",
+          "Unpublishing or archiving a product stops new signups and swaps onto it the same way it stops a one-time listing from being bought - but touches none of the contracts already scheduled to renew against that product and variant reference",
+          "Auto-renewal bills and creates a fulfillable order the moment a contract's scheduled date arrives, regardless of anything that happened to the product's storefront listing since - renewal timing and publish status were never wired to check each other",
+          "Whether a given renewal actually ships the recalled lot or an unaffected one depends entirely on the warehouse's own pick logic and remaining stock at the moment of fulfillment - information a subscription engine never sees and was never asked to hold",
+          "None of this fails loudly - a renewal charges, an order confirms, a pick ticket prints, and every step looks exactly like an ordinary Tuesday unless somebody has already told the warehouse, by name, to treat that lot differently",
+        ],
+      },
+      {
+        type: "quote",
+        text: "A subscription contract can tell you exactly who's still recurring on a product and when their next renewal fires. It has no way of knowing that the lot sitting on the shelf for renewal 4372 is the one that has to stop moving today.",
+      },
+      { type: "h2", text: "What a storefront-only recall response actually misses" },
+      {
+        type: "p",
+        text: "Pulling a listing stops the most visible risk - a new customer discovering the product and buying it fresh - but it does nothing about the renewals already in motion, and those carry the harder consequences. A subscriber whose card happens to bill on Wednesday gets a box built from whatever the warehouse has on hand, recalled lot included if nobody's told it otherwise, which turns a manufacturer's safety notice into a shipment the brand makes worse by continuing to send it. Support then has to answer \"is my box part of the recall\" from every subscriber who hears about it, and without lot-level tracking on the subscription side, there's no accurate per-customer answer to give - only a blanket one broad enough to either alarm subscribers who were never at risk or, worse, reassure ones who were.",
+      },
+      {
+        type: "quote",
+        text: "A recall that stops the storefront and misses the renewal queue hasn't actually stopped anything a subscriber is going to receive this week.",
+      },
+      { type: "h2", text: "Building a recall response before you need one" },
+      {
+        type: "ol",
+        items: [
+          "Confirm your fulfillment or 3PL system tracks inventory by lot or batch, and that it can answer \"is any pending pick drawing from this lot\" on demand - a subscription platform can't answer that question, only inventory tracking at the warehouse can",
+          "Treat every active contract on the affected product or variant as paused by default the moment a recall notice arrives, not after someone finishes checking which renewals are actually at risk - the cost of over-pausing a subscriber whose box would've shipped a safe lot is a delayed renewal; the cost of under-pausing is shipping recalled product",
+          "Have the warehouse physically hold or quarantine the recalled lot before relying on any system-level pause to stop it from being picked - a paused contract only protects a subscriber if the pallet it would have shipped from can't be reached in the meantime",
+          "Separate the message to subscribers who already received a shipment from the affected window from the message to subscribers whose renewal is still pending - \"check the lot number on the box you have\" and \"your next renewal is on hold\" are different notices, and merging them either buries the urgent one or alarms people who were never exposed",
+          "Build the \"pause every contract on this product\" action as a Shopify Flow workflow ahead of time, sitting behind a manual trigger, rather than improvising it for the first time under recall pressure - the time it takes to wire that up calmly in advance is time you won't have once a supplier calls at 9am",
+          "Reconcile paused contracts against confirmed lot-level fulfillment records before resuming billing on any of them, not just before restarting the storefront listing - a contract paused correctly still needs someone to confirm which lot its next real shipment will draw from",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "Every AppFox Subscription contract carries a live product and variant reference, and unpublishing or archiving a product through Shopify admin stops it from being offered to new subscribers or swapped onto existing ones immediately - the same protection a one-time listing gets. Existing contracts on that product show up in AppFox's contract list filtered by product, so identifying exactly who's still renewing against a given SKU is a filter, not a manual export built by hand under pressure. The same Shopify Flow connection that already turns renewal, pause, and cancellation events into triggers can run the other direction too - a manually triggered workflow that pauses every contract on a given product on demand, instead of a person working down a subscriber list one contract at a time while the clock is running.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do - and no subscription app built on Shopify's contract model does - is track lot or batch numbers, because that data lives in a warehouse's or 3PL's own inventory system, not in a subscription contract at all. Pausing every contract on the affected product is the closest a subscription platform can get on its own; confirming which specific renewals were genuinely at risk, and which had already shipped safely from an unaffected lot, is a fulfillment-side question that AppFox, like any subscription engine, isn't positioned to answer. That reconciliation has to happen where the lot numbers actually live.",
+      },
+      {
+        type: "p",
+        text: "The ops lead who unpublished those joint-care chews at 9:20am on Monday made the right first move, fast. What still needed to happen that same morning was pausing every contract renewing against that SKU and asking the warehouse - not the subscription platform - which lot each of those pending renewals was actually about to pick. A subscription engine can tell you, precisely and instantly, who's still recurring on a product. Only the warehouse floor can tell you which of them were about to get the lot that had to stop moving.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-renewal-misses-local-delivery-route",
     title: "Why a Shopify Subscription Renewal Can Miss the Local Delivery Route It Was Supposed to Ship On",
     excerpt:
