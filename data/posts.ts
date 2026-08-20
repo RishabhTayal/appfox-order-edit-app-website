@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "increase-average-order-value-shopify-subscription",
+    title: "How to Increase Average Order Value on a Shopify Subscription",
+    excerpt:
+      "A subscription's average order value doesn't move at renewal, because a renewal order is a billing engine reading the same contract every cycle - not a checkout page where an upsell can fire. Real AOV growth comes from what's durably on the plan and from the one checkout a subscription actually has: the first one.",
+    category: "REVENUE",
+    date: "2026-12-06",
+    author: "The AppFox Team",
+    metaTitle: "How to Increase Average Order Value on a Shopify Subscription | AppFox",
+    metaDescription:
+      "Post-purchase upsells and checkout-page discounts never reach a Shopify subscription renewal, because there's no checkout session for them to fire on. Here's where subscription AOV growth actually comes from - tiered plans, bundling, and the one real checkout a subscription gets, at signup.",
+    body: [
+      {
+        type: "p",
+        text: "A men's grooming brand runs subscribe-and-save on its core razor-and-blade set: one plan, one price, one box, every month, for every subscriber. The subscriber count climbs steadily for a year - new signups land on the same $28 box the first cohort did - and average order value sits at exactly $28 the entire time, because there's never been anything for it to do but sit there. Raising the price is the obvious lever, and the wrong first one to pull: the box hasn't changed, nobody asked for a bigger bill, and a flat increase risks the churn spike that comes with charging more for the same thing. The lever that's actually sitting unused isn't what the box costs. It's what's in it.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't that AOV is flat - it's reaching for the AOV playbook built for a one-time storefront, where a post-purchase upsell or a cross-sell widget fires on every single checkout. A subscription renewal doesn't have a checkout to fire on. Shopify's billing engine creates a renewal order directly from the contract on its billing date, with no live checkout session for an upsell app to attach to, so a tactic that works perfectly on a store's ordinary orders quietly does nothing on the renewals that make up most of a subscription program's volume.",
+      },
+      { type: "h2", text: "Why checkout-based upsell tactics don't reach a subscription renewal" },
+      {
+        type: "ul",
+        items: [
+          "A renewal order is built by Shopify's billing engine reading the contract's stored line items and charging the stored payment method - there's no cart, no checkout page, and no moment for a post-purchase upsell widget to render on",
+          "The only checkout a subscription genuinely has is the first one, at signup - every renewal after it is a background billing run, not a shopping session anyone is actively moving through",
+          "A subscription's line items are a standing instruction, not a cart rebuilt fresh each cycle, so whatever AOV a subscriber signs up at is exactly the AOV she renews at until something durable on the contract changes",
+          "The self-service portal that lets a subscriber skip, pause, swap, or cancel has nothing built for bolting a one-off extra item onto a single upcoming renewal - a real boundary of the contract model, not a missing button",
+          "Sitewide sales and one-time discount codes are also scoped to a live checkout page by default, so a merchandising push built for one-time buyers usually never touches a renewal order at all",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A one-time order gets a fresh pitch every time a customer checks out. A subscription order gets the pitch it got on day one, forever, unless the plan itself changes.",
+      },
+      { type: "h2", text: "Where the real AOV levers actually are" },
+      {
+        type: "p",
+        text: "Because a renewal just repeats whatever's durably on the contract, the only tactics that move subscription AOV are the ones that either change that standing contract permanently or happen at the one checkout a subscription does have. That's a smaller toolkit than a one-time store's, but it's a toolkit that actually reaches renewal revenue instead of quietly missing it cycle after cycle.",
+      },
+      {
+        type: "quote",
+        text: "A subscription's average order value isn't set by what you offer a subscriber. It's set by what she agreed to once, and nothing you bolt on after that renewal fires changes it.",
+      },
+      { type: "h2", text: "Five ways to grow AOV without touching the price" },
+      {
+        type: "ol",
+        items: [
+          "Sell a genuine one-time cross-sell at initial subscribe checkout, timed to arrive with the first box - the same product-page widget that already lets a shopper choose subscribe-and-save over one-time is the one live checkout moment a merchant gets to pitch anything at all",
+          "Build tiered box sizes or bundles into the plan itself, so a bigger box is a permanent swap a subscriber makes herself in the portal, not a one-off request support has to improvise",
+          "Where the model supports it, let subscribers build their own box from a wider catalog instead of shipping one fixed set - a subscriber who picks four items instead of three has raised her own AOV without anyone asking her to",
+          "Offer a frequency or quantity increase as its own portal option, distinct from the skip and pause controls built to prevent cancellation - a subscriber who moves from monthly to every three weeks is a durable AOV increase, not a discount",
+          "Track AOV by cohort and tenure instead of one blended average - a number that hides new-signup AOV inside years-old contracts hides exactly the segment most likely to respond to a bigger box at the next upgrade prompt",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's product-page widget is the live checkout moment a merchant actually gets, built to offer subscribe-and-save alongside a one-time add-on at that same signup - the only point in a subscription's life where a genuine cross-sell reaches a real cart. Percentage and fixed subscribe-and-save discounts, trial periods, and tiered pricing set what a plan bills at from day one, and swap lets a subscriber move herself into a larger size or a higher tier permanently, the same portal action she'd use to change a flavor. On the Business plan and above, bundling and build-a-box let a subscriber choose more into the same recurring shipment instead of everyone getting one fixed box.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is inject a one-off extra item into a single upcoming renewal - that's a boundary the subscription model itself draws, not a missing feature, since a contract has no concept of shipping the usual plus one extra, just once. Subscription analytics on the Growth plan and above reports by cohort rather than as one blended figure, which is what actually shows whether a tier upgrade or a build-a-box option is moving AOV for new signups specifically, instead of hiding inside an average built from years of older contracts.",
+      },
+      {
+        type: "p",
+        text: "The grooming brand's $28 box was never going to move by asking existing subscribers to pay more for the same set. It moved once the plan itself had a bigger box to swap into and a real add-on at the one checkout the brand actually got - the same subscriber going from $28 to $34, permanently, without a single price-increase email going out.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-renewal-email-wrong-language",
     title: "Why a Shopify Subscription Renewal Email Doesn't Match the Language a Customer Signed Up In",
     excerpt:
