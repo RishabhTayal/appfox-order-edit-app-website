@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-remove-item-doesnt-restock",
+    title: "Why Removing an Item From a Shopify Order Doesn't Always Restock It",
+    excerpt:
+      "A customer drops a line item through the edit portal, the order total comes down, and the refund goes back clean. The unit that came off the order doesn't come back to available stock unless the edit explicitly says so - and nothing in the confirmation tells you which way it went.",
+    category: "PLAYBOOK",
+    date: "2026-12-08",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Order Edit Doesn't Always Restock a Removed Item | AppFox",
+    metaDescription:
+      "Removing a line item from a Shopify order doesn't automatically restock it - restocking is a separate decision on the edit, and refunds handle it differently again. Here's why removed items go missing from available inventory, and how to keep an order edit from creating phantom stockouts.",
+    body: [
+      {
+        type: "p",
+        text: "A kitchenware brand runs self-service edits on the order status page, and the most common edit by a wide margin is a customer removing one item from a two- or three-item order - the second cutting board, the extra set of tongs, the thing that pushed the total higher than they meant to spend. The edits work exactly as designed: the line comes off, the total recalculates, the difference goes back to the original payment method within a day. Six weeks later the operations lead is standing in a warehouse aisle counting eleven stock pots while Shopify insists there are four, and the gap traces back to a specific set of orders - every one of them an order a customer edited an item off of.",
+      },
+      {
+        type: "p",
+        text: "Removing a line item from an order and returning that unit to available inventory are two separate actions, and only the first one is what a removal actually is. When an order is placed, Shopify moves the units on it from available into committed - they're spoken for, still on hand, not sellable to anyone else. Taking the line off the order ends that commitment, but whether the unit lands back in available or simply stops being tracked is a distinct choice made at the moment of the edit, not a consequence of the removal. An edit that doesn't make that choice explicitly leaves the store with a unit that exists on a shelf and doesn't exist in Shopify, which is the quietest possible way to lose inventory.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't letting customers remove items themselves - a removal is the single highest-volume, lowest-risk self-service edit most stores have, and forcing it through a support queue trades a real cost for an imaginary one. The mistake is assuming that a clean removal and a correct inventory count are the same event, when only one of them happens automatically.",
+      },
+      { type: "h2", text: "Why a removed line item doesn't come back to available stock" },
+      {
+        type: "ul",
+        items: [
+          "Restocking is an explicit flag on the edit itself, not a default behavior of removing a line - the same removal can be written either way, and the order timeline shows the item came off regardless of which way it was written",
+          "Removing an unfulfilled line ends the unit's committed status, but a removal written without restock never adds it back to available, so the on-hand number Shopify reports stays one lower than the shelf for as long as nobody counts",
+          "A fulfilled line can't be edited off an order at all - that unit already shipped, so the path is a return or a refund, and refunds carry their own separate restock decision that has nothing to do with how edits are configured",
+          "Damaged, opened, or made-to-order goods are exactly the cases where not restocking is the correct call, which is why the choice exists at all - a blanket \"always restock\" rule is as wrong as a blanket \"never\" one, just wrong in the other direction",
+          "Nothing in the customer-facing confirmation, the refund email, or the order total reflects the restock decision either way, so the only place the difference ever shows up is the inventory count - weeks later, at a count nobody scheduled",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The order was correct. The refund was correct. The only thing that went wrong was a number nobody was looking at.",
+      },
+      { type: "h2", text: "What a missing restock actually costs" },
+      {
+        type: "p",
+        text: "A unit that's physically on the shelf and invisible in Shopify is worse than a unit that's simply gone, because the store keeps making decisions against a number that's wrong in the direction of scarcity. The variant hits zero and stops selling while there's stock in the aisle. The reorder fires early, and a purchase order goes out for units already sitting in the building. A limited run shows sold out to every shopper on the storefront on the strength of four removals nobody restocked. None of that reads as an order-editing problem when it surfaces - it reads as a receiving error, or a count that drifted, or a demand forecast that ran hot - which is exactly why it tends to survive several inventory cycles before anyone connects it back to the edits that caused it.",
+      },
+      {
+        type: "quote",
+        text: "An unrestocked removal doesn't show up as an error. It shows up as a product that's out of stock on the storefront and in your hand at the same time.",
+      },
+      { type: "h2", text: "Keeping order edits and inventory counts in agreement" },
+      {
+        type: "ol",
+        items: [
+          "Decide the restock rule per product type before turning on self-service removals, not per incident - shelf-stable catalog goods restock by default, while personalized, perishable, and made-to-order lines shouldn't, and the difference should be a written rule rather than a judgment call made under ticket pressure",
+          "Separate removals on unfulfilled orders from returns on fulfilled ones in your own process documentation - they look identical to the customer and are completely different inventory events, and the fulfilled case is the one that needs a physical unit back in the building before anything gets restocked",
+          "Route removals on high-value or limited-stock SKUs into an approval queue so a person confirms the restock decision at the same moment they confirm the edit, rather than the decision defaulting silently",
+          "Reconcile edited orders against inventory movements on a fixed cadence - weekly is enough - by pulling the list of orders edited in the period and checking that each removed unit either came back to available or has a documented reason it didn't",
+          "When a count comes up short, check the edit history for that variant before assuming shrink or a receiving error - removals cluster on specific SKUs, and a discrepancy that maps cleanly onto edited orders is a configuration problem with a one-time fix, not a recurring loss",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing & Upsell" },
+      {
+        type: "p",
+        text: "AppFox edits an order in place rather than canceling and rebuilding it, which is what keeps the original payment method, the order number, and the payment processing fees intact through a removal. The eligibility engine decides which edits are offered at all - edit windows, fulfillment cutoffs, and per-action rules - and each action can auto-apply or land in an approval queue. For a merchant who wants the restock decision made by a person on a specific set of products, removals on those products are the action to put behind approval, while the cutting-board removals that make up most of the volume keep running themselves.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is count your shelves or reconcile your stock ledger - inventory lives in Shopify, and whether a removed unit returns to available is governed by how the edit is written and by the inventory settings on the variant itself, not by anything AppFox tracks independently. What the audit trail gives you is the other half of that reconciliation: a record of which orders were edited, when, and what came off them, so a count that doesn't match has something specific to check against instead of six weeks of guesswork.",
+      },
+      {
+        type: "p",
+        text: "The kitchenware brand didn't have a shrink problem, a receiving problem, or a forecasting problem. It had seven stock pots that had come off orders correctly and never been told to come back, sitting on a shelf that Shopify had stopped believing in. The edits were right the whole time. The inventory just never got asked the second question.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-app-uninstall-what-happens",
     title: "What Happens to Your Shopify Subscriptions If You Uninstall the App",
     excerpt:
