@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-app-uninstall-what-happens",
+    title: "What Happens to Your Shopify Subscriptions If You Uninstall the App",
+    excerpt:
+      "Uninstalling a subscription app doesn't cancel the contracts it created - those keep renewing on Shopify's own billing schedule. What actually breaks is everything wrapped around that renewal: the discount price, the customer portal, and the dunning emails that used to keep it on track.",
+    category: "PLAYBOOK",
+    date: "2026-12-07",
+    author: "The AppFox Team",
+    metaTitle: "What Happens to Shopify Subscriptions If You Uninstall the App | AppFox",
+    metaDescription:
+      "Uninstalling a Shopify subscription app doesn't cancel the contracts it created - they keep renewing on Shopify's own billing engine. Here's what actually stops working when the app comes off the store, and how to uninstall one without breaking active subscriptions.",
+    body: [
+      {
+        type: "p",
+        text: "A vitamin brand is switching subscription platforms - the old app's pricing tier stopped making sense once the program crossed a few thousand active subscribers, and the operations lead spends a Friday afternoon moving settings into the new one. Once the new app is live and the storefront widget is swapped over, she goes back through the app list and uninstalls the old one, the same way she'd remove any tool the store no longer needs. The dashboard confirms the uninstall. Nothing on the storefront looks any different. Two weeks later, finance flags something odd in the subscription revenue report: dozens of renewal orders billed at full price instead of the subscribe-and-save rate every one of those subscribers signed up for, next to a growing pile of support tickets from subscribers who can't find a portal to cancel from at all.",
+      },
+      {
+        type: "p",
+        text: "Uninstalling a subscription app doesn't touch the subscription contracts it created, because a contract isn't something the app owns - it's a native object that lives on the Shopify store itself, billed on its own schedule by Shopify's subscription billing engine regardless of which app is or isn't installed. What the app does own is everything wrapped around that contract: the discount logic that calculates the subscribe-and-save price, the customer portal a subscriber uses to manage her own plan, and the webhooks that trigger dunning emails and retry logic when a card declines. Uninstall the app and the contract keeps renewing on schedule. Almost everything that made that renewal behave the way the subscriber signed up for stops working at the exact same moment.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't uninstalling an app the store no longer needs - cleaning up unused integrations is normal maintenance, and a genuine platform switch means the old app has to go eventually. The mistake is assuming \"uninstall\" and \"cancel every subscription it manages\" are the same action, when only one of those is actually a button that exists.",
+      },
+      { type: "h2", text: "What uninstalling a subscription app actually does - and doesn't do" },
+      {
+        type: "ul",
+        items: [
+          "A subscription contract is a Shopify-native resource created through the app's API access, not a record the app stores and owns - once created, it belongs to the shop, and Shopify's own billing cycle keeps generating renewal orders from it with or without the app installed",
+          "A subscribe-and-save discount calculated through a Shopify Function extension stops calculating the moment the app that deployed it is uninstalled - the function is removed along with the app, so the next renewal either falls back to full price or fails to price at all, depending on how the plan was built",
+          "The customer-facing portal - the page a subscriber uses to skip, pause, swap, or cancel - is almost always hosted by the app itself, so uninstalling takes that page down with it, leaving an active, billing contract with no self-service way to stop it",
+          "Webhooks the app registered for failed-payment retries and dunning emails stop firing on uninstall, so a card that expires the week after the app comes off the store gets none of the retry attempts or reminder emails a subscriber would have gotten while the app was live",
+          "None of this shows up immediately - the first renewal after an uninstall can look completely normal, because the contract doesn't fail until it hits the exact piece of logic the app used to be responsible for",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The contract doesn't need the app to keep billing. It needed the app for almost everything that made that billing correct.",
+      },
+      { type: "h2", text: "Why this takes weeks to show up" },
+      {
+        type: "p",
+        text: "None of these breaks fire on a predictable day. A subscriber who renewed the week before the uninstall won't hit the missing discount function until her next cycle, which could be four weeks out on a monthly plan or twelve on a quarterly one. A subscriber whose card is still valid won't hit the missing dunning email until it happens to expire. That's what makes an uninstalled subscription app a slow leak instead of an outage - nothing alerts on it, because from Shopify's side every one of those renewal orders is still a normal order, created and charged exactly the way the billing engine is supposed to create and charge it. It just isn't priced, retried, or manageable the way it was three weeks ago.",
+      },
+      {
+        type: "quote",
+        text: "An uninstalled app doesn't cancel a subscription. It just stops being there for the next renewal that needed it.",
+      },
+      { type: "h2", text: "How to uninstall a subscription app without breaking active contracts" },
+      {
+        type: "ol",
+        items: [
+          "Confirm every active contract is either migrated to the new app or explicitly canceled before removing the old one - a genuine platform switch should end with zero contracts still depending on the app you're about to uninstall, not with the migration assumed complete because the new widget is live",
+          "Check whether subscribe-and-save pricing runs through a Shopify Function the app deployed, and confirm the new app - or a manual selling-plan edit - re-establishes that pricing before the old app comes off the store, not after the first mispriced renewal shows up",
+          "Export the active subscriber list and contract IDs before uninstalling, even if the migration looks complete - it's the only record you'll have of who was on the old app's plans if something in the switch doesn't carry over cleanly",
+          "Give subscribers a working portal link before the old one disappears - the new app's portal if the migration is done, or a temporary support-handled cancellation path if it isn't, so nobody is left with an active contract and no way to stop it",
+          "Watch the renewal report for the first full billing cycle after uninstalling, not just the day of - the failures show up in the week after each subscriber's own next renewal date, not on the day the app came off the store",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's contracts run on Shopify's native subscription infrastructure the same way any subscription app's do, which means the honest answer to \"what happens if I uninstall AppFox\" is the same mechanism described above, not a special exemption - existing contracts keep billing, and the portal, discount logic, and dunning emails tied to the app stop working the moment it's removed. What AppFox gives a merchant planning a switch, in either direction, is the data to do it cleanly: subscription analytics, on the Growth plan and above, lists every active contract with its plan, discount, and next billing date in one place, so a migration has an actual checklist instead of a guess at when it's safe to uninstall.",
+      },
+      {
+        type: "p",
+        text: "For a merchant migrating in - moving off Recharge or another platform and into AppFox - existing subscribers and their billing history come across as part of setup, rather than needing every subscriber to re-subscribe from scratch. That's the same principle running in the other direction: a subscription app's job is to manage a contract, not to become a dependency the contract silently can't survive without.",
+      },
+      {
+        type: "p",
+        text: "The vitamin brand's mispriced renewals weren't a bug in the new app, and they weren't a bug in Shopify's billing engine either - both did exactly what they were supposed to do. The old app just stopped being there for the piece of the transaction it used to be entirely responsible for, three weeks before anyone noticed. An uninstall doesn't ask a subscription contract's permission first. It just leaves, and the contract finds out at its next renewal.",
+      },
+    ],
+  },
+  {
     slug: "increase-average-order-value-shopify-subscription",
     title: "How to Increase Average Order Value on a Shopify Subscription",
     excerpt:
