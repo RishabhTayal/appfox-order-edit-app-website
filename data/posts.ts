@@ -30,6 +30,88 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-multi-currency-renewal-price-drift",
+    title: "Shopify Subscription Multi-Currency Renewals: Why the Charge Doesn't Match Signup",
+    excerpt:
+      "A candle subscriber in the UK sees £18.40 next to the product at signup in September. By her December renewal, the same $23 US-dollar price converts to £19.10 - seventy pence more, and nothing in her renewal reminder explains why. Shopify Markets never locked her rate past that first checkout; every renewal converts fresh, at whatever the market is doing that day.",
+    category: "PLAYBOOK",
+    date: "2026-12-11",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Multi-Currency Renewals Explained | AppFox",
+    metaDescription:
+      "Why a Shopify subscription's local-currency renewal charge can drift from the price a customer saw at signup on a Shopify Markets storefront - the exchange-rate mechanism behind it, what it costs in disputes and trust, and how to disclose it before a subscriber notices on her own.",
+    body: [
+      {
+        type: "p",
+        text: "A candle subscription sells in US dollars but shows local pricing everywhere Shopify Markets reaches. A UK subscriber signs up in September and sees £18.40 next to the product - a fair, honest conversion of the $23 subscribe-and-save price, calculated the moment she checks out. Three months later, her December renewal charges £19.10 for the exact same $23 plan. Nothing about the product changed, nothing in the merchant's pricing changed, and nothing in her renewal reminder mentions currency at all. From where she's sitting, the subscription just got more expensive for no reason anyone told her about.",
+      },
+      {
+        type: "p",
+        text: "It isn't a price increase and it isn't a billing bug. It's a currency conversion, recalculated - because a Shopify subscription contract doesn't lock a subscriber's local-currency number the way a single checkout locks hers for that one order. It locks a price in the shop's own currency, and converts fresh, at the live market rate, every single time a transaction actually runs.",
+      },
+      {
+        type: "h2",
+        text: "Why a subscription's local-currency price moves between renewals",
+      },
+      {
+        type: "ul",
+        items: [
+          "Shopify Markets converts at the live market rate for whichever transaction is being processed - it doesn't cache the rate a subscriber saw at signup and reuse it for a charge that runs months later",
+          "A subscription contract's price is stored once, in the shop's own currency - what a subscriber sees in her local currency is a conversion applied at that moment, not a locked local-currency figure attached to the contract itself",
+          "Every renewal is a brand-new transaction to Shopify's payment and currency layer, even though the subscriber experiences it as \"the same subscription\" continuing - so it gets its own live conversion, the same way any new order would",
+          "Rate movement compounds quietly across a run of renewals - a subscriber on a monthly cadence can see six or eight small drifts before she connects any of them to currency rather than to a price she thinks changed on her",
+          "Markets' rounding to a clean local price point can nudge the charged number even when the underlying exchange rate barely moved, so a one-cent shift in the rate can still look like a bigger jump on the receipt",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A locked price and a locked conversion rate are two different promises. Shopify Markets only ever makes the first one.",
+      },
+      {
+        type: "h2",
+        text: "What an unexplained drift actually costs",
+      },
+      {
+        type: "p",
+        text: "A subscriber who doesn't recognize the exact number on her statement doesn't reliably conclude \"exchange rate.\" She's just as likely to conclude \"unauthorized charge\" and file a dispute with her bank before ever emailing support - which turns a currency footnote into a chargeback, with its own fee and its own mark against the merchant's dispute rate. Subscribers outside the shop's base currency also cancel at a higher rate than domestic ones for reasons that have nothing to do with the product, purely because the number they're billed never quite matches the number they remember agreeing to. A support team that hasn't seen the pattern before treats each ticket as a one-off, which means the same explanation gets reinvented, differently, every time it comes up.",
+      },
+      {
+        type: "quote",
+        text: "A subscriber doesn't remember an exchange rate. She remembers a number - and the next one had better match it, or it reads as a broken promise, not a currency footnote.",
+      },
+      {
+        type: "h2",
+        text: "How to keep FX drift from reading as a billing error",
+      },
+      {
+        type: "ol",
+        items: [
+          "Disclose it once, up front, at signup - a line near the local-currency price stating that renewal charges convert at the rate in effect on the renewal date, not the one shown today, so the explanation exists before the first drift ever happens",
+          "Show the shop-currency price alongside the local-currency estimate at signup and in the customer portal, so a subscriber has one number that never moves to check her renewal against",
+          "Set an internal tolerance band rather than a promise to subscribers - if a renewal converts more than a few percent off the prior charge, flag it for a look rather than treating every drift, large or small, as routine",
+          "Give support a one-line answer that names the exchange rate as the cause, ready before the first ticket arrives - a fast, specific reply closes the loop faster than an explanation improvised after a subscriber is already annoyed",
+          "Watch dispute and cancellation rates by market, not just store-wide - a spike concentrated in one non-base currency points at FX drift long before a blended, store-wide churn number would show it",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Where this lives in AppFox Subscription",
+      },
+      {
+        type: "p",
+        text: "AppFox Subscription creates and bills every renewal through Shopify's own checkout and native subscription APIs, rather than a separate billing engine sitting alongside it. That means whatever currency conversion Shopify Markets applies to a renewal transaction is the conversion that renewal gets - AppFox doesn't intercept or override the rate, and it can't lock a subscriber's local-currency number today for a charge that runs months from now. That promise isn't Shopify's to make either, so it isn't AppFox's to fake.",
+      },
+      {
+        type: "p",
+        text: "What AppFox's side controls is what a subscriber sees around that charge. The customer portal reflects the subscription's live contract, so a subscriber checking her plan before a renewal sees the same shop-currency price that will actually govern the charge, not a cached local-currency figure left over from signup. Custom email HTML, on the Business plan and above, is where a merchant adds the actual disclosure line to renewal and receipt emails - AppFox doesn't write that sentence for a store, since the right wording depends on which markets a store sells into and how its checkout already talks about currency.",
+      },
+      {
+        type: "p",
+        text: "The UK subscriber's seventy pence didn't come from a price increase nobody told her about. It came from a currency market that moved between September and December, the same way it moves for every storefront selling internationally without locking a future rate today. What she needed wasn't a smaller number - it was one sentence, placed before her first renewal, telling her the number could move and roughly why. Same seventy pence, framed as an explained mechanism instead of a discovered surprise.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-churn-rate-benchmark",
     title: "Shopify Subscription Churn Rate: How to Calculate It (and What Counts as Good)",
     excerpt:
