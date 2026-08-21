@@ -30,6 +30,94 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-churn-rate-benchmark",
+    title: "Shopify Subscription Churn Rate: How to Calculate It (and What Counts as Good)",
+    excerpt:
+      "A coffee subscription brand closes the month with 40 cancellations against 500 active subscribers and reports 8% churn to the board - a number that's arithmetically correct and still tells nobody whether the program is actually healthy. Churn rate isn't hard to calculate. It's easy to calculate several different ways and never notice you've changed the formula.",
+    category: "GUIDE",
+    date: "2026-12-10",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Churn Rate: How to Calculate It | AppFox",
+    metaDescription:
+      "How to calculate Shopify subscription churn rate correctly - voluntary vs. involuntary, logo vs. revenue churn, denominator timing - plus benchmark ranges by category so you know what a good churn rate actually looks like.",
+    body: [
+      {
+        type: "p",
+        text: "A coffee subscription brand closes the month with 40 cancellations against 500 active subscribers and reports 8% churn to the board - a number that sounds fine, maybe even good, next to the \"5-7% is healthy\" range someone once cited in a meeting. What the board doesn't see is that eleven of those forty cancellations were failed renewal payments nobody ever retried, six were subscribers who'd already downgraded to a smaller bag and canceled a nearly-empty contract, and the 500 in the denominator includes ninety brand-new subscribers who joined mid-month and never had a real chance to churn yet. The 8% is arithmetically correct and still tells the board almost nothing true about the program.",
+      },
+      {
+        type: "p",
+        text: "Churn rate isn't hard to calculate - canceled subscribers divided by starting subscribers over a period - but the formula gives no guidance on any of the choices that determine whether the resulting number means anything: what counts as \"canceled,\" what period, what denominator, and whether every cancellation belongs in the same bucket. Shopify's subscription contracts don't tag a cancellation as voluntary or involuntary, don't separate a subscriber lost to a declined card from one who genuinely wanted to leave, and don't care whether a subscriber was in month one or month twelve when she left. Two merchants running the identical arithmetic on the identical dataset can land on two different churn rates just by drawing different boundaries around the same set of facts.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't reporting churn as a single number - a single number is what gets put on a dashboard and tracked month over month. The mistake is picking that number's definition once, informally, and never writing it down, so nobody can tell later whether churn actually moved or whoever calculated it just started counting differently.",
+      },
+      { type: "h2", text: "Why the same subscriber base produces different churn numbers" },
+      {
+        type: "ul",
+        items: [
+          "Voluntary and involuntary cancellations aren't separated by default - a subscriber who clicked cancel and a subscriber whose card declined for the third time both just disappear from the active count, even though only one of them made a decision",
+          "Logo churn and revenue churn diverge quickly - a subscriber who downgrades from a premium box to the entry tier isn't a cancellation at all by a logo count, but by a revenue count she's taken most of her value with her",
+          "The denominator's timing changes the answer - subscribers active at the start of the period, at the end of it, or averaged across it all produce different rates from the same numerator, and none of them is wrong, they're just answering different questions",
+          "New subscribers inflate the base before they've had a fair chance to churn - someone who joined on day 28 of a 30-day month was never at risk of a full-cycle cancellation yet, but most denominators count her as if she was",
+          "A canceled contract and a paused contract get grouped together the moment someone builds the report by hand, even though a pause isn't a churn event and skews the count if it's treated as one",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A voluntary cancellation is a subscriber who decided to leave. An involuntary one is a subscriber who never got a choice.",
+      },
+      { type: "h2", text: "What an unclear churn number actually costs" },
+      {
+        type: "p",
+        text: "A blended, undefined churn rate doesn't just look imprecise - it drives the wrong response. A spike that's mostly declined cards calls for better payment retries, not a win-back campaign; a spike that's mostly voluntary cancellations calls for the opposite. Reported as one number, both spikes look identical, and the fix that gets funded is a guess. The same problem hits forecasting: a churn rate that quietly shifted definitions between quarters makes retention look like it improved or collapsed when nothing about actual subscriber behavior changed at all.",
+      },
+      {
+        type: "quote",
+        text: "A churn rate without a definition attached doesn't measure retention - it measures whoever built the spreadsheet.",
+      },
+      { type: "h2", text: "How to calculate Shopify subscription churn rate correctly" },
+      {
+        type: "ol",
+        items: [
+          "Start with the standard formula - subscribers canceled during the period divided by subscribers active at the start of the period, times 100 - and pick one consistent denominator before comparing it month over month; start-of-period is the simplest to defend and explain",
+          "Separate voluntary from involuntary cancellations before publishing a single blended number - a subscriber who quit and a subscriber whose card declined three times need different responses, and a blended rate can't tell you which one is driving a spike",
+          "Decide whether the metric is logo churn (subscriber count) or revenue churn (dollars lost), and report both if subscribers regularly move between tiers, since a downgrade shows up in one and disappears from the other",
+          "Exclude subscribers who joined partway through the measurement period from the denominator, or switch to average-active-subscribers, so a growth month doesn't mechanically dilute the rate and hide real churn underneath it",
+          "Calculate churn by cohort and by plan tier, not just store-wide - an entry-level plan and a premium plan rarely churn at the same rate, and a blended number hides whichever one actually needs attention",
+        ],
+      },
+      { type: "h2", text: "What counts as a good churn rate benchmark" },
+      {
+        type: "p",
+        text: "Published benchmarks vary by source, but a monthly churn rate in the 5-10% range is commonly cited as normal for consumer subscription boxes with a low price point and little natural lock-in. A replenishment-driven subscription - coffee, supplements, pet food, anything a subscriber genuinely runs out of - tends to run lower, often under 5%, because the product itself gives her a reason to stay rather than the subscription alone. Higher-commitment or B2B subscriptions can run under 2%. None of these are official figures from Shopify or anywhere else; they're informal ranges merchants and industry reports cite, and the more useful benchmark for any one store is almost always its own churn rate from six months ago, tracked with the same definition - not a number borrowed from a brand selling something different at a different price.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Price point and replenishment cycle - a product a subscriber actually runs out of supports lower churn than one that's purely a habit she has to keep choosing",
+          "Program maturity - a newly launched subscription often runs a higher first-90-days churn than its steady-state number, so early cohorts shouldn't set the bar for later ones",
+          "How much churn is involuntary - a program that automatically retries failed renewal payments usually reports lower churn than an identical one that doesn't, purely from recovered declines rather than happier subscribers",
+          "Contract length and price - annual or higher-commitment plans nearly always churn slower than month-to-month, low-price ones, so comparing across plan types with a single number hides more than it shows",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription retries a failed renewal payment automatically over the days after a decline, instead of letting a temporarily-expired card register as an immediate cancellation - which is the single biggest lever most merchants have for pulling involuntary churn out of a blended number in the first place. Subscription analytics, on the Growth plan and above, tracks active, paused, and canceled counts over time, which is the raw material for building whichever churn calculation actually fits a program - store-wide, by plan, by cohort.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is decide the definition for you - it doesn't publish an industry benchmark, tag every cancellation with a reason, or pick logo churn over revenue churn on a merchant's behalf. Those are category and business decisions that vary too much from one subscription program to the next to bake into the app. What AppFox's side of this gives a merchant is the underlying counts, cleanly separated from paused and involuntary noise, so the definition someone chooses can actually be applied consistently instead of reconstructed by hand from an export every time someone asks for the number.",
+      },
+      {
+        type: "p",
+        text: "The coffee brand's 8% wasn't a lie, and neither was the 5-7% range it got compared against - both numbers were doing exactly what their inputs told them to do. What was missing was a definition written down before the comparison got made: which cancellations counted, which subscribers had a fair chance to churn yet, and which benchmark actually described a coffee subscription rather than a snack box. Pick a definition, hold it steady, and the churn rate on the dashboard finally means the same thing this month that it meant last month - which is the entire point of tracking it.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-skip-limit-how-many-is-too-many",
     title: "Shopify Subscription Skip Limits: How Many Skips Is Too Many?",
     excerpt:
