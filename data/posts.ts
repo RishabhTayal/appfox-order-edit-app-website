@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-skip-limit-how-many-is-too-many",
+    title: "Shopify Subscription Skip Limits: How Many Skips Is Too Many?",
+    excerpt:
+      "A snack box subscriber has clicked \"skip this month\" nine renewals in a row - she's paid three times all year, never canceled, and still counts as an active subscriber on every report that matters. Skip solved her problem perfectly. It just never asked how many times in a row it was allowed to.",
+    category: "PLAYBOOK",
+    date: "2026-12-09",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Skip Limits: How Many Is Too Many? | AppFox",
+    metaDescription:
+      "An uncapped skip button on a Shopify subscription can turn into a free, invisible pause - active on paper, unbilled in practice. Here's why unlimited skips distort retention and forecasting, and how to set a skip limit that protects both.",
+    body: [
+      {
+        type: "p",
+        text: "A snack box subscriber signed up in January for the subscribe-and-save price, took her first box, and has clicked \"skip this month\" every renewal since. Nine skips, three charges, no cancellation - she still likes the snacks, she just always seems to have a cabinet's worth left over when the reminder email lands. Nothing about this is against the rules. Skip exists precisely so a subscriber with too much product left doesn't have to cancel and re-subscribe later. But she shows up on every dashboard the merchant runs as an active subscriber, counted in the same bucket as someone paying every single month, and the merchant has no idea nine-tenths of that bucket is actually just her.",
+      },
+      {
+        type: "p",
+        text: "Skip is built to hold back one upcoming shipment and its charge, then let the subscription resume its normal cadence right after - a single, temporary interruption with nothing to remember or re-enable. Nothing about that design caps how many times in a row a subscriber can reach for it. A subscriber who skips once because she's traveling and a subscriber who has quietly decided to skip forever produce the exact same event, over and over, and the subscription record can't tell them apart without something counting the streak. Left uncapped, skip stops being an occasional release valve and becomes a second, unofficial version of pause - one that never shows up as a pause anywhere, and never prompts anyone to ask whether the subscriber still wants to be subscribed at all.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't offering skip without friction - a skip button that's fast and always available is exactly what keeps a subscriber from hitting cancel instead. The mistake is treating every skip as identical regardless of how many came before it, so a subscriber ten skips deep gets the same silent, uncounted pass as someone skipping for the first time.",
+      },
+      { type: "h2", text: "Why an uncapped skip button quietly turns into a free pause" },
+      {
+        type: "ul",
+        items: [
+          "Skip and pause are different actions in the portal, but from a distance they produce a similar outcome - no charge, no shipment - and a long enough run of skips gets a merchant nowhere different than a pause would have, minus the visibility a pause usually gets",
+          "A subscription counted as \"active\" typically means the contract hasn't been canceled, not that it billed recently - a subscriber nine skips into a streak is active by that definition and inactive by any definition that matters for revenue",
+          "Renewal forecasts, replenishment orders, and staffing plans are usually built off the active-subscriber count, not the billed-subscriber count, so a growing pile of serial skippers inflates every number downstream of that one input",
+          "A skip doesn't fire a cancellation event and rarely fires any event at all beyond a line in the subscription's own history, so nothing routes a ten-skip streak to a win-back flow, a support check-in, or anywhere else a real intervention could happen",
+          "Subscribers who've found a skip streak that works for them have functionally opted out of paying while staying opted into every renewal reminder, upsell email, and loyalty-tier calculation built for a paying customer - a quieter cost than churn, but a cost",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A subscriber who cancels stops paying and stops counting. A subscriber who skips forever stops paying and keeps counting.",
+      },
+      { type: "h2", text: "What an unlimited skip streak actually costs" },
+      {
+        type: "p",
+        text: "None of this shows up as a single bad number - it shows up as several good-looking numbers that are each quietly wrong. Active subscriber count runs ahead of billed subscriber count, and the gap between them grows with every serial skipper the program accumulates, which flatters retention metrics right up until someone tries to reconcile subscriber count against actual renewal revenue. Inventory and fulfillment planning built off expected renewals overshoot, because a portion of the \"active\" cohort was never going to generate a box that cycle. And because a skip streak never trips a churn signal, the subscriber never lands in a win-back flow, a save offer, or a support check-in - she just keeps quietly costing nothing and generating nothing, indefinitely, until she finally does cancel, at which point she registers as one lost subscriber instead of the nine skipped renewals that preceded it.",
+      },
+      {
+        type: "quote",
+        text: "An uncapped skip button doesn't lie about a single subscriber. It lies about how many subscribers you actually have.",
+      },
+      { type: "h2", text: "Setting a skip limit that protects retention instead of just revenue" },
+      {
+        type: "ol",
+        items: [
+          "Pick a consecutive-skip threshold before you need one - two or three in a row is a reasonable default for most replenishment products, lower for anything perishable or made to order, and write it down as a rule rather than deciding case by case after the fact",
+          "When a subscriber crosses the threshold, don't block the next skip outright - route her to a different screen that offers pause, a frequency change, or a swap to a smaller size, so the choice in front of her matches what she's actually telling you she wants",
+          "Track consecutive-skip streaks as their own metric, separate from active subscriber count, and put it on the same dashboard as churn - a rising streak count is an early warning that active is overstating billed just as clearly as a cancellation spike is",
+          "Sync skip events - not just pause and cancel - to whatever email or automation platform runs retention, so a subscriber several skips deep can be reached with something better than a generic renewal reminder before she ever gets to cancel",
+          "Revisit the threshold by product category, not store-wide - a supplement brand's tolerable skip streak and a meal-kit's tolerable skip streak aren't the same number, because the cost of a wrong guess is different for each",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's customer portal keeps skip, pause, swap, and cancel as distinct, equally visible actions, and every one of them - including each individual skip - is recorded in the subscription's history rather than collapsing into a single \"no charge this cycle\" line. That history is what makes a skip streak visible at all: a merchant checking a subscriber's record can see nine skips in a row instead of just an active status with no billed order to explain it. Wired through Shopify Flow, those same skip events can trigger a workflow - a tag, a Klaviyo flow, an alert to whoever owns retention - once a subscriber crosses whatever streak a merchant decides is worth a look.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is set or enforce a skip limit on its own - there's no default cap baked into the app, because the right number is a product and margin decision that varies by category, and getting it wrong in either direction has a real cost. What AppFox's side of this gives a merchant is the data to make that decision deliberately: a skip history that's actually queryable, and an event stream that can route a long streak somewhere a person or a flow can act on it, instead of leaving it to surface only when someone happens to open one subscriber's record and count.",
+      },
+      {
+        type: "p",
+        text: "The snack box subscriber nine skips into her streak isn't doing anything wrong, and neither is the skip button that let her do it - both are working exactly as designed. What's missing is a second question the design never asked: at what point does a skip stop being a one-off accommodation and start being a standing decision that deserves its own conversation. Put a number on that question, track the streak that answers it, and \"active subscriber\" starts meaning what it's supposed to mean again.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-remove-item-doesnt-restock",
     title: "Why Removing an Item From a Shopify Order Doesn't Always Restock It",
     excerpt:
