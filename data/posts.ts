@@ -30,6 +30,91 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-damaged-item-refund-without-canceling",
+    title: "How to Refund a Damaged Subscription Box Item Without Canceling the Whole Renewal",
+    excerpt:
+      "A candle box arrives with a shattered jar and the subscriber emails asking for a refund on that one item - not a canceled subscription. The portal she manages her plan from can skip, pause, swap, or cancel a future renewal, but nothing in it touches an order that already shipped broken. That's not a gap in the app. It's two different jobs wearing the same word \"subscription.\"",
+    category: "PLAYBOOK",
+    date: "2026-12-12",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Damaged Item Refund - Without a Cancellation | AppFox",
+    metaDescription:
+      "How to refund a damaged or missing item from a Shopify subscription box renewal without touching the subscription contract itself - why self-service portals don't automate this, and the playbook that keeps a broken jar from becoming a canceled subscriber.",
+    body: [
+      {
+        type: "p",
+        text: "A candle subscriber's December box arrives with the lid caved in and wax leaking through the box seam. She isn't asking to cancel - she loves the scent, she's on month four, and the other two jars are fine. She just wants the ruined one refunded. So she opens her subscription account, the same one she's used to skip a delivery twice before, and looks for a button that does this. There isn't one. Skip, pause, swap, cancel - none of those fix a jar that's already broken sitting on her counter.",
+      },
+      {
+        type: "p",
+        text: "That's not a missing feature. A Shopify subscription damaged item refund and a subscription-contract change are two different kinds of action, and a self-service portal that's good at one is deliberately bad at the other.",
+      },
+      {
+        type: "h2",
+        text: "Why the subscriber portal can't do this - and shouldn't",
+      },
+      {
+        type: "p",
+        text: "Skip, pause, swap, and cancel all edit the same thing: the subscription contract that decides what ships next. None of them touch an order that already exists. A damaged-item refund is the opposite kind of claim - it's about a specific order, already created, already fulfilled, already sitting in a customer's kitchen in pieces. Fixing it means refunding a line on that one order, not changing what the contract does going forward.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Subscription actions are forward-looking - skip delays the next renewal, swap changes what the next one ships, cancel stops future ones. A damaged-item refund is backward-looking: it corrects something that already happened.",
+          "A subscriber's portal operates on the subscription record. The renewal it produced is a separate Shopify order the moment it's created, with its own order number, its own line items, and its own refund history.",
+          "Automating \"was it actually damaged\" removes the one step that keeps a refund honest - a photo, a quick judgment call, sometimes a choice between refunding and reshipping. That's not a rule a portal can apply the same way every time; a self-checkout for damage claims just becomes a self-checkout for free product.",
+          "A renewal is one order among many on the same subscription. Refunding \"the subscriber's account\" without pinning down which specific order shipped broken risks crediting the wrong month or the wrong item entirely.",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A subscription contract decides what ships next. A damaged-item refund is a claim about what already did - and only one of those belongs in self-service.",
+      },
+      {
+        type: "h2",
+        text: "What happens when there's no clear path for it",
+      },
+      {
+        type: "p",
+        text: "Without an obvious next step, a subscriber's first instinct is rarely \"email support and wait.\" It's often \"cancel, and email support after.\" A merchant loses a paying subscriber over a five-dollar jar, not because the product failed her twice, but because the only button she could find that acknowledged something was wrong said cancel. On the support side, a rep who gets \"my box arrived damaged\" has to find the one renewal order out of a dozen a long-tenured subscriber has generated, confirm nothing shipped or renewed since, and issue a refund on that specific order - all before answering the actual question of whether to reship the item too. Do that without a fixed process and every rep improvises a slightly different answer, which is its own kind of damage to trust.",
+      },
+      {
+        type: "quote",
+        text: "A subscriber asking for a refund on one broken jar is not asking to leave. Routing her into the cancellation flow because that's the only visible exit is how a merchant loses her anyway.",
+      },
+      {
+        type: "h2",
+        text: "The playbook: handling it without touching the subscription",
+      },
+      {
+        type: "ol",
+        items: [
+          "Give support a fast lookup from the subscription record straight to the specific renewal order - the order number, date, and line items - so a rep isn't scrolling a subscriber's full order history to find the one box in question.",
+          "Decide the default resolution before the first ticket, not during it: full refund on the damaged item, a reship, or a store credit for a below-cost item - and make that call once, as policy, not per subscriber.",
+          "Refund the line for the damaged item on that exact order, not the subscriber's most recent invoice - a swap or a frequency change made between the damaged shipment and today's ticket means the two orders can already look nothing alike.",
+          "Log the resolution against the subscription record, not just the order - so if the same product damages in transit on three renewals running, that pattern surfaces before a fourth subscriber has to ask.",
+          "Keep the damaged-item request answer entirely separate from the cancel flow - a refund resolves the order; it has no reason to touch what the subscription does next unless the subscriber asks for that too.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Where this lives in AppFox Subscription",
+      },
+      {
+        type: "p",
+        text: "AppFox Subscription's customer portal is built around the actions that change a subscription contract: skip a delivery, pause, swap the product, change frequency, update the card on file, or cancel. It doesn't put a damage or refund claim in that same self-service surface, on purpose - refunding one item from an order that's already shipped is a judgment call, not a rule, and a portal that automated it would be handing out product, not handling complaints.",
+      },
+      {
+        type: "p",
+        text: "What AppFox does make easy is the lookup a rep needs to act on that judgment fast: every renewal is created and billed through Shopify's native checkout and subscription APIs, so the order a damaged item shipped on is a normal Shopify order with a normal Shopify refund available on it - findable from the subscription record in the app rather than buried in a subscriber's full purchase history. A store running AppFox Order Editing & Upsell alongside AppFox Subscription gets the same self-service edit flow a one-time customer already uses for a partial refund extended to that renewal order too, once support has made the call on what to refund.",
+      },
+      {
+        type: "p",
+        text: "The candle subscriber didn't need a smarter portal. She needed the person answering her email to find the right order in ten seconds instead of ten minutes, and a policy already decided so the answer didn't depend on which rep picked up the ticket. Same broken jar, resolved as a five-minute order fix instead of a subscription that quietly ends.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-multi-currency-renewal-price-drift",
     title: "Shopify Subscription Multi-Currency Renewals: Why the Charge Doesn't Match Signup",
     excerpt:
