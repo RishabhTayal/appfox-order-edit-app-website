@@ -30,6 +30,84 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscribe-and-save-abandoned-checkout-recovery",
+    title: "Why Shopify Abandoned Checkout Emails Undersell a Subscribe & Save Cart",
+    excerpt:
+      "A shopper builds a coffee subscription at checkout, gets distracted, and never finishes. The recovery email that goes out an hour later was built for a shopper who almost bought a mug - not one who was seconds from committing to a recurring charge, and the two need completely different emails.",
+    category: "REVENUE",
+    date: "2026-12-17",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscribe & Save Abandoned Checkout Emails: What's Missing | AppFox",
+    metaDescription:
+      "A generic Shopify abandoned checkout email doesn't recover a subscribe-and-save cart the same way it recovers a one-time sale. Here's why the price it shows and the objection it answers are both usually wrong - and what a recovery flow built for a recurring cart actually needs.",
+    body: [
+      {
+        type: "p",
+        text: "A shopper on a coffee brand's site picks a bag, toggles subscribe-and-save for 15% off, gets to the shipping step, and closes the tab - a phone call, a kid in the next room, nothing dramatic. An hour later, Shopify's abandoned checkout email lands: a product photo, the one-time price, and \"complete your order.\" She almost does, then notices the number is higher than the one she remembers seeing, decides she must have misread it the first time, and closes the email instead. She had the subscription discount applied when she left. The email that was supposed to bring her back showed her the price from before she applied it.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the checkout itself was broken - her cart still had the selling plan attached, and clicking through to finish it would have shown the right total. The email that was supposed to get her back to that cart just wasn't built to know a selling plan was part of it. It was built for the shopper who left a mug in her cart, and it got sent, unmodified, to a shopper who was seconds from committing to a recurring charge instead.",
+      },
+      {
+        type: "h2",
+        text: "Why a subscribe cart needs a different recovery email than a one-time cart",
+      },
+      {
+        type: "ul",
+        items: [
+          "Most abandoned-checkout templates - Shopify's default recovery email and most generic Klaviyo or Omnisend flows - pull the price to display from the product's own catalog price, not from the actual checkout line item with the selling plan discount applied, so a subscriber's recovery email can show the higher one-time number by default",
+          "A shopper who abandons a one-time purchase is usually just distracted or price-checking elsewhere; a shopper who abandons a subscribe-and-save cart may have paused on the recurring part specifically - what happens if she needs to cancel, whether the price can change later, how often it actually ships - and a generic \"still want it?\" nudge answers none of that",
+          "A one-time recovery email only has to restate value; a subscription recovery email has to restate value and remove a hesitation that a one-time email never had to address in the first place",
+          "The urgency lever most recovery emails reach for - low stock, a countdown timer - means little to someone weighing a recurring commitment, and can read as pressure tactics applied to the wrong kind of decision",
+          "A subscriber who does click back through a stale recovery link can land on a checkout that quietly dropped the selling plan if the link was generated generically rather than from the actual abandoned session, turning a near-subscriber back into someone browsing a one-time product page",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A shopper who paused on a recurring charge isn't waiting to be reminded what the product looks like. She's waiting to be told what happens after she clicks buy.",
+      },
+      {
+        type: "h2",
+        text: "What a generic recovery email actually costs",
+      },
+      {
+        type: "p",
+        text: "Subscribe-and-save carts already convert at a lower rate than one-time carts do, for the reason above - it's a bigger decision, made with less certainty, and more of them stall out before checkout completes. That makes the recovery email doing more work per cart, not less: a store that treats subscription abandonment as the same event as one-time abandonment is applying its weakest recovery message to its highest-friction cart. The shopper who saw the wrong price didn't decide against subscribing. She decided the email was pointing her at a different order than the one she'd actually built, and stopped trusting it enough to click through and check.",
+      },
+      {
+        type: "quote",
+        text: "A one-time cart gets abandoned because a shopper got distracted. A subscribe cart gets abandoned because a shopper got distracted while also deciding whether to trust you with a recurring charge - and a recovery email that only handles the first reason is answering the wrong question.",
+      },
+      {
+        type: "h2",
+        text: "Building a recovery flow that treats a subscribe cart differently",
+      },
+      {
+        type: "ol",
+        items: [
+          "Pull the displayed price from the actual abandoned checkout's line item, selling plan and all, rather than from a generic product feed - the number in the email has to match the number she saw when she left",
+          "Split subscribe-and-save abandonment into its own email flow instead of routing it through the same template as one-time abandonment, even if it means maintaining two flows instead of one",
+          "Lead with the recurring terms a hesitant subscriber actually needs answered - the price, the frequency, and a plain line that skipping or canceling takes one click - before asking her to click back through at all",
+          "Drop the low-stock or countdown-timer urgency pattern on subscription recovery emails specifically; it's built for a decision that isn't the one she's actually weighing",
+          "Generate the recovery link from the specific abandoned session rather than a generic checkout URL for the product, so clicking through restores the selling plan she picked instead of dropping her back onto the one-time page",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Where this lives in AppFox Subscription",
+      },
+      {
+        type: "p",
+        text: "AppFox Subscription's widget attaches the selling plan to the cart the moment a shopper picks subscribe-and-save, and that selection is what a checkout - abandoned or completed - actually carries, so the data needed to recover the right price is already sitting in the checkout session rather than something a recovery tool has to reconstruct after the fact. What AppFox doesn't do is write or send the recovery email itself - that's the job of Shopify's native abandoned checkout emails or a marketing platform like Klaviyo, and either one has to be pointed at the checkout's real line item price and configured with subscription-specific copy to use what's already there. The plan is attached correctly either way; whether the recovery email reads it correctly is a template decision, not one the widget makes on its own.",
+      },
+      {
+        type: "p",
+        text: "The coffee brand's shopper didn't decide against a subscription. She decided an email that showed her the wrong price wasn't worth trusting enough to click, and never found out the cart she'd have gone back to still had the right one waiting. A recovery flow that shows the actual number and answers the actual hesitation doesn't need a bigger discount to work. It just needs to be built for the cart that was actually abandoned.",
+      },
+    ],
+  },
+  {
     slug: "order-edit-vs-return-when-to-let-a-customer-fix-it",
     title: "Order Edit vs. Return: When to Let a Shopify Customer Fix It Instead of Sending It Back",
     excerpt:
