@@ -30,6 +30,93 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "print-on-demand-orders-need-a-different-order-edit-flow",
+    title: "Why Print-on-Demand Orders Need a Different Order-Edit Flow",
+    excerpt:
+      "A print-on-demand item shows as in stock right up until it's a finished garment - because it has no stock to run out of. The real deadline on a print-on-demand order edit isn't a warehouse pick. It's a print head that started running before the customer finished typing.",
+    category: "GUIDE",
+    date: "2026-12-15",
+    author: "The AppFox Team",
+    metaTitle: "Print-on-Demand Order Edits: Why They Need a Different Flow | AppFox",
+    metaDescription:
+      "Print-on-demand order edits look identical to a normal swap right up until the garment is already printed. Here's why stock checks and fulfillment cutoffs don't protect a POD line item, and how to gate print-on-demand orders on the provider's real clock.",
+    body: [
+      {
+        type: "p",
+        text: "An apparel brand runs its core catalog from its own warehouse and a small custom-art line through Printful - a customer picks a design, a size, and a shirt color, and the order syncs to Printful's queue automatically the moment checkout completes. A customer orders a large in the fox-and-pine design, then opens the order status page nine minutes later to change it to a medium. She's used this exact flow before, on a warehouse hoodie, and it worked fine. This time the eligibility engine checks the edit window, checks that the medium is \"in stock,\" and lets the swap through. What she doesn't know is that Printful pulled the order via its API about ninety seconds after checkout, queued the print job, and by the time her swap goes through, a large fox-and-pine shirt is already under the press. Her order status page now says medium. The box that ships two days later says large, because that's the only shirt that ever actually got made.",
+      },
+      {
+        type: "p",
+        text: "The size swap wasn't the problem - it's the same low-risk edit a self-service flow exists to absorb. The problem is that a print-on-demand order edit runs on a completely different clock than a warehouse edit does, and nothing about the eligibility check that approved it was built to notice the difference.",
+      },
+      {
+        type: "h2",
+        text: "Why the normal safety checks don't protect a print-on-demand line item",
+      },
+      {
+        type: "p",
+        text: "A standard order-edit flow leans on two signals to decide whether a swap is safe: is the item still in stock, and has the order passed its fulfillment cutoff. Both of those signals are built for physical inventory sitting on a shelf. A print-on-demand item doesn't have physical inventory sitting anywhere until someone presses print, which is exactly what breaks both checks at once.",
+      },
+      {
+        type: "ul",
+        items: [
+          "A print-on-demand variant reports as in stock - often \"unlimited\" - because nothing is actually being counted; there's no shelf quantity to run low, so the one signal a normal eligibility engine leans on hardest is telling it nothing at all",
+          "Shopify's own fulfillment status on the line item stays \"unfulfilled\" until the print-on-demand provider ships the item and syncs tracking back - which can be a day or more after the print itself already ran, so a cutoff gated on fulfillment status is checking a status that hasn't changed yet for a reason that has nothing to do with whether it's safe to edit",
+          "A print-on-demand provider's own order sync can pull a new order in under two minutes - faster than almost any warehouse pick, and often faster than the customer finishes reading their confirmation email",
+          "Once a design is printed, embroidered, or heat-pressed onto a blank, there's no partial recovery the way a drop-ship vendor might still cancel a purchase order before it's picked - the blank is gone the moment ink or thread commits to it, full stop, not a maybe",
+          "A store running multiple print-on-demand partners for different product lines can have a different sync speed for every provider, so \"the edit window\" for a print-on-demand order isn't one number - it's as many numbers as the store has providers",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A stock check answers whether a shelf has the item. A print-on-demand shirt was never on a shelf - it was made when the order arrived, which is exactly when the real deadline already passed.",
+      },
+      {
+        type: "h2",
+        text: "What a too-late print-on-demand edit actually costs",
+      },
+      {
+        type: "p",
+        text: "When the edit outruns the print queue, the brand is out the full cost of a garment nobody can sell - a custom-printed shirt in the wrong size has no other buyer, so it isn't a restock problem, it's a straight write-off plus a second unit to print and ship if the store wants to make the customer's edit right. None of that shows up as a failed edit in the moment. The swap succeeded, the order record updated, the confirmation email said medium. The mismatch only surfaces two days later when a large shirt with the wrong shipping label arrives, and the support conversation that follows is a reprint and an apology for an edit that looked, on the store's own dashboard, like it had already worked.",
+      },
+      {
+        type: "quote",
+        text: "The order status page didn't lie to her. It just answered a question - is this size in stock - that a print-on-demand item was never going to be able to answer honestly in the first place.",
+      },
+      {
+        type: "h2",
+        text: "Gating print-on-demand orders on the provider's clock, not the warehouse's",
+      },
+      {
+        type: "ol",
+        items: [
+          "Flag every SKU fulfilled through a print-on-demand provider at the product or vendor level the moment the order is created, rather than trying to infer it later from a fulfillment status that won't change for days.",
+          "Set the edit cutoff for a flagged line item to match how fast that specific provider actually pulls new orders - for most print-on-demand integrations that's minutes, not the hours or days a warehouse cutoff assumes.",
+          "Stop treating \"in stock\" as a safety signal on a flagged line item at all - an unlimited or always-available print-on-demand variant tells you nothing about whether it's safe to change, so the gate has to run on time elapsed since order creation instead.",
+          "Route any size, color, or design change on a flagged line item to manual review or an automatic block by default once the provider's sync window has passed, instead of letting it auto-apply the way an edit on a warehouse SKU would.",
+          "If the print-on-demand integration exposes an order-update or cancel call before print starts, use it to attempt a pull-back the moment the edit is submitted - and don't show the customer a successful swap until that call confirms the original job was actually stopped.",
+          "Log which flagged SKUs and providers generate too-late edits over time - a print-on-demand line with a five-minute real cutoff and a customer base that edits at minute six is a cutoff to shorten further or a design to gate out of self-service edits entirely, not a one-off loss to absorb quietly.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Where this lives in AppFox Order Editing & Upsell",
+      },
+      {
+        type: "p",
+        text: "AppFox's eligibility engine already evaluates edit windows and fulfillment cutoffs per line item rather than per order, which is exactly the granularity a print-on-demand SKU needs sitting next to a warehouse one on the same cart - a provider flag, set from a tag or metafield the print-on-demand app already writes, drops into the same rule set as the time-based and stock-based checks AppFox runs elsewhere. A flagged line item can carry a cutoff measured in minutes and route straight to the approval queue or an automatic block, while an ordinary in-stock SKU on the same order keeps auto-applying the way it should.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is reach into Printful's, Printify's, or any other provider's print queue to check whether a job has actually started, or to pull one back once it has - that connection lives in whatever app manages the print-on-demand relationship, if that app exposes it at all. AppFox's honest job here is narrower and, for most stores, sufficient: stop offering the edit as auto-approved once the real-world window has almost certainly closed, instead of letting a customer submit a swap that looks accepted on both ends and was never going to reach the print bed in time.",
+      },
+      {
+        type: "p",
+        text: "The customer swapping her size did everything the order status page told her she could do. The gap wasn't her judgment - it was a cutoff built for a warehouse pick, applied to a shirt that was already under the press before she finished typing. Set the print-on-demand cutoff to match the provider's actual sync speed once, and the swap that's still genuinely safe stops looking identical to the one that was already too late the moment checkout completed.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-damaged-item-refund-without-canceling",
     title: "How to Refund a Damaged Subscription Box Item Without Canceling the Whole Renewal",
     excerpt:
