@@ -30,6 +30,72 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-tiered-pricing-structure",
+    title: "How to Structure Tiered Pricing for a Shopify Subscription Program",
+    excerpt:
+      "A supplement brand launches three subscription tiers expecting most subscribers to land in the middle one. Almost everyone picks the cheapest instead - because at the moment of signup, a discount percentage is the only difference between tiers a subscriber can actually see.",
+    category: "GUIDE",
+    date: "2026-12-18",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Tiered Pricing: A Structure That Converts | AppFox",
+    metaDescription:
+      "Good-better-best pricing doesn't automatically carry over to a Shopify subscription. Here's why subscription pricing tiers get chosen differently than one-time product tiers, and how to structure yours so subscribers pick the plan that fits - not just the cheapest one on the page.",
+    body: [
+      {
+        type: "p",
+        text: "A supplement brand launches its subscription program with three tiers - Basic, Plus, and Premium - priced the way a SaaS company prices seats: a modest discount on the cheapest plan, a better one in the middle, the best reserved for the top. The team expects most subscribers to land in the middle, the way pricing-page conventional wisdom says they will. Three months in, the split isn't close. Roughly nine in ten subscribers are on Basic. Plus and Premium exist, technically, but they're not doing the job they were built for - and nobody can point to a single subscriber who upgraded after signing up.",
+      },
+      {
+        type: "p",
+        text: "The plans aren't broken. Each one is priced sensibly against the one below it, and the perks stacked onto Plus and Premium are real - bonus items, priority shipping, exclusive flavors. The problem sits earlier than the pricing table: at the moment a shopper is deciding which tier to pick, none of those perks are things she's experienced yet. All she can compare is a percentage next to a price. Given that choice alone, the cheapest tier that still saves her money isn't a compromise. It's the obviously correct answer.",
+      },
+      { type: "h2", text: "Why subscription pricing tiers don't behave like SaaS or product tiers" },
+      {
+        type: "ul",
+        items: [
+          "A SaaS buyer choosing a plan can usually see the extra feature the moment they log in; a subscriber choosing a box tier is promised a perk that only shows up on a renewal weeks or months away, so it has no weight in the decision she's making right now",
+          "When tiers differ mainly by discount depth - 10% off, 15% off, 20% off - the product itself is identical across all three, and a shopper has no reason to pay more for the same item just to unlock a bigger number she was going to get anyway by picking the cheap tier",
+          "A subscribe-and-save decision is already a bigger ask than a one-time purchase, since it's a recurring charge instead of a single one; stacking a second decision on top of it - which of three tiers - adds friction to a moment where a shopper is already hesitating",
+          "Perks framed as loyalty rewards (\"unlocks at your third renewal,\" \"member pricing after 90 days\") ask a first-time subscriber to trust a promise about a relationship she hasn't had yet, which is a heavier lift than showing her something she gets today",
+          "Without an easy way to move tiers later, a subscriber who does eventually notice what Plus or Premium offers has no path to it that doesn't involve canceling and resubscribing or emailing support - so even a subscriber who'd upgrade often just doesn't",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A subscriber comparing tiers for the first time is comparing a discount percentage against a price. Everything else on the pricing table is a promise she hasn't collected on yet.",
+      },
+      { type: "h2", text: "What makes a tier worth choosing at signup" },
+      {
+        type: "p",
+        text: "The fix isn't a bigger gap between tiers or a longer feature list on the top one - it's moving the differentiator to something a subscriber can see in her cart today, not something she has to trust will show up later. A bigger size, a curated versus build-your-own format, an item bundled into the first shipment, a faster shipping method selected at checkout: all of these are visible on the order confirmation the moment she completes it, the same way the price and the discount are. A perk that only exists as a future promise competes with nothing, because nothing about it is real yet from where she's standing.",
+      },
+      {
+        type: "quote",
+        text: "A subscriber upgrades for what she can see in her cart today, not for a perk she has to take on faith until renewal three.",
+      },
+      { type: "h2", text: "A structure for tiers that actually convert" },
+      {
+        type: "ol",
+        items: [
+          "Launch with a single plan and one discount rate before adding tiers at all - if a straightforward offer doesn't convert on its own, a second and third tier won't fix that, they'll just add a decision on top of a problem",
+          "When tiers are added, differentiate by something tangible in the box or the checkout line - format, quantity, an included item, shipping speed - rather than by discount percentage alone, since identical products at different prices only ever argue for the cheapest one",
+          "Show the differentiator in the cart or the widget itself, not behind a link to a separate comparison page a subscriber has to go find before she's decided anything is worth comparing",
+          "Cap it at two or three tiers - each additional option is one more comparison a shopper has to run through before completing a purchase she was already on the fence about",
+          "Let a subscriber move between tiers herself from the customer portal, without a support ticket - the moment she notices a higher tier is worth it should be the easiest moment to act on it, not the moment friction shows up for the first time",
+        ],
+      },
+      { type: "h2", text: "How AppFox Subscription supports tiered pricing" },
+      {
+        type: "p",
+        text: "AppFox Subscription's subscribe-and-save widget supports percentage or fixed discounts, tiered pricing, trial periods, and bundled offerings, so a merchant can structure tiers around format and quantity rather than discount depth alone, and put the difference where a subscriber actually sees it - on the product page and in the cart, not on a separate pricing page. The customer self-service portal lets a subscriber skip, pause, swap products, or update her plan without a support ticket, so a subscriber who notices a higher tier is worth it after her second renewal can move to it herself instead of the upgrade path running through an inbox. Bundling and build-a-box - the actual mechanics behind a curated-versus-custom tier - are available starting on the Business plan, and subscription analytics on Growth and above shows which tier subscribers are actually choosing, so a program can be adjusted around real signup behavior instead of a guess made once at launch and left alone.",
+      },
+      {
+        type: "p",
+        text: "The supplement brand didn't need a bigger discount on Plus or a longer perks list on Premium. It needed a reason to pick either one that a first-time subscriber could see before she'd ever received a single box - a bigger bundle, a better format, something sitting in the cart next to the price instead of a promise waiting for renewal three. Tiers built around what's visible today convert on their own. Tiers built around what's promised for later mostly just get skipped for whichever one is cheapest.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscribe-and-save-abandoned-checkout-recovery",
     title: "Why Shopify Abandoned Checkout Emails Undersell a Subscribe & Save Cart",
     excerpt:
