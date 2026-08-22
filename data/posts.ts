@@ -30,6 +30,98 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "order-edit-vs-return-when-to-let-a-customer-fix-it",
+    title: "Order Edit vs. Return: When to Let a Shopify Customer Fix It Instead of Sending It Back",
+    excerpt:
+      "A customer catches their own mistake nine minutes after checkout - wrong size, wrong color, wrong address - and most stores still route it through the same return process built for an item that already arrived broken. That's not a policy. It's a missing decision: when should a self-service order edit replace a return outright, and when does it not get to?",
+    category: "GUIDE",
+    date: "2026-12-16",
+    author: "The AppFox Team",
+    metaTitle: "Order Edit vs. Return: When to Let Shopify Customers Fix It | AppFox",
+    metaDescription:
+      "A wrong size or color doesn't have to become a return. The decision framework for when a Shopify order edit can replace a return - and when it can't - plus what it actually costs a store to default to the wrong one.",
+    body: [
+      {
+        type: "p",
+        text: "A customer orders a jacket, picks medium out of habit, and realizes nine minutes later she wears a small in that brand. The order hasn't been picked yet - it's sitting in a fulfillment queue behind forty other orders placed that hour. But her only real option, on most stores, is to wait for the wrong jacket to arrive and start a return. Not because the mistake needed a return. Because nothing in the order flow noticed there was still time to just fix it.",
+      },
+      {
+        type: "p",
+        text: "That's not a returns problem wearing a returns process. It's an edit that got routed through the most expensive tool available because no smaller one existed - and most Shopify stores never built the decision that would have caught it: is this actually a return, or is it just a mistake that hasn't shipped yet.",
+      },
+      {
+        type: "h2",
+        text: "Why routing every mistake through a return is the expensive default",
+      },
+      {
+        type: "ul",
+        items: [
+          "Pick, pack, and shipping cost is spent the moment the box leaves - a return doesn't get any of it back, it just adds a second shipment on top",
+          "Return shipping and restocking labor get spent on an item that was never actually wrong - it just needed to be one size or one color different",
+          "A refund doesn't guarantee a reorder - a customer refunded for a jacket she no longer has any reason to rebuy is a closed sale, not a paused one",
+          "The refund ties up settled revenue and can hold a chargeback-risk flag on the account for days longer than an edit that never touched the payment at all",
+          "A human still has to review the return request in most setups, so the store pays a support ticket either way - the return just adds a shipping cycle on top of it",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A return processes a mistake after it becomes a package. An edit fixes the same mistake before it becomes one - and the size of the fix has nothing to do with how the customer feels about it. It has to do with whether anyone checked the fulfillment queue before defaulting to the return form.",
+      },
+      {
+        type: "h2",
+        text: "What actually decides whether an edit or a return is the right tool",
+      },
+      {
+        type: "ol",
+        items: [
+          "Has the item been picked or packed yet - if fulfillment hasn't started, an edit is strictly cheaper than a return for the store, the warehouse, and the customer",
+          "Is the requested change reversible in inventory - swapping the size or color of an unshipped item only needs stock in the new variant, not a reverse-logistics leg to get the old one back",
+          "Does the edit change the order total - and if it does, can the original payment method actually be adjusted; a gift card, Klarna, or Afterpay order can make an otherwise-safe edit unsafe purely on the payment side",
+          "Is the item already out for delivery or in the customer's hands - once that's true, edit is off the table entirely and return or exchange is the only honest path left",
+          "Is this a policy-sensitive category - final sale, personalized, or digital goods can rule out both self-service edits and easy returns, and that has to be checked regardless of timing",
+        ],
+      },
+      {
+        type: "p",
+        text: "None of those five checks are hard to run. What's hard is that most stores only built the return path, so every one of these questions gets answered by default - as \"yes, send it through returns\" - instead of actually being asked. A store that ships a hundred wrong-size orders a month and routes all of them through returns is paying full return logistics on every case where the honest answer to question one was \"no, it hasn't shipped yet.\"",
+      },
+      {
+        type: "quote",
+        text: "The two-minute edit and the two-week return solve the exact same customer mistake. The only thing that decided which one happened was whether the store noticed the order hadn't shipped yet - not the size of the mistake, and not what the customer deserved.",
+      },
+      {
+        type: "h2",
+        text: "Building the edit-first, return-as-fallback flow",
+      },
+      {
+        type: "ol",
+        items: [
+          "Gate self-service edit eligibility on fulfillment status, not on order age - a two-day-old unfulfilled order is still editable; a ten-minute-old fulfilled one usually isn't",
+          "Auto-approve the safe changes - a size or color swap at equal or higher price on an unshipped item - so the fix happens without a human in the loop at all",
+          "Route price-decreasing edits and payment-method-incompatible edits to manual review instead of an automatic return; those need a person, but they still don't need a warehouse",
+          "The moment fulfillment starts, switch that same request over to your return or exchange flow automatically instead of leaving the customer stuck between two systems that both say no",
+          "Track how many edit requests arrive after your cutoff - a high number means your fulfillment speed outran your customers' expectations, and that's a cutoff or a communication problem, not a reason to shrug and send them all to returns",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Where this lives in AppFox Order Editing & Upsell",
+      },
+      {
+        type: "p",
+        text: "AppFox's eligibility engine checks fulfillment status and the edit window per line item, not per order, so it can auto-approve a size or color swap while an item is still unfulfilled and hold anything past that point - or anything that touches a payment method it can't safely adjust - for manual approval instead of letting it through blind. That's the edit half of the decision made automatically, on every order, without a support agent manually checking whether a warehouse has touched the box yet.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is process the return leg once an item has actually shipped - that's a return or exchange app's job, and a good integration hands the customer off to it cleanly instead of leaving them stuck on an edit form that can no longer help. The honest split is: AppFox owns the window where a fix is still cheaper than a return, and gets out of the way the moment that window closes.",
+      },
+      {
+        type: "p",
+        text: "The customer who ordered the wrong size didn't need a better return policy. She needed someone to notice that the jacket hadn't been packed yet - that the mistake she caught in nine minutes was still, for a little while longer, cheaper to fix than to ship back.",
+      },
+    ],
+  },
+  {
     slug: "print-on-demand-orders-need-a-different-order-edit-flow",
     title: "Why Print-on-Demand Orders Need a Different Order-Edit Flow",
     excerpt:
