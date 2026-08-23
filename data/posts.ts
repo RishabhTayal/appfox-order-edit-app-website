@@ -30,6 +30,72 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-free-trial-length",
+    title: "How Long Should a Free Trial Be for a Shopify Subscription Program?",
+    excerpt:
+      "A coffee brand copies a competitor's 30-day free trial and watches month-one cancellations spike the moment the first charge lands - because by day thirty, the subscriber who signed up on impulse has forgotten why. Trial length isn't a number to borrow. It's tied to how long the product itself takes to prove its case.",
+    category: "GUIDE",
+    date: "2026-12-22",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Free Trial Length: How to Choose It | AppFox",
+    metaDescription:
+      "Picking a Shopify subscription free trial length by copying a competitor's number is a common mistake. Here's how to size a trial to the time your product actually takes to prove its value - and what happens to conversion and churn when you get it wrong.",
+    body: [
+      {
+        type: "p",
+        text: "A coffee subscription brand launches with a 30-day free trial because the market leader in its category runs one - a full bag ships free, the first charge doesn't post until day thirty, and the signup page converts well because free-for-a-month is an easy yes. The trouble shows up exactly on schedule. By the time the first charge lands, most of that first cohort has already finished the bag, moved on, and half-forgotten they signed up for anything recurring. The renewal reads less like a subscription converting and more like a surprise charge, and the cancellation rate in week five is worse than the brand's paid-from-day-one control group ever was.",
+      },
+      {
+        type: "p",
+        text: "Thirty days wasn't picked for a bad reason. It matched what a bigger, better-resourced competitor does, and matching a category leader is a defensible-sounding call. The mistake is treating trial length as a number you can borrow from someone else's program instead of a number tied to your own product - specifically, to how long it actually takes a new subscriber to open the box, use what's inside, and form an opinion about whether it's worth paying for again.",
+      },
+      { type: "h2", text: "Why the trial-length number gets picked the wrong way" },
+      {
+        type: "ul",
+        items: [
+          "Matching a competitor's trial length copies the number without copying the product, the shipping speed, or the unboxing experience the number was actually sized around",
+          "A round number - 7 days, 14 days, 30 days - is easy to configure and easy to put on a pricing page, which makes it feel like a decision even when nobody checked it against how the product is actually used",
+          "A trial sized around the marketing goal alone - maximize signups, minimize friction - optimizes for the moment someone clicks subscribe, not the moment weeks later when the first real charge has to feel earned",
+          "Nobody maps the trial against the product's own usage cycle - a skincare routine that takes three weeks to show a visible difference needs a different trial than a coffee bag someone finishes in ten days",
+          "A trial that's never revisited after launch stays wherever it started, even after real cohort data shows subscribers converting - or churning - on a schedule the original number never accounted for",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A free trial isn't a discount. It's the amount of time you're betting the product needs to make its own case before the first charge has to.",
+      },
+      { type: "h2", text: "The two ways a mismatched trial actually fails" },
+      {
+        type: "p",
+        text: "A trial that's too short charges before the subscriber has experienced anything - the product hasn't been used enough to justify a recurring charge, so the first renewal reads as presumptuous rather than earned, and cancellations cluster right at that first bill. A trial that's too long does the opposite: by the time the charge lands, the subscriber's attention has moved on entirely, the free period has quietly become the whole relationship, and the first real charge lands as a surprise instead of a natural next step. Both failures show up as a spike in cancellations at the same point in the lifecycle - it's just a different point, and the fix runs in opposite directions depending on which one a program actually has.",
+      },
+      {
+        type: "quote",
+        text: "A trial that ends before the product has proven itself and a trial that runs long enough to be forgotten fail the same way - the first charge stops feeling like a subscriber's own decision.",
+      },
+      { type: "h2", text: "How to size a trial to the product, not the competitor" },
+      {
+        type: "ol",
+        items: [
+          "Start from the product's own usage cycle - how many days does it actually take a new customer to unbox, use, and form a real opinion about a consumable, or to notice a result from something like skincare or a supplement - and set the trial at or just past that point, not before it",
+          "Send a reminder ahead of the conversion charge, timed to when a subscriber can still act on it - a day-of notice after attention has already moved on doesn't give her a real chance to skip, pause, or cancel before paying",
+          "Treat the trial length as a hypothesis to test, not a launch-day decision to leave alone - compare cancellation timing across a couple of trial lengths on a real cohort before locking one in permanently",
+          "Watch where cancellations cluster once the program is running - a spike right at the first charge usually means the trial is mistimed against the product cycle, not that the subscribers themselves were a poor fit",
+          "Match the trial to what the product category actually needs rather than to a competitor's number - a curated box, a consumable replenishment, and a digital or membership product each have a different natural window before a subscriber can honestly judge the value",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "Trial periods are one of the pricing levers AppFox Subscription's widgets support directly, alongside percentage and fixed subscribe-and-save discounts and tiered pricing - so a trial length is something a merchant sets and can revise, not a hardcoded default baked into the checkout flow. The customer self-service portal ships as part of the core app, so a subscriber approaching her first real charge can skip, pause, or cancel herself instead of that first renewal being the only moment she interacts with the subscription again. Subscription analytics on the Growth plan and above tracks cancellation timing against the trial window, which is what turns \"we picked thirty days\" into \"here's where cohorts actually churn, and here's the trial length that moves it.\"",
+      },
+      {
+        type: "p",
+        text: "The coffee brand's 30-day trial wasn't a bad idea borrowed from a bad source - the competitor it copied genuinely runs a program that works at that length, for a product and a shipping cadence built around it. What didn't carry over was the reason behind the number. A subscriber who finishes the bag in ten days and gets charged on day thirty isn't reacting to a bad product. She's reacting to a trial that ran twenty days past the point where the product had already made its case - and the fix isn't a shorter trial for its own sake, it's a trial sized to match how long the coffee itself actually takes to sell her.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscriptions-api-vs-subscription-app",
     title: "Shopify Subscriptions API vs. a Subscription App: What Building In-House Actually Costs",
     excerpt:
