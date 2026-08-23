@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscriptions-api-vs-subscription-app",
+    title: "Shopify Subscriptions API vs. a Subscription App: What Building In-House Actually Costs",
+    excerpt:
+      "An engineer builds subscription billing directly on Shopify's Selling Plans API to skip an app's per-subscriber fee, and the first cohort renews without a hitch. The retries, the self-service portal, and the churn dashboard - the parts of a subscription program that actually take the maintenance - are the parts that ship later, one support ticket at a time.",
+    category: "GUIDE",
+    date: "2026-12-21",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscriptions API vs. a Subscription App: Build or Buy | AppFox",
+    metaDescription:
+      "Shopify's Selling Plans API can power a custom subscription build, but renewals are the easy three weeks. Here's what a build-vs-buy decision actually costs once retries, self-service, and analytics enter the picture, and how to weigh a custom build against a subscription app.",
+    body: [
+      {
+        type: "p",
+        text: "A 12-person DTC supplement brand has one backend engineer who's comfortable in Shopify's GraphQL APIs, and a product team that doesn't love handing 1-2% of subscription revenue to a third-party app on top of Shopify's own fees. So instead of installing a subscription app, the engineer builds directly on Shopify's Selling Plans API: a custom widget on the product page, a webhook that fires on each renewal, a cron job that retries a failed card once. It ships in three weeks, the first 40 subscribers renew without incident, and the team calls it done - cheaper than any app, and theirs to control.",
+      },
+      {
+        type: "p",
+        text: "Nothing about that decision is wrong on day one. The Selling Plans API is real, well-documented, and exactly what a subscription app is built on top of. The mistake isn't building against it - it's assuming that shipping the renewal logic is the same as shipping the subscription program. Renewal is the one part that fails loudly and gets fixed first. Everything else - what a subscriber can do without emailing support, what happens on a second and third failed charge, whether the numbers a team is looking at next quarter mean anything - gets built later, usually only after someone asks for it.",
+      },
+      { type: "h2", text: "What a custom API build usually leaves out" },
+      {
+        type: "ul",
+        items: [
+          "A retry schedule for failed renewals is easy to build for the common decline code and easy to leave incomplete for the dozen others - insufficient funds, an expired card, a bank fraud hold - each of which arguably deserves a different number of attempts and a different email",
+          "Skip, pause, swap, and update-payment aren't renewal logic - they're a second application with their own UI, their own auth against a subscriber's account, and their own edge cases, and they usually get built one support ticket at a time instead of all at once before launch",
+          "Subscription analytics - churn by cohort, MRR, which plan actually converts - is a reporting layer on top of billing data, not something a renewal webhook produces on its own, so it's either built from scratch or never built at all",
+          "Compliance details that shift under a business - a cancellation flow as easy as signup, SMS consent language, sales tax on a renewal that crosses a new nexus threshold - are moving targets a subscription app maintains as part of the product, not a one-time build a team finishes and walks away from",
+          "The whole system usually has one owner - the engineer who built it - and when that person changes teams, leaves the company, or is just busy on something else, the subscription program's only maintainer goes with them",
+        ],
+      },
+      {
+        type: "h3",
+        text: "Building the renewal is the fast, visible three weeks. Everything a subscriber actually notices after that is the part nobody scoped.",
+      },
+      { type: "h2", text: "What the gap costs once subscribers show up" },
+      {
+        type: "p",
+        text: "None of this shows up while the program is small. At 40 subscribers, a missed retry or a skip request is a Slack message to the one engineer who built it. At 4,000, it's a support queue, and the fixes compete with whatever else that engineer - who by now may not still be at the company - is supposed to be building. A subscriber who wants to pause and can't finds the same inbox every other issue goes to, and a program that was cheaper to build than an app starts costing more than one in the support hours it takes to keep patching around what a portal would have handled on its own.",
+      },
+      {
+        type: "quote",
+        text: "The Selling Plans API renews a charge. It doesn't skip a delivery, retry a decline eight ways, or tell you which cohort is about to churn - and building all three later costs more than the fee the build was meant to avoid.",
+      },
+      { type: "h2", text: "A build-vs-buy framework, not a default answer" },
+      {
+        type: "ol",
+        items: [
+          "Count the actual surface area before comparing cost - renewal, retries, a self-service portal, analytics, and compliance updates are five separate ongoing projects, not one, and a per-subscription app fee buys maintenance on all five at once",
+          "Weigh the fee against engineering hours at the rate they're actually billed internally, not against zero - API access is free, but the code running on it isn't, and it needs updating indefinitely, not just once at launch",
+          "Ask who maintains it in eighteen months, by name - if the honest answer is \"whoever's around,\" that's a real cost of the build, even though it never shows up on an invoice",
+          "Test the decline-retry and cancellation paths specifically before shipping, since those are the two places a custom build is most likely to be thinner than it looks - a happy-path renewal working is not the same as a subscription program working",
+          "Revisit the decision at a real inflection point - a subscriber count where support tickets start competing with the engineering roadmap - rather than only at launch, since the right answer at 40 subscribers and at 4,000 isn't the same one",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription runs on the same Shopify Checkout and Selling Plans APIs a custom build would use - subscribers pay on the checkout they already trust, and nothing about the underlying billing is different from what an in-house build produces. What ships built-in instead of scoped separately is the rest of it: automatic retries on a failed renewal, a customer portal where a subscriber can skip, pause, swap, update a card, or cancel without a ticket, and subscription analytics - churn, MRR, plan performance - on the Growth plan and above. The Free plan covers up to 50 active subscriptions at 0% transaction fees with no time limit, which is enough room to compare a real cohort against a custom build's actual maintenance cost before either one has scaled past the point where switching is easy.",
+      },
+      {
+        type: "p",
+        text: "None of that erases every reason to build custom. A subscription tied to a proprietary loyalty ledger, a billing rule the Selling Plans API genuinely can't express, or a business already committed to a bespoke stack still needs real engineering regardless of which foundation it sits on. What an app changes is which parts of the program a merchant has to build and maintain personally, and which ones ship already handled - and for most subscription programs, the list of parts worth building from scratch is a lot shorter than three weeks of API work makes it look.",
+      },
+      {
+        type: "p",
+        text: "The supplement brand's renewal webhook still works fine four months in - that was never the hard part. What's landing in the support inbox now is the pause request nobody built a button for, and the churn number nobody's dashboard can produce, because the three-week build only ever shipped the one piece that was easy to see finish. Whichever way a team decides to go, the decision worth making up front is which of those five projects it's actually signing up to maintain - not just which one ships first.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-tiered-pricing-structure",
     title: "How to Structure Tiered Pricing for a Shopify Subscription Program",
     excerpt:
