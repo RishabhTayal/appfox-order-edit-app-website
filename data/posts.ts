@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-conflicts-with-staff-admin-edit",
+    title: "Why a Customer's Self-Service Order Edit Can Silently Lose to a Staff Edit in Shopify Admin",
+    excerpt:
+      "A customer swaps a shirt from medium to large through the self-service portal at the exact moment a support agent, working the same order for an unrelated shipping complaint, saves a manual change in Shopify Admin - and the swap that just landed gets quietly built over. Self-service order editing doesn't replace staff editing an order in Shopify Admin; it runs alongside it, on the same order, with no lock between the two.",
+    category: "PLAYBOOK",
+    date: "2026-12-24",
+    author: "The AppFox Team",
+    metaTitle: "Order Edit vs. Staff Admin Edit: Shopify's Race Condition | AppFox",
+    metaDescription:
+      "A customer's self-service order edit and a staff edit in Shopify Admin can both target the same order at once - and Shopify has no lock to stop it. Here's why the second save can quietly overwrite the first, and how to keep the two edit paths out of each other's way.",
+    body: [
+      {
+        type: "p",
+        text: "A customer opens her order confirmation email, taps the edit link, and swaps a shirt from medium to large - a fifteen-second change, confirmed on screen, done. At almost the same moment, a support agent has that same order open in Shopify Admin, working an unrelated ticket about a delayed shipment, and adds a note plus a small goodwill discount before saving. The agent's save lands a few seconds after the customer's swap. When the pick ticket prints an hour later, it calls for a medium. The size change is gone - not declined, not flagged, just absent, as if the customer had never made it.",
+      },
+      {
+        type: "p",
+        text: "Nobody did anything wrong here. The customer used the portal correctly. The agent used Shopify Admin correctly. The mistake is upstream of both of them: a self-service order-edit app doesn't replace staff editing orders in Shopify Admin, it runs alongside it, on the same order, with no lock or handoff between the two paths. Shopify has no built-in concept of \"this order is currently being edited somewhere else\" - so two edits opened close together are each calculated against whatever the order looked like when they started, and whichever one commits second simply applies on top, unaware the first one ever happened.",
+      },
+      { type: "h2", text: "Why two edit paths on the same order collide" },
+      {
+        type: "ul",
+        items: [
+          "Shopify's order-edit sessions are calculated against a snapshot of the order at the moment they open - a session opened before the customer's swap has no way to know about it, even if it saves after",
+          "Shopify Admin has no indicator that a customer edit is in progress on an order, and a self-service portal has no indicator that a staff member has that order open - each side edits blind to the other",
+          "Support teams routinely open an order in Admin for a reason that has nothing to do with editing it - a shipping question, a refund lookup, a return - and still end up saving a change while it's open",
+          "The two paths are edited by two different kinds of urgency: a customer fixing a size takes fifteen seconds; a support agent working a ticket can have the order open for several minutes, which widens the collision window",
+          "Whichever edit commits last wins by default, with no merge and no warning - it isn't that the earlier edit was rejected, it's that it was never seen",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The order wasn't fought over. It was edited twice, by two people who each had no idea the other was there - and Shopify kept whichever version saved last.",
+      },
+      { type: "h2", text: "What actually breaks when the two collide" },
+      {
+        type: "p",
+        text: "The visible failure is a reverted change - the size swap, address fix, or item removal a customer just confirmed quietly disappears, and the first anyone notices is a fulfillment error or a confused follow-up email asking why the order looks wrong again. The less visible failure is worse: a partial merge, where the agent's discount or note survives but lands on the pre-swap line items, so the total no longer matches what either person intended and nobody can tell from looking at the order which change actually stuck. Both failures share a cause - the store has one order and two unsynchronized front doors into it, and nothing tells either side that the other is mid-edit.",
+      },
+      {
+        type: "quote",
+        text: "A self-service portal doesn't make staff editing unnecessary - support still needs to touch orders for refunds, disputes, and exceptions. It just means the order now has two doors, and a store that only builds a lock for one of them hasn't actually locked anything.",
+      },
+      { type: "h2", text: "Keeping staff and self-service edits out of each other's way" },
+      {
+        type: "ol",
+        items: [
+          "Treat any order with a pending or recently-submitted self-service edit as off-limits for a routine staff edit for a short cooldown window, not just while the edit is literally mid-submission",
+          "Give support a visible signal in the order itself - a tag or note applied the moment a customer opens the edit portal - so an agent working the order for an unrelated reason knows to check before saving",
+          "Route anything a support agent needs to change on an order that a customer can also edit through the same approval queue as customer-submitted edits, instead of a separate untracked path straight into Admin",
+          "Reserve direct Admin edits for the changes customers were never offered in the first place - store credit, internal notes, fraud holds - so the two paths overlap on as few fields as possible",
+          "Check the audit timeline before closing any ticket that touched an order recently edited by the customer, since a silent overwrite shows up there even when nothing on the order looks obviously wrong",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "Every change a customer makes through AppFox's portal lands on a full audit timeline - who changed what, when, whether it auto-applied or waited in the approval queue - so a support agent who opens an order can see a customer edit landed minutes ago before saving anything on top of it. Routing sensitive edit types through that same approval queue, rather than leaving them for staff to handle by hand in Admin, keeps both the customer-facing and staff-facing changes to an order moving through one reviewable path instead of two blind ones.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is lock an order in Shopify Admin while a customer's edit session is open - Shopify doesn't expose that kind of cross-surface lock to any app, so a staff member can still save a conflicting change in Admin during the same window. Closing that gap is a process decision, not a setting: use the audit timeline as the check before a routine Admin edit, and keep the edit types customers are allowed to make separate from the ones staff handle directly, so the two paths have as little to fight over as possible.",
+      },
+      {
+        type: "p",
+        text: "The size swap that vanished from that shirt order wasn't lost to a bug - it was lost to a gap between two tools that both worked exactly as designed, with nothing in between them to notice they'd touched the same order seconds apart. A support team that knows to check the timeline before it saves closes that gap without Shopify ever needing to.",
+      },
+    ],
+  },
+  {
     slug: "shopify-preorder-backorder-order-edit",
     title: "Order Edits Don't Work the Same Way on a Preorder or Backorder Item",
     excerpt:
