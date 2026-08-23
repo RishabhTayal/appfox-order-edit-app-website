@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-preorder-backorder-order-edit",
+    title: "Order Edits Don't Work the Same Way on a Preorder or Backorder Item",
+    excerpt:
+      "A sneaker brand's 24-hour edit window closes on a preorder before the shoes have even been made, and a customer who wants to swap green for black six weeks before the drop ships gets told no by a rule sized for a warehouse pick, not a production run. Preorder and backorder items need their own edit window - not the one built for stock that's already on a shelf.",
+    category: "PLAYBOOK",
+    date: "2026-12-23",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Preorder & Backorder Order Edits: What's Different | AppFox",
+    metaDescription:
+      "A generic 24-hour edit window makes no sense on a preorder that ships in six weeks or a backorder waiting on restock. Here's why preorder and backorder items need their own order-edit rules on Shopify, and how to set them without opening the door too wide.",
+    body: [
+      {
+        type: "p",
+        text: "A sneaker brand runs a limited preorder drop: pay now, ship in six weeks once the run is manufactured. Three days after ordering, a customer wants to swap the green pair for black - nothing has shipped, nothing has even been cut yet, the change should be trivial. But the store's order-edit window is set to 24 hours, the same rule it uses for in-stock orders that get picked and packed the next morning, and the request gets bounced to \"contact support once your order arrives.\" A shoe that doesn't exist yet just became harder to change than one already sitting in a box.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't that the store has an edit window - a window is exactly the right control. The mistake is using one window for two completely different kinds of unfulfilled order. A normal order is unfulfilled for a day or two before a warehouse picks it. A preorder or backorder item is unfulfilled for weeks or months by design, waiting on a production run or a restock date that has nothing to do with how fast a picker can reach the shelf - and a rule built around the first case gets applied blind to the second.",
+      },
+      { type: "h2", text: "Why the standard edit window breaks on preorders and backorders" },
+      {
+        type: "ul",
+        items: [
+          "A 24-48 hour edit window is sized around how long it takes a warehouse to pick and pack an in-stock order - it has no relationship to a preorder that isn't shipping for six weeks or a backorder waiting on a restock date months out",
+          "Shopify's fulfillment status calls both order types \"unfulfilled\" for their entire wait, the same word it uses for an in-stock order sitting in today's pick queue - the field that most eligibility rules key off doesn't distinguish the two",
+          "A preorder or backorder app tracks its own release date, production cutoff, or restock ETA outside Shopify's native fields, so an eligibility engine that only reads Shopify's fulfillment status never sees the date that actually matters",
+          "Preorders billed as a deposit now and a balance before shipping change what an edit that raises or lowers the total even means - there's no full charge yet to refund against, and no full balance yet to bill the difference onto",
+          "A limited preorder run has a real lock point - the point the manufacturing order gets placed at a fixed quantity - that can close weeks before the item ships and has nothing to do with fulfillment status at all",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A 24-hour window was sized around a warehouse picking the order tomorrow morning. A preorder that ships in six weeks doesn't get riskier to edit at hour 25 - and it doesn't stay safe to edit forever just because Shopify still calls it unfulfilled.",
+      },
+      { type: "h2", text: "The two ways a mismatched window fails" },
+      {
+        type: "p",
+        text: "A window that's too short closes on a preorder absurdly early - a customer who wants to swap a color or size on an item that hasn't been manufactured yet gets routed to a support ticket for a change that costs the store nothing to grant. A window that's too permissive does the opposite: it leaves the door open past the point that actually matters, letting a customer request a variant swap or quantity change after the production run has already been locked at a fixed count, which the store can no longer honor without eating the cost of an allocation nobody planned for. Both failures come from the same root cause - treating \"still shows as unfulfilled\" as the same signal as \"still safe to change,\" when for a preorder or backorder those two things separate for weeks at a time.",
+      },
+      {
+        type: "quote",
+        text: "Fulfillment status tells you whether a warehouse has touched the box. It doesn't tell you whether a factory has started the run - and for a preorder or backorder, that second date is the one the edit window actually needs to track.",
+      },
+      { type: "h2", text: "Setting an edit window that fits how preorders and backorders actually work" },
+      {
+        type: "ol",
+        items: [
+          "Give preorder and backorder items their own edit-window rule, tied to the product tag or collection they ship from, instead of leaving them on the same default built for in-stock orders",
+          "Set that window against the real lock date - the production cutoff or restock ETA your preorder or backorder app already tracks - rather than against a fixed number of hours that means something different for every drop",
+          "Auto-approve the changes that stay within the same allocation, like a color or size swap or an address correction, since those cost the store nothing while the run is still open",
+          "Route anything that changes quantity or adds a unit to manual review once a preorder has a fixed allocation, since that's the one edit type that can actually oversell a capacity-constrained run",
+          "Show the real cutoff on the order status page itself - \"editable until your order ships\" or a specific date tied to the drop - instead of a generic 24-hour notice that's simply wrong for this order type",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's eligibility engine evaluates edit windows and fulfillment cutoffs per order, which for a store running preorders or backorders means setting a separate window scoped to those products instead of leaving every order on one default cutoff. Do that, and the color swap that's still genuinely free to grant - because nothing has been cut, packed, or shipped - stays self-service and auto-approved for as long as production hasn't started, instead of closing on the same 24-hour clock as a regular order.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do on its own is read a third-party preorder or backorder app's release calendar automatically - that production lock date has to be reflected in your own eligibility rule, or routed to manual approval past the point you set, since Shopify's fulfillment status alone won't tell you when a vendor's run actually closed. Once an edit is approved, it settles through the same in-place editing API either way - the swap lands on the original order and payment, with no second checkout and no lost order history, whether it's granted automatically on day one or cleared by a human on day thirty.",
+      },
+      {
+        type: "p",
+        text: "The sneaker customer's color swap was never actually a risk to the store - the pair she wanted to change didn't exist yet in either color. What closed the door on it wasn't the preorder itself. It was a 24-hour clock built for a warehouse pick, applied to an order that was never going to be picked for six more weeks.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-free-trial-length",
     title: "How Long Should a Free Trial Be for a Shopify Subscription Program?",
     excerpt:
