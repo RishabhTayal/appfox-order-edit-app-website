@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-discount-stacking-combinations",
+    title: "Why a Shopify Subscription Discount Won't Stack With a Promo Code at Checkout",
+    excerpt:
+      "A first-time subscriber enters a 10%-off welcome code on top of the subscribe-and-save discount already applied to her cart - and checkout quietly keeps the bigger of the two instead of adding them together. Nothing failed. Shopify only ever applies one discount per class, and a subscription discount and a promo code are usually fighting for the same one.",
+    category: "GUIDE",
+    date: "2026-12-26",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Discount Stacking: Why Codes Don't Combine | AppFox",
+    metaDescription:
+      "A Shopify subscription discount and a promo code often can't both apply at checkout - not because of a bug, but because of how Shopify's discount combination classes work. Here's why stacking silently fails, and how to structure subscription discounts so it doesn't cost you a subscriber.",
+    body: [
+      {
+        type: "p",
+        text: "A skincare brand runs a welcome campaign: enter WELCOME10 for 10% off a first order. A shopper lands on a product page, opts into subscribe-and-save for 15% off, adds the welcome code at checkout expecting 25% off total, and gets 15%. She assumes the code is broken, tries it again, gets the same total, and either emails support convinced she's been overcharged or abandons the cart still thinking the code failed. The brand's support inbox fills up with \"your discount code doesn't work\" tickets that have nothing to do with a broken code.",
+      },
+      {
+        type: "p",
+        text: "Nothing is broken. Shopify checkout doesn't add every applicable discount together by default - it groups discounts into a small number of combination classes, and only one discount per class can apply to a given line at once. A subscribe-and-save discount and a percentage-off promo code are, in the overwhelming majority of setups, both product-level discounts competing for the same slot. Checkout isn't rejecting the second one. It's applying the one it's configured to prefer and silently setting the other aside, with no message to the shopper explaining why her math doesn't add up.",
+      },
+      { type: "h2", text: "Why a subscription discount and a promo code compete instead of combining" },
+      {
+        type: "ul",
+        items: [
+          "Shopify groups discounts into combination classes - product, order, and shipping - and by default a checkout only applies one discount per class, regardless of how many a shopper technically qualifies for",
+          "A subscribe-and-save discount is almost always configured as a product-level discount, since it's tied to the specific item being subscribed to rather than the whole cart or the shipping cost",
+          "A general promo code like a welcome offer or a sitewide sale is very often also product-level by default, which puts it in direct competition with the subscription discount for the exact same slot, not alongside it",
+          "Whether two discounts in the same class combine at all is a setting the merchant configures when creating the discount, not something a shopper's cart negotiates on its own - if it isn't explicitly allowed, checkout applies whichever discount its own precedence rules favor and drops the rest",
+          "A shopper has no way to distinguish \"this code doesn't combine with your subscription discount\" from \"this code is invalid\" - checkout shows one final total either way, with nothing that names the conflict",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A subscriber isn't wrong to expect two discounts to add up. Checkout just never promised that - it promised one discount per class, and a subscription discount and a promo code usually share a class.",
+      },
+      { type: "h2", text: "What a silent stacking failure actually costs" },
+      {
+        type: "p",
+        text: "The obvious cost is the support ticket - a shopper who did the math, got a number that doesn't match, and now needs a human to explain why. The bigger cost happens earlier and never generates a ticket at all: a shopper who expected both discounts, sees the total come up short, and closes the tab assuming the site is broken before she's even reached the point of asking. That shopper doesn't show up as a support contact or an abandoned-cart email recipient with a clear reason attached - she shows up as a conversion that quietly didn't happen, on a promo the brand paid to run.",
+      },
+      {
+        type: "quote",
+        text: "A discount that doesn't stack isn't a bug in the code. It's a bug in what checkout let a shopper assume before she ever reached the total.",
+      },
+      { type: "h2", text: "Structuring subscription discounts so they don't fight your own promotions" },
+      {
+        type: "ol",
+        items: [
+          "Decide up front which discount is the headline offer for a subscribing shopper - the subscribe-and-save rate or a sitewide promo code - rather than assuming a shopper will get to add both",
+          "If a welcome code or sitewide sale is meant to layer on top of the subscription discount, put one of the two in a different combination class (an order-level or shipping discount instead of a second product-level one) so they're not competing for the same slot",
+          "Where two discounts genuinely shouldn't combine, say so at the point a shopper would try - a line under the code field noting it doesn't apply to subscription items reads very differently than a code that silently does nothing",
+          "Test every sitewide promo code against the subscribe-and-save flow before it launches, not just against one-time purchases - a code that behaves correctly in a standard checkout can still collide with a subscription discount nobody thought to check against",
+          "Watch discount-code usage on subscription orders specifically after a promo launches - a code that shows heavy entry but no total change on subscription checkouts is telling you it's losing that combination slot every time",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's subscribe-and-save widget applies its discount through Shopify's native checkout discount system, on every plan including Free - which means it's subject to the same combination-class rules as every other discount on the store, subscription app or not. A merchant setting the percentage or fixed discount for subscribers is also choosing which combination class it competes in, so a promo code intended to layer on top needs to be set up on the Shopify side to combine with it rather than compete against it. Subscription analytics, available from the Growth plan up, shows discount usage on subscription orders specifically, which is where a stacking conflict like the welcome-code example actually surfaces - as a code with entries but no matching total change on the orders it was used on.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is decide which discounts combine - that logic sits entirely inside Shopify's own checkout, the same for every app and every merchant, and no subscription app can override which combination class a given discount belongs to. What a merchant can control is how the subscription discount and every promo code around it are configured against those classes before a shopper ever reaches checkout to find out the hard way.",
+      },
+      {
+        type: "p",
+        text: "The skincare brand's welcome code was never broken, and neither was the subscription discount sitting underneath it. Both did exactly what they were configured to do - apply once, in the class they were set up in, and yield to whichever discount checkout was told to prefer. The shopper who closed her tab over 15% instead of 25% didn't need a fixed code. She needed a checkout that either combined the two discounts on purpose or told her plainly that it wouldn't - and either one only happens if a merchant checks the combination before the promo goes live, not after the tickets start.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-login-code-expires-before-email-arrives",
     title: "Why a Shopify Subscription Customer Portal Login Code Can Expire Before a Subscriber Ever Opens It",
     excerpt:
