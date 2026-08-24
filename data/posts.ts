@@ -30,6 +30,72 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-klarna-afterpay-not-available-checkout",
+    title: "Why Klarna and Afterpay Don't Show Up at Checkout for a Shopify Subscription",
+    excerpt:
+      "A shopper adds a subscribe-and-save skincare box to her cart expecting to pay with Afterpay the way she does everywhere else - and at checkout, it's gone. Not declined, not hidden behind an error. It was never going to be offered, because a Shopify subscription line item and a fixed-installment BNPL loan can't fund the same order.",
+    category: "PLAYBOOK",
+    date: "2026-12-27",
+    author: "The AppFox Team",
+    metaTitle: "Why Klarna and Afterpay Don't Work on Shopify Subscriptions | AppFox",
+    metaDescription:
+      "Klarna, Afterpay, and other buy-now-pay-later options quietly disappear from checkout the moment a Shopify subscription product is in the cart. Here's why that's not a bug, and how to stop losing BNPL-preferring shoppers to a payment method that was never going to show up.",
+    body: [
+      {
+        type: "p",
+        text: "A skincare brand runs a subscribe-and-save program on its $45 monthly box - 15% off, cancel anytime, no commitment. A first-time shopper adds the box to her cart, toggles the subscription option because the discount is obviously worth it, and heads to checkout expecting to pay the way she pays for nearly everything else online: Afterpay, four installments, no interest. The option isn't there. Only a card field and Shop Pay. She assumes the page is broken, tries reloading, tries a different browser, gets the same two options both times, and closes the tab. The brand never sees her again - not as a support ticket, not as an abandoned-checkout email recipient with a clear reason attached, just a subscriber who wanted in and hit a payment method that had already quietly been ruled out before she ever reached the page.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is broken, and nothing about it is a setting the merchant left off. Klarna, Afterpay, and similar buy-now-pay-later providers each underwrite one specific, fixed loan at the moment of checkout - a real-time credit decision for an exact dollar amount, split into a fixed number of installments on a fixed schedule. A Shopify subscription runs the opposite way: it authorizes a payment method once and then charges it again automatically, on a renewal date that hasn't happened yet, for an amount that can change with pricing, discounts, or what's in the box that cycle. A BNPL loan has no mechanism for that - it was never built to sit quietly for a month and then originate a brand-new, unscheduled loan against a card it was never given permission to keep charging. So Shopify's checkout doesn't offer it as an option the moment a subscription line item is in the cart, the same way it wouldn't offer a payment method that couldn't settle the order at all.",
+      },
+      { type: "h2", text: "Why BNPL options disappear the moment a subscription's in the cart" },
+      {
+        type: "ul",
+        items: [
+          "A subscription selling plan needs a payment method Shopify can securely store and re-charge automatically on a future date, with no further action from the shopper and no new credit decision each time",
+          "Klarna, Afterpay, and Affirm each run a one-time, point-of-sale credit check for one exact amount at the moment of checkout - the loan is fixed the instant it's approved, not a revolving line a merchant can draw against later",
+          "Shop Pay Installments is explicitly excluded from subscription checkout for the same reason - an installment plan is still a fixed loan against a known total, not a stored instrument that can absorb an unknown future charge",
+          "None of this is a merchant setting to toggle - Shopify's checkout determines which payment methods are eligible based on what's actually in the cart, and a cart with a subscription line item simply never presents BNPL as a choice",
+          "A shopper has no way to tell \"this payment method isn't compatible with a subscription\" from \"checkout is broken\" - both look identical from her side: the option she expected just isn't on the page",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A subscriber isn't wrong to expect the same payment method she uses everywhere else. Checkout just never promised her one that can originate a new loan on a date that hasn't happened yet - and a subscription renewal is exactly that.",
+      },
+      { type: "h2", text: "What a missing payment method actually costs" },
+      {
+        type: "p",
+        text: "The visible cost is small and easy to dismiss - a handful of shoppers who prefer BNPL and don't complete checkout. The real cost is concentrated in exactly the categories where subscription programs lean hardest on it: apparel, beauty, and household-goods boxes with price points high enough that BNPL adoption runs well above the store average, and first-time buyers who are more price-cautious than repeat customers. A shopper who was ready to commit to a recurring purchase, at the moment she was most willing to commit, hitting a payment wall that offers no explanation is a worse loss than a shopper who abandons a one-time cart - she isn't just skipping an order, she's skipping the relationship the subscription was built to create.",
+      },
+      {
+        type: "quote",
+        text: "A missing payment method isn't a bug in the checkout. It's the honest limit of what a fixed, one-time loan can fund - and a subscription renewal was never going to be a fixed, one-time anything.",
+      },
+      { type: "h2", text: "Working with the limit instead of fighting it" },
+      {
+        type: "ol",
+        items: [
+          "Stop treating this as a checkout bug to escalate - no app, custom checkout extension, or support ticket to Shopify reopens BNPL for a subscription line item, because the incompatibility sits with the lender's underwriting model, not with checkout configuration",
+          "Say the accepted payment methods for a subscription order plainly on the product page and in the subscribe widget itself, before a shopper reaches checkout expecting an option that won't be there",
+          "For a hesitant, price-sensitive shopper who leans on BNPL, offer a one-time first purchase funded by Klarna or Afterpay, then invite her into the subscription with a card once she's tried the product and trusts the brand",
+          "Track checkout abandonment on subscription product pages separately from one-time product pages - a gap that only shows up on subscription checkouts is the BNPL absence showing up in the data, not a general conversion problem",
+          "Don't hide the subscribe-and-save discount behind a payment method a shopper can't actually use to claim it - if BNPL is central to how a category converts, the discount and the payment story need to be told together, before checkout",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's widget hands a shopper's subscribe-and-save selection straight to Shopify's own checkout for billing - the same checkout every product on the store uses, subscription app or not. That means it inherits Shopify's own payment-method eligibility rules for subscription selling plans exactly as they are, on every plan including Free. AppFox doesn't decide which payment methods checkout offers and can't add BNPL back in for a subscription line item - that eligibility is set by Shopify and the payment providers, not by any app sitting on top of it. What AppFox does control is everything upstream of that moment: the widget copy on the product page, the subscribe-and-save messaging, and - from the Growth plan up - analytics that show subscription-page conversion, which is where a payment-method gap like this actually surfaces as a pattern instead of a one-off guess.",
+      },
+      {
+        type: "p",
+        text: "The skincare shopper's Afterpay option was never hidden behind a bug, and the checkout she landed on wasn't misconfigured. It offered exactly the payment methods capable of funding what she was actually buying - a recurring commitment, not a single fixed loan - and Klarna's four-installment plan was never going to be one of them. The brand's opportunity isn't fixing checkout. It's making sure she never has to find that out for herself, at the one moment she'd already decided to subscribe.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-discount-stacking-combinations",
     title: "Why a Shopify Subscription Discount Won't Stack With a Promo Code at Checkout",
     excerpt:
