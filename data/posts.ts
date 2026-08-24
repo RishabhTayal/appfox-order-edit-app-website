@@ -30,6 +30,71 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-black-friday-cyber-monday-prep",
+    title: "How to Prepare a Shopify Subscription Program for Black Friday and Cyber Monday",
+    excerpt:
+      "A BFCM subscribe-and-save promo doesn't just add subscribers - it adds a renewal cohort that all bills for the first time in the same narrow week, right when holiday support is already stretched thin. Here's what to check before the promo goes live, not after the first renewal date arrives.",
+    category: "GUIDE",
+    date: "2026-12-28",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription BFCM Prep: What to Fix First | AppFox",
+    metaDescription:
+      "A Black Friday subscribe-and-save promo creates a renewal cohort that all bills in the same week weeks later. Here's how to prepare a Shopify subscription program before that spike hits, not after.",
+    body: [
+      {
+        type: "p",
+        text: "A candle brand runs a Black Friday promo on its subscribe-and-save program: 40% off the first box for anyone who starts a subscription between Thanksgiving and Cyber Monday. It works exactly as planned - new subscriber signups triple over four days, and the team moves on to the next campaign. Nobody touches the renewal settings, because nothing about a signup spike looks like it needs them touched. Then the last week of December arrives, and every one of those subscribers hits their first renewal charge inside the same few days. Card declines cluster. Retry emails cluster. Cancellation clicks cluster. All of it lands in the same week the support team is already buried in post-holiday returns and \"where is my order\" tickets, because nobody had mapped the date math between a four-day promo and the single week it would come due.",
+      },
+      {
+        type: "p",
+        text: "The promo wasn't the mistake. Discounting a first box to win Black Friday signups is a normal, effective play. The mistake is treating a subscribe-and-save signup spike as just a bigger version of a normal month, when a subscription's billing cycle turns a clustered signup window into an equally clustered renewal window on a fixed delay - one the team can see coming weeks in advance, and usually doesn't look for until it arrives.",
+      },
+      { type: "h2", text: "Why a BFCM signup spike becomes a renewal spike" },
+      {
+        type: "ul",
+        items: [
+          "A subscription's first renewal date is set relative to signup, not to a calendar - a four-day promo window produces a renewal cohort that's just as narrow, landing four weeks or so later almost to the day",
+          "A steep first-box discount pulls in more price-sensitive, deal-driven signups than an average month - shoppers who are more likely to have a card decline, more likely to forget they subscribed, and more likely to cancel the moment the discount stops applying",
+          "The renewal week for a late-November promo lands in late December or early January, which is also when support queues are already carrying holiday returns, shipping delays, and gift-related tickets - the worst week of the year to also absorb a spike in failed-payment and cancellation volume",
+          "Nothing about the signup flow flags this in advance - a promo dashboard shows new subscribers climbing, not the renewal date those subscribers are all quietly sharing four weeks out",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A BFCM promo doesn't create a bigger month. It creates a normal month with one week's worth of renewals compressed into a few days - and that week is already the busiest one on the support calendar.",
+      },
+      { type: "h2", text: "What the clustered renewal actually costs" },
+      {
+        type: "p",
+        text: "The visible cost is a subscriber count that spikes and then dips a few weeks later, which reads internally as a program that isn't holding onto the customers it just won - a worse story than what's actually happening. A discount-driven cohort always churns at a higher rate than an organic one; that's not new information, and it's not, by itself, a problem to fix. The real cost is that the failed-payment retries and cancel-button clicks from that cohort all arrive in the same few days as the year's heaviest general support load, so a decline that would get caught and recovered in a normal week instead sits in a queue behind holiday-return tickets long enough to lapse. The spike isn't really about churn rate - it's about timing colliding with capacity.",
+      },
+      {
+        type: "quote",
+        text: "A Black Friday subscribe-and-save promo doesn't spend its cost on Black Friday. It spends it four weeks later, in a single week nobody staffed for, because nobody plotted where the renewal date would land before the promo went live.",
+      },
+      { type: "h2", text: "A BFCM checklist that survives the renewal date" },
+      {
+        type: "ol",
+        items: [
+          "Before the promo launches, calculate the exact week its resulting cohort's first renewal will land, and check that week against the support calendar - if it overlaps the busiest post-holiday stretch, plan staffing or automation for it now, not when the tickets show up",
+          "Extend the failed-payment retry window for that cohort specifically - a decline in the last week of December needs more attempts, spaced further apart, than a decline in a normal month, because both the subscriber and the support team have less attention available",
+          "Make the renewal reminder for the BFCM cohort look distinct from a promotional email - it's competing for inbox attention against every other post-holiday marketing send that week, and a reminder that reads like just another sale gets skimmed past or ignored",
+          "If the promo audience is large, widen the signup window instead of running one flash day - spreading enrollment across the full Thanksgiving-to-Cyber-Monday stretch spreads the eventual renewal spike across several days instead of concentrating it into one",
+          "Track first-renewal cancellation and decline rates for the BFCM cohort as their own number, separate from blended churn - a spike there is a discount-driven cohort reaching its natural renewal decision, and it calls for a different response than a rise in everyday cancellations would",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's recurring billing engine retries a failed renewal automatically rather than dropping the subscription on the first decline, which matters most in exactly the week a BFCM cohort's charges cluster against the year's heaviest support load. Subscription analytics on the Growth plan and above breaks down churn and revenue over time, so a promo cohort's renewal week - and how it performs against the rest of the subscriber base - shows up as a distinct pattern instead of disappearing into an aggregate monthly number. The customer self-service portal gives that cohort skip, pause, swap, and cancel from their own account, so a subscriber having second thoughts about a Black Friday impulse signup has a lighter option than an outright cancel, and doesn't have to file a ticket into a queue that's already full of holiday returns. None of it requires a special BFCM mode - it's the same core app running on Free, doing the same job it does every other week of the year, at the one week it matters most.",
+      },
+      {
+        type: "p",
+        text: "The candle brand's Black Friday promo did exactly what it was built to do - it tripled signups in four days. What caught the team off guard wasn't the promo, it was the calendar: four weeks later, a week's worth of renewals it had never plotted arrived all at once, on top of the busiest support week of the year. Mapping that date before the promo launches, widening the signup window, and giving that cohort a wider retry and a real self-service option turns a predictable collision into just another week of renewals.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-klarna-afterpay-not-available-checkout",
     title: "Why Klarna and Afterpay Don't Show Up at Checkout for a Shopify Subscription",
     excerpt:
