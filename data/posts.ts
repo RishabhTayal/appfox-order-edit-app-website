@@ -30,6 +30,91 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-cac-payback-period",
+    title: "How to Calculate CAC Payback Period for a Shopify Subscription Program (Not Just LTV:CAC)",
+    excerpt:
+      "A supplement brand's LTV:CAC ratio clears 3:1, the number every acquisition deck says to hit, so the team keeps scaling ad spend. Six months later the bank balance tells a different story - the ratio was never wrong, it just never asked how long the cash takes to come back.",
+    category: "REVENUE",
+    date: "2027-01-01",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription CAC Payback Period: How to Calculate It | AppFox",
+    metaDescription:
+      "A 3:1 LTV:CAC ratio can still be cash-flow negative for months if payback takes too long. Here's how to calculate CAC payback period for a Shopify subscription program - the metric that tells you when a subscriber's cash actually comes back, not just whether they're profitable eventually.",
+    body: [
+      {
+        type: "p",
+        text: "A supplement brand runs a subscribe-and-save program alongside its one-time SKUs, and every acquisition report the team builds leads with the same number: LTV:CAC of 3.2 to 1. It's comfortably past the 3:1 threshold every growth blog says to clear, so the marketing lead takes it as a green light and pushes another $40,000 into Meta prospecting for the quarter. The ratio doesn't move much - it's a lifetime number, and lifetime doesn't change fast. What does move is the bank balance, which keeps drifting lower every month the campaign runs, in a way the ratio never explained and never warned about.",
+      },
+      {
+        type: "p",
+        text: "The 3.2:1 wasn't miscalculated. It's a real answer to a real question - will this subscriber eventually be worth more than they cost. It just isn't the question that was draining the account. That question is a different one: how many months does it take before the cash this subscriber has already paid back covers what it cost to acquire them. A subscription program can be profitable on paper and still run out of runway waiting for its own subscribers to pay it back - and LTV:CAC, by design, never looks at the waiting.",
+      },
+      { type: "h2", text: "Why a healthy LTV:CAC ratio can still bankrupt a subscription program" },
+      {
+        type: "ul",
+        items: [
+          "LTV:CAC is a lifetime average - it answers whether a subscriber clears their cost across the full time they stay, which can be a year or more, while the CAC was spent in a single month",
+          "A discounted trial box or a first-cycle promo lowers what a new subscriber actually pays back early, even when the blended lifetime number still looks strong once later, full-price cycles are averaged in",
+          "Fulfillment and COGS eat into what a renewal charge actually returns - a $45 box with $27 in product and shipping cost only returns $18 toward CAC, not the full $45 the revenue line shows",
+          "A ratio computed once a quarter hides a spend pace that's already outrunning the cash coming back - CAC can be rising every month while LTV, being a slower-moving lifetime figure, hasn't caught up in the same report yet",
+          "A ratio has no unit of time in it - 3:1 says nothing about whether the payback happens in two months or fourteen, and a program can hold the same ratio at either speed with completely different cash needs",
+        ],
+      },
+      {
+        type: "h3",
+        text: "LTV:CAC asks whether a subscriber is worth it eventually. Payback period asks how long the program has to keep floating the difference before eventually arrives - and that's the number that decides whether the ad spend still fits in the bank account.",
+      },
+      { type: "h2", text: "What payback period actually measures" },
+      {
+        type: "p",
+        text: "CAC payback period is the number of billing cycles it takes for a subscriber's cumulative contribution margin - revenue after the cost of goods, fulfillment, and payment processing on that specific order, not gross revenue - to equal what it cost to acquire them. It's a cash-flow question, not a profitability one, and it needs a different set of inputs than LTV:CAC does: CAC by acquisition channel or cohort, contribution margin per cycle rather than a blended average price, and the actual cadence a subscriber bills on, trial cycle included.",
+      },
+      { type: "h2", text: "A worked example" },
+      {
+        type: "p",
+        text: "Take the supplement brand's Meta-acquired cohort, where CAC runs $54 per subscriber. The subscription bills monthly at $45 with a $27 cost of goods and fulfillment, but the first box ships at a $25 trial rate to win the signup - so the same subscriber's cash contribution looks very different cycle to cycle:",
+      },
+      {
+        type: "ul",
+        items: [
+          "Cycle 1 (trial rate): $25 revenue minus $27 cost - a $2 loss on the box that brought the subscriber in, before any of the $54 CAC has started to come back",
+          "Cycle 2 (steady-state): $45 revenue minus $27 cost = $18 contribution margin, bringing cumulative recovery to $16 against the $54 spent to acquire this subscriber",
+          "Cycle 3: another $18, cumulative $34 against $54",
+          "Cycle 4: another $18, cumulative $52 against $54 - still short",
+          "Cycle 5: the remaining $2 clears partway through the cycle, so full payback lands just past the four-month mark, not the roughly three months a simple $54 ÷ $18 calculation would have suggested by skipping the trial cycle's loss",
+        ],
+      },
+      {
+        type: "quote",
+        text: "A quick CAC-divided-by-margin calculation and the real payback period landed a full cycle apart in this example, for one reason: the shortcut assumed every cycle contributes the same $18, and the first one - the one every subscriber has to pass through - actually contributed negative $2.",
+      },
+      { type: "h2", text: "How to calculate CAC payback for a Shopify subscription program" },
+      {
+        type: "ol",
+        items: [
+          "Calculate CAC per channel or cohort, not one blended figure - a subscriber from an affiliate link and a subscriber from a cold Meta ad rarely cost the same, and blending them hides which channel is actually slow to pay back",
+          "Build contribution margin per cycle, not per subscriber overall - subtract cost of goods, fulfillment, and payment processing from what that specific cycle actually billed, trial rate included",
+          "Run the trial or first-order rate as its own line, not folded into a steady-state average - it's frequently the one cycle that returns less than full price, or less than cost outright, and it's a cycle every subscriber has to pass through before payback can even start",
+          "Accumulate contribution margin cycle by cycle until it crosses the channel's CAC, and record which cycle it crossed in - that cycle count is the payback period, not a formula's estimate of one",
+          "Compare payback period against how long the program can float the gap - a channel with strong LTV:CAC but a nine-month payback needs a cash runway few early-stage subscription programs actually have, even when the lifetime math says the spend is worth it",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "Subscription analytics, on the Growth plan and above, reports net revenue per cycle rather than one blended average - which is the input a payback calculation needs and a lifetime LTV:CAC ratio doesn't ask for. It's the same per-cycle breakdown that separates a discounted trial charge from a steady-state renewal, so the first cycle's real contribution doesn't get smoothed away into a number that looks better than the cash actually was.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is pull in ad spend by channel or compute a payback figure directly - CAC lives in an ad platform's reporting, not in a Shopify app, and matching it against per-cycle revenue by channel is still a spreadsheet exercise built on top of the per-cycle numbers the dashboard already reports. The data that makes the exercise fast rather than a reconstruction project - net revenue by cycle, trial pricing kept distinct from renewals - is there; the join against CAC is the one step a merchant still has to do by hand.",
+      },
+      {
+        type: "p",
+        text: "The supplement brand's 3.2:1 wasn't the number that emptied the account faster than expected - the four-month payback hiding underneath it was, running against a media budget that assumed something closer to three. The ratio would have still cleared 3:1 at either speed. Only the payback period would have told the team, before the quarter's ad spend went out, how long they'd actually be floating the difference.",
+      },
+    ],
+  },
+  {
     slug: "how-to-build-a-shopify-subscription-mrr-waterfall",
     title: "How to Build an MRR Waterfall for Your Shopify Subscription Program",
     excerpt:
