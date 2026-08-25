@@ -30,6 +30,106 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "how-to-build-a-shopify-subscription-mrr-waterfall",
+    title: "How to Build an MRR Waterfall for Your Shopify Subscription Program",
+    excerpt:
+      "A skincare brand's net MRR growth number sits at a healthy +4% for the quarter, so nobody looks closer - until a board question about where the growth is actually coming from turns up nothing but a single blended figure with no way to answer it.",
+    category: "REVENUE",
+    date: "2026-12-31",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription MRR Waterfall: How to Build One | AppFox",
+    metaDescription:
+      "Net MRR growth alone can't tell you whether a Shopify subscription program is growing from new signups, price increases, or a quiet drop in cancellations. Here's how to build an MRR waterfall - new, expansion, contraction, churned, reactivated - that can.",
+    body: [
+      {
+        type: "p",
+        text: "A skincare brand closes out the quarter at +4% net MRR growth on its subscription program, and the number goes into the deck as the headline slide. It's up, it's positive, and by the usual read that means the program is healthy. Then someone on the team asks the obvious follow-up question: where did that 4% actually come from? Was it new subscribers signing up, existing subscribers upgrading to a bigger box, or just fewer cancellations than last quarter? Nobody can answer it. The single number that made the slide doesn't break down into anything - it's a net figure with five different stories compressed into one line, and the team has no way to tell which of those stories is actually true.",
+      },
+      {
+        type: "p",
+        text: "Net MRR growth isn't the wrong number to track - it's the right total, arrived at from the wrong level of detail. A program can hit the exact same +4% by adding a wave of new subscribers while retention quietly worsens, or by retention holding steady while a price increase does all the work, or by a handful of subscribers upgrading while everyone else's behavior stays flat. Each of those is a different program, with a different risk sitting underneath the same headline slide, and a single net number can't tell them apart.",
+      },
+      { type: "h2", text: "Why one net number hides the real story" },
+      {
+        type: "ul",
+        items: [
+          "A positive net number says nothing about mix - the same +4% can come from a surge of new signups covering for rising cancellations, or from cancellations barely moving while nothing new is coming in at all",
+          "It can't separate a healthy program from a fragile one - growth built mostly on new MRR is exposed to acquisition cost the moment ad spend gets cut, while growth built on expansion MRR from existing subscribers tends to be stickier",
+          "It hides a shrinking base under a rising discount - a subscribe-and-save rate that gets deepened to slow cancellations reduces contraction MRR's visibility as its own line item, folding a real cost into a smaller net number instead of a labeled one",
+          "It blends voluntary loss with involuntary loss - a subscriber who canceled on purpose and a subscriber who lost a working subscription to a declined renewal both show up as the same churned MRR unless the two are tracked apart",
+          "It can't be acted on - a team that only knows the net number has no lever to pull, because the net number doesn't say which of the five underlying movements needs the attention",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A net MRR number tells you the program moved. A waterfall tells you which part of the program moved it - and that's the part you can actually do something about.",
+      },
+      { type: "h2", text: "The five movements a waterfall separates out" },
+      {
+        type: "p",
+        text: "An MRR waterfall takes the same net number and breaks it into the discrete events that produced it, cycle over cycle, so each one can be tracked and acted on independently instead of disappearing into an average.",
+      },
+      {
+        type: "ul",
+        items: [
+          "New MRR - recurring revenue from subscribers who signed up for the first time this cycle, valued at whatever rate they actually locked in, trial or steady-state",
+          "Expansion MRR - additional recurring revenue from existing subscribers who upgraded a plan, added a one-time item that became recurring, or increased quantity on their next renewal",
+          "Contraction MRR - recurring revenue given up by existing subscribers who downgraded, dropped a quantity, or moved to a deeper subscribe-and-save discount without leaving",
+          "Churned MRR - recurring revenue lost to subscribers who canceled outright, split into voluntary cancellations and involuntary losses from a failed renewal that never recovered",
+          "Reactivated MRR - recurring revenue from subscribers who had canceled or lapsed and came back, which is worth tracking apart from new MRR because a returning subscriber converts differently than a first-time one",
+        ],
+      },
+      {
+        type: "p",
+        text: "Starting MRR plus new, plus expansion, minus contraction, minus churned, plus reactivated equals ending MRR - the same total the net number already gave you, now with five labeled reasons instead of one unlabeled result.",
+      },
+      { type: "h2", text: "A worked example" },
+      {
+        type: "p",
+        text: "Take the skincare brand's quarter at $50,000 starting MRR, ending at $52,000 - the +4% that made the slide. Broken into a waterfall, that same $2,000 of net growth might actually look like this:",
+      },
+      {
+        type: "ul",
+        items: [
+          "New MRR: +$6,200 from first-time signups, most of them at a discounted trial rate",
+          "Expansion MRR: +$900 from existing subscribers upgrading to a bigger size or adding a second product",
+          "Contraction MRR: -$1,100 from subscribers who dropped a quantity or moved onto a deeper subscribe-and-save tier to keep renewing at all",
+          "Churned MRR: -$4,300, split into -$2,600 voluntary cancellations and -$1,700 involuntary losses from renewals that never recovered from a decline",
+          "Reactivated MRR: +$300 from lapsed subscribers who came back mid-quarter",
+          "Net: $6,200 + $900 - $1,100 - $4,300 + $300 = $2,000, matching the $50,000 to $52,000 the net number already showed - except now involuntary churn alone is nearly as large as the entire net gain",
+        ],
+      },
+      {
+        type: "quote",
+        text: "The +4% on the slide and the $4,300 in churned MRR behind it are the same quarter. Only one of those numbers tells you the retry logic on failed renewals is worth fixing before the next one.",
+      },
+      { type: "h2", text: "Building the waterfall without a finance team" },
+      {
+        type: "ol",
+        items: [
+          "Pick a consistent cycle - monthly is standard - and value every active subscription at what it actually bills, trial rate or steady-state, not a blended average price",
+          "Tag every MRR change with the event that caused it - new signup, upgrade, downgrade, cancellation, reactivation - at the moment it happens, rather than trying to reconstruct the reason from raw order data after the fact",
+          "Split churned MRR into voluntary and involuntary before it hits the waterfall, the same way a churn rate should be split - a canceled subscriber and a declined renewal are different problems with different fixes",
+          "Net the five categories against the prior cycle's ending MRR to confirm the waterfall reconciles to the number the dashboard already reports - if it doesn't, a category is capturing an event it shouldn't, or missing one it should",
+          "Watch the shape over several cycles, not one - a single quarter's waterfall is a snapshot, but a new MRR line that's shrinking while a churned MRR line holds steady is a trend a net number would never have surfaced in time to act on",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "Subscription analytics, on the Growth plan and above, already tracks the raw material a waterfall needs cycle by cycle - net revenue after discounts, and churn split into voluntary and involuntary rather than one blended rate. That split is the part most stores would otherwise have to reconstruct by hand from an order export, and it's the line that mattered most in the worked example above.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is assemble the five categories into a single waterfall chart on the dashboard - tagging every plan change as expansion or contraction, and every cancellation event with its own reason code, is a level of categorization that varies too much by how a merchant structures plans and discounts to bake into one fixed report. The data to build it - per-cycle net revenue, split churn, and renewal history - is there; turning it into a waterfall is still a spreadsheet exercise built on top of that data, not a toggle in the app.",
+      },
+      {
+        type: "p",
+        text: "The skincare brand's +4% slide wasn't wrong. It just wasn't the number that would have caught the problem - $1,700 in involuntary churn, nearly matching the entire net gain for the quarter, sitting invisible inside a total that only ever moved in the right direction. A waterfall wouldn't have changed the quarter's ending MRR. It would have shown, three months earlier, exactly which line was worth fixing first.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-dunning-schedule-failed-payment-recovery",
     title: "How to Build a Shopify Subscription Dunning Schedule That Actually Recovers Failed Payments",
     excerpt:
