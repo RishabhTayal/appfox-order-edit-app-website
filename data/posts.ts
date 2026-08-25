@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-dunning-schedule-failed-payment-recovery",
+    title: "How to Build a Shopify Subscription Dunning Schedule That Actually Recovers Failed Payments",
+    excerpt:
+      "A pet-food subscription's renewal run fails nine out of every hundred cards on the first attempt, and the team writes off all nine as canceled-by-nonpayment. A single retry three days later would have quietly recovered most of them - the card wasn't broken, it was just empty on the wrong afternoon.",
+    category: "GUIDE",
+    date: "2026-12-30",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Dunning Schedule: Recover Failed Payments | AppFox",
+    metaDescription:
+      "Most failed Shopify subscription renewals aren't a customer who wants to quit - they're a card that was temporarily empty. Here's how to build a dunning schedule, timed and worded by decline type, that recovers those payments instead of losing the subscriber.",
+    body: [
+      {
+        type: "p",
+        text: "A pet-food subscription runs its renewal charges on the first of every month, and every month roughly nine out of every hundred cards come back declined on the first attempt. For most of a year, the team treats that nine percent as churn - a line item in the monthly report labeled \"payment failed,\" bucketed in with subscribers who genuinely wanted out. Then someone finally checks what happens to those same nine cards a few days later, run through the exact same processor with no new information and no subscriber doing anything at all: roughly six of the nine go through clean. The card was never broken. It was empty on the afternoon of the first, for reasons that had nothing to do with whether its owner still wanted dog food showing up every month, and full again well before the subscription would have needed to notice.",
+      },
+      {
+        type: "p",
+        text: "Nothing about that first decline was a mistake - the charge really did fail, and the processor really did return a decline code. The mistake is downstream of it: treating every failed renewal as a single, final event instead of the start of a short window in which a lot of those cards will simply become chargeable again on their own. A dunning schedule is the plan for that window - when to retry, how many times, and what to tell the subscriber at each step - and a merchant without one isn't failing to dun so much as dunning once, by accident, and calling the result final.",
+      },
+      { type: "h2", text: "Why one retry attempt recovers less than it looks like it should" },
+      {
+        type: "ul",
+        items: [
+          "A decline code doesn't tell a merchant why a card failed - insufficient funds, a temporary fraud hold, and a bank's server timeout all come back looking similar, even though only some of them will resolve on their own within days",
+          "A soft decline - insufficient funds, a temporary hold, \"try again later\" - is a timing problem, not a payment-method problem, and a large share resolve themselves within a few days as balances refresh or holds clear",
+          "A hard decline - an expired card, a closed account, \"do not honor\" - won't resolve no matter how many times the same card is retried, and repeating the attempt just burns processor goodwill for no return",
+          "Retrying immediately, the same day or the next, usually just re-tests the exact condition that caused the first failure, so an immediate retry recovers far less than a retry spaced a few days out",
+          "A single retry attempt, run once and then abandoned, catches only whichever soft declines happen to clear inside that one narrow window - and silently gives up on every soft decline that would have cleared a day or two later",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A failed renewal isn't a subscriber who wants to quit. It's a card that hasn't been asked again yet, at a moment when asking again would actually work.",
+      },
+      { type: "h2", text: "What a missing schedule actually costs" },
+      {
+        type: "p",
+        text: "Every recoverable renewal that a single retry attempt misses gets counted as involuntary churn - a subscriber the merchant's own numbers say wanted to leave, who in fact never lifted a finger to cancel anything. That inflates the churn rate with cancellations that were never real, buries a genuine at-risk cohort inside a bucket mostly made of temporarily-empty cards, and quietly caps a subscription program's growth at whatever recovery rate one attempt happens to produce - usually far below what a spaced, multi-attempt schedule would recover from the same set of declined cards. None of this shows up as a bug anywhere in the app. It shows up as a churn number that's real, an LTV projection that's understated, and a support inbox that never hears from most of the subscribers it just lost, because nobody ever asked their card again.",
+      },
+      {
+        type: "quote",
+        text: "A dunning schedule doesn't chase down subscribers who don't want to pay. It gives the ones who do want to pay enough attempts, spaced out enough, for their own card to catch up with them.",
+      },
+      { type: "h2", text: "Building a schedule that matches the decline, not just the calendar" },
+      {
+        type: "ol",
+        items: [
+          "Space retries out instead of clustering them - a day-zero decline, a second attempt around day three, and a third around day six or seven give a soft decline real time to clear, rather than re-testing the same empty balance twice in one afternoon",
+          "Stop retrying a card that comes back with a hard-decline code - expired, closed, do-not-honor - after the first attempt, and move straight to asking for a new payment method instead of spending the rest of the schedule on a card that was never going to clear",
+          "Write a different message for each attempt: the first should read as a routine heads-up, not a warning; only the message ahead of the final attempt needs to say plainly that the subscription will cancel if the payment doesn't go through",
+          "Give the subscriber a direct link to update her payment method in every message in the sequence, not just the first one - by the third attempt she's had two chances to miss a passive \"we'll try again\" note that never told her there was anything to click",
+          "Set a real, disclosed final date after which the subscription actually cancels, and hold to it - a dunning sequence that keeps retrying indefinitely with no stated end trains subscribers to ignore every message in it, including the one that matters",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription retries a failed renewal automatically rather than leaving it as a single dead attempt, and Business and Pro plans can replace the default dunning template with custom HTML per message in the sequence - which is where the day-zero heads-up and the final-notice warning stop being the same email with a different subject line. That's the part of the schedule a merchant actually controls: how many attempts run, roughly how they're spaced, and what each one says.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is classify a decline as soft or hard on a merchant's behalf - the code a processor returns varies by gateway and bank, and reading it reliably enough to skip retries on a genuine hard decline is a judgment call tied to a merchant's own processor, not something the app can generalize across every store it runs on. That's worth reviewing directly with a payment processor before leaning on retry count alone to decide when to stop asking a card and start asking the subscriber for a new one.",
+      },
+      {
+        type: "p",
+        text: "The pet-food subscription didn't fix anything about its checkout or its cards. It added two spaced-out retries and a plainer final notice to a sequence that used to stop after one attempt, and roughly two-thirds of what used to get logged as churn every month started renewing on its own instead - not because those subscribers were persuaded to stay, but because nobody had actually finished asking them to pay before giving up.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-cohort-retention-curve",
     title: "How to Read a Shopify Subscription Cohort Retention Curve",
     excerpt:
