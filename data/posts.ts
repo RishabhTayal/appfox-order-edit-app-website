@@ -30,6 +30,72 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-cohort-retention-curve",
+    title: "How to Read a Shopify Subscription Cohort Retention Curve",
+    excerpt:
+      "A subscription brand's blended monthly churn holds steady at 6.5% for nine straight months, which reads as a stable program - until someone finally splits subscribers by signup month and finds one cohort's retention curve never found a floor. Here's how to build the chart that would have caught it in month three instead of month nine.",
+    category: "GUIDE",
+    date: "2026-12-29",
+    author: "The AppFox Team",
+    metaTitle: "How to Read a Shopify Subscription Retention Curve | AppFox",
+    metaDescription:
+      "A steady blended churn rate can hide a cohort that's quietly losing every renewal. Here's how to build and read a Shopify subscription cohort retention curve, and catch a melting cohort before the blended number ever moves.",
+    body: [
+      {
+        type: "p",
+        text: "A protein-powder subscription brand checks its dashboard every month and sees the same reassuring number: churn holding at 6.5%, month after month, for nine months straight. The team reads that as a stable program and moves on to other problems. What the dashboard doesn't show is that new-subscriber growth from a spring paid-ads push has been quietly backfilling the number the whole time - every month, enough fresh signups join to replace whatever the existing base is losing, so the blended ratio barely moves even as something underneath it gets worse. It isn't until a new analyst splits subscribers by the month they signed up that the real picture shows up: the cohort that joined in March, right after a price increase and a packaging redesign shipped in the same week, has been losing a larger share of itself at every single renewal since - a curve that never leveled off, buried for nine months inside a topline number that never budged.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the blended number was calculated wrong, and nobody was asleep at the dashboard. A blended monthly churn rate is a ratio - cancellations over active subscribers, for one calendar month - and it's an honest answer to the question it's built to answer: how many subscribers left last month, out of everyone who could have. It was never built to answer a different question: whether the subscribers signing up now are sticking around better or worse than the ones who signed up before them. Growth can hold that ratio flat for a long time even while every individual cohort underneath it is retaining worse, because a bigger and bigger denominator of fresh signups keeps diluting whatever the older, struggling cohorts are losing. The metric isn't broken. It's just answering last month's question, not this cohort's.",
+      },
+      { type: "h2", text: "What a cohort retention curve is, and why blended churn can't replace it" },
+      {
+        type: "ul",
+        items: [
+          "A cohort is every subscriber who signed up in the same period - usually a calendar month - grouped together and tracked as a single unit for as long as any of them stay active",
+          "A retention curve plots the percentage of that cohort still active against renewal number - months since signup - not against calendar date, so a cohort that joined in March and one that joined in September can be laid on the same chart and compared fairly",
+          "Each cohort becomes its own line on the chart; a healthy subscription program's lines mostly track close together and bend toward flat by their third or fourth renewal",
+          "A blended monthly number reports one ratio for one month across every cohort combined - a shrinking, months-old cohort and a still-fresh one from last month net out into the same single figure, with no way to tell which is which",
+          "New-subscriber growth is exactly what lets a blended number stay flat while the curves underneath it get worse - fresh cohort volume backfills what older cohorts are losing, month after month, for as long as growth keeps outpacing the decline",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A blended churn number answers \"how many left last month.\" A cohort retention curve is the only chart that answers \"is this getting better or worse.\"",
+      },
+      { type: "h2", text: "The shape that actually matters: does the curve find a floor?" },
+      {
+        type: "p",
+        text: "Every cohort drops fastest in its first couple of renewals - that's normal, not a warning sign. Trial-adjacent cancellations, impulse signups that don't survive first contact with a real charge, and a first-box disappointment or two all cluster early, and a curve that dips hard at renewal one or two and then levels off is doing exactly what a healthy cohort does. The number that actually matters isn't how steep that first drop is - it's whether the curve finds a floor afterward, or keeps sloping downward at every renewal with no sign of leveling off. A cohort that flattens gives a merchant something to plan around: a predictable steady-state retention rate that feeds directly into LTV math and inventory forecasting. A cohort that keeps melting past its fourth or fifth renewal isn't having a rough quarter - it's leaking, on a schedule, for as long as any of its subscribers remain.",
+      },
+      {
+        type: "quote",
+        text: "A cohort that never finds a floor doesn't have a churn problem in March. It has a churn problem at every renewal after March, for as long as that cohort exists.",
+      },
+      { type: "h2", text: "Reading a curve without fooling yourself" },
+      {
+        type: "ol",
+        items: [
+          "Plot retention against renewal number - months since signup - never against calendar date, or cohorts of different ages end up compared at points on the chart that don't mean the same thing for each of them",
+          "Don't judge a cohort with fewer than three or four renewals against a mature cohort's floor - it hasn't had the chance to flatten yet, and an early dip that looks alarming next to an older cohort's steady line is often just where every cohort starts out",
+          "Split cohorts by acquisition channel and discount depth before comparing them, not after - a steeply discounted promo cohort and an organic-signup cohort were never going to share a curve, and blending them hides which one actually needs attention",
+          "Watch the newest two or three cohorts specifically for a curve sitting below where older cohorts sat at the same renewal number - that gap is the earliest real signal something changed, whether it's pricing, packaging, or onboarding, and it shows up here months before it moves a blended number",
+          "Re-plot monthly, not quarterly - a melting cohort caught at its third renewal is a cheap, targeted fix; the same cohort caught at its eighth, after most of it has already left, is a postmortem",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "Subscription analytics on the Growth plan and above reports churn and revenue over time, and can already isolate a specific slice - subscribers inside a trial window, or the weeks following a price or plan change - from the blended baseline instead of leaving it mixed in with everyone else. That's the raw material a signup-month retention curve is built from. What AppFox doesn't do is render the cohort-curve chart itself as its own visualization - a merchant still pulls the churn-by-cohort data AppFox already isolates and plots it against renewal number to get the elbow-versus-melt read described above. Once a curve flags a cohort that isn't flattening, the customer portal's skip, pause, and cancel flow - including the cancellation survey a subscriber sees on her way out - is where that finding turns into an answer: a reason code attached to the exact cohort the chart already pointed at, instead of a guess.",
+      },
+      {
+        type: "p",
+        text: "The protein-powder brand's blended 6.5% wasn't lying for nine months - it was just answering a question that had stopped being the useful one to ask. Once the March cohort got its own line, the real story split in two: the packaging redesign's dip flattened out by the fourth renewal, same as every cohort before it, while the price increase that shipped the same week never found a floor at all. Splitting cohorts out from day one wouldn't have prevented either change from happening. It would have shown which one was actually costing subscribers, in month three instead of month nine.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-black-friday-cyber-monday-prep",
     title: "How to Prepare a Shopify Subscription Program for Black Friday and Cyber Monday",
     excerpt:
