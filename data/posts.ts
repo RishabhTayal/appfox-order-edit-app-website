@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-shop-pay-installments",
+    title: "Why a Shopify Order Edit Can't Change a Shop Pay Installments Plan",
+    excerpt:
+      "A skincare bundle gets a $15 travel-size add-on through self-service editing, and the new item shows up on the order right away. The four biweekly Shop Pay Installments charges never move, because Affirm approved and scheduled them for the original total at checkout - not whatever the order happens to total after an edit runs.",
+    category: "PLAYBOOK",
+    date: "2027-01-05",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Order Edit + Shop Pay Installments: What Actually Updates | AppFox",
+    metaDescription:
+      "Shop Pay Installments locks in a fixed set of biweekly payments at checkout, underwritten by Affirm for a specific amount - not something a later order edit can quietly resize. Here's what changes on an installment-paid order when it's edited, and what doesn't.",
+    body: [
+      {
+        type: "p",
+        text: "A shopper checks out a skincare bundle with Shop Pay Installments - four payments, every two weeks, approved and scheduled the moment Affirm signed off on the purchase. Three days later she uses the store's self-service edit link to add a $15 travel-size version of the same serum. The edit saves cleanly, the new item appears on the order, and the order total updates in the admin. What doesn't happen is the fifth thing anyone would expect: the four scheduled installment charges stay exactly where they were, for exactly the amount they were always going to be, and the $15 is never collected by the payment plan at all. Nothing broke. The edit did precisely what an edit is supposed to do to an order's contents. The installment plan just isn't the kind of thing an order edit can reach.",
+      },
+      {
+        type: "p",
+        text: "That's a different problem than the usual \"can this gateway auto-charge a difference\" question that comes up with most payment methods. A regular card capture is a technical question - does the processor support taking a bit more against the same authorization after the fact. Shop Pay Installments isn't a capture question at all. Affirm underwrites the plan at checkout: it looks at the purchase amount, approves a specific figure, and schedules payments against that figure. The four charges aren't a flexible container that happens to hold whatever the order currently totals - they're a lending decision, fixed the moment the shopper agreed to it, for the amount that existed at that moment and no other.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't running the edit, and it isn't offering Shop Pay Installments as a payment option - both are exactly what a self-service store should do. The mistake is assuming an installment-paid order behaves like any other order once an edit raises its total, when the plan underneath it was never built to resize on request.",
+      },
+      { type: "h2", text: "Why an installment plan can't just absorb the difference" },
+      {
+        type: "ul",
+        items: [
+          "Shop Pay Installments is provided through Affirm, not through Shopify's own payment capture - the schedule of payments is an underwriting outcome, not a Shopify-side setting an app or a merchant can adjust",
+          "The approved amount is fixed at the moment of checkout, based on the order as it existed then - an edit that changes the order afterward doesn't feed back into that approval, because the approval already happened",
+          "Raising the total doesn't fail loudly - the edit itself succeeds, the order record updates, and there's no error anywhere telling anyone the installment schedule didn't move with it",
+          "Lowering the total behaves differently and more conventionally - a refund reduces what's still owed on the plan, and gets applied against the balance the way a refund normally would, which is why downgrades don't raise the same problem upgrades do",
+          "None of this is gateway-specific tuning a merchant can turn on - it's the structure of a plan a third party has already agreed to lend against, not a checkbox anywhere in Shopify or an edit app's settings",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A capture question asks whether a gateway will take more money later. An installment plan isn't a capture question - it's a lending decision that was already made, for an amount that no longer matches the order.",
+      },
+      { type: "h2", text: "What happens when this goes unnoticed" },
+      {
+        type: "p",
+        text: "The $15 serum doesn't vanish from the books cleanly - it becomes a line item on a paid-looking order that nothing actually collected for. Multiply that across every self-service edit that lands on an installment-paid order, and a store ends up with a slow leak of small, individually invisible amounts that don't show up as failed payments, chargebacks, or anything else that would normally get a ticket opened. The order looks settled because the original four payments keep clearing on schedule. The gap only shows up when someone reconciles what shipped against what was actually paid for, weeks after the edit that created it.",
+      },
+      {
+        type: "quote",
+        text: "The installment plan isn't ignoring the edit. It was never told the edit happened - it's still collecting on a number that stopped being the order's real total the moment the edit saved.",
+      },
+      { type: "h2", text: "How to handle an edit on an installment-paid order" },
+      {
+        type: "ol",
+        items: [
+          "Never assume a total-raising edit on a Shop Pay Installments order gets collected automatically - treat the difference as needing its own separate payment step, the same way you would for a gateway that can't auto-capture",
+          "Route edit types that increase an order's total to an approval queue specifically for installment-paid orders, rather than letting them auto-apply the way they might on a regular card order",
+          "For downgrades and removals, let the refund reduce the plan's remaining balance normally, but confirm with the customer what that does to their remaining payment amounts or count - a shopper budgeting around four fixed charges notices when one changes",
+          "Flag Shop Pay Installments as its own payment method in whatever reporting or edit rules a store keeps, rather than folding it into a general \"Shop Pay\" or \"card\" bucket, since it's the one payment method where the total literally can't self-adjust",
+          "Tell the customer, at the point of the edit, when a difference needs a separate charge - a silent gap that surfaces on a support ticket weeks later is a worse experience than one extra confirmation screen at the time of the edit",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's eligibility engine lets a merchant route edit types by more than just the edit itself - an edit type that's fine to auto-apply on most orders can be set to require approval on a narrower set, which is exactly the lever a store needs to keep total-raising edits off auto-apply for installment-paid orders specifically, instead of every order following one blanket rule. Every edit, approved or auto-applied, writes to the order's audit timeline, so a reconciliation later has a record of what changed and when - which is the input a support or finance team actually needs once an installment plan and an order's contents have drifted apart.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is renegotiate or resize an installment plan - that decision sits between the customer, Shop Pay, and Affirm, and no order-editing app has standing to reach into an underwriting outcome that already closed. What the eligibility engine gives a merchant is the ability to stop treating an installment-paid order like every other order once an edit is in play, so the $15 add-on becomes a deliberate extra charge a customer agrees to, instead of a gap nobody notices until the books don't reconcile.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-portal-actions-need-a-policy-not-a-toggle",
     title: "Why Every Shopify Subscription Portal Action Needs a Policy, Not Just a Toggle",
     excerpt:
