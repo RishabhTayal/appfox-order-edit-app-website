@@ -30,6 +30,89 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-eu-right-of-withdrawal",
+    title: "Does a Shopify Order Edit Reset the EU/UK 14-Day Right of Withdrawal?",
+    excerpt:
+      "A shopper swaps a size through self-service editing, then wants out entirely twelve days after the replacement arrives. Support checks the original order date, sees it's day twenty-five, and closes the ticket - measuring a statutory clock that was never running from the date they looked at.",
+    category: "PLAYBOOK",
+    date: "2027-01-03",
+    author: "The AppFox Team",
+    metaTitle: "Order Edits and the EU Right of Withdrawal: What Resets the Clock | AppFox",
+    metaDescription:
+      "The EU and UK give shoppers a 14-day statutory right of withdrawal that runs from the day goods are received - separate from any return policy a store writes. Here's what happens to that clock when a self-service order edit ships a replacement, and how to calculate the real deadline instead of the wrong one.",
+    body: [
+      {
+        type: "p",
+        text: "A German shopper orders a wool coat from a Shopify store, and nine days later uses self-service editing to swap medium for large. The new size ships two days after that and arrives four days after it leaves the warehouse. She wears it once, decides the cut isn't for her, and emails support twelve days after the replacement landed, asking for a full refund - no reason given, none required. Support pulls up the order, sees a created date twenty-five days back, and replies that the thirty-day return window doesn't apply here since it's already closed on a fourteen-day statutory look-up they ran off the wrong date. The reply is confident, procedurally reasonable by the store's own return policy, and wrong - because the deadline she's actually working against isn't the store's return window at all, and it isn't measured from the day support checked.",
+      },
+      {
+        type: "p",
+        text: "The EU Consumer Rights Directive gives shoppers in the EU a right of withdrawal - fourteen calendar days to cancel a purchase for any reason or no reason, full refund included - that exists independently of whatever return policy a store publishes. The UK's Consumer Contracts Regulations carry the same right forward post-Brexit, same fourteen days. Neither clock starts at checkout. Both start on the day the goods are physically received, and a store's own thirty-day, sixty-day, or final-sale policy can extend that right but can never shorten it - the statutory floor doesn't move no matter what the terms page says.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't the store's return policy, and it isn't running a return-window calculation off order data. It's assuming there's exactly one delivery date on an order that's had a self-service edit run against it - when the swap that shipped four days before the complaint has its own receipt date, and its own fourteen-day clock, that has nothing to do with the checkout twenty-five days back.",
+      },
+      { type: "h2", text: "Why the withdrawal right and a return policy aren't the same clock" },
+      {
+        type: "p",
+        text: "A merchant's return policy is a commercial promise the store wrote for itself - thirty days, sixty days, exchanges only, final sale on certain items. The statutory right of withdrawal is none of that. It isn't opted into, it can't be waived by a policy page, and for most physical goods it can't be excluded at all. The two happen to look similar - both are a window measured in days, both end in a refund or a return - which is exactly what makes it easy to treat a support ticket as one calculation when it's actually testing two different rules that only sometimes agree with each other.",
+      },
+      { type: "h2", text: "Where a self-service edit breaks the one-clock assumption" },
+      {
+        type: "ul",
+        items: [
+          "The statutory clock runs from physical receipt of the goods, not from when the order was placed or edited - a swap that ships and arrives well after checkout starts its own fourteen days on its own delivery date, regardless of how old the underlying order is",
+          "An order-level 'created date' is the number most support tooling surfaces by default, because it's the one date every order has without exception - it's also the wrong date the moment an edit has shipped something later than the original checkout",
+          "The right of withdrawal entitles a shopper to a refund, not specifically an exchange - a self-service swap is a convenience the store is choosing to offer, and it doesn't substitute for a shopper's separate right to instead just send the item back for her money, on the replacement's own clock",
+          "A pre-shipment edit - swapping a size before anything has gone out the door - never touches this at all, because the clock hasn't started yet; the ambiguity only shows up once an edit ships a physical item that a shopper then receives",
+          "If the withdrawal right isn't clearly disclosed again at the point the replacement is delivered, the fourteen days can extend automatically by up to twelve months under the Directive - which turns a missed disclosure on the swap into a liability window measured in months, not days",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A return policy is something a store decided. A right of withdrawal is something a legislature decided, running from a date the store doesn't get to pick - and an order edit can quietly create a second one of those dates on an order that used to only have one.",
+      },
+      { type: "h2", text: "What calculating this off the wrong date actually costs" },
+      {
+        type: "p",
+        text: "Getting the anchor date wrong runs in both directions, and neither is safe. Deny a refund by measuring from the original checkout when the goods in question were actually delivered by a later edit, and the store has just refused a shopper her statutory right - unenforceable regardless of what the return policy says, and the kind of dispute that escalates to a card network or a national consumer-protection body rather than staying a support ticket. Miss disclosing the right again at the point the swap arrives, and the clock that was supposed to close in fourteen days is now open for up to twelve months on that one shipment, waiting for a chargeback or a request the store has no policy basis to refuse.",
+      },
+      {
+        type: "quote",
+        text: "The shopper in the example wasn't testing the store's patience. She was twelve days into a fourteen-day clock that started the moment her replacement coat arrived - a clock the store's own system never started counting, because it was still measuring from the order it created, not the item she actually received.",
+      },
+      { type: "h2", text: "How to calculate the real deadline once an edit is in play" },
+      {
+        type: "ol",
+        items: [
+          "Anchor the withdrawal clock to the delivery date of whatever shipment is actually being withdrawn from, not to the order's created date - if a swap shipped and arrived after checkout, its own receipt date is what the fourteen days runs from",
+          "Leave any line items an edit never touched on their original delivery date - an edit that swaps one item shouldn't move the clock for everything else on the same order",
+          "Log a delivery timestamp per shipment an edit generates, not just one per order, so a support agent can look up the date that actually matters instead of defaulting to the one field every order has",
+          "Treat a self-service swap as a convenience layered on top of the statutory right, not a replacement for it - a shopper who'd rather have her money back than a second exchange is still entitled to that, on the replacement's own clock",
+          "Re-disclose the right of withdrawal at the point a replacement is delivered, not only at original checkout, so a shipment an edit created doesn't quietly fall into the twelve-month extension for lack of a notice nobody thought to repeat",
+        ],
+      },
+      {
+        type: "p",
+        text: "None of this applies to edits made before anything ships - swapping a size the morning after checkout, before a label even exists, never touches a clock that hasn't started running yet. It's specifically the edits that generate a second shipment, arriving on its own date, that create a second statutory deadline a store's tooling needs to know how to find.",
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "Every edit that goes through AppFox Order Editing writes to the order's audit timeline - who approved it, what changed, and when - which is the record that actually has the swap's own date on it, rather than the order's created date being the only timestamp anyone can find. The eligibility engine's edit windows and fulfillment cutoffs are separate from that timeline; they govern when a shopper can request an edit in the first place, not when a statutory clock on a resulting shipment starts or ends.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is calculate a right-of-withdrawal deadline or decide which jurisdiction's consumer law applies to a given order - that's a legal and policy determination that depends on where a shopper is buying from, what she bought, and rules AppFox has no visibility into and no business deciding on a merchant's behalf. What the audit timeline gives a support team is the input that determination actually needs: an accurate date for the shipment in question, instead of a single order-level date standing in for two different clocks that stopped agreeing with each other the moment an edit shipped something new.",
+      },
+      {
+        type: "p",
+        text: "The German shopper wasn't wrong about her twelve days, and support wasn't trying to shortchange her - the reply was built off the only date the ticket made easy to find. The fix isn't a longer return policy; the statutory right was never the store's policy to begin with. It's making sure the date that actually starts the clock - the day the swap arrived, not the day the original order was placed - is the one a support agent sees first, instead of the one that happens to sit on every order whether an edit touched it or not.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-net-revenue-retention",
     title: "How to Calculate Net Revenue Retention for a Shopify Subscription Program",
     excerpt:
