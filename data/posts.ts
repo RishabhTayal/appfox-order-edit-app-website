@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-portal-actions-need-a-policy-not-a-toggle",
+    title: "Why Every Shopify Subscription Portal Action Needs a Policy, Not Just a Toggle",
+    excerpt:
+      "A candle subscription turns on the full portal in one afternoon - skip, pause, swap, frequency change, cancel - and every action fires exactly as built. A subscriber swaps into a pricier candle for free, and another gets billed four times in the span she expected one, because nobody set a price rule or an effective-date rule underneath the toggle that turned them on.",
+    category: "GUIDE",
+    date: "2027-01-04",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Portal: Set the Policy, Not Just the Toggle | AppFox",
+    metaDescription:
+      "Turning on a Shopify subscription portal's swap and frequency-change actions is one afternoon of setup. Deciding what a swap costs and when a frequency change takes effect is what actually determines whether self-service saves subscribers or quietly costs you the difference - here's the policy to set before either goes live.",
+    body: [
+      {
+        type: "p",
+        text: "A candle brand turns on its full subscription portal in one afternoon - skip, pause, swap, frequency change, cancel, all live before the next renewal batch runs. Two weeks later, a subscriber on the $34 monthly candle swaps into the $58 seasonal one, and the swap goes through at no extra charge, because nothing in the portal was told a $58 candle costs more than a $34 one. The same week, a different subscriber switches from monthly to weekly the day before her renewal, expecting the change to apply going forward - instead, the switch takes effect immediately, and she's billed four times in the time she budgeted for one. Both subscribers used the portal exactly as it was presented to them. Neither request was unreasonable. Neither one was a bug.",
+      },
+      {
+        type: "p",
+        text: "Nothing crashed, nothing errored, and no engineer needs to be paged. The swap ran because a swap is supposed to run - that's the entire point of turning the feature on. The frequency change billed four times because a frequency change that takes effect immediately does exactly that when it's applied the day before a renewal instead of after one. The portal did precisely what it was built to do. What never happened is a decision, made in advance, about what a swap between two differently-priced items should cost, or when a frequency change should actually start counting.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't turning on the full portal in one afternoon - full self-service is the right call, and skip, pause, swap, frequency change, and cancel all belong live from day one. The mistake is treating \"turned on\" as the finish line for actions that need a rule attached before the first subscriber touches them, so whatever the app happens to default to becomes the store's policy by accident, instead of a policy the store actually chose.",
+      },
+      { type: "h2", text: "Every self-service action ships with a mechanism, not a policy" },
+      {
+        type: "ul",
+        items: [
+          "Skip and pause carry no financial rule to set - nothing about a skipped shipment changes what any future one costs, so there's genuinely nothing to decide beyond leaving both switched on",
+          "A swap needs a price-parity rule the moment two swap-eligible products aren't priced the same - does the subscriber pay the difference on an upgrade, get store credit on a downgrade, or does the swap run at the original price regardless of which item actually ships",
+          "A frequency change needs an effective-date rule - does the new cadence start on the very next scheduled charge, or only once the cycle already in motion finishes, because \"right away\" means something very different to a subscriber who just renewed than to one about to renew tomorrow",
+          "A frequency change also needs a decision about whatever discount was tied to the original cadence - a rate locked in for a monthly plan doesn't automatically carry the same math over to weekly billing",
+          "Cancel needs no rule beyond staying exactly one click away - it's the one action most stores already get right, precisely because getting it wrong shows up immediately, where a mispriced swap can run unnoticed for months",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A swap with no price rule and a frequency change with no effective-date rule aren't broken. They're running on whatever the app happened to default to - and nobody decided that on purpose.",
+      },
+      { type: "h2", text: "What running on the default actually costs" },
+      {
+        type: "p",
+        text: "The candle brand's swap problem compounds quietly: every subscriber who notices the seasonal candle costs more and swaps into it anyway, for free, turns an action that was supposed to be revenue-neutral into a standing discount nobody approved. It won't show up as a single alarming number - it shows up as a slightly lower average order value on renewals, month in, month out, with no line item anywhere that says why. The frequency-change problem is worse, because it manufactures its own complaint: a subscriber billed four times in the span she expected one doesn't file a support ticket describing a frequency change gone wrong - she disputes the extra three charges as fraud, because from where she's standing she made one change and watched four charges land. A feature built to cut support tickets just generated a chargeback instead.",
+      },
+      {
+        type: "quote",
+        text: "A self-service action doesn't fail by throwing an error. It fails by working exactly as configured - on a configuration nobody actually chose.",
+      },
+      { type: "h2", text: "How to set the policy before the action goes live" },
+      {
+        type: "ol",
+        items: [
+          "For every swap-eligible product, decide a price-difference rule before the swap goes live: charge the difference on an upgrade, credit the difference on a downgrade, or keep every swap-eligible item inside the same price band so the question never comes up at all",
+          "For frequency change, pick one effective-date rule and apply it everywhere - either it takes effect on the very next scheduled charge, or only once the cycle already in motion finishes - and never let it vary depending on how close a subscriber happens to be to a renewal",
+          "Decide separately whether a locked-in discount survives a frequency change, and say so on the portal screen itself, so a subscriber isn't finding out about a new number after she's already agreed to the change",
+          "Leave skip, pause, and cancel exactly as easy as the app ships them - none of the three needs a policy layered on top, and adding a confirmation gate to any of them only recreates the churn a fully self-service portal was supposed to prevent",
+          "Test each rule against the subscriber closest to a renewal date, not an average one - the timing edge case is where a missing rule turns into a real duplicate charge or a real dispute, not a hypothetical one sitting in a spec document",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's customer portal ships skip, pause, swap, frequency change, and cancel as core self-service actions from the Free plan, running on Shopify's native subscription billing - a merchant doesn't build any of the four from scratch to put the button on the screen. What AppFox doesn't decide on a merchant's behalf is the policy underneath swap and frequency change specifically: whether an upgrade charges the difference follows from how swap-eligible products are priced and grouped in the store's own catalog, and whether a frequency change takes effect immediately or at the next cycle is a rule a merchant sets deliberately, not one the portal quietly assumes. Subscription analytics, on the Growth plan and above, breaks out swap and frequency-change events individually rather than folding them into one blended activity count, which is what actually shows whether a missing rule is costing real revenue instead of a guess.",
+      },
+      {
+        type: "p",
+        text: "The candle brand didn't need to turn off swap or frequency change to fix what happened next - both are exactly the kind of self-service that keeps a subscriber from canceling over something as small as wanting a different scent or a slower cadence. It needed a price-parity rule on the swap and an effective-date rule on the frequency change, decided once, in writing, before the first subscriber found the gap by using the toggle exactly as it was left.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-eu-right-of-withdrawal",
     title: "Does a Shopify Order Edit Reset the EU/UK 14-Day Right of Withdrawal?",
     excerpt:
