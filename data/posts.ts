@@ -30,6 +30,95 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-net-revenue-retention",
+    title: "How to Calculate Net Revenue Retention for a Shopify Subscription Program",
+    excerpt:
+      "An apparel subscription's MRR chart is up 8% for the quarter, and the team calls it a good month. Underneath the chart, the subscribers who were already paying before the quarter started are worth less than they were - new signups just paid enough to cover the difference.",
+    category: "REVENUE",
+    date: "2027-01-02",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Net Revenue Retention: How to Calculate NRR | AppFox",
+    metaDescription:
+      "MRR can grow while your existing subscribers are worth less than they were last month. Here's how to calculate net revenue retention (NRR) for a Shopify subscription program - the metric that separates real growth from new-subscriber dollars covering for a shrinking base.",
+    body: [
+      {
+        type: "p",
+        text: "An athletic apparel brand runs a subscribe-and-save program for its recovery-gear line, and the monthly board update leads with the same chart every time: MRR, up and to the right, 8% quarter over quarter. The founder screenshots it for the investor update. Nobody on the team is lying about the number - it's the real total, pulled straight from the billing export. What the chart doesn't say is where the 8% actually came from, and by the time someone finally asks, the answer isn't the one anyone was expecting.",
+      },
+      {
+        type: "p",
+        text: "New subscriber signups added a little over $9,000 in fresh MRR that quarter. Existing subscribers - the ones already on the books before the quarter started - lost about $3,100 net, between cancellations, downgrades, and a wave of skipped cycles that never came back. The 8% headline was true. It was also almost entirely new customers paying for the first time, quietly covering for a base that was shrinking underneath them the whole quarter.",
+      },
+      {
+        type: "p",
+        text: "MRR growth wasn't the wrong number to track - it's just the wrong number to trust on its own. It answers whether the top line went up. It can't tell you whether that happened because the business is retaining and growing what it already has, or because new acquisition spend is quietly patching a hole in the existing base. Net revenue retention is the number built to answer that second question, and it's the one the board deck never asked.",
+      },
+      { type: "h2", text: "Why MRR growth can hide a shrinking subscriber base" },
+      {
+        type: "ul",
+        items: [
+          "Total MRR blends two completely different sources - dollars from subscribers who were already paying, and dollars from subscribers who signed up for the first time this period - into one number that can't tell you which source did the work",
+          "New-subscriber MRR grows for as long as acquisition spend keeps flowing in, even while the existing base is losing revenue every single month, and a rising top line has no way to flag that the two are moving in opposite directions",
+          "A price increase applied across the base can make MRR climb even as the subscriber count falls - fewer people paying more looks identical to more people paying the same on a chart that only shows one line",
+          "Cancellations and downgrades that happen gradually, a few subscribers a week, rarely show up as a visible dip in a total that's simultaneously being topped up by new signups every week too",
+          "A program can hit its new-subscriber acquisition targets every quarter and still be one slow quarter of paid growth away from discovering the existing base was never actually holding its value",
+        ],
+      },
+      {
+        type: "h3",
+        text: "Total MRR growth tells you the business got bigger. It doesn't tell you whether the subscribers you already had got more valuable or less valuable while it happened - and those are two different stories that can produce the exact same chart.",
+      },
+      { type: "h2", text: "What NRR actually measures" },
+      {
+        type: "p",
+        text: "Net revenue retention takes new-subscriber MRR out of the picture entirely and asks a narrower question: of the subscribers who were already billing at the start of the period, how much of their combined revenue is still there at the end of it. It starts with existing MRR at the beginning of the period, adds expansion - upgrades, added recurring items, a swap to a higher-priced plan - subtracts contraction - downgrades, removed items, a swap to a lower tier - and subtracts churned MRR from anyone who canceled, then divides the result by the starting figure. No new signups enter the calculation at any point. An NRR above 100% means the existing base is growing in value on its own, independent of acquisition. Below 100% means it's shrinking, no matter what the total MRR chart says that same month.",
+      },
+      { type: "h2", text: "A worked example" },
+      {
+        type: "p",
+        text: "Take the apparel brand's recovery-gear subscribers specifically, the ones already active on the first day of the quarter, generating $50,000 in combined MRR at that starting point.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Expansion: a subset of subscribers upgraded to a larger bundle or added a second recurring item, contributing $3,200 in new revenue from people who were already paying",
+          "Contraction: another subset downgraded to a cheaper plan or dropped an item from their box, reducing ongoing billed revenue by $1,800",
+          "Churned MRR: subscribers who canceled outright during the quarter were billing $4,500 combined at the rate they had before they left",
+          "Net change to the existing base: +$3,200 minus $1,800 minus $4,500 = a $3,100 net loss",
+          "NRR: ($50,000 + $3,200 - $1,800 - $4,500) ÷ $50,000 = $46,900 ÷ $50,000 = 93.8%",
+        ],
+      },
+      {
+        type: "quote",
+        text: "The same quarter that produced a 93.8% NRR also produced an 8% total MRR increase - because $9,000 in new-subscriber revenue was large enough to more than cover a $3,100 loss from everyone who was already on the books. Both numbers were correct. Only one of them was answering the question the board thought it was asking.",
+      },
+      { type: "h2", text: "How to calculate NRR for a Shopify subscription program" },
+      {
+        type: "ol",
+        items: [
+          "Snapshot starting MRR from only the subscribers already billing on day one of the period - anyone who signs up during the period contributes to total MRR growth, not to NRR, and mixing the two undoes the whole point of the metric",
+          "Track expansion separately from new revenue - a plan upgrade, an added recurring item, or a swap to a higher-frequency cadence, credited only when it happens to a subscriber who was already in the starting cohort",
+          "Track contraction the same way - a downgrade, a removed item, or a swap to a lower tier, credited against the starting cohort's revenue, not treated as churn even though it moves in the same direction",
+          "Track churned MRR at the rate a subscriber was actually billing right before they canceled, not at list price or at an average across the whole base",
+          "Run (starting MRR + expansion - contraction - churned MRR) ÷ starting MRR every period, and watch the trend across several periods rather than reacting to any single month - one quarter's NRR can swing on a handful of cancellations that don't repeat",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "Subscription analytics, on the Growth plan and above, reports net revenue per cycle per subscriber and logs upgrade, downgrade, skip, and cancellation events individually rather than folding them into one blended total - which is the raw material an NRR calculation is built from. Cancellations are broken out from failed-payment churn, so a subscriber who quit and a card that needs a retry don't get counted against the same line.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is label a number \"NRR\" anywhere on the dashboard or run the starting-cohort calculation for you - isolating which subscribers were active on day one of a specific period, then tracking only their expansion, contraction, and churn against everyone else's, is a cohort exercise a merchant still has to build from the exported event and revenue data. The per-cycle, per-subscriber breakdown is there to make that build fast rather than a reconstruction project; it isn't a report that ships pre-labeled.",
+      },
+      {
+        type: "p",
+        text: "The apparel brand's 8% MRR chart wasn't wrong, and nobody on the team needed to stop showing it to the board. It just needed a second number next to it - the 93.8% that said the subscribers already on the books were worth less at the end of the quarter than they were at the start, covered over by new signups that wouldn't keep arriving at the same pace forever. NRR is the number that would have said so before the acquisition spend that was hiding it ever slowed down.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-cac-payback-period",
     title: "How to Calculate CAC Payback Period for a Shopify Subscription Program (Not Just LTV:CAC)",
     excerpt:
