@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-returning-customer-rate-subscriptions",
+    title: "Why Shopify's Returning Customer Rate Lies to You Once You Add Subscriptions",
+    excerpt:
+      "A skincare brand's Shopify dashboard shows a 74% returning customer rate and the team reads it as proof the product creates loyalty. Most of that number is just auto-renewal doing its job - the same subscriber getting counted as \"returning\" every single cycle, whether she ever thinks about the brand again or not.",
+    category: "REVENUE",
+    date: "2027-01-08",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Returning Customer Rate & Subscriptions: Why It's Skewed | AppFox",
+    metaDescription:
+      "Shopify's built-in returning customer rate counts any customer with more than one order as returning - and a subscription renewal is just another order, forever, whether or not a subscriber ever chose to come back. Here's why that inflates the number, and how to calculate the repeat-purchase rate that actually reflects loyalty.",
+    body: [
+      {
+        type: "p",
+        text: "A skincare brand launches a subscribe-and-save program on its best-selling serum, and three months later the founder pulls up Shopify's Analytics > Reports and sees the returning customer rate has climbed from 31% to 74%. It reads like a turnaround - the kind of number that gets screenshotted into a pitch deck as evidence the product finally has real loyalty behind it. Nobody on the team is misreading the dashboard. The report is doing exactly what it's built to do: counting every customer who placed more than one order in the period as returning. What it can't do is tell the difference between a customer who thought about the brand and chose to buy again, and a subscriber whose card gets charged automatically every month whether she thinks about the brand at all.",
+      },
+      {
+        type: "p",
+        text: "Before the subscription program existed, a returning customer on that dashboard meant something specific: someone who ran out of serum, remembered the brand, and went back to the site to buy it again - a real, repeated decision. Once auto-renewal is running, most of the \"returning\" orders behind that 74% never involved a decision at all. The subscriber signed up once, and Shopify's Order object fires again every cycle on schedule, indistinguishable in the report from a customer who woke up one morning and chose to reorder. The report hasn't changed. What counts as \"returning\" underneath it has.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't running the subscribe-and-save program, and it isn't checking Shopify's built-in returning customer rate - both are fine things for a store to do. The mistake is reading a number that was designed for a world of one-time purchases as if it still means the same thing after most of the repeat orders behind it are mechanical instead of chosen.",
+      },
+      { type: "h2", text: "Why a renewal and a reorder look identical to Shopify's own reports" },
+      {
+        type: "ul",
+        items: [
+          "Shopify's returning customer rate and its new-vs-returning sales split both key off order count per customer in the period - they have no field that distinguishes an order created by a selling-plan renewal from one created by a customer manually checking out again",
+          "A subscriber who renews for eighteen straight months contributes eighteen \"returning customer\" orders to the report without a single one of them being a choice made in that moment - the choice was made once, at signup, and the report has no way to mark the other seventeen differently",
+          "Sales by customer type attributes 100% of every renewal's revenue to \"returning customer sales,\" which inflates the repeat-revenue side of that split independent of whether the subscription base is healthy, growing, or one bad cycle from churning",
+          "The distortion only grows in one direction - it never corrects itself, because a subscriber who never cancels keeps generating fresh \"returning\" orders for as long as the card keeps working, long after the report should have any doubt about calling it loyalty",
+          "None of this is a bug in Shopify's reporting - the report was built and named before recurring billing was common on the platform, and it still answers the question it was built to answer: did this customer place more than one order. It just isn't the question a store with a subscription base actually needs answered anymore",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A returning customer rate built for one-time purchases doesn't break when you add subscriptions. It just starts answering a question nobody's asking anymore, while looking exactly like it always did.",
+      },
+      { type: "h2", text: "What trusting the blended number actually costs" },
+      {
+        type: "p",
+        text: "The skincare brand's 74% doesn't cause a visible failure - it causes a series of reasonable-looking decisions built on a number that's mostly measuring auto-renewal instead of affection. A retention team that sees the rate climbing eases off win-back campaigns and lifecycle emails for one-time buyers, reasoning that repeat behavior is already strong, when the one-time-buyer cohort underneath the blended number may not have moved at all. A board update leans on the rate as evidence of product-market fit for a story about loyalty, when the honest version of that story is closer to \"subscribers keep getting billed unless they take action to stop it.\" And a marketing team benchmarking against industry repeat-purchase figures - numbers built almost entirely from one-time-purchase brands - ends up comparing an inflated, subscription-heavy rate against a benchmark measuring something else entirely, drawing conclusions from a comparison that was never apples to apples.",
+      },
+      {
+        type: "quote",
+        text: "The report isn't lying. It's answering the same question it always has - did this customer order more than once - on a business where most of the second orders now happen without anyone deciding to place them.",
+      },
+      { type: "h2", text: "How to calculate a repeat-purchase rate that still means something" },
+      {
+        type: "ol",
+        items: [
+          "Split the customer base into two cohorts before running any repeat-purchase math: customers whose orders in the period are entirely one-time purchases, and customers with at least one subscription renewal in the period",
+          "Calculate Shopify's standard returning customer rate only against the one-time-purchase cohort - that's the number that still means \"chose to come back,\" the same thing it meant before the subscription program existed",
+          "For the subscription cohort, track a different, subscription-specific number instead: active-subscriber retention by cohort month, which answers whether subscribers are staying past their first few cycles, not whether their renewal orders count as repeat purchases",
+          "When a subscriber's subscription lapses or gets canceled and she later places a genuine new one-time order or restarts a plan on her own, count that as a real returning-customer event - the distinction is whether a decision happened in that order, not which product she bought",
+          "Report the two numbers side by side to the board or the team, not blended into one - a one-time-purchase repeat rate of 28% next to a 12-month subscriber retention rate of 61% tells a more honest story than a single 74% that quietly averages a mechanical process with a chosen one",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "Subscription analytics, on the Growth plan and above, reports renewal, skip, pause, and cancellation events per subscriber separately from one-time order activity, which is exactly the split Shopify's own returning-customer report doesn't make - it's the raw material for running the one-time-purchase cohort and the subscriber cohort as two different calculations instead of one blended rate. Active-subscriber counts by signup cohort are available from the same dashboard, so a subscriber-retention curve doesn't have to be reconstructed from a raw order export before anyone can compare it to anything.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is relabel or override Shopify's own Analytics > Reports - the built-in returning customer rate and new-vs-returning sales split still blend subscription and one-time orders together exactly as Shopify built them, because that's Shopify's report, not AppFox's. What AppFox's subscription analytics gives a merchant is the subscriber-specific data needed to build the second number next to it - the one that separates a chosen reorder from a renewal that simply hadn't been stopped - so a dashboard number gets read for what it actually measures instead of what it happens to resemble.",
+      },
+      {
+        type: "p",
+        text: "The skincare brand didn't need to distrust its Shopify dashboard or stop checking the returning customer rate - it needed a second number next to the 74%, one that only counted the orders where a subscriber actually made a choice. That number came in closer to 40% once subscription renewals were set aside, still a real improvement worth reporting, just not the same story the blended figure had been quietly telling for three months.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-editing-roi-support-ticket-deflection",
     title: "How to Calculate the ROI of Self-Service Order Editing on Shopify",
     excerpt:
