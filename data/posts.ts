@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-bogo-buy-x-get-y-discount",
+    title: "What a Shopify Order Edit Does to a Buy X Get Y (BOGO) Discount",
+    excerpt:
+      "A pet-supply order ships a bag of dog food with a free dental chew attached through a Buy X Get Y discount. A self-service edit removes the dog food - out of stock, wrong flavor, doesn't matter which - and the free chew stays on the order anyway, because nothing told the discount the item it was free for is gone.",
+    category: "PLAYBOOK",
+    date: "2027-01-06",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Order Edit + BOGO Discount: What Actually Happens | AppFox",
+    metaDescription:
+      "A Shopify Buy X Get Y discount checks the cart once, at checkout, then never looks at the order again - so a self-service edit that removes the qualifying item doesn't touch the free one it unlocked. Here's why, and how to keep a BOGO order honest after it's been edited.",
+    body: [
+      {
+        type: "p",
+        text: "A pet-supply store runs a standing Buy X Get Y discount: buy a bag of the grain-free kibble, get a dental chew free. A customer's order qualifies at checkout, ships with both items attached, and everything about the discount worked exactly as built. Two days later, before anything leaves the warehouse, she uses the store's self-service edit link to swap the kibble for a different flavor that's actually in stock - a completely ordinary edit, the kind an order-editing app exists to handle. The flavor swap goes through cleanly. What doesn't happen is the one thing that mattered: the free dental chew, unlocked only because that specific bag of kibble was on the order, stays on the order after the kibble that earned it is gone. She ships out with a free chew and nothing she bought to earn it.",
+      },
+      {
+        type: "p",
+        text: "That's not a bug in the edit and it isn't a bug in the discount - it's two features that were never introduced to each other. A Buy X Get Y discount on Shopify is an automatic discount function, evaluated once, at the moment checkout completes, against whatever the cart happens to contain right then. It isn't a rule that watches the order going forward; it's a single yes/no check that fires and is done. Nothing about Shopify's order-editing API re-runs that check when a line item changes afterward, and nothing about a self-service edit flow knows a given item on the order was the reason a different, free item is sitting next to it. The edit sees two unrelated line items. It has no way to see the dependency between them, because Shopify never recorded one - the discount applied a price of zero to a line item once, and that's the only trace it left behind.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't running a Buy X Get Y promotion, and it isn't letting customers swap or remove items after checkout - both are ordinary, good things for a store to offer on their own. The mistake is assuming an edit that touches the \"buy\" side of a BOGO pair will somehow also reach the \"get\" side, when nothing in either system was built to connect the two once checkout closes the door on the cart that qualified.",
+      },
+      { type: "h2", text: "Why removing the qualifying item doesn't remove the free one" },
+      {
+        type: "ul",
+        items: [
+          "A Buy X Get Y discount is a checkout-time function, not a standing rule attached to the order - it prices the free item once, when the qualifying item is present, and has no ongoing role after that price is set",
+          "The free item's zero-dollar price is stored on the order the same way any other line-item price is stored - as a number, not as a reference back to whichever item made it free, so there's nothing later for an edit to trace",
+          "Order editing operates on individual line items, not on discount relationships between them - removing or swapping the qualifying item is a fully valid, self-contained edit that has no reason to also touch a second, unrelated line",
+          "This runs in both directions - just as removing the \"buy\" item doesn't pull the free \"get\" item with it, adding a second qualifying item after checkout doesn't add a second free item either, for the identical reason a volume discount or a bundle discount doesn't re-check itself on an edited order",
+          "The order status page shows exactly what's on the order, correctly - it just has no way to flag that one of those lines is only there because of another line that no longer exists",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A Buy X Get Y discount answers one question, once: does this cart qualify right now. An edit happens after \"right now\" is already over, on an order that never recorded why the free item is there.",
+      },
+      { type: "h2", text: "What a stranded free item actually costs" },
+      {
+        type: "p",
+        text: "The dental chew doesn't announce itself as a mistake - it ships, scans clean at pack-out, and shows up on the delivery confirmation like any other item that was always meant to be there. Multiply that across every edit that lands on a BOGO order, and a store ends up giving away free product with no discount code in the reporting to explain why, because an automatic discount function doesn't leave the kind of trail a percent-off code does. It doesn't look like fraud, and it isn't the customer's fault - she never even saw a decision to make. It looks like a margin that quietly runs a little thinner on exactly the promotion meant to move the most volume, for a reason nobody watching the discount reports would ever think to check.",
+      },
+      {
+        type: "quote",
+        text: "The chew isn't free because anyone chose to give it away twice. It's free because the order still remembers the discount and has already forgotten what it was for.",
+      },
+      { type: "h2", text: "How to handle a BOGO pair on an edited order" },
+      {
+        type: "ol",
+        items: [
+          "Tag line items that arrived through an automatic Buy X Get Y discount as a linked pair at the moment checkout creates them, before an edit ever has a reason to touch either one",
+          "When an edit removes, swaps, or drops the quantity of a tagged qualifying item, route that edit to review instead of letting it auto-apply, and surface the linked free item so a person decides what happens to it",
+          "Decide the default in advance rather than case by case: does the free item get pulled along with the qualifying item, does the customer keep it as a one-time courtesy, or does it get billed at full price - and apply that rule consistently so the outcome doesn't depend on who happens to review the edit",
+          "Apply the same tagging and review step in the other direction - an edit that adds a second qualifying item should prompt someone to add the second free item the promotion actually promised, not leave the customer having paid for something the storefront would have given them free",
+          "Keep a record of every BOGO pair that gets split by an edit, separate from general discount reporting - since the giveaway never shows up as a code, it's the only place that loss becomes visible at all",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's eligibility engine lets a merchant route specific edit types to an approval queue instead of auto-apply, which is exactly the lever a store needs here - flag any edit that touches an item known to carry a linked BOGO discount, and let it stop for a decision instead of saving silently. Every edit, whether it auto-applies or clears an approval, writes to the order's audit timeline, so a linked pair that does get split leaves a record a merchant can actually reconcile against, instead of a free item that quietly ships with no trace of why.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is run the Buy X Get Y discount itself, or reach into Shopify's discount function to know which items are paired - that mapping has to come from the merchant, the same way it does for a bundle-linked SKU or a volume-tier product. What the eligibility engine gives a merchant is the ability to catch an edit before it strands a free item on an order, instead of finding out weeks later that a promotion built to move product has been quietly running at a bigger discount than anyone approved.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-shop-pay-installments",
     title: "Why a Shopify Order Edit Can't Change a Shop Pay Installments Plan",
     excerpt:
