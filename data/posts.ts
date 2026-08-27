@@ -30,6 +30,91 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-quick-ratio-growth-efficiency",
+    title: "Shopify Subscription Quick Ratio: The Growth Metric MRR Growth Hides",
+    excerpt:
+      "A supplement brand's MRR has climbed for six straight months and the board deck calls it a win. Nobody's asked how many dollars of new and expansion revenue it actually takes to outrun what churn is taking away each month - and the answer is closer to the edge than the chart lets on.",
+    category: "REVENUE",
+    date: "2027-01-09",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Quick Ratio: How to Calculate Growth Efficiency | AppFox",
+    metaDescription:
+      "MRR can grow every month and still be one slow acquisition quarter away from shrinking. Here's how to calculate the quick ratio for a Shopify subscription program - the growth-efficiency metric that shows whether new and expansion revenue is actually outrunning churn, or just barely covering it.",
+    body: [
+      {
+        type: "p",
+        text: "A supplement brand's subscribe-and-save program has posted MRR growth every single month for half a year, and the board deck leads with the same chart each time: a clean line climbing up and to the right, 15% quarter over quarter. Ad spend on subscriber acquisition has climbed right alongside it, which nobody's treated as a problem - the MRR chart keeps proving the spend is working. Then someone on the finance side asks a question the chart was never built to answer: if acquisition spend got cut in half next quarter, would MRR still be climbing, or would it flip negative inside of a month? Nobody in the room can answer with a number. They can only point at the chart again.",
+      },
+      {
+        type: "p",
+        text: "The chart can't answer that question because total MRR only reports the outcome of a race, not how close the race actually is. A brand adding $20,000 in new and expansion MRR against $4,000 in churn and contraction is growing the same way, on the same chart, as a brand adding $20,000 against $19,000 - both show growth, both show a line going up, and only one of them is a single soft month away from going flat. The quick ratio is the metric built to separate those two brands, and it's the number the board deck never had a row for.",
+      },
+      {
+        type: "h2", text: "Why a rising MRR chart can hide a program that's barely outrunning churn" },
+      {
+        type: "ul",
+        items: [
+          "Total MRR nets everything into one line - new signups, upgrades, downgrades, and cancellations all land in the same number, so a month where growth barely edged out losses looks identical on the chart to a month where growth crushed them",
+          "Rising acquisition spend can keep MRR climbing every month even while churn is getting worse, because more new subscribers just needs to outpace more cancellations by a shrinking margin, and the chart has no way to flag that the margin is shrinking",
+          "A program can hit every new-subscriber target on the acquisition roadmap and still be effectively flat once churn and contraction are netted out - the acquisition team's dashboard and the finance team's dashboard can both look healthy from two different, incomplete views",
+          "The gap between \"growing efficiently\" and \"growing because acquisition spend is covering for churn\" never shows up until the spend slows down, the ad platform gets more expensive, or a channel that was working stops working - and by then it's a quarter of runway, not a line item to adjust",
+          "None of this means the program is failing - a young subscription program is often supposed to lean on new-subscriber MRR before retention has had time to mature. The problem isn't leaning on new revenue. It's not knowing how hard the lean actually is",
+        ],
+      },
+      {
+        type: "h3",
+        text: "MRR going up answers whether the program got bigger this month. It doesn't answer how much of that size came from beating churn versus how much came from simply outspending it - and those two programs need completely different decisions made about them.",
+      },
+      { type: "h2", text: "What the quick ratio actually measures" },
+      {
+        type: "p",
+        text: "The quick ratio takes the same four inputs an NRR calculation uses - new MRR, expansion MRR, contraction MRR, and churned MRR - and combines them differently. Instead of measuring what happened to the existing base alone, it puts everything gained in a period over everything lost: (new MRR + expansion MRR) ÷ (contraction MRR + churned MRR). A ratio of 4 means every dollar lost to downgrades and cancellations was matched by four dollars of new and expansion revenue - a program with real room to absorb a bad month. A ratio near 1 means growth and loss are running neck and neck, and the program is one soft acquisition month away from a flat or shrinking chart. Below 1, the program is already losing more than it's gaining, even in a month the top-line MRR number still shows as growth, because a prior month's momentum hasn't fully drained out yet.",
+      },
+      { type: "h2", text: "A worked example" },
+      {
+        type: "p",
+        text: "Take the supplement brand's numbers for the month the board saw the 15% chart: $18,000 in new-subscriber MRR from first-time signups, and $2,400 in expansion MRR from existing subscribers upgrading bundles or adding items.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Contraction: subscribers downgrading plans or removing items from an existing box, reducing ongoing billed revenue by $1,100",
+          "Churned MRR: subscribers who canceled outright that month, valued at the rate they were actually billing right before they left, totaling $14,300",
+          "Net MRR growth: ($18,000 + $2,400) - ($1,100 + $14,300) = $20,400 - $15,400 = $5,000 - the number behind that reassuring 15% line",
+          "Quick ratio: $20,400 ÷ $15,400 = 1.32",
+        ],
+      },
+      {
+        type: "quote",
+        text: "The same month that produced a 15% MRR increase produced a quick ratio of 1.32 - just above the line where growth and churn cancel out completely. The board saw a program getting bigger. The number they didn't see was how close that same month came to not growing at all.",
+      },
+      { type: "h2", text: "How to calculate the quick ratio for a Shopify subscription program" },
+      {
+        type: "ol",
+        items: [
+          "Total new MRR for the period from subscribers billing for the first time, at the rate their first successful renewal actually charged, not the list price on the product page",
+          "Total expansion MRR from existing subscribers who upgraded a plan, added a recurring item, or moved to a higher-priced tier during the period - credited at the size of the increase, not their full new bill",
+          "Total contraction MRR from existing subscribers who downgraded, removed an item, or dropped to a lower tier - credited at the size of the decrease",
+          "Total churned MRR from subscribers who canceled during the period, valued at what they were billing immediately before the cancellation, not an average across the base",
+          "Divide (new + expansion) by (contraction + churned), and track the ratio period over period rather than reacting to one month - a single acquisition push or a single bad churn week can swing it without changing the program's underlying trajectory",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "Subscription analytics, on the Growth plan and above, logs renewal, upgrade, downgrade, skip, and cancellation events per subscriber rather than folding them into one blended total - the same breakdown a quick-ratio calculation needs to separate new revenue from expansion, and contraction from outright churn. Cancellations are tracked apart from failed-payment retries, so a subscriber who quit on purpose isn't counted the same as a card that still has three retry attempts left.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is label a number \"quick ratio\" anywhere on the dashboard or run the four-input calculation automatically - splitting a period's events into new, expansion, contraction, and churn, then dividing one pair by the other, is still a build a merchant does from the exported event and revenue data. The per-subscriber event log is there so that build takes an afternoon against clean data instead of a reconciliation project against a raw order export.",
+      },
+      {
+        type: "p",
+        text: "The supplement brand didn't need to stop showing the board its MRR chart, and the 15% growth was real. It needed the second number next to it - the 1.32 that said the program's growth and its churn were close enough to canceling each other out that the next quarter's story would be decided almost entirely by whether acquisition spend held steady, not by anything happening inside the existing subscriber base. That's the number that turns \"should we cut acquisition spend\" from a guess into a decision with a ratio behind it.",
+      },
+    ],
+  },
+  {
     slug: "shopify-returning-customer-rate-subscriptions",
     title: "Why Shopify's Returning Customer Rate Lies to You Once You Add Subscriptions",
     excerpt:
