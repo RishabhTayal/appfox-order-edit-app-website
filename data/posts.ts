@@ -30,6 +30,90 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-editing-roi-support-ticket-deflection",
+    title: "How to Calculate the ROI of Self-Service Order Editing on Shopify",
+    excerpt:
+      "A home-goods brand buys order editing software expecting the ticket count to drop by roughly the number of edits it processes. Six weeks later the support queue is thinner, the P&L has a new line item, and nobody on the team can say with a number whether the app paid for itself - because ticket deflection was never the only line that moved.",
+    category: "REVENUE",
+    date: "2027-01-07",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Order Editing ROI: How to Calculate the Payback | AppFox",
+    metaDescription:
+      "Support ticket deflection is the number everyone quotes for self-service order editing ROI, and it's only one of the two savings actually in play. Here's how to calculate the real payback on a Shopify order editing app - deflected tickets plus preserved payment fees, worked through with real math.",
+    body: [
+      {
+        type: "p",
+        text: "A home-goods brand runs its support inbox through a shared helpdesk, and for months the same tag keeps surfacing at the top of the weekly report: order changes. Wrong size, wrong address, a color swap before anything ships - about 600 of these a month, each one a few minutes of an agent's time before the customer gets an answer. The team installs a self-service order editing app specifically to make that number smaller, and it works: two months later, order-change tickets are down to about 120 a month. The founder pulls up the P&L expecting an easy sentence for the board update - the app paid for itself in ticket savings alone - and the arithmetic doesn't quite get there. Multiplying the deflected tickets by a rough support cost per ticket covers most of the subscription price, but not all of it, and the gap sits there unexplained until someone finally asks what else changed besides the ticket count.",
+      },
+      {
+        type: "p",
+        text: "What changed besides the ticket count was how those 480 no-longer-filed changes got made before the app existed. A support agent handling a size swap by hand doesn't have a native tool for it - the common workaround on Shopify is canceling the original order and creating a new one at the corrected total, which refunds the original payment and runs a fresh charge. Shopify doesn't return the payment processing fee on the canceled order, so every one of those manual fixes was quietly costing 1.5-2.9% of the order value in fees the store never gets back. That cost never showed up as a support line item, because it wasn't support's number to track - it landed in payment processing, on a completely different report, where nobody was looking for a connection to the ticket queue.",
+      },
+      {
+        type: "p",
+        text: "Ticket deflection is the number every order-editing pitch leads with, and it's real - but it's exactly half of what the app actually changed. The other half was never a support cost to begin with, which is precisely why it's the half that gets left out of the ROI math almost every time.",
+      },
+      { type: "h2", text: "The savings ticket deflection alone doesn't count" },
+      {
+        type: "ul",
+        items: [
+          "Support labor avoided - every order-change contact that gets resolved by the customer instead of an agent, valued at a fully-loaded cost per ticket handled",
+          "Payment fees preserved - every edit that would otherwise have been a manual cancel-and-reorder now happens in place, through Shopify's native order editing, so the processing fee on the original charge is never forfeited",
+          "What this calculation deliberately leaves out - post-purchase upsell revenue captured in the same edit flow is real money, but it's incremental revenue, not a cost avoided, and belongs in a separate line so it doesn't inflate a payback number that's supposed to answer a narrower question",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A support ticket is the cost you can see because it has a queue and a timestamp. A canceled-and-reordered payment fee is the cost you can't, because it was never labeled as belonging to the order-change problem in the first place.",
+      },
+      { type: "h2", text: "A worked example" },
+      {
+        type: "p",
+        text: "Take the home-goods brand's numbers specifically: 600 order-change contacts a month before launch, a fully-loaded support cost of $6 per ticket handled, and an average order value of $85.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Tickets deflected: roughly 80% of order-change contacts now resolve without reaching an agent - 480 tickets a month, in line with the self-service completion rate a well-configured edit flow typically holds",
+          "Support labor saved: 480 × $6 = $2,880 a month",
+          "Edits that would previously have needed a cancel-and-reorder: of those 480, about 150 changed the order total enough that the old manual process would have required it - a swap to a different-priced variant, an added item, a quantity change",
+          "Payment fees preserved: 150 × $85 average order value × 2.2% average processing fee ≈ $280.50 a month",
+          "Total monthly savings: $2,880 + $280.50 = $3,160.50",
+          "Plan cost: $19/mo for the plan tier that unlocks unlimited edit volume and the analytics dashboard this calculation depends on",
+          "Net monthly return: $3,160.50 - $19 = $3,141.50, or roughly 165x the plan cost",
+        ],
+      },
+      {
+        type: "quote",
+        text: "The support-labor line alone ($2,880) already clears the plan's cost by more than 150x. The fee-preservation line ($280.50) looks small next to it - until it's the line nobody was tracking at all, on a report the ticket-deflection number never touches.",
+      },
+      { type: "h2", text: "How to calculate this for your own store" },
+      {
+        type: "ol",
+        items: [
+          "Get a real pre-launch baseline of order-change contacts from your helpdesk - tag address changes, size or variant swaps, quantity changes, and cancellations as one category before you launch, not after, so the before-and-after comparison is measuring the same thing twice",
+          "Price your fully-loaded cost per ticket - agent time plus the share of tooling and management overhead a ticket actually consumes, not just the wage for the minutes spent typing",
+          "Separate deflected tickets from edits that involve a price change - only the second group would have gone through a cancel-and-reorder under the old process, so only that group carries a fee-preservation saving",
+          "Use your store's own average order value and actual payment processing rate for the fee-preservation line, rather than borrowing a number from someone else's report - a store running mostly Shop Pay and a store running mostly manual card entry are preserving different percentages",
+          "Recalculate quarterly, not once - order-change volume moves with your catalog and your return policy, and a payback number from launch month gets stale fast if nobody revisits it",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "The analytics dashboard, on the Growth plan and above, reports edit volume broken out by edit type - address, quantity, variant swap, cancellation - which is exactly the split this calculation needs to separate straightforward deflections from the edits that would have previously forced a cancel-and-reorder. Every edit applies in place through Shopify's native Order Editing API, so the fee-preservation side of the math isn't an estimate of what the app should be saving - it's what happens on every qualifying edit by default, whether or not anyone ever builds the spreadsheet to prove it.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is pull ticket data from your helpdesk or run this calculation for you - the pre-launch baseline, the fully-loaded cost per ticket, and the average order value all have to come from a merchant's own tools, the same way they would for any ROI case a finance team builds by hand. The dashboard supplies the edit-volume side of the equation; the helpdesk tags supply the other, and the two only turn into a payback number when someone puts them in the same spreadsheet.",
+      },
+      {
+        type: "p",
+        text: "The home-goods brand's board update eventually got its sentence, just not the one the founder expected to write. The app didn't pay for itself in ticket savings alone - it paid for itself more than a hundred times over once the fee-preservation line got added to a report it had never appeared on before. The 480 deflected tickets were the visible half of the number. The 150 payment fees that stopped disappearing every month were the half that had been sitting in plain sight the entire time, on a report nobody had thought to check against the support queue.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-bogo-buy-x-get-y-discount",
     title: "What a Shopify Order Edit Does to a Buy X Get Y (BOGO) Discount",
     excerpt:
