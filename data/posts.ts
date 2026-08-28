@@ -30,6 +30,95 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-subscriber-segmentation-retention-campaigns",
+    title: "How to Segment Shopify Subscribers Before a Retention Campaign Goes Out",
+    excerpt:
+      "A pet-supplement subscription brand flags 640 subscribers as \"at risk\" and sends every one of them the same 20%-off email - until someone splits the list and finds a new subscriber who never engaged, a card that's been declined for two weeks, and a genuinely price-sensitive two-year customer, all getting the identical discount for three completely different reasons.",
+    category: "REVENUE",
+    date: "2027-01-18",
+    author: "The AppFox Team",
+    metaTitle: "How to Segment Shopify Subscribers for Retention | AppFox",
+    metaDescription:
+      "A single 'at risk' segment blends a subscriber who never engaged with one whose card just expired and one who's genuinely price-shopping - and a blanket discount only works for one of them. Here's how to segment Shopify subscribers by risk reason, tenure, and value before a retention campaign goes out, and what AppFox Subscription's analytics already tracks to build the split.",
+    body: [
+      {
+        type: "p",
+        text: "A pet-supplement subscription brand runs one retention campaign a month against a simple rule: any subscriber who skipped a delivery, missed a renewal, or hasn't logged into the portal in 60 days gets flagged \"at risk\" and receives the same email - 20% off the next renewal, good for one cycle. The rule is easy to build and easy to defend. It also, this month, flags 640 subscribers, and every one of them gets the identical offer.",
+      },
+      {
+        type: "p",
+        text: "Redemption comes back at 35%, which the retention team reads as a solid campaign. Nobody checks who redeemed until a quarterly review pulls the list apart by tenure and cancellation reason. A new subscriber inside her first 45 days, who never customized an order or opened the portal once, got the same email as a subscriber whose card was declined twice in the last two weeks, who got the same email as a two-year subscriber comparison-shopping a competitor's lower price. Three different reasons for showing up on the same list, one identical discount sent to all of them - and only one of those three reasons was ever going to respond to a discount at all.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't running a retention campaign against an at-risk list, and it isn't offering a discount to keep a subscriber from leaving - both are reasonable moves. The mistake is building one segment out of every subscriber who tripped a risk signal, when the signal itself doesn't say why they tripped it, and the fix for a lapsed card looks nothing like the fix for a subscriber who's simply never used the product.",
+      },
+      { type: "h2", text: "Why one \"at-risk\" segment blends subscribers who need different things" },
+      {
+        type: "ul",
+        items: [
+          "Tenure changes what a discount is worth: to a subscriber inside her first cycle who hasn't decided whether the product is for her, 20% off is close to irrelevant; to a two-year subscriber already staying out of habit, it's margin given away for free",
+          "Cancellation risk reason splits into voluntary and involuntary, and only one of those responds to a discount at all - a subscriber with a declined card doesn't need 20% off, she needs a way to update her payment method before the next retry runs out",
+          "Realized value already varies inside the list - a subscriber on a standard price and one already sitting on a stacked discount tier are not the same ask for a further price cut, even if both tripped the same risk rule",
+          "Engagement history tells two different stories under one signal - a subscriber who paused deliberately last cycle is managing her subscription on purpose, and a subscriber who's gone quiet without touching the portal at all is disengaging without saying so",
+          "None of this shows up inside the risk rule itself, because \"skipped a delivery or missed a renewal\" is built to catch anyone showing any risk signal, with no branch anywhere for why the signal fired",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A retention campaign doesn't fail by reaching the wrong subscribers. It fails by assuming every subscriber it reached needed to hear the same thing.",
+      },
+      { type: "h2", text: "What one blended segment actually costs" },
+      {
+        type: "p",
+        text: "Every dollar of discount handed to a subscriber who was already going to renew is a dollar of margin spent on nothing - the offer didn't change her decision, because her decision was never in question. Every email sent to a subscriber whose card is declined is a dollar of send effort spent on a message that can't be acted on - she can't redeem a renewal discount when there's no working payment method behind the renewal it applies to. The campaign isn't wrong to exist. It's wrong to assume the same lever moves every subscriber on the list it built.",
+      },
+      {
+        type: "quote",
+        text: "The campaign reached all 640 subscribers on the list. It only had something to say to the third of them who were actually deciding on price.",
+      },
+      { type: "h2", text: "A worked example" },
+      {
+        type: "p",
+        text: "The pet-supplement brand's 640 flagged subscribers split three ways once tenure and cancellation reason get crossed against the risk signal that flagged each of them.",
+      },
+      {
+        type: "ul",
+        items: [
+          "New, low-engagement: 210 subscribers inside their first 45 days who never opened the portal or customized an order - the 20% email is redeemed by 8 of them (4%), because price was never the reason they were quiet",
+          "Payment-failure: 175 subscribers with a declined card on file and at least one failed renewal attempt in the last two weeks - redeemed by 0 of them, since a renewal discount can't be applied when there's no charge going through to apply it to",
+          "Price-sensitive: 255 subscribers past 12 months' tenure, on a standard (non-discounted) price, with recent activity on the portal's cancellation flow - redeemed by 216 of them (85%), the segment the offer was actually built for",
+          "Total redemption reported for the campaign: 224 of 640 (35%) - a number that reads as a healthy campaign while hiding that 94% of the actual redemptions came from a segment that was 40% of the list",
+          "Real cost of the blended send: 175 subscribers whose actual blocker - a declined card - went completely unaddressed by an email offering a discount they couldn't use, while the campaign's reported success masked that their churn kept moving at the same rate as before it went out",
+        ],
+      },
+      { type: "h2", text: "How to segment Shopify subscribers before the next retention send" },
+      {
+        type: "ol",
+        items: [
+          "Split by cancellation risk reason first, voluntary versus involuntary, before targeting anyone - a discount doesn't fix a declined card, and a payment-failure segment needs a card-update prompt instead of an offer it can't redeem",
+          "Segment by tenure next - a subscriber inside her first billing cycle needs onboarding and reassurance about the product, not a loyalty-style discount aimed at someone who's already decided to stay",
+          "Cross tenure with engagement history - portal logins, deliberate skips and pauses versus total silence - to separate a subscriber actively managing her subscription from one quietly disengaging without saying so",
+          "Weight the offer by realized value - a subscriber already on a discounted tier or high order value gets a different lever than a further price cut, since stacking another discount on top mostly just narrows margin further",
+          "Re-run the segmentation on every send, not once at setup - who's at risk and why changes each cycle, and a segmentation checked once goes stale the same way the original blended list did",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "Subscription analytics, on the Growth plan and above, tracks tenure, plan, and skip, pause, and cancellation events per subscriber individually rather than folding them into one blended activity count - and cancellations are reported with a reason attached, including whether one followed a failed and unrecovered payment. That's the raw material a segmentation like this is built from: an export a merchant can cross by tenure and risk reason, rather than a rule reconstructed from a raw order history. The Klaviyo integration carries those same subscriber fields into flows and segments a merchant builds on the marketing side.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is build or send the retention campaign itself, or auto-sort an at-risk list into the segments above - there's no scoring model inside the app deciding which subscriber is price-sensitive versus disengaged versus mid-decline. That logic runs in Klaviyo, or in whatever tool reads the exported analytics, using the tenure, engagement, and cancellation-reason fields AppFox already tracks. What AppFox provides is the reason-coded, subscriber-level data the split depends on - building the three separate sends on top of it is a merchant's own campaign work, not a setting inside the app.",
+      },
+      {
+        type: "p",
+        text: "The pet-supplement brand didn't need a bigger discount or a longer at-risk list. It needed the 175 subscribers with a declined card routed to a payment-update prompt instead of a coupon, and the 20% offer reserved for the 255 who were actually deciding on price. Once the list was split, the price-sensitive segment kept converting at the same rate - and the payment-failure segment, addressed correctly for the first time, started converting too.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-failed-payment-involuntary-churn-cost",
     title: "How to Calculate How Much Failed Payments Are Actually Costing a Shopify Subscription Program",
     excerpt:
