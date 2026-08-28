@@ -30,6 +30,95 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-failed-payment-involuntary-churn-cost",
+    title: "How to Calculate How Much Failed Payments Are Actually Costing a Shopify Subscription Program",
+    excerpt:
+      "A skincare subscription brand's monthly cancellation rate has held at 9% for two straight quarters, and the retention team spends that whole time running win-back surveys aimed at unhappy subscribers - until someone splits the number and finds that a third of it was never a subscriber choosing to leave at all, just a card that failed three times and a subscription Shopify auto-canceled on schedule.",
+    category: "REVENUE",
+    date: "2027-01-17",
+    author: "The AppFox Team",
+    metaTitle: "Failed Payments on Shopify Subscriptions: How to Calculate the Cost | AppFox",
+    metaDescription:
+      "Most Shopify subscription churn reports blend voluntary cancellations with failed-payment losses into a single rate. Here's how to separate involuntary churn from the total, calculate what automatic payment retries actually recover, and find the real revenue a declined card is costing before dissatisfaction ever enters the picture.",
+    body: [
+      {
+        type: "p",
+        text: "A skincare subscription brand tracks one number every week in its retention dashboard: the monthly cancellation rate, which has held at almost exactly 9% for two straight quarters. The retention team treats a stable number as a stable problem, and spends the quarter running the standard playbook against it - a win-back email series, a discount offered at the cancel screen, a short survey asking subscribers why they're leaving. The survey comes back with the answers retention surveys always come back with: shipping took too long, the product didn't work as well as hoped, a subscriber found the same item cheaper elsewhere. None of it is wrong, exactly. It's also not complete.",
+      },
+      {
+        type: "p",
+        text: "What the survey can't catch is anyone who never saw a cancel screen to answer it from. When a finance analyst finally pulls a full breakdown of the 9% by cancellation reason instead of by cancellation count, close to a third of it turns out to be subscriptions that Shopify canceled automatically, after a renewal charge failed three times in a row and nobody updated the card in between. Those subscribers didn't answer a survey about why they left, because from their side, they may never have decided to leave at all.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't running a win-back campaign, and it isn't surveying subscribers who cancel - both are reasonable things to do with a churn number. The mistake is treating one blended cancellation rate as a single problem with a single fix, when a third of it is a payments problem wearing the same number as the other two-thirds, which is a product and pricing problem.",
+      },
+      { type: "h2", text: "Why a blended cancellation rate hides a payments problem" },
+      {
+        type: "ul",
+        items: [
+          "Shopify's native subscription billing retries a failed renewal charge automatically on its own schedule, and only cancels the contract outright once those retries are exhausted - which means every involuntary cancellation already survived multiple silent recovery attempts before it ever shows up as churn",
+          "A top-line cancellation rate counts a subscriber who clicked \"cancel\" and a subscriber whose card was declined three times identically as the same event, with no distinction anywhere in the number itself",
+          "Voluntary cancellation correlates with dissatisfaction, and responds to the fixes aimed at dissatisfaction; involuntary cancellation correlates with card expiration dates and issuing-bank decline codes, and doesn't respond to a better product or a friendlier win-back email at all",
+          "A win-back survey only reaches subscribers who saw a cancellation flow to answer it from - a subscriber whose subscription lapsed silently after a failed retry was never shown that flow, and never gets asked anything",
+          "None of this shows up as a separate line anywhere a retention team already looks, because the same dashboard that reports \"9% monthly churn\" has no reason to also report what fraction of that 9% never involved a decision",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A cancellation rate doesn't fail by being wrong. It fails by being one number standing in for two different problems - one a retention team can fix, and one a declined card already decided.",
+      },
+      { type: "h2", text: "What blending the two actually costs" },
+      {
+        type: "p",
+        text: "Every dollar spent improving the subscriber experience to chase down the voluntary two-thirds of a churn number is a reasonable dollar spent - discounts, better packaging, faster shipping, all move that number if they're the right fix. None of that spend touches the involuntary third, because the subscribers behind it were never dissatisfied with anything the retention team could change. They had a card that failed, a retry window that closed, and a subscription that ended on a schedule nobody chose. Every month that slice goes unmeasured is a month of retention spend aimed at two-thirds of the actual problem, on a budget sized for all of it.",
+      },
+      {
+        type: "quote",
+        text: "The 9% churn rate was real. So was every fix the retention team tried against it. What wasn't real was the assumption that fixing the product would eventually fix all of it - a third of that number was never listening.",
+      },
+      { type: "h2", text: "A worked example" },
+      {
+        type: "p",
+        text: "The skincare brand has 4,000 active subscribers on a $42-a-month plan. In an average month, 320 renewal charges fail on the first attempt - roughly 8% of the base, in line with typical card-decline rates across an actively billing subscriber list. Shopify's native retry schedule works through those declines automatically over the following days, and recovers 208 of them before the retry window closes.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Renewal charges failing on first attempt: 320",
+          "Recovered automatically by Shopify's native retry schedule: 208 (a 65% recovery rate)",
+          "Retries exhausted, subscription auto-canceled: 320 − 208 = 112 subscribers, with zero decision made by any of them",
+          "Revenue lost to involuntary churn alone: 112 × $42 = $4,704 in that month, or roughly $56,400 annualized if the rate holds",
+          "Total monthly cancellations reported as \"9% churn\": 360 - meaning the 112 involuntary cancellations are 31% of the entire reported number, sitting inside a rate the retention team has been treating as 100% a product and pricing problem",
+        ],
+      },
+      { type: "h2", text: "How to separate and reduce involuntary churn on a Shopify subscription program" },
+      {
+        type: "ol",
+        items: [
+          "Pull cancellation reason alongside cancellation count before setting a retention budget - a subscription canceled after exhausted payment retries and a subscription canceled from the account portal are different events, and reporting them as one rate erases the difference",
+          "Calculate the recovery rate on failed renewal charges separately from the overall cancellation rate - it's the one number that shows how much of the involuntary slice retries are already fixing on their own, before any additional spend",
+          "Size retention spend against the voluntary share only, once the two are separated - a win-back email aimed at a subscriber who never saw a cancellation screen is a message with no one able to act on it",
+          "Add a card-expiration nudge ahead of the renewal date, not just a retry after the decline - a card that's going to fail because it expired this month will fail identically three times in a row, and a retry schedule can't recover a card that's simply gone",
+          "Re-run the split quarterly, not once - the ratio between voluntary and involuntary churn moves with subscriber tenure and card-issuer mix, and a number checked once at setup goes stale the same way the blended rate did",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription bills renewals through Shopify's native subscription checkout, and failed payments retry automatically on Shopify's own schedule with no separate app to configure - a subscription only cancels involuntarily once that retry sequence is exhausted. Subscription analytics, on the Growth plan and above, reports cancellations with a reason attached, including whether a cancellation followed a failed and unrecovered payment, so the split between voluntary and involuntary churn is a filter on an export rather than a reconstruction from raw order data.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is let a merchant customize the retry schedule itself - the number of attempts and the spacing between them run on Shopify's native billing infrastructure, not on a setting inside the app. It also doesn't send a pre-expiration card nudge on its own; that's a Klaviyo flow or a Shopify Flow automation a merchant builds using the payment-failure data the analytics dashboard already surfaces. What AppFox provides is the reason-coded data the split depends on - building the nudge and the recovery report on top of it is a merchant's own integration work, not a toggle in the app.",
+      },
+      {
+        type: "p",
+        text: "The skincare brand didn't need a better win-back survey - the two-thirds of its churn that survey could reach was already getting a reasonable amount of attention. It needed the 112 number sitting next to the 248, and a card-expiration nudge aimed at the slice no survey was ever going to reach. The 9% was never the lie. Treating it as one problem was.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-annual-prepay-discount-sizing",
     title: "How to Size the Discount on a Shopify Subscription's Annual Prepay Plan",
     excerpt:
