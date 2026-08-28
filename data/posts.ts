@@ -30,6 +30,95 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-annual-prepay-discount-sizing",
+    title: "How to Size the Discount on a Shopify Subscription's Annual Prepay Plan",
+    excerpt:
+      "A coffee roaster launches \"Pay Annually, Save 20%\" copied straight off a competitor's plan page, and six months in the annual tier looks like the best decision the subscription program ever made - until someone checks who actually signed up for it, and finds almost none of them were the customers the discount was supposed to win.",
+    category: "REVENUE",
+    date: "2027-01-10",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Annual Prepay Discount: How to Size It | AppFox",
+    metaDescription:
+      "A copied \"save 20%\" annual prepay discount can quietly cost more than it earns if it mostly attracts subscribers who would have stayed anyway. Here's how to size a Shopify subscription's annual prepay discount against your own churn and tenure data instead of a competitor's plan page.",
+    body: [
+      {
+        type: "p",
+        text: "A coffee roaster launches an annual plan on its subscribe-and-save program - \"Pay Annually, Save 20%\" - with the discount set the way most stores set it: pulled from a competitor's plan page, rounded to a number that sounds generous, and shipped. Six weeks later the finance lead pulls up the numbers and likes what she sees. Annual-plan revenue booked upfront is the single largest cash event the program has ever had, bigger than any single month of the standard monthly plan, and it lands all at once instead of trickling in over a year. The obvious read is that the discount worked.",
+      },
+      {
+        type: "p",
+        text: "Nobody checks a second question until a subscriber-tenure export gets pulled for an unrelated reason three months later: who actually signed up for the annual plan? Not new customers choosing it at first purchase - almost all of it came from existing monthly subscribers, most of them well past a year of tenure already, switching from a plan they were never going to cancel into a plan that pays 20% less for the exact same twelve boxes. The upfront cash was real. So was the discount. What wasn't real was the story that the discount had won anything - it had mostly just been handed, for free, to subscribers who were already staying.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't offering an annual prepay plan, and it isn't offering a discount to make it worth choosing over the monthly one - both are reasonable things for a subscription program to do. The mistake is setting the size of that discount from a competitor's plan page instead of the one number that actually determines whether it's a good deal: what a subscriber on this specific program is already worth on the monthly plan, before any discount is offered at all.",
+      },
+      { type: "h2", text: "Why a discount copied from a competitor's page is a guess, not a number" },
+      {
+        type: "ul",
+        items: [
+          "A rate borrowed from a competitor's plan page reflects that competitor's churn, margin, and average subscriber tenure - none of which have any reason to match a different store's numbers, even in the same category",
+          "A flat percentage off list price says nothing about what a subscriber on that program is actually worth over time - a 20% discount is a rounding error against a subscriber who'd have churned in two months, and a real giveaway against one who'd have stayed for two years",
+          "Annual plans get promoted to the entire subscriber base by default - the checkout upsell, the account portal banner, the win-back email - with no way to steer the offer toward the subscribers whose economics actually justify it and away from the ones who were staying regardless",
+          "A discount sized to look competitive on a plan-comparison page has no connection to a store's own involuntary-churn rate - the actual risk-reduction a locked-in annual charge provides, which is the one real cost-saving that can honestly fund part of the discount",
+          "None of this shows up as a loss on any report a store already checks - upfront annual revenue looks identical whether it came from a subscriber who was never going to cancel or one who would have churned inside a quarter, because both show up as the same lump sum on the same day",
+        ],
+      },
+      {
+        type: "h3",
+        text: "An annual discount doesn't fail by losing money on the page. It fails by winning the wrong subscribers - the ones who were staying anyway - at a price lower than they were already worth.",
+      },
+      { type: "h2", text: "The number a competitor's plan page can't give you" },
+      {
+        type: "p",
+        text: "Every monthly subscriber on a program already has an expected lifetime value, and it's simple to calculate: the monthly price, divided by the monthly cancellation rate, gives the average number of cycles a subscriber sticks around, and multiplying that back out gives the average revenue a monthly subscriber is worth before they ever see an annual offer. That number - not list price, not a competitor's discount - is the ceiling an annual plan has to respect. Price the annual plan below what an average subscriber is already worth on the monthly plan, and every subscriber who converts at that average tenure or better is a loss dressed up as upfront cash. Price it above that number and the discount stops being a discount at all, which defeats the point of offering one.",
+      },
+      { type: "h2", text: "A worked example" },
+      {
+        type: "p",
+        text: "The coffee roaster's monthly plan bills $24 a month, and the subscriber base cancels - voluntarily or through a failed renewal that never recovers - at 8% a cycle. That puts average tenure at roughly 1 ÷ 0.08, or 12.5 months, and average lifetime revenue on the monthly plan at $24 × 12.5 = $300.",
+      },
+      {
+        type: "ul",
+        items: [
+          "List price for twelve boxes paid monthly: $24 × 12 = $288",
+          "\"Pay Annually, Save 20%\" price: $288 × 0.80 = $230.40, rounded to $230",
+          "Against list price, $230 looks like a fair discount for locking in a year",
+          "Against the $300 an average subscriber is actually worth on the monthly plan, $230 is a $70 giveaway for every subscriber who converts at or above average tenure - which, per the tenure export, was most of who actually signed up",
+          "Of the 8% monthly cancellation rate, roughly a third is involuntary - a renewal that fails and never gets recovered - and that's the only slice of churn a locked-in annual charge genuinely removes; the rest is voluntary cancellation, and a subscriber determined to cancel an annual plan can usually still request a refund for the boxes not yet shipped",
+        ],
+      },
+      {
+        type: "quote",
+        text: "$230 is a real discount off $288 in list price. It's a real loss against the $300 that subscriber was already worth - and the tenure export is what told the coffee roaster which of those two numbers its actual signups were being priced against.",
+      },
+      { type: "h2", text: "How to size a Shopify subscription's annual prepay discount" },
+      {
+        type: "ol",
+        items: [
+          "Calculate this program's own average monthly-plan lifetime revenue - price divided by monthly cancellation rate, multiplied back out - before setting any annual discount; that number, not a competitor's plan page, is the ceiling",
+          "Split monthly cancellation into voluntary and involuntary before crediting the discount with any risk-reduction value - only the involuntary share is genuinely eliminated by a locked-in annual charge, and it's usually a fraction of the full churn rate",
+          "Price the annual plan below the average monthly-plan lifetime value by less than the discount looks like it's offering - the gap between \"20% off list\" and \"less than what an average subscriber is worth\" is exactly the margin a mispriced discount gives away for free",
+          "Track whether annual signups are new subscribers choosing it at first purchase or existing subscribers switching plans, and if switching, at what tenure - a subscriber converting on day one and a subscriber converting after fourteen months on the monthly plan are two different economics problems wearing the same discount",
+          "If the tenure export shows conversions skewing toward subscribers who were already staying, narrow where the offer appears - checkout and first-purchase moments, where tenure hasn't been revealed yet - rather than promoting it broadly to an account portal full of subscribers whose tenure already speaks for itself",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription lets a merchant create a prepaid billing policy - custom price, cycle count, and discount - as its own selling plan alongside a standard auto-renewing one, so an annual option can be built, priced, and swapped on at checkout without touching theme code. Subscription analytics, on the Growth plan and above, reports active contracts by billing policy and tracks cancellation events separately from renewal activity, including whether a cancellation followed a failed payment - the involuntary-churn split a real discount calculation depends on.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is calculate a recommended discount rate or flag when annual signups skew toward subscribers who'd have stayed anyway - that comparison needs a merchant's own monthly price, cancellation rate, and tenure at signup, all crossed against each other, and no fixed report can bake in numbers that vary this much store to store. What subscription analytics does provide is the raw material for it - per-subscriber signup dates, plan type, and cancellation reason - so building that comparison is a query against clean exported data, not a reconstruction from a raw order history.",
+      },
+      {
+        type: "p",
+        text: "The coffee roaster didn't need to pull the annual plan - a prepay option that funds inventory ahead of a busy season and removes a slice of involuntary churn is worth keeping. It needed the $300 number next to the $230 one, and a narrower answer to where the offer actually belongs. The upfront cash was never the lie. The competitor's plan page was.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-quick-ratio-growth-efficiency",
     title: "Shopify Subscription Quick Ratio: The Growth Metric MRR Growth Hides",
     excerpt:
