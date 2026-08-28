@@ -30,6 +30,94 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-trial-conversion-rate",
+    title: "Shopify Subscription Trial Conversion Rate: How to Calculate It (and What Counts as Good)",
+    excerpt:
+      "A haircare brand's dashboard says 74% of free trials convert to paid - a number pulled straight off the reporting tool and repeated in every growth meeting for a quarter. Nobody built it to lie. It just quietly drops every trial that hasn't finished yet, and every subscriber who canceled before the first charge ever ran.",
+    category: "REVENUE",
+    date: "2027-01-19",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Trial Conversion Rate: How to Calculate It | AppFox",
+    metaDescription:
+      "The standard trial-to-paid conversion formula overstates a Shopify subscription program's real number by dropping open cohorts and voluntary cancellations from the denominator. Here's how to calculate a trial conversion rate that actually means something, plus benchmark ranges by category.",
+    body: [
+      {
+        type: "p",
+        text: "A haircare subscription brand launched a 14-day free trial on its flagship shampoo-and-conditioner plan six months ago, and the growth dashboard has reported the same headline number every week since: 74% trial-to-paid conversion. It's the number in the deck, the number the paid-media team sizes its trial-signup budget against, and the number that made the case for expanding the trial to two more product lines last quarter. Nobody built it to mislead anyone - it's just the tool's default metric, converted trials divided by resolved trials, refreshed automatically every morning.",
+      },
+      {
+        type: "p",
+        text: "The problem shows up when someone finally exports the raw contract list instead of trusting the tile on the dashboard. Of the 1,200 trials started in the measurement window, 310 hadn't reached day 14 yet when the report ran - too new to have a resolution either way - and the dashboard simply left them out of both the numerator and the denominator, same as it left out the 96 subscribers who canceled during the trial itself, days before any charge was ever attempted. Once those get put back into the count instead of quietly disappearing from it, the 74% doesn't hold. The real number, closed cohort and every exit counted, is 51%.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't tracking trial conversion as a single headline rate - that's exactly the kind of number a growth team should have on a dashboard. The mistake is letting the tool decide, invisibly, which trials get to count. A trial that hasn't finished yet isn't a non-event; it's a pending answer. A trial someone canceled on day nine isn't a rounding error; it's the clearest kind of no a subscriber can give.",
+      },
+      { type: "h2", text: "Why the standard trial conversion formula overstates the real rate" },
+      {
+        type: "ul",
+        items: [
+          "Open cohorts get dropped instead of held out - a trial that started three days ago hasn't failed to convert, but most reporting tools exclude it from the denominator entirely rather than waiting for it to resolve, which quietly shrinks the pool down to whichever trials happened to finish fastest",
+          "A voluntary cancellation during the trial window is a subscriber who tried the product and said no before a card was ever charged - dropping her from the denominator instead of counting her as a non-conversion erases the single cleanest signal a trial produces",
+          "A declined first charge and a canceled trial get folded into one bucket even though they mean opposite things - one is a subscriber a dunning retry can still recover, the other is a subscriber who already made her decision and doesn't need a retry at all",
+          "A first charge that succeeds gets counted as a conversion the instant it clears, with no window for a refund or chargeback filed in the days right after - a subscriber who converts on paper Tuesday and disputes the charge Friday still shows up as a win in a rate calculated the moment the card cleared",
+          "Every acquisition channel gets blended into one rate - a trial started from a branded email to an existing customer list and a trial started from a cold paid-social ad convert at genuinely different rates, and averaging them together hides which channel is actually sending trials worth running",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A trial that hasn't resolved yet isn't a conversion or a loss. It's just a question the dashboard answered before it was actually asked.",
+      },
+      { type: "h2", text: "What an inflated conversion number actually costs" },
+      {
+        type: "p",
+        text: "A conversion rate that's quietly too high doesn't just look good - it gets budget allocated against it. The haircare brand's paid-media team was sizing its cost-per-trial bids off a 74% conversion assumption, which means every channel comparison, every LTV:CAC estimate, and every case for scaling spend on the trial offer ran on a number 23 points higher than what the program actually delivers. A channel that looks profitable at 74% conversion can be underwater at 51%, and nobody finds out until the cash flow stops matching the spreadsheet - by which point a quarter of budget has already gone out the door chasing a number that was never real.",
+      },
+      {
+        type: "quote",
+        text: "The dashboard wasn't wrong about the trials it counted. It was wrong about which trials got to count at all.",
+      },
+      { type: "h2", text: "How to calculate a trial conversion rate that actually means something" },
+      {
+        type: "ol",
+        items: [
+          "Use a closed cohort - only include trials whose full trial window has already elapsed, so a signup from three days ago isn't silently excluded from a denominator it hasn't had a fair chance to join yet",
+          "Count every exit in the denominator, not just the ones that happened to fail cleanly - a voluntary cancellation before the first charge belongs in the same pool as a successful conversion, since both are a resolved outcome for a trial that started",
+          "Separate voluntary cancellations from declined first charges before publishing one blended non-conversion number - one needs a better product-market fit or a shorter trial, the other needs a dunning sequence built for a card that was never proven to work",
+          "Hold the conversion event for a short window after the first charge clears - a few days is enough to catch an immediate refund or a fast chargeback - before counting it as a real, sticking conversion instead of a charge that reversed itself almost immediately",
+          "Calculate the rate by acquisition channel and by product line, not just store-wide, so a blended number can't hide a paid-social channel converting at half the rate of the email list it's being budgeted against",
+        ],
+      },
+      { type: "h2", text: "What counts as a good trial conversion rate" },
+      {
+        type: "p",
+        text: "Published benchmarks vary widely by category and by how strict the calculation is, but a trial-to-paid conversion rate in the 40-60% range is a commonly cited middle ground for consumer subscription programs with a genuinely free, no-charge trial - closer to 60% for a replenishment product a subscriber already knows she'll run out of, closer to 40% for a discovery product she's trying for the first time with no prior brand relationship. A trial that requires a card upfront and bills automatically at the end, like most Shopify subscription trials, tends to convert higher than an opt-in trial that requires the subscriber to actively choose to start paying - inertia does some of the converting on its own, which is exactly why the exit points matter so much to count correctly rather than let a default rate flatter the program.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Trial length relative to the product's use cycle - a 14-day trial on a product a subscriber finishes in ten days converts differently than the same 14 days on one she's barely opened by day fourteen",
+          "Whether the trial requires a card upfront - an auto-bill trial converts on inertia as well as satisfaction, while an opt-in trial only converts subscribers who actively chose to keep going",
+          "Acquisition channel quality - a trial started by an existing customer already has trust a cold paid-social trial has to build from nothing, and the two rarely convert anywhere near the same number",
+          "Price point at conversion - a trial that bills a low, easy renewal price converts more forgivingly than one where the jump from free to paid is steep enough to make a subscriber pause and reconsider",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "Trial length on AppFox Subscription is a setting a merchant sets and can revise per plan, not a fixed default baked into checkout, and subscription analytics on the Growth plan and above tracks a contract from trial start through to its first paid renewal or its cancellation - which is what turns trial-to-paid conversion into a number that can actually be pulled as a closed cohort, instead of reconstructed by hand from a raw order export. Cancellations during the trial window and declined first charges are recorded as distinct events rather than one blended \"trial didn't convert\" line, so separating a voluntary no from a card that never got proven is a query against real data, not a guess. The Klaviyo integration carries trial status as its own subscriber property, so a channel-level view of trial performance can be built on the marketing side using the same underlying events.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is publish a benchmark or decide which trials belong in a merchant's own denominator - closed-cohort timing, refund-window length, and how to split voluntary cancellations from declines are calculation choices that vary by program, and baking one fixed rule into the app would just move the same invisible assumption from a generic dashboard into AppFox's own. What AppFox's side of this provides is the trial-start-to-resolution data cleanly enough that the choice can be made deliberately and applied the same way every time someone pulls the number.",
+      },
+      {
+        type: "p",
+        text: "The haircare brand's 74% wasn't fabricated, and the 51% it corrected to wasn't a worse trial program suddenly discovered - both numbers came off the exact same set of trials, just counted differently. What changed was closing the cohort, putting the voluntary cancellations back in the denominator, and giving a fresh first charge a few days before calling it a win. The trial itself didn't get better or worse the week the number changed. It just, for the first time, got measured honestly enough to budget against.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-subscriber-segmentation-retention-campaigns",
     title: "How to Segment Shopify Subscribers Before a Retention Campaign Goes Out",
     excerpt:
