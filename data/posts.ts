@@ -30,6 +30,94 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-swap-margin-vs-mrr",
+    title: "Why a Shopify Subscription Swap Can Erode Margin While MRR Stays Flat",
+    excerpt:
+      "A coffee subscription's MRR hasn't moved in two quarters - still $34.99 a month, same 5,000 subscribers, same tidy line on the revenue dashboard. Nobody's checked what those subscribers are actually drinking now, or what it costs to ship it to them.",
+    category: "REVENUE",
+    date: "2027-01-22",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Margin: What Product Swaps Really Cost | AppFox",
+    metaDescription:
+      "A price-neutral swap option keeps MRR perfectly flat even as subscribers drift toward costlier products, because Shopify subscription revenue reporting tracks price times count, not the SKU mix behind it. Here's how to calculate the blended margin a flat MRR number can hide, worked through with real math.",
+    body: [
+      {
+        type: "p",
+        text: "Cabin Roast Co.'s coffee subscription bills every subscriber the same $34.99 a month, whichever blend they're on this cycle. The self-service portal lets a subscriber swap between the house blend, a seasonal roast, and a single-origin decaf with one click, no upcharge, no line-item math - the whole point of a price-neutral swap is to remove the one piece of friction that turns a subscriber's minor preference change into a full cancel-and-resubscribe decision. Eighteen months in, the subscription revenue dashboard shows exactly what it showed on day one: 5,000 active subscribers, $34.99 each, $174,950 in MRR, flat for two straight quarters. By every number on that dashboard, nothing about the program has changed at all.",
+      },
+      {
+        type: "p",
+        text: "What the dashboard was never built to show is which blend those 5,000 subscribers are actually drinking this month. A seasonal single-origin decaf went mildly viral on social eight months ago, and swap requests into it have been climbing ever since - quietly, one subscriber at a time, each one a permanent change rather than a one-cycle blip, since a subscriber who swaps tends to just stay swapped. The house blend costs Cabin Roast $6.20 a bag in beans, packaging, and its share of fulfillment. The single-origin decaf, sourced in smaller lots from a single farm, costs $9.80. Nothing about the swap changes what the subscriber pays. Everything about it changes what the bag costs to ship.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't offering a price-neutral swap - forcing a subscriber to pay more to switch blends reopens exactly the friction the swap was built to remove, and most of the time it's the right call to keep it neutral. The mistake is treating a flat MRR number as proof that nothing underneath the program has moved, when MRR was only ever built to track price times subscriber count. It has no way to see a subscriber base quietly reshuffling itself into a costlier product mix, because that reshuffle was never something MRR was measuring in the first place.",
+      },
+      { type: "h2", text: "Why a flat MRR number can hide a real margin shift" },
+      {
+        type: "ul",
+        items: [
+          "Subscription revenue reporting is built to track price multiplied by active count, and a price-neutral swap policy is specifically designed to hold both of those steady - so the metric is doing exactly what it was built to do while a real cost shift happens entirely outside its view",
+          "Per-SKU cost data usually lives in a separate system - inventory, procurement, or a spreadsheet the finance team keeps by hand - not in the subscription platform's own dashboard, so nothing forces a merchant to cross-reference this month's swap mix against a real cost sheet unless someone goes looking",
+          "A subscriber who swaps once tends to stay swapped rather than swap back, so the shift in product mix compounds gradually, cohort by cohort, instead of arriving as a single event a monthly P&L review would be likely to catch",
+          "A swap trending upward - a seasonal item going viral, a limited flavor getting featured in an influencer post - hits a subscription program differently than it hits one-time purchases, because a subscriber who swaps into the pricier item keeps re-ordering it every renewal, not just once",
+          "Price can no longer signal cost drift the way it does on a one-time purchase, since the whole design of a price-neutral swap is to decouple which item a subscriber gets from what she's charged for it",
+        ],
+      },
+      {
+        type: "h3",
+        text: "MRR isn't a broken metric here. It's measuring exactly what it was built to measure - price times count - on a program where the thing quietly moving was never price or count.",
+      },
+      { type: "h2", text: "What the wrong number costs you" },
+      {
+        type: "p",
+        text: "The cost doesn't show up as a bad month - it shows up as a good-looking dashboard sitting on top of a shrinking margin nobody's tracking. A finance team pricing next year's marketing budget off $174,950 in monthly recurring revenue is pricing it off a number that hasn't changed, while the actual cash the program throws off after cost of goods has been eroding for two quarters running. A subscription box run this way can hit its revenue target every single month and still miss its margin target by a growing amount each quarter, and the revenue dashboard - the one everyone actually looks at - will never once flag it, because nothing about revenue ever moved.",
+      },
+      {
+        type: "quote",
+        text: "The subscribers didn't do anything wrong. They used the swap exactly the way it was built to be used. The margin just was never being watched from the seat where the swaps were happening.",
+      },
+      { type: "h2", text: "A worked example" },
+      {
+        type: "p",
+        text: "Take Cabin Roast's actual mix. Eighteen months ago, when the price was set, 90% of the 5,000 subscribers sat on the $6.20 house blend and 10% on the $9.80 single-origin decaf - a blended cost of $6.56 per subscriber per month. Today, after eight months of one-way swaps, the mix has drifted to 65% house blend and 35% single-origin decaf, a blended cost of $7.46.",
+      },
+      {
+        type: "ul",
+        items: [
+          "MRR then and now: 5,000 x $34.99 = $174,950, unchanged, since neither price nor subscriber count ever moved",
+          "Blended gross margin per subscriber, eighteen months ago: $34.99 - $6.56 = $28.43, an 81.3% gross margin",
+          "Blended gross margin per subscriber, today: $34.99 - $7.46 = $27.53, a 78.7% gross margin",
+          "That's $0.90 less margin per subscriber per month, times 5,000 subscribers, or $4,500 a month - about $54,000 a year - quietly gone from a program whose revenue dashboard never showed a single dollar of change",
+        ],
+      },
+      { type: "h2", text: "How to catch this before it costs a year of margin" },
+      {
+        type: "ol",
+        items: [
+          "Track swap mix as its own report - the percentage of active subscribers on each swappable SKU this billing cycle - refreshed on the same cadence as MRR, not sampled once a quarter after the drift has already compounded",
+          "Attach a real, current cost figure to every swappable option, not just the flagship SKU the subscription price was originally set against, so a swap into a costlier item registers as a cost change even though it never touches price",
+          "Recompute blended gross margin per cohort using the actual swap mix for that billing cycle, not the mix assumed back when the price was first set",
+          "Set a policy on swap-neutrality deliberately, with a cap or a targeted upcharge for items whose cost sits meaningfully above the rest of the swappable set, instead of assuming every swappable item belongs in the same no-upcharge bucket indefinitely",
+          "Treat an unusual spike in one SKU's swap-in rate - a viral post, a seasonal feature - as the leading indicator that the mix, not the price, is about to move, and check the blended margin the same week the spike shows up",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's swap eligibility is configured per selling plan, and a swap writes to the subscription contract - a new product on the next renewal - without touching the price on that contract, which is exactly the neutral-swap behavior most merchants want and exactly why the cost side needs watching separately. Subscription analytics, on the Growth plan and above, reports what subscribers are actually being charged and can break out the active subscription base by product, which is the swap-mix half of this calculation: knowing how many subscribers are on which SKU this cycle, not just how many subscribers exist.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is pull in a merchant's cost-of-goods data or attach a margin figure to any SKU - COGS lives in whatever inventory or accounting system a merchant already uses, and AppFox has no visibility into what a bag of single-origin decaf actually costs to source. The swap-mix report tells a merchant which way the drift is moving; matching that mix against real per-SKU cost, and deciding whether it's still within the range the price was set to absorb, is a step that has to happen outside the app.",
+      },
+      {
+        type: "p",
+        text: "Cabin Roast Co.'s revenue dashboard was never lying - $174,950 in MRR eighteen months ago is exactly what it says today. What changed wasn't visible anywhere that dashboard looked, because it was never built to look there. The fix wasn't a different subscription price. It was checking, for the first time in two quarters, what was actually in the bag.",
+      },
+    ],
+  },
+  {
     slug: "shopify-post-purchase-upsell-attach-rate",
     title: "How to Calculate Your Shopify Post-Purchase Upsell Attach Rate",
     excerpt:
