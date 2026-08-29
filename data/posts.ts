@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-loyalty-tier-order-count",
+    title: "Why Order-Count Loyalty Tiers Don't Work for Shopify Subscribers",
+    excerpt:
+      "A weekly subscriber and a monthly subscriber join a coffee subscription on the same day, spending the same amount of money every month. Nine weeks later, the loyalty app has already crowned the weekly subscriber Gold-tier - and the monthly subscriber, with the exact same spend and the exact same tenure, is still sitting on Bronze.",
+    category: "PLAYBOOK",
+    date: "2027-01-20",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Loyalty Tiers: Why Order Count Fails | AppFox",
+    metaDescription:
+      "Order-count loyalty tiers reward billing frequency, not subscriber loyalty - a weekly subscriber reaches Gold in weeks while a monthly subscriber with identical spend takes months longer to hit the same badge. Here's why order count breaks down as a loyalty metric for Shopify subscriptions, and how to build a tier ladder based on tenure instead.",
+    body: [
+      {
+        type: "p",
+        text: "Two subscribers join Cabin Roast Co.'s coffee subscription on the same Tuesday in March. One picks the weekly bag, delivered every seven days. The other picks the monthly bag - four times the size, four times the price, same total spend, same commitment, same signup day. Nine weeks later, the store's loyalty app pings the weekly subscriber with a Gold-tier badge: her tenth order just cleared. The monthly subscriber, who has spent exactly the same amount of money over the exact same nine weeks, is still sitting on Bronze. She won't see Gold until her tenth order clears too - which, at four weeks a cycle, is closer to her tenth month than her tenth week.",
+      },
+      {
+        type: "p",
+        text: "Nothing is misconfigured. The tier ladder is doing precisely what it was set up to do: count orders and hand out a badge at ten, twenty, and forty. The mistake happened earlier, when the tier thresholds were set in order count without anyone asking what an \"order\" means on an account that bills weekly versus one that bills monthly. For a one-time-purchase store, ten orders is a reasonable proxy for ten separate decisions to come back and buy again. For a subscription, ten orders can mean ten weeks or ten months, and the ladder has no way to tell which subscriber actually stuck around longer.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't running a loyalty tier program alongside a subscription program - tenure-based rewards are one of the more effective ways to keep a subscriber from canceling once the initial subscribe-and-save discount stops feeling new. The mistake is borrowing a metric built for one-time purchases, raw order count, and pointing it at a billing model where order count is mostly just a function of how often the app happens to charge the card, not how loyal the subscriber actually is.",
+      },
+      { type: "h2", text: "Why order count breaks down as a loyalty metric for subscribers" },
+      {
+        type: "ul",
+        items: [
+          "Billing cadence, not tenure, drives how fast a subscriber climbs - a weekly cadence reaches any order-count threshold four times faster than an identical monthly cadence, regardless of which subscriber has actually stuck around longer",
+          "A skip - the exact self-service action built to keep a tight-budget subscriber from canceling outright - produces no order that cycle, so it freezes tier progress instead of just pausing it, punishing the one action designed to keep her subscribed",
+          "A subscriber running two active subscriptions on the same account, coffee and a filter refill, say, generates two orders every cycle instead of one, climbing the ladder twice as fast as an equally loyal subscriber who only ever bought the one thing",
+          "A subscriber who swaps to a smaller size or a cheaper blend keeps generating orders at the same rate, so order-count tiers can't tell a subscriber trading down her spend from one holding steady - only a spend-based metric would catch that",
+          "A subscriber's actual relationship length, the thing a tier ladder is supposed to reward, never appears anywhere in the calculation at all - only a proxy for it that turns out to correlate more with billing cadence than with commitment",
+        ],
+      },
+      {
+        type: "h3",
+        text: "An order-count ladder isn't measuring how loyal a subscriber is. It's measuring how often the app happens to charge her card, and calling the answer VIP status.",
+      },
+      { type: "h2", text: "What a frequency-skewed ladder actually costs" },
+      {
+        type: "p",
+        text: "The cost shows up on both ends of the ladder. A weekly subscriber who reaches Gold in nine weeks gets a badge that's supposed to signal an earned, long-term relationship, and instead just describes someone who joined two months ago - which cheapens the tier for the subscriber who actually did stick around a year on a monthly cadence and is still one order short of the same badge. The monthly subscriber has the more expensive problem: she's watching a shorter-tenured, same-spending weekly subscriber pass her on a ladder that's supposed to reward exactly the loyalty she has and the weekly subscriber doesn't yet have. If she notices - and a subscriber checking a loyalty dashboard is, by definition, paying attention - the ladder stops reading as a reward and starts reading as a program that quietly favors somebody else's account structure over hers.",
+      },
+      {
+        type: "quote",
+        text: "A skip is the portal's way of keeping a subscriber from canceling. An order-count tier ladder treats that same skip as if she went quiet.",
+      },
+      { type: "h2", text: "How to build a tier ladder that tracks tenure instead of billing frequency" },
+      {
+        type: "ol",
+        items: [
+          "Set tier thresholds on elapsed subscription tenure - months or renewals survived since the contract's start date - instead of raw order count, so a weekly and a monthly subscriber climb at the same real-world pace for the same real-world commitment",
+          "If a tier depends on spend rather than tenure, use lifetime or trailing-twelve-month spend, not order count, so a subscriber paying more per shipment on a slower cadence isn't outpaced by one paying less, more often",
+          "Make sure skip and pause events don't remove or reset tier progress - a subscription that stays active through a skip should keep accruing tenure, since a skip is a subscriber choosing to stay rather than cancel",
+          "Cap how much a second concurrent subscription on the same account can accelerate tier standing, or track tenure per customer rather than per contract, so a two-subscription household doesn't reach VIP status twice as fast as an equally loyal one-subscription household",
+          "Pull actual tier-arrival dates for your fastest and slowest cadences after a full cycle and check whether they land anywhere close together for comparable spend - if a weekly subscriber consistently reaches your top tier in a tenth of the time a monthly subscriber does, the thresholds need rebalancing before more subscribers notice the gap",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription doesn't run the tier ladder itself - that's Loyalty Lion's job, through the direct integration AppFox ships on every plan, including Free. What AppFox's side of the integration provides is the data a tenure-based ladder actually needs to work: each subscription contract carries its own start date, its cadence, and a live status through every skip, pause, swap, and renewal, rather than exposing renewals and skips as an undifferentiated stream of Shopify orders for a loyalty app to guess at. Subscription analytics, on the Growth plan and above, can break tenure and skip activity out per contract, which is the same underlying data worth checking against a loyalty app's own tier-arrival dates before assuming raw order count and real loyalty are measuring the same thing.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't decide is where the tier lines get drawn, or whether Loyalty Lion's own rule engine keys off order count, spend, or a custom tenure property pulled in through the integration - that configuration lives on the loyalty side, and it's worth checking directly, since not every loyalty app exposes tenure or spend as a tier trigger the same way it exposes order count as a default. AppFox's job is making sure the underlying subscription data - who's been active, for how long, on which cadence - is accurate and available for whichever metric ends up driving the ladder.",
+      },
+      {
+        type: "p",
+        text: "The two subscribers who joined Cabin Roast Co. on the same Tuesday in March are, by any reasonable definition, equally loyal customers three months in - same spend, same commitment, same day one. The only thing that shouldn't decide which one gets called a VIP first is how many times a week their card happens to get charged.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-trial-conversion-rate",
     title: "Shopify Subscription Trial Conversion Rate: How to Calculate It (and What Counts as Good)",
     excerpt:
