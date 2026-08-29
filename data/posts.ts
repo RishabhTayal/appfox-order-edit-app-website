@@ -30,6 +30,94 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-post-purchase-upsell-attach-rate",
+    title: "How to Calculate Your Shopify Post-Purchase Upsell Attach Rate",
+    excerpt:
+      "A running-shoe brand's post-purchase upsell reports a 4% attach rate against total orders - a number that nearly gets the offer pulled for underperforming. Nobody checks it against the one number that actually matters: how many customers ever saw it.",
+    category: "REVENUE",
+    date: "2027-01-21",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Post-Purchase Upsell Attach Rate: How to Calculate It | AppFox",
+    metaDescription:
+      "Post-purchase upsell attach rate looks weak measured against total orders, because most orders never see the offer. Here's the denominator that actually measures whether an in-flow upsell is working, worked through with real math.",
+    body: [
+      {
+        type: "p",
+        text: "A running-shoe brand adds a one-click upsell to its self-service order-edit flow: a pair of moisture-wicking socks, offered on the same screen where a customer swaps a size or fixes a shipping address. Three months in, the quarterly report puts a number on it - the upsell converts at 4%, calculated as sock upsells accepted divided by total orders placed that quarter. Next to the 12-18% attach rates the brand's email agency quotes for its own post-purchase campaigns, 4% reads like an underperforming placement, and the offer is one line item away from getting cut at the next planning meeting. Before it does, someone finally asks the question the report skipped: 4% of every order the store shipped, or 4% of the orders where a customer actually saw the sock offer?",
+      },
+      {
+        type: "p",
+        text: "Those are very different denominators, and almost nobody who buys running shoes ever opens the order-edit link at all - there's nothing wrong with their order, so there's nothing to fix, and the screen the upsell lives on never loads for them. An email upsell campaign, by contrast, gets sent to something close to every customer on the list, whether they open it or not; a 12-18% number is already measured against something close to the store's full order volume. Comparing the in-flow attach rate to the email attach rate looks like an apples-to-apples comparison of two conversion rates. It's actually a comparison between a rate measured against everyone who was ever shown the offer and a rate measured against everyone who ever bought anything, whether or not they were ever shown it at all.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't running a post-purchase upsell inside the edit flow instead of - or alongside - an email campaign; a well-placed in-flow offer and a well-timed email can both work, for different reasons, and don't need to be ranked against each other. The mistake is comparing an in-flow attach rate to a benchmark from a channel with a fundamentally different denominator, and drawing a conclusion about the offer's quality from a comparison that was never fair to begin with.",
+      },
+      { type: "h2", text: "Why a total-order attach rate understates the real number" },
+      {
+        type: "ul",
+        items: [
+          "Most customers never open the edit flow at all - nothing about their order needs fixing, so the screen the upsell lives on never renders for them, and they were never really part of the audience the attach rate is supposed to describe",
+          "Only certain edit types are eligible to show the offer - a straightforward cancellation or a pure address change may not be the moment to also pitch an add-on, so even some edit-flow sessions never actually display it",
+          "Eligibility rules narrow the pool further - an offer scoped to specific products, order values, or inventory availability only renders when those conditions hold, which is deliberate targeting, not a flaw in the offer, but it does mean the denominator shrinks again",
+          "Counting every order ever placed, including ones from months before the upsell existed or after inventory ran out and the offer stopped rendering, pulls in a population that was structurally never eligible to convert",
+          "An email campaign's quoted benchmark is already built on a denominator close to full send volume, so comparing it to a total-order rate isn't comparing two attach rates measured the same way - it's comparing an attach rate to something else wearing the same name",
+        ],
+      },
+      {
+        type: "h3",
+        text: "An attach rate measured against every order isn't a weak number. It's a number that counted an audience nine times too large and then wondered why the percentage looked small.",
+      },
+      { type: "h2", text: "What the wrong denominator costs you" },
+      {
+        type: "p",
+        text: "The cost isn't abstract - it's the offer itself. A team that benchmarks a 4% in-flow attach rate against a 12-18% email number has a straightforward case for killing the in-flow offer and reallocating the screen to something else, or to nothing. If the real number is closer to 21%, that offer isn't underperforming against the email channel - it's substantially outperforming it, on a channel with none of an email's deliverability, open-rate, or unsubscribe risk to worry about. Pulling a genuinely strong offer because it was measured against the wrong audience doesn't just lose the upsell revenue already flowing through it - it closes the highest-attention placement the store has, on the strength of a number that was never really about the offer's performance to begin with.",
+      },
+      {
+        type: "quote",
+        text: "The offer didn't get worse between the report and the meeting. The denominator just never matched the question anyone was asking of it.",
+      },
+      { type: "h2", text: "A worked example" },
+      {
+        type: "p",
+        text: "Take the running-shoe brand's actual numbers. 3,000 orders placed in the quarter. 640 of those customers opened the self-service edit flow at all - a 21% open rate, in the range a well-adopted edit flow typically sees. Of those 640 sessions, the sock upsell was eligible and rendered on 560 - the other 80 were pure cancellations or address-only edits where the offer rule never fired. 120 customers clicked to add the socks.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Total-order attach rate (the number in the original report): 120 ÷ 3,000 = 4%",
+          "Edit-flow-open attach rate: 120 ÷ 640 ≈ 18.75%",
+          "Impression-based attach rate (the number that actually answers \"did the offer convert when shown\"): 120 ÷ 560 ≈ 21.4%",
+          "Compared against a 12-18% email benchmark, the real number - about 21% - puts the in-flow offer ahead of the channel it was about to be measured against and cut in favor of",
+        ],
+      },
+      { type: "h2", text: "How to calculate this for your own store" },
+      {
+        type: "ol",
+        items: [
+          "Track offer impressions as their own number, separate from order count and separate from edit-flow opens - the denominator for attach rate is \"how many times the offer was actually shown,\" not any looser proxy for it",
+          "Exclude edit sessions where the offer rule didn't fire from that denominator - a cancellation-only session was never eligible to convert, and counting it as a miss understates the rate the same way counting it as a hit would overstate it",
+          "Report all three numbers - total-order rate, edit-open rate, and impression rate - together at first, so anyone comparing this quarter's report to last quarter's, or to an external benchmark, can see which denominator produced which figure instead of assuming they're the same",
+          "Only benchmark against another channel's attach rate once you've confirmed that channel's number uses a comparably narrow denominator - an email open-to-click rate and an SMS click rate are usually closer comparisons than a blended total-order number from either channel",
+          "Recalculate the edit-flow open rate on its own on a regular cadence - it moves with return-window length, order accuracy, and seasonality, and a drop in it can look like a falling attach rate even when the offer itself is converting exactly as well as it always did",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "The analytics dashboard, on the Growth plan and above, reports upsell impressions and accepts as their own line, broken out from total edit-flow opens and total order count - which is exactly the split this calculation needs to keep the three denominators from collapsing into one misleading number. Offer eligibility rules run the same way on every edit: an offer only renders when a merchant's own targeting conditions are met, so the impression count reported is the actual audience the offer was shown to, not an estimate of it.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is decide which channel a merchant should benchmark the in-flow offer against, or pull in an email or SMS platform's own attach-rate numbers for the comparison - those live in whichever tool sent the campaign, and have to be checked for a matching denominator by hand before they're placed next to the edit-flow number. The dashboard supplies the impression and accept counts on its side of the comparison; making sure the other side is counted the same way is still on the merchant.",
+      },
+      {
+        type: "p",
+        text: "The running-shoe brand's sock upsell survived the planning meeting - not because anyone argued it should, but because the corrected number made the argument on its own. Measured against the 640 customers who ever saw the screen it lives on, the offer wasn't the weak line in the report. It was the strongest thing on it, sitting under a number that had just never been asked to measure the right audience.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-loyalty-tier-order-count",
     title: "Why Order-Count Loyalty Tiers Don't Work for Shopify Subscribers",
     excerpt:
