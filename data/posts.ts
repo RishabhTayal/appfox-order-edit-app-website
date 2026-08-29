@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-status-gorgias-ticket",
+    title: "Why a Gorgias Ticket Can Show the Wrong Order-Edit Status",
+    excerpt:
+      "A customer emails asking if their swapped order was ever approved. The agent opens the ticket, sees the order exactly as it looked at checkout, and has no way to know an edit is sitting in a queue three tabs away.",
+    category: "PLAYBOOK",
+    date: "2027-01-23",
+    author: "The AppFox Team",
+    metaTitle: "Gorgias Order Edit Status: Why Tickets Show Stale Info | AppFox",
+    metaDescription:
+      "A generic Gorgias-Shopify connection pulls an order once, when the ticket opens, and never looks again - so it can't show an edit approved or applied afterward. Here's why, and how a live status sidebar closes the gap.",
+    body: [
+      {
+        type: "p",
+        text: "A Thistle & Bloom customer swaps the unscented version of a candle set for the cedar-and-sage blend, using the self-service edit link on her order status page. The edit needs a human sign-off - a swap that changes the order total by more than $10 routes to Thistle & Bloom's approval queue rather than applying instantly - so she does the reasonable thing and emails support to ask when it'll go through. The agent opens the Gorgias ticket, and the order panel on the right shows exactly what it showed the moment the ticket was created: the original unscented set, the original total, no mention of a swap at all. The agent, looking at the only order information in front of them, tells her the order is on track as placed. It isn't. The edit has been sitting in the approval queue for six hours, waiting on a manager who hasn't opened that tab yet.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a bug in Gorgias, and nothing about it is a bug in the order-editing app - it's two systems that were never introduced to each other. A standard Gorgias-Shopify integration pulls the order into the ticket once, usually when the conversation opens or when the customer's email is first matched to an order, and renders that snapshot on every reply after. It has no reason to go back and ask Shopify for a fresh copy each time an agent glances at the sidebar, because most of what a support ticket needs from an order - what was bought, what it cost, where it's shipping - doesn't change after checkout. An order edit breaks that assumption, and an edit sitting in someone else's approval queue breaks it even further: that pending state doesn't live on the Shopify order object at all. It lives inside the order-editing app's own approval workflow, a place a generic helpdesk connection was never built to look.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't connecting a helpdesk to a Shopify store, and it isn't offering customers a self-service edit flow with an approval step - both are ordinary, sensible things to run together. The mistake is assuming that because the helpdesk shows an order, it's showing the current state of that order, when the one thing actually in motion - the edit - is happening in a system the ticket sidebar never queries again.",
+      },
+      { type: "h2", text: "Why a generic connection can't show edit status" },
+      {
+        type: "ul",
+        items: [
+          "A helpdesk-Shopify integration typically fetches order data once, when the ticket opens, and displays that snapshot for the life of the conversation - it isn't watching the order for changes the way a live dashboard would",
+          "An edit's approval state - pending, approved, applied - is data that belongs to the order-editing app's own workflow, not a field on the Shopify order itself, so a connection that only reads the order has no way to surface it",
+          "Support agents have no built-in signal that an edit even exists on a given order unless they separately check the order-editing app's dashboard, which most agents fielding a busy queue have no habit of doing for every ticket",
+          "The gap is invisible until a customer notices it first - nothing in the ticket ever looks broken, it just quietly stops matching what's actually true the moment an edit is submitted",
+          "This is the same failure mode connected marketing and accounting tools run into after an edit - a snapshot pulled once, never refreshed - except here it costs a real-time answer to a customer instead of a stale report nobody reads until month-end",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A ticket sidebar showing the wrong status isn't lying. It's telling the truth about a moment that already passed.",
+      },
+      { type: "h2", text: "What a stale status actually costs" },
+      {
+        type: "p",
+        text: "The cost isn't that the agent looks foolish - it's that the wrong answer goes out with full confidence, because nothing on the screen suggested there was anything left to check. The customer either gets bad information (\"your order is on track as placed\") or, if the agent is cautious enough to sense something might be off, the ticket turns into exactly the kind of back-and-forth a self-service edit flow was supposed to prevent: a reply asking the customer to hold on, a tab switch to the order-editing dashboard, a second reply once the agent tracks down what actually happened. Either way, the minutes an approval queue was supposed to save by letting most edits apply instantly get spent anyway, just relocated from the queue to the support thread.",
+      },
+      {
+        type: "quote",
+        text: "The edit isn't the problem. The problem is that the one screen the agent is looking at has no way to tell them an edit exists.",
+      },
+      { type: "h2", text: "How to close the gap" },
+      {
+        type: "ol",
+        items: [
+          "Don't rely on a general-purpose helpdesk-Shopify connection to surface anything about an edit's approval state - it was built to show what was bought, not what's currently in motion",
+          "Give agents a status that reads from the order-editing app's own live workflow - pending, approved, applied - inside the same panel they already use, so checking a second system is never the alternative to answering the ticket",
+          "Surface the practical details alongside the status, not just the label - how much time is left in the edit window, and what a pending upsell would add to the order, so the agent can answer a follow-up without leaving the ticket either",
+          "Pair the ticket-side view with an alert on the approval side - a pending edit that's about to breach its own SLA should page whoever can approve it, not wait for a customer email to surface the delay",
+          "Treat a stale-status complaint as a signal to check the integration, not the agent - an agent who confidently repeats what the screen tells them did their job correctly; the screen was the part that failed",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox" },
+      {
+        type: "p",
+        text: "AppFox's Gorgias sidebar reads the order's edit status directly from AppFox rather than from a cached Shopify snapshot, so a ticket shows the current state - approved, pending, applied - along with the time left in the edit window and the value of any upsell attached to the order, all inside the same panel an agent is already working from. On the approval side, Slack alerts flag a pending edit and its SLA so it doesn't sit unseen while a customer is left guessing, which is what actually kept Thistle & Bloom's swap sitting unapproved for six hours in the first place - nobody on the approvals side had been told it was waiting.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is reach into a generic Gorgias-Shopify connection that isn't its own and fix what that integration shows - a store running a different order-editing tool through a standard helpdesk order sync will still hit the exact staleness problem described here, because the fix isn't a Gorgias setting, it's a sidebar built specifically to query the edit workflow live instead of once. Bolting a live status onto a snapshot-based integration means rebuilding the piece that was never designed to ask twice.",
+      },
+      {
+        type: "p",
+        text: "Thistle & Bloom's agent wasn't wrong to trust the screen in front of her - that's what the screen is for. The fix wasn't training the team to double-check every ticket against a second dashboard; it was making sure the first screen already knew what the second one knew. Six hours of an unapproved swap and a customer left guessing turned into a status an agent could read at a glance, in the one tab they were already in.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-swap-margin-vs-mrr",
     title: "Why a Shopify Subscription Swap Can Erode Margin While MRR Stays Flat",
     excerpt:
