@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-black-friday-cyber-monday-approval-queue",
+    title: "Why Shopify Order-Edit Approval Queues Break on Black Friday",
+    excerpt:
+      "A price-delta rule that flags one edit in twenty on a normal Tuesday flags almost every edit on the Friday after Thanksgiving - because Black Friday's order mix isn't October's order mix, and the approval queue built to catch the unusual edit ends up catching everyone.",
+    category: "PLAYBOOK",
+    date: "2027-01-27",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Order Editing During Black Friday & Cyber Monday | AppFox",
+    metaDescription:
+      "Order-edit approval thresholds tuned for a normal week overflow during BFCM, when average order value and new-customer share both spike. Here's why it happens and how to set a peak-season threshold before it does.",
+    body: [
+      {
+        type: "p",
+        text: "Coastal Supply Co. runs a boot-and-outerwear store on Shopify, and on a normal Tuesday its two-person support team clears the order-edit approval queue before lunch. The rule that sends an edit to that queue instead of applying it instantly is simple: anything that raises the order total by more than $75, or comes from a customer's first-ever order, gets a human look before it's honored. On an ordinary week that catches maybe one edit in twenty. On the Friday after Thanksgiving, it catches almost everyone - because Black Friday orders are bigger, half the shoppers placing them have never bought from the store before, and the queue that used to clear itself by lunch is still four hundred edits deep when the warehouse's last holiday-shipping cutoff comes and goes.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the rule itself was wrong. It was built to flag the unusual edit and leave the routine one alone, and for eleven months of the year it does exactly that. The problem is that a threshold calibrated against a normal Tuesday's order mix stops being conservative the moment average order value jumps and new-customer share doubles - which is precisely what happens on the two days a store can least afford a queue nobody's watching.",
+      },
+      { type: "h2", text: "Why the same rule behaves differently during BFCM" },
+      {
+        type: "ul",
+        items: [
+          "Average order value rises with holiday bundles and gift orders, so a price-delta threshold sized for a normal Tuesday's order size now flags a much larger share of every day's edits, not because customers are behaving differently but because the orders underneath them are bigger",
+          "New-customer volume spikes during Black Friday and Cyber Monday - holiday shoppers buying from a store for the first time - and \"first order from a new customer\" is exactly the signal a review queue is built to catch, so a rule written to be conservative on an ordinary day ends up queuing a much larger share of the weekend's edits",
+          "Fulfillment cutoffs get pulled earlier during peak season so a 3PL can still hit its holiday delivery promises, which means the same \"edit request came in before the cutoff\" rule now allows less real time between an edit landing in the queue and the order being picked",
+          "Support headcount doesn't scale with a four-day volume spike the way it might for a slower, sustained growth curve - the team sized to clear twenty flagged edits by lunch is still the team on duty when four hundred show up in a single afternoon",
+          "None of this shows up in testing or in October's numbers, because the threshold is invisible right up until the one weekend a year it has to hold under conditions nothing else in the calendar produces",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A threshold tuned for a normal Tuesday queues almost everyone on Black Friday.",
+      },
+      { type: "h2", text: "What a backed-up queue actually costs" },
+      {
+        type: "p",
+        text: "An edit that's still sitting in the queue when the fulfillment cutoff passes doesn't just get approved late - it often can't be honored at all, because the order it was meant to change has already been picked. What was supposed to be a one-click self-service fix turns into a manual reversal: cancel the original, refund it, help the customer place a new order, and hope the item they wanted is still in stock. That's the exact support burden self-service editing exists to remove, arriving on the two days a support team has the least slack to absorb it.",
+      },
+      {
+        type: "p",
+        text: "The second cost is quieter and worse. Once a queue backs up far enough, the instinct isn't to keep reviewing carefully - it's to clear the backlog. Edits start getting approved in bulk, without the second look the rule was built to provide, on the same weekend that new-customer volume and average order value make a careful look matter most. A rule meant to catch the unusual edit ends up rubber-stamping it instead, at exactly the moment fraud and pricing-error risk are highest.",
+      },
+      {
+        type: "quote",
+        text: "A review queue that's four hundred edits deep by 2pm isn't reviewing anything anymore. It's just a delay in front of an approval nobody actually looked at.",
+      },
+      { type: "h2", text: "Setting the threshold for peak volume before it arrives" },
+      {
+        type: "ol",
+        items: [
+          "Pull last year's Black Friday and Cyber Monday order data and check what share of those orders would have tripped your current price-delta and new-customer thresholds - if it's meaningfully higher than your normal week's rate, the rule needs a wider band for those specific days, not a rewrite of your year-round policy",
+          "Set a separate, temporary auto-approve threshold for the BFCM window instead of editing your baseline rule - a peak-season band you switch on and revert afterward keeps the everyday rule intact for the other 361 days",
+          "Anchor the fulfillment-proximity rule to the actual holiday cutoff time your warehouse or 3PL is working against that week, not the number that's accurate the rest of the year - peak-season cutoffs move earlier, and a rule that doesn't move with them quietly shrinks the real approval window",
+          "Staff the review queue the way you'd staff live chat during BFCM - extra hands or extended coverage on the exact days volume multiplies, rather than a queue that sits unattended until Monday morning",
+          "After the weekend, look at what actually landed in the queue and what got approved without incident - that's the real data to reset next year's thresholds from, instead of guessing again in October",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's approval rules are set per edit type and per threshold, not as a single global on/off switch, which is what makes a temporary peak-season band possible without touching the policy that runs the rest of the year - loosen the price-delta and new-customer rules for the BFCM window, then revert them once the holiday cutoffs pass. Every edit, whether it auto-applies or waits in the queue, leaves a timestamped record of what changed and under which rule, so a question that comes up in December about an order from the Friday after Thanksgiving doesn't require reconstructing what happened from a support inbox.",
+      },
+      {
+        type: "p",
+        text: "Coastal Supply Co. didn't need to review every edit more carefully this year. It needed a threshold that knew Black Friday's order mix isn't October's order mix, wide enough to let the routine swap and address fix through on the two days routine edits arrive by the thousand, with the queue reserved - and staffed - for the ones actually worth a second look.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-google-shopping-price-mismatch",
     title: "Why Your Shopify Subscribe & Save Price Never Shows Up in Google Shopping",
     excerpt:
