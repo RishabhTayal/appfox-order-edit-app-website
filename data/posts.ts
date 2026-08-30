@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-skip-doesnt-show-in-shop-app",
+    title: "Why a Skipped Shopify Subscription Renewal Never Shows Up in the Shop App",
+    excerpt:
+      "A subscriber skips next month's box in the customer portal, then checks the one app she actually trusts to track her orders - and finds nothing different there at all. Not a skipped order, not a note. Just last month's delivery, sitting exactly where it always sat.",
+    category: "PLAYBOOK",
+    date: "2027-01-25",
+    author: "The AppFox Team",
+    metaTitle: "Why a Skipped Subscription Doesn't Show in the Shop App | AppFox",
+    metaDescription:
+      "Skipping a Shopify subscription renewal prevents an order from ever being created - and the Shop App only tracks orders that exist. Here's why the skip disappears instead of showing there, and how to keep subscribers confident it worked.",
+    body: [
+      {
+        type: "p",
+        text: "Marlowe & Finch runs a monthly coffee subscription on Shopify, and most of its subscribers manage deliveries the same way they manage every other Shopify order they've ever placed: through the Shop app, the one place that already shows every purchase from every store on a single timeline. A subscriber leaving for three weeks opens the AppFox portal, skips her next renewal so a bag of beans doesn't sit on her porch, and gets the on-screen confirmation that the skip went through. A few days later, out of habit, she opens the Shop app to check on it - and finds nothing to check. No skipped order, no note about the date moving, no sign the skip registered anywhere. The exact same delivery from last month is still sitting at the top of her order list, unchanged, as if nothing happened at all.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a bug in the Shop app or a failure in AppFox's portal - it's two systems answering two different questions. The Shop app is built to track orders: it pulls from Shopify's own order and fulfillment data across every store a shopper has bought from, and it renders whatever exists there - confirmation, tracking, delivery status. A skip, by definition, is the one subscription action that prevents an order from being created for that cycle. There's no order for the Shop app to attach a status to, skipped or otherwise, because skipping doesn't produce a record inside the system the Shop app actually reads from. It isn't hiding the skip. It has nothing to show.",
+      },
+      { type: "h2", text: "Why the Shop app has no way to reflect a skip" },
+      {
+        type: "ul",
+        items: [
+          "The Shop app surfaces Shopify's order and fulfillment objects - it has no concept of a subscription contract's own state (active, paused, next renewal skipped), because that state lives inside a subscription app's own data, not in Shopify's core commerce APIs",
+          "Skip, pause, and swap are actions on a subscription contract, not actions Shopify's Order API was built to expose to a shopper's cross-store order timeline",
+          "A skip's entire purpose is preventing an order from existing for that cycle - so unlike a canceled or refunded order, there's no order object left behind anywhere for the Shop app to render a status on",
+          "Subscription apps confirm a skip through their own channel - typically an on-screen message and an email - and neither reaches into the Shop app's UI, because Shopify doesn't currently give subscription apps a way to push a contract-state card into a shopper's Shop app order list",
+          "The gap stays invisible until a subscriber who trusts the Shop app as her order-tracking habit skips a renewal, then checks the one app she always checks, and finds it identical to how it looked before she skipped anything",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The Shop app can prove an order shipped. It has no way to prove a subscriber's next one deliberately isn't coming.",
+      },
+      { type: "h2", text: "What an invisible skip actually costs" },
+      {
+        type: "p",
+        text: "A subscriber who skips and sees nothing change in the Shop app doesn't usually conclude the two systems don't talk to each other - she concludes the skip might not have worked. The portal said it went through, but the app she's used to trusting for every other purchase shows no evidence of it, and when those two signals disagree, the app checked daily tends to win the argument. The likely next step isn't relief that a bag of beans won't show up while she's away - it's a support ticket asking whether the skip actually took, filed by exactly the subscriber a self-service flow was supposed to keep out of the inbox. A subscriber who skips more than once and gets the same silence each time can end up somewhere worse than a ticket: canceling outright, on the theory that a portal she can't corroborate anywhere else isn't one she can rely on.",
+      },
+      {
+        type: "quote",
+        text: "A portal that confirms a skip is only as convincing as the last place a subscriber checks to believe it - and for a lot of shoppers, that place is the Shop app, not the page where they clicked skip.",
+      },
+      { type: "h2", text: "Closing the gap without the Shop app's help" },
+      {
+        type: "ol",
+        items: [
+          "Confirm the skip immediately and specifically - name the date being skipped and state plainly that no order or charge will appear for that cycle, so silence afterward reads as expected rather than as a dropped request",
+          "Make the subscription portal, not the Shop app, the subscriber's source of truth for what's next - a visible \"next renewal\" state with the skipped date front and center, reachable from the same confirmation email without a fresh login",
+          "Send the skip confirmation by email as well as on-screen, since it's the one artifact that persists after the browser tab closes and the Shop app stays unchanged",
+          "Brief support to check the subscription contract's own status first on a \"did my skip work\" ticket, not a Shopify order list or the Shop app - the two are expected to disagree by design, and a rep unaware of that will look in the wrong place and tell a subscriber the wrong thing",
+          "Resist the urge to fabricate a placeholder order just to give the Shop app something to display - a stand-in order would misstate what actually happened to inventory, revenue, and fulfillment, trading one confusing gap for a more expensive one",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's customer portal treats skip the way Shopify's subscription contract model does - a real action, confirmed on-screen and by branded email, with the next renewal date updated in the subscriber's own account the moment she confirms it. That confirmation is deliberately redundant: portal and email both say the same thing, so a subscriber has more than one place to check if she doubts herself later.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do - because no subscription app currently can - is push that skip into the Shop app itself. The Shop app renders order and fulfillment data it already has; it has no integration surface today for a subscription app to write a contract's skipped or paused state into a shopper's order timeline. A merchant who leans on the Shop app as an implicit second confirmation channel should assume it won't corroborate a skip, and let the portal and the email do that job well instead - which is the boundary AppFox designs its confirmation flow around, rather than promising a sync Shopify doesn't yet support.",
+      },
+      {
+        type: "p",
+        text: "The subscriber at Marlowe & Finch didn't do anything wrong opening the Shop app to double-check her skip - it's the app that's supposed to know about her orders. What she ran into wasn't a broken skip, it was a question the Shop app was never built to answer, because a skip has no order to show. Confirm it plainly, put the next date somewhere she can always find it, and the one app that stayed silent stops being read as proof that nothing happened.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-confirmation-email-wrong-language",
     title: "Why a Shopify Order-Edit Confirmation Email Doesn't Match the Storefront Language",
     excerpt:
