@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-google-shopping-price-mismatch",
+    title: "Why Your Shopify Subscribe & Save Price Never Shows Up in Google Shopping",
+    excerpt:
+      "A marketing hire pulls the Google Shopping feed on a subscribe-and-save best-seller and finds it quoting the full one-time price - no sign the 15% subscription discount that drives half the brand's repeat revenue exists at all. It isn't a broken feed. It's a discount that was never going to fit in a field Google's product feed has room for.",
+    category: "PLAYBOOK",
+    date: "2027-01-26",
+    author: "The AppFox Team",
+    metaTitle: "Why Subscribe & Save Pricing Doesn't Show in Google Shopping | AppFox",
+    metaDescription:
+      "Google Merchant Center syncs a product's one-time price, not its subscribe-and-save discount - so a Shopify subscription's real price can't live in the feed. Here's why, and how to advertise it without risking a price-mismatch disapproval.",
+    body: [
+      {
+        type: "p",
+        text: "Hearth & Hound runs a subscribe-and-save program on a joint-supplement chew dogs take daily, discounted 15% off the one-time price for anyone who commits to auto-renewal. The team runs Google Shopping ads on the product like they do on every SKU, and for months nobody thinks twice about what price actually shows on the ad itself. Then a new marketing hire pulls the feed to sanity-check it before raising spend, and finds the ad quoting the full one-time price - $34 a bag - with no sign anywhere in Merchant Center that a subscriber pays $28.90 for that same bag every month after. The discount driving close to half the brand's repeat revenue doesn't exist as far as Google's product feed is concerned.",
+      },
+      {
+        type: "p",
+        text: "Nothing here is a bug in the feed or an oversight in how the subscription is priced - it's two systems that were never built to describe the same thing. A Shopify product carries one price (and, optionally, a compare-at price for a sale), and that's what Merchant Center's Google & YouTube sales channel reads and republishes into every ad. A subscribe-and-save discount isn't a second price sitting on the product; it's an adjustment Shopify's selling-plan engine applies at checkout, after a shopper picks the subscription option, layered on top of the base price the feed already synced. The feed can only report what's already written on the product object - and a checkout-time adjustment tied to a purchase option nobody has picked yet was never written there in the first place.",
+      },
+      { type: "h2", text: "Why there's no field for it" },
+      {
+        type: "ul",
+        items: [
+          "Google's standard Shopping product feed carries one price attribute (with an optional sale_price for a time-bound promotion) - there's no attribute built to describe a price that only applies if the buyer chooses recurring billing",
+          "Shopify's Google & YouTube channel syncs a product's price and compare-at price straight from the product object; a selling plan's percentage or fixed subscribe-and-save adjustment lives on the selling plan, not the product, so the sync has nothing there to pick up",
+          "The subscribe-and-save price only becomes a real number once a shopper selects that purchase option in the widget or at checkout - before that moment it isn't stored anywhere, it's a calculation the storefront runs live",
+          "Merchant Center's price-match check compares what an ad quotes against what the landing page shows for a product's default purchase option, and a Shopify product page defaults to the one-time price - the exact number the feed already has, so the two agree without anyone doing anything",
+          "A merchant who edits the feed's price attribute to show the discounted subscription number breaks that agreement instead of fixing it: the ad now quotes a price the landing page's default view doesn't match, which is precisely the condition Merchant Center's price-accuracy policy disapproves listings for",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The feed isn't hiding the discount. It was never handed a place to put it.",
+      },
+      { type: "h2", text: "What guessing at it costs" },
+      {
+        type: "p",
+        text: "The instinct once someone notices the gap is usually to force it - set the feed's price attribute to the subscribe-and-save number so the ad looks more competitive, or wire up an integration to push a lower price for the same GTIN. Either move trades a small, real problem for a bigger one. Google's crawler periodically checks that the price it quoted an ad-clicker matches what the landing page charges by default, and a feed price that reads $28.90 next to a product page that opens on $34 doesn't recover with a warning - it can pull the listing entirely, on the SKU driving the campaign a merchant most wanted to protect. The safer-looking failure mode - leaving the feed at the one-time price and never mentioning the discount in the ad at all - undersells the program instead: shoppers who'd have converted on \"15% off if you subscribe\" never learn that's on the table until they're already on the page, if they notice the widget at all.",
+      },
+      {
+        type: "quote",
+        text: "A Shopping ad can only promise the price a shopper will actually see first. The subscribe-and-save price has to be the second thing they see - not the first, and never a mismatch.",
+      },
+      { type: "h2", text: "Advertising subscribe & save without tripping the feed" },
+      {
+        type: "ol",
+        items: [
+          "Keep the feed price exactly what the product page shows by default - the one-time price - so Merchant Center's price-match check has nothing to flag, no matter how aggressive the subscription discount gets",
+          "Put the subscribe-and-save savings where a shopper actually lands, not where the ad clicks from: a visible badge or toggle on the product page itself, the moment the page loads, before anyone has to hunt for it",
+          "Use ad copy and promotion text, not the price field, to advertise the offer - \"Subscribe and save 15%\" as a headline or promotion extension describes the deal without asserting it's the checkout price for every buyer",
+          "Where a platform supports Merchant Center's promotions feed, run the subscribe-and-save offer through that instead of the price attribute - it's the mechanism actually built to describe a conditional discount without redefining a product's base price",
+          "Route ad spend by real subscribe-and-save conversion, not by the vanity of a lower advertised price - a SKU converting well on an honest one-time price with the discount surfaced on-page is safer to scale than one leaning on a number the feed can't actually back up",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's widget puts the subscribe-and-save price directly on the product page - visible the moment the page loads, not hidden behind an extra click - which is exactly the landing-page signal Merchant Center's price check is looking for once an ad actually brings a shopper there. The app never touches the product's base price or the feed a merchant's Google & YouTube channel reads from; the discount stays exactly where Shopify's selling-plan model already keeps it, calculated the moment a shopper picks the subscription option rather than baked into a number Google was never going to trust.",
+      },
+      {
+        type: "p",
+        text: "Subscription analytics on the Growth plan and above is where a merchant can see how many of those ad-driven visits actually convert to subscribe-and-save, which turns \"is the on-page badge doing its job\" from a guess into a number worth checking before a campaign scales.",
+      },
+      {
+        type: "p",
+        text: "Hearth & Hound didn't have a broken feed or a mispriced ad - they had a subscribe-and-save discount that was never going to live anywhere Google's product feed looks, because it isn't a second price, it's a choice a shopper makes after they arrive. Leave the feed alone, let the product page carry the real number the moment someone lands on it, and the ad keeps doing what it's supposed to do: get the click. The page can be trusted to close the rest.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-skip-doesnt-show-in-shop-app",
     title: "Why a Skipped Shopify Subscription Renewal Never Shows Up in the Shop App",
     excerpt:
