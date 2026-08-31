@@ -30,6 +30,85 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-combine-two-orders-into-one-shipment",
+    title: "Can You Combine Two Shopify Orders Into One Shipment?",
+    excerpt:
+      "A Marlow & Finch customer places two separate orders eleven minutes apart, then emails asking to combine them into one box - and finds out Shopify has no merge button for that. Here's why merging two orders is really a cancel-and-rebuild, what a self-service order edit can and can't do about it, and how to decide when the work is worth it.",
+    category: "GUIDE",
+    date: "2027-01-30",
+    author: "The AppFox Team",
+    metaTitle: "Can You Combine Two Shopify Orders Into One Shipment? | AppFox",
+    metaDescription:
+      "Shopify has no merge-orders button - two orders placed minutes apart still ship, bill, and get taxed separately unless someone manually combines them. Here's why, what a self-service order edit can and can't automate, and when combining is actually worth the work.",
+    body: [
+      {
+        type: "p",
+        text: "A Marlow & Finch customer checks out for a set of ceramic planters, realizes two minutes later she forgot the matching plant stand, and places a second order rather than risk losing the first one to a cart timeout. Eleven minutes separate the two confirmation emails. She emails support asking the obvious question: can you just combine these into one box so I'm not paying two shipping charges and getting two deliveries for a $61 order? The support rep pulls up both orders, sees they're both unfulfilled, and goes looking for a merge button - order A, order B, combine. There isn't one. Shopify was never built with a way to fuse two placed orders into a single object, and the rep now has to figure out, from scratch, what \"combine these\" actually requires.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the missing button is an oversight. An order in Shopify isn't a shopping cart that can be topped up and merged with another - it's a finalized record of a specific payment, a specific set of line items, a specific tax calculation, and a specific shipping charge, all captured at the moment checkout completed. Two orders are two of those records, each already tied to its own payment transaction. \"Combine them\" sounds like one action a merchant should be able to click, but underneath it's actually several: move the line items from one order onto the other, cancel the order that's now empty, refund whatever payment and shipping charge that order collected, and make sure the surviving order's shipping and tax still reflect the new total. Shopify doesn't have a single operation for that because there isn't a single database change that does it - it's a sequence of edits and refunds dressed up as one customer-facing request.",
+      },
+      { type: "h2", text: "Why \"merge\" isn't really one operation" },
+      {
+        type: "ul",
+        items: [
+          "Each order carries its own payment transaction - two separate authorizations or captures on the customer's card, which is why combining them means refunding one in full, not editing a total that lives in one place",
+          "Shipping is calculated per order at checkout, so the second order's shipping charge doesn't roll into the first automatically - someone has to refund it and, if the combined order now qualifies for a different rate or a free-shipping threshold, recalculate that by hand",
+          "A discount code applied to one order doesn't retroactively apply to line items moved in from the other, so a customer who used a promo code on order A doesn't get it extended to the plant stand from order B just because they're shipping together now",
+          "Sales tax is calculated per order at the moment of checkout - moving a line item onto a different order means it gets re-taxed on that order's terms, which can shift the total by more than the shipping savings the customer was asking for",
+          "If either order has already started fulfillment - a pick ticket printed, a label bought - the warehouse is now working from an order that's about to have items added or removed out from under it, which is exactly the kind of change a self-service edit is built to prevent, not enable",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A merge request isn't a data operation waiting to be automated. It's a cancel, a refund, and a rebuild, wearing one customer email.",
+      },
+      { type: "h2", text: "What actually happens when a merge request gets honored" },
+      {
+        type: "p",
+        text: "Done properly, combining two unfulfilled orders means adding the line items from the smaller order onto the larger one as an edit, canceling the smaller order once it's empty, and refunding its full payment - product total and shipping both - back to the original payment method. If the combined order now crosses a free-shipping threshold or qualifies for a better rate, that gets adjusted too, which usually means a second small refund or an added credit on top of the first. None of this is exotic, but none of it is instant either, and it touches two payment transactions, two tax calculations, and whatever the warehouse's pick queue looked like at the moment someone started the process.",
+      },
+      {
+        type: "p",
+        text: "The part that trips teams up is sequencing. Cancel the smaller order first and refund it, and the warehouse might release its reserved inventory back to available stock before the items get added to the surviving order - which can turn a straightforward combine into an unexpected oversell if a popular variant sells out in the gap between the two steps. Add the items to the surviving order first and cancel second, and there's a brief window where the same inventory looks committed twice. Either way, it's a two-step process where the order matters, done by a person who has to hold both orders' state in their head at once - not something a customer tapping \"combine\" in a self-service portal could safely trigger on their own.",
+      },
+      {
+        type: "quote",
+        text: "The refund posts instantly and the edit applies instantly. The part in between - deciding whether the warehouse has already touched either order - is still a judgment call, every time.",
+      },
+      { type: "h2", text: "A worked example" },
+      {
+        type: "p",
+        text: "Marlow & Finch pulled three months of support tickets tagged with a combine-order request and found 94 of them, averaging 14 minutes of rep time each to look up both orders, confirm neither had shipped, move the line items, cancel the smaller order, and process the shipping refund - about 22 hours of support time over the quarter for a request that never shows up in an edit-volume or upsell dashboard, because it isn't really an edit; it's a cancellation and a refund wearing an edit's clothing. Of those 94, 11 came in after the smaller order had already been picked, which turned a 14-minute request into a 30-minute one once a warehouse associate had to unpick a box and route the item back to the other order's staging area.",
+      },
+      { type: "h2", text: "When combining is worth doing - and when it isn't" },
+      {
+        type: "ol",
+        items: [
+          "Only offer to combine when both orders are still unfulfilled - the moment either has a printed label or a picked item, the shipping savings a customer is asking for usually cost more in warehouse time than they're worth",
+          "Check the time gap before promising anything - orders placed minutes apart, like a forgotten add-on, are worth combining; orders placed days apart have likely already entered separate fulfillment waves and are harder to safely pull back together",
+          "Recalculate shipping and any threshold discounts before refunding, not after - a customer told \"you'll get a partial refund\" and then charged the same total twice by mistake is a worse outcome than the two-shipment order they started with",
+          "Cancel and refund the smaller order only after the line items are confirmed added to the surviving one, not before, so inventory doesn't get released and resold in the gap between the two steps",
+          "Set a standing policy - a dollar threshold on shipping savings, or a same-day cutoff - rather than deciding case by case, so support isn't relitigating the sequencing every time a version of this request comes in",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "The piece of a combine request that's a genuine edit - adding a line item to an unfulfilled order - is exactly what AppFox's self-service portal and admin edit flow already do, provided the receiving order hasn't crossed its edit window or fulfillment cutoff. What AppFox doesn't do, and isn't trying to, is treat \"combine order B into order A\" as one atomic self-service action a customer can trigger on her own. Canceling the now-empty order and refunding its payment and shipping is a separate operation from adding a line item, it touches a second order's payment record, and it's exactly the kind of request AppFox's eligibility engine is built to route to the approval queue rather than auto-apply - a person confirms neither order has been picked, adds the items, then works the cancellation and refund through Shopify admin, with the whole sequence landing on the order's audit timeline.",
+      },
+      {
+        type: "p",
+        text: "That's a deliberate boundary, not a gap. An instant, unsupervised merge would mean auto-canceling a paid order and auto-refunding it the moment a customer clicked a button - the exact kind of payment-reversing action self-service order editing is built to keep out of auto-apply, for the same reason a large price-adjusting edit gets held for review instead of applying on its own. The line-item move can be instant. The cancellation and refund on the other order stays a reviewed step, on purpose.",
+      },
+      {
+        type: "p",
+        text: "Marlow & Finch didn't build a merge button, because there isn't one to build. It set a same-day, both-unfulfilled policy for when a combine request gets honored, used AppFox's edit flow to add the plant stand onto the planters order in seconds, and let a person - not an auto-apply rule - handle canceling the smaller order and refunding its shipping. The customer got one box. The two payment records behind it still needed someone to reconcile them by hand, and that part was never going to be otherwise.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-widget-headless-storefront",
     title: "Why a Shopify Subscribe & Save Widget Disappears on a Headless Storefront",
     excerpt:
