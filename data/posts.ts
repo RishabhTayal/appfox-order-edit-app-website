@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-widget-headless-storefront",
+    title: "Why a Shopify Subscribe & Save Widget Disappears on a Headless Storefront",
+    excerpt:
+      "Salt & Cedar relaunches its skincare storefront on a custom Hydrogen build for faster load times and full design control - and the subscribe-and-save option that used to sit on every product page simply isn't there anymore. Nothing broke. A headless storefront was never going to render it in the first place.",
+    category: "PLAYBOOK",
+    date: "2027-01-29",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscriptions on a Headless Storefront: What Works | AppFox",
+    metaDescription:
+      "A subscribe-and-save widget is a theme app extension - it renders through a Shopify theme, and a headless or Hydrogen storefront doesn't run one. Here's why the widget disappears on a headless build, what still works underneath it, and how to keep subscriptions alive through the migration.",
+    body: [
+      {
+        type: "p",
+        text: "Salt & Cedar spends three months moving its skincare storefront off a stock Shopify theme and onto a custom Hydrogen build - faster page loads, full control over the product-page layout, no more fighting a theme's section limits to get the design the brand wants. Launch day goes smoothly. Then the subscription numbers for the week come in flat at zero, and someone on the team opens the storefront in a browser to check. The product page loads fast, looks exactly like the Figma file, and has a single \"Add to cart\" button. The subscribe-and-save toggle that used to sit right under the price - one-time or subscribe and save 15% - isn't there. It isn't broken, hidden, or misconfigured. It was never going to survive the move, and nobody on the project had thought to ask whether it would.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a bug in the new storefront or a setting left unchecked during launch. A subscribe-and-save widget reaches a product page as a theme app extension - a block a merchant drops into a section through the theme editor, which Shopify's Online Store 2.0 theme engine then renders as part of the page it builds from Liquid templates and JSON layouts. A headless storefront doesn't have any of that. Hydrogen, and any custom build talking to the Storefront API directly, renders its own React components from data it fetches itself - there's no theme underneath it for a theme app extension to embed into, because a headless storefront isn't running a Shopify theme at all. The widget didn't fail to load. There was never a theme there to load it onto.",
+      },
+      { type: "h2", text: "Why the widget disappears but the subscription doesn't" },
+      {
+        type: "ul",
+        items: [
+          "A subscription option on a Shopify store is backed by a native selling plan, attached to the product through Shopify's own Subscriptions API - that data lives on the product itself, not inside any single app's widget, and it survives a storefront migration untouched",
+          "The widget is a separate layer on top of that data: a rendered picker that reads the product's selling plans and lets a shopper choose one, built to run inside a Shopify theme's rendering pipeline specifically",
+          "A headless storefront still has full access to a product's selling plans through the Storefront API - the sellingPlanAllocations a shopper could choose from are exactly as queryable as they were before - but nothing renders a picker for them unless the storefront's own code builds one",
+          "Existing subscribers are unaffected either way, because their contracts already exist and keep billing through Shopify's native checkout on schedule - this is entirely a new-subscriber problem, not a churn problem, which is part of why it takes a week of flat numbers to notice rather than a single alarming spike",
+          "The customer self-service portal - skip, pause, swap, cancel - is a different surface from the product-page widget, reached through a link rather than embedded in a theme section, so it isn't automatically affected by the same migration the way the picker is",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The subscription survives the migration. The picker that lets someone start one doesn't come along for free.",
+      },
+      { type: "h2", text: "What a silent launch like this actually costs" },
+      {
+        type: "p",
+        text: "A missing subscribe-and-save option doesn't throw an error, fail a test that nobody thought to write, or show up in a QA pass focused on cart and checkout - the one-time purchase flow works perfectly, because it's the flow everyone tests. What it costs is every new subscriber the storefront would have converted during however long the gap runs: the shopper who would have picked recurring delivery and stayed for a year instead just buys once, if she buys at all, because the choice was never offered to her. That revenue doesn't show up as a decline anywhere - there's no failed renewal, no support ticket, no dashboard metric that dips. It's demand that simply never became a subscription, on a storefront where every other part of the relaunch looks like a success.",
+      },
+      {
+        type: "quote",
+        text: "A theme app extension renders inside a theme. A headless storefront doesn't have one. That isn't a bug to fix after launch - it's a build decision that has to be made before it.",
+      },
+      { type: "h2", text: "Keeping subscribe & save alive through a headless migration" },
+      {
+        type: "ol",
+        items: [
+          "Confirm early in a headless project that subscriptions run on Shopify's own selling plans rather than a proprietary model - native selling plans are the ones that keep working and stay queryable after the migration, which is what makes rebuilding the picker possible at all",
+          "Have the storefront's own engineers query sellingPlanGroups and sellingPlanAllocations through the Storefront API and build the one-time-vs-subscribe picker as a first-class component in the new product page, not a follow-up task after the design is already locked",
+          "Don't try to rebuild the customer portal from scratch inside the new storefront - link out to the app's own hosted portal URL instead, since skip, pause, swap, and cancel are a separate surface from the widget and don't need to be reimplemented to keep working",
+          "Place an order through the new storefront using a selling plan before launch, end to end, the same way cart and checkout already get tested - this is the one flow a standard QA pass is least likely to catch, because a one-time purchase completing successfully looks like a pass",
+          "Loop marketing and support into the migration timeline before it ships, not after subscription numbers come in flat - the team fielding \"why can't I subscribe anymore\" needs to know it's a launch decision, not an outage, before the first message comes in",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's widget is a theme app extension built for Online Store 2.0 themes, the same as any app block - it renders through a Shopify theme's own pipeline, and it has no equivalent on a headless storefront, because there's no theme there for it to embed into. Nothing about that is specific to AppFox: it's true of any subscribe-and-save widget built the way Shopify themes expect apps to extend them, and a headless build has to account for it regardless of which subscription app a store was running before the migration.",
+      },
+      {
+        type: "p",
+        text: "What does carry through untouched is the subscription itself - the selling plan, the billing schedule, and every existing subscriber's contract, all native to Shopify and unaffected by what storefront happens to be rendering the product page that day. The customer portal reaches a subscriber the same way whether the storefront in front of it is a stock theme or a custom Hydrogen build, since it's a hosted page a link points to rather than something embedded in a theme section - which is exactly why skip, pause, swap, and cancel keep working for Salt & Cedar's existing subscribers through the relaunch, even in the same week the picker that starts a new subscription goes missing.",
+      },
+      {
+        type: "p",
+        text: "Salt & Cedar's subscriptions were never broken - the contracts kept billing, the portal kept answering tickets, and the underlying selling plans sat exactly where Shopify always keeps them, fully queryable the whole time. What the relaunch quietly dropped was the one component built to run inside a theme, on a storefront that no longer has one. Treat the picker as a build task owned by whoever's building the headless storefront, test a subscription order the same way cart and checkout already get tested, and the flat week Salt & Cedar had doesn't have to be the first place a team finds out.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-restocking-fee",
     title: "Should a Self-Service Shopify Order Edit Ever Charge a Restocking Fee?",
     excerpt:
