@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-restocking-fee",
+    title: "Should a Self-Service Shopify Order Edit Ever Charge a Restocking Fee?",
+    excerpt:
+      "A self-service order edit that removes an already-picked item still costs a warehouse real labor to re-shelve, even though nothing ever shipped. Here's when a restocking fee is worth the friction it adds back to Shopify order editing, and how to size and apply one without breaking the instant edit experience for everyone else.",
+    category: "GUIDE",
+    date: "2027-01-28",
+    author: "The AppFox Team",
+    metaTitle: "Restocking Fees on Self-Service Shopify Order Edits | AppFox",
+    metaDescription:
+      "Removing an already-picked item from a Shopify order still costs a warehouse real labor to re-shelve. Here's when a restocking fee on self-service order edits is worth the friction, how to size one against real cost, and how to charge it without breaking instant edits.",
+    body: [
+      {
+        type: "p",
+        text: "Harlow & Crate ships upholstered furniture and case goods across the country, and its self-service order edit portal lets a customer remove a line item from an order for a full, instant refund - no ticket, no wait, right up until the order ships. For most of the year that's exactly the frictionless experience the portal was built to deliver. Then the warehouse manager pulled a report on where removals actually landed in the fulfillment timeline, and found that nearly a third of them came in after the item had already been pulled from its rack, staged on a pallet, and wrapped for the truck - work a warehouse associate now had to undo by hand, on top of everything else on that day's pick list.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the edit itself looks any different to the customer. She opens her order status page, taps remove on the loveseat she changed her mind about, and watches the refund post in seconds - the exact same flow whether that loveseat is still sitting untouched in inventory or already strapped to a pallet twenty feet from the loading dock. The difference is invisible in the edit flow and very visible on the warehouse floor: unwrapping a couch, walking it back to its shelf location, and re-tagging it for stock takes a real fifteen to twenty minutes, and none of that shows up anywhere in the order, the refund, or the dashboard that tracks edit volume.",
+      },
+      { type: "h2", text: "Why this is a different question than a normal restocking-fee policy" },
+      {
+        type: "ul",
+        items: [
+          "A standard restocking fee usually applies to a return - an item that shipped, arrived, and is coming back - where the fee offsets return shipping and a resale inspection. A self-service order edit happens before the order ships, so the return-shipping cost that usually justifies the fee was never incurred at all",
+          "Most self-service removals happen well before an item is ever pulled, and charging a fee on those punishes the exact behavior self-service editing exists to encourage - a customer catching her own mistake early, instead of waiting for the item to arrive and returning it",
+          "Once an item has been pulled and staged, though, a real cost shows up regardless of whether the order ever ships - labor to unwrap and re-shelve it, and for some goods, a repackaging cost or a damage risk the first unwrapping didn't carry",
+          "The deciding signal isn't the calendar - a 24-hour edit window treats every removal inside it as equivalent - it's whether the specific unit has already left inventory and reached a picker's hands, which can happen in the first hour of a fast-moving warehouse's day just as easily as the twenty-third",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A restocking fee earns its keep on the removals that already reached the warehouse floor - not on the order still waiting untouched in queue.",
+      },
+      { type: "h2", text: "What ignoring the difference actually costs" },
+      {
+        type: "p",
+        text: "Treat every self-service removal as equally free, and the cost doesn't disappear - it just stops being visible anywhere a merchant is looking. It shows up as a warehouse team quietly absorbing extra re-shelving work that never gets billed to anyone, a labor line that creeps up during a promotion or a size run without any of the reporting that tracks edit volume, upsell revenue, or approval rate ever flagging why. The edit flow keeps reporting a rising approval rate and growing volume as a success story, while the actual cost of honoring that volume grows somewhere the dashboard was never built to look.",
+      },
+      {
+        type: "quote",
+        text: "The removal isn't free just because the refund posted in three seconds. It's free for the customer. Somebody in the warehouse still has to put the couch back.",
+      },
+      { type: "h2", text: "A worked example" },
+      {
+        type: "p",
+        text: "Harlow & Crate pulled a month of removal data to see what this was actually worth. 480 self-service line-item removals came through the portal that month. Of those, 29% - 139 removals - happened after the item had already been picked and staged, based on the fulfillment status logged at the moment the edit was requested. Each post-pick removal took an average of 18 minutes of warehouse time to unwrap, inspect, and re-shelve, at a loaded labor rate of $26 an hour - $7.80 per removal - plus roughly $4.20 in wasted packaging materials for upholstered items that had already been wrapped once. That's $12 per post-pick removal, times 139, or $1,668 that month - just over $20,000 a year, spent entirely on undoing work the warehouse had already finished, with no line item anywhere that tracked it as a cost until someone went looking.",
+      },
+      { type: "h2", text: "How to size and apply the fee without breaking self-service" },
+      {
+        type: "ol",
+        items: [
+          "Gate the fee on fulfillment status, not on time elapsed - a removal requested before the item is picked costs the warehouse nothing extra and should stay free and instant; a removal requested after should be the only kind that triggers a fee, regardless of whether that split happens at hour one or hour twenty",
+          "Price the fee against the real labor and materials cost you're actually recovering, not a flat percentage borrowed from your returns policy - a $12 re-shelve cost on a $600 loveseat and the same $12 cost on a $40 side table justify very different fees if the goal is covering cost rather than discouraging the edit itself",
+          "Disclose the fee inside the edit flow before the customer confirms the removal, not on the refund confirmation after the fact - a fee she can see and choose to accept is a policy; a fee she discovers on her refund total is a complaint waiting to happen",
+          "Keep the fee off any edit that isn't a removal - a swap or an address change on an already-picked item is a different cost problem than a customer walking away with less than she ordered, and folding both into one restocking-fee rule usually ends up charging the wrong action",
+          "Revisit the fee if it starts generating more support contact than the labor cost it was meant to offset - a fee that trades a $12 recovery for a $30 support ticket and a bad review has moved past paying for itself",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's eligibility engine already decides, per edit type, whether a removal auto-applies or waits in the approval queue - which is the natural place to put this rule, since fulfillment status is one of the signals the engine already evaluates alongside edit windows and cutoffs. Routing post-pick removals into the approval queue, rather than letting every removal auto-apply the same way, is what keeps a fee possible at all: once a removal auto-applies, the full refund has already posted on the original payment before anyone could adjust it.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is calculate or apply a restocking fee itself - there's no fee line in the automatic price-delta refund, because the engine is built to settle exactly the price difference an edit creates, not a policy decision layered on top of it. A flagged post-pick removal reaching the approval queue still needs a person to process the fee-adjusted refund - through the same approval step, backed by Shopify admin - before it goes out, and that adjustment, like every other change on the order, lands on the full audit timeline, so a question about why a refund came back short of the item's price has an answer on record instead of a guess.",
+      },
+      {
+        type: "p",
+        text: "Harlow & Crate didn't put a restocking fee on every self-service removal - most of them still cost the warehouse nothing and stayed exactly as instant as before. It routed the third of removals landing after pick into a short review step, priced the fee at what re-shelving an upholstered piece actually costs, and told the customer about it before she confirmed. The portal kept the frictionless edit for the removal that costs nothing to honor, and finally put a number on the one that doesn't.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-black-friday-cyber-monday-approval-queue",
     title: "Why Shopify Order-Edit Approval Queues Break on Black Friday",
     excerpt:
