@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-paypal-billing-agreement-canceled",
+    title: "Why a Shopify Subscriber's PayPal Renewal Fails With Nothing Wrong on Her PayPal Account",
+    excerpt:
+      "A tea subscriber's renewal fails, and her PayPal balance is fine, her bank account is fine, and nothing on her PayPal profile shows a problem. The subscription didn't lose a working card - it lost permission, revoked from inside her own PayPal settings, and a card-decline dunning email was never going to fix that.",
+    category: "PLAYBOOK",
+    date: "2027-01-31",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Subscription PayPal Renewal Fails to Charge | AppFox",
+    metaDescription:
+      "A Shopify subscription funded by PayPal bills against a billing agreement, not a saved card - and a subscriber can revoke that agreement from inside her own PayPal account with no warning to the store. Here's why the renewal fails with nothing wrong on the PayPal side, and why 'update your payment method' is the wrong fix.",
+    body: [
+      {
+        type: "p",
+        text: "A Windward Tea Co. subscriber's monthly renewal declines on a Thursday, and the automated dunning email lands in her inbox within the hour: your payment method didn't go through, please update it. She logs into PayPal to check - balance is fine, the linked bank account is fine, no security hold, no expired anything. She logs into the Windward subscription portal next and finds the exact same PayPal account still listed as her payment method, looking perfectly normal. There is nothing on either screen that reads as broken, and nothing to \"update,\" because the thing that actually failed isn't a payment method at all. It's a permission, and she revoked it herself three weeks earlier while cleaning up a list of old automatic payments she didn't remember approving.",
+      },
+      {
+        type: "p",
+        text: "A Shopify subscription funded by PayPal doesn't bill the way a card-funded one does. There's no card number vaulted on the contract - instead, PayPal creates a reference transaction, commonly called a billing agreement, that lets the merchant charge the customer's PayPal account again without her approving each individual payment. PayPal surfaces that agreement to her directly, under \"automatic payments\" in her own account settings, listed by merchant name, with a plain cancel button next to each one - entirely inside PayPal, with no notification back to Windward when she uses it. She wasn't targeting the tea subscription specifically. She was going through a list of merchants she didn't recognize and canceling several at once. The subscription's billing agreement was one of them, and from that moment forward there was no permission left for Windward to charge against - not a bad card, not insufficient funds, just nothing to bill.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't offering PayPal as a subscription funding option - it converts well precisely because a shopper never has to type a card number to start a recurring order. The mistake is sending the same \"update your payment method\" message to a canceled billing agreement that a store sends to an expired Visa, when the fix a subscriber actually needs looks nothing like updating a card.",
+      },
+      { type: "h2", text: "Why the renewal fails without anything on PayPal's side looking wrong" },
+      {
+        type: "ul",
+        items: [
+          "A PayPal-funded Shopify subscription bills against a reference transaction (a billing agreement) rather than a saved card - there's no card number on the contract for a network account updater or an expiry check to ever touch",
+          "PayPal exposes that agreement to the customer under her own account's automatic-payments settings, listed by merchant, with a one-click cancel - a permission she can revoke at any time, for any reason, with zero visibility for the store until the next renewal fails",
+          "Canceling is often incidental rather than deliberate - a subscriber reviewing a long list of merchants she's granted automatic payments to over the years is unlikely to recognize every listing, and a tea subscription she still wants can get swept up with ones she doesn't",
+          "Once the agreement is canceled, there's nothing left to retry - a declined card can clear on a second attempt if the balance recovers, but a canceled billing agreement isn't a temporary funding problem, it's an authorization that no longer exists at all",
+          "The decline PayPal returns for a canceled agreement carries its own status distinct from an insufficient-funds or card-expiry decline, but most dunning logic was written around card failures and doesn't split it out, so it gets the same message either way",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A declined card is a funding problem, and a schedule of retries can wait it out. A canceled billing agreement is a consent problem, and no retry schedule restores consent.",
+      },
+      { type: "h2", text: "What the wrong message costs you" },
+      {
+        type: "p",
+        text: "Windward pulled a quarter's worth of failed PayPal renewals to see how big this actually was and found 71 of them traced back to a canceled billing agreement rather than a funding failure - subscribers with perfectly good PayPal balances who received the identical \"update your payment method\" email sent to every other decline. Of those 71, only 12 ever came back and renewed. The other 59 read an email that didn't match anything they could see on their own PayPal account, had no obvious next step that looked like it would help, and let the subscription lapse - not because they didn't want the tea anymore, but because the fix the email described didn't exist for the problem they actually had.",
+      },
+      {
+        type: "quote",
+        text: "She didn't leave because the tea stopped being worth it. She left because the email told her to fix a card, and she didn't have one to fix.",
+      },
+      { type: "h2", text: "Recovering a canceled billing agreement, and not losing the next one" },
+      {
+        type: "ol",
+        items: [
+          "Split PayPal's canceled-agreement decline out from ordinary funding declines in your reporting - the two need different messages and different fixes, and blending them into one \"payment failed\" bucket hides exactly how many subscribers are getting the wrong instructions",
+          "Write a distinct message for this case: not \"update your payment method,\" but \"your automatic payment authorization with us was removed - reconnect it to keep your subscription active,\" pointed at what actually happened",
+          "Send that subscriber through a real PayPal checkout flow to mint a fresh billing agreement, rather than a portal field built to swap in a new card - there's no card field that fixes a revoked authorization, and a portal that only offers one leaves her stuck",
+          "Don't assume the portal's payment-method display is telling the truth after a revocation - PayPal can still show as \"connected\" on the merchant's side for a beat after the customer cancels on hers, which is exactly what left this subscriber unsure anything had changed at all",
+          "Track canceled-agreement failures as their own line in involuntary churn, separate from card declines - they recover at a different rate, on a different fix, and a blended churn number hides how much of it is a messaging problem rather than a payment problem",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's dunning sequence reads the decline reason a payment attempt actually returns rather than collapsing every failure into one \"payment method didn't work\" message, so a PayPal reference-transaction cancellation gets routed to language about reconnecting automatic payments instead of the update-your-card copy built for an expired Visa. The portal sends a subscriber recovering from a canceled agreement back through PayPal's own checkout to establish a new one, because that's the only place a fresh authorization can actually be created - the portal can point her at that flow and reflect its result, not manufacture a permission PayPal itself has to grant.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is stop a customer from canceling automatic payments to a merchant inside her own PayPal account, or get any notice the moment she does it - that permission and that visibility both live entirely on PayPal's side, outside anything a subscription app on Shopify can see or influence until the next renewal attempt comes back declined. The dashboard can tell a merchant how many renewals failed for this exact reason, on the Growth plan and above; it can't reach into PayPal's settings and undo what a subscriber chose to revoke there.",
+      },
+      {
+        type: "p",
+        text: "The Windward subscriber didn't need her card updated, because there was never a card in this failure to begin with. She needed an email that named what actually happened and a path back that didn't route her toward a field that couldn't fix it. Split a canceled billing agreement out from an ordinary decline, say plainly what it is, and send her through the one flow that can actually restore it - and a subscriber who still wants the tea stops looking, in the numbers, like one who didn't.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-combine-two-orders-into-one-shipment",
     title: "Can You Combine Two Shopify Orders Into One Shipment?",
     excerpt:
