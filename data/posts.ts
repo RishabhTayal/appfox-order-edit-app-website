@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-returns-app-overlap",
+    title: "Why Your Returns App Handles Fixes a Shopify Order Edit Should Have Caught for Free",
+    excerpt:
+      "A customer orders the wrong size, and two self-service portals sit on the same order-status page ready to fix it - one that swaps the variant in place for nothing, and one that refunds the order, opens an exchange, and ships a whole new package. Nothing on the page tells her which one to click.",
+    category: "PLAYBOOK",
+    date: "2027-02-04",
+    author: "The AppFox Team",
+    metaTitle: "Order Edits vs. Returns Apps: Which One Catches the Fix? | AppFox",
+    metaDescription:
+      "A Shopify order-status page can carry both a self-service order-edit link and a returns app's exchange button, and a size swap that should cost nothing routes to whichever one the customer clicks first. Here's how to sequence the two so the free fix wins.",
+    body: [
+      {
+        type: "p",
+        text: "Prescott & Vale ships apparel, and it runs two apps that both add a button to the order-status page: AppFox for self-service order edits, and a returns app for exchanges once something's been delivered. A customer named Dana orders a jacket in medium, catches her mistake twenty minutes later, and opens her order-status page to fix it before it ships. Two buttons are sitting there next to each other - \"Edit your order\" and \"Start a return or exchange.\" The returns app's button is the one with the bigger icon and the friendlier copy, so she clicks that one. It walks her through picking a reason, selecting large as the replacement, and confirms an exchange. What it doesn't do anywhere in that flow is check whether the jacket has actually shipped yet - because a returns app is built to process what comes back after delivery, not to ask whether there's anything to return at all.",
+      },
+      {
+        type: "p",
+        text: "The jacket hadn't shipped. It still hasn't been picked, packed, or handed to a carrier - it's sitting in the same unfulfilled state it was in when Dana placed the order. But the returns app doesn't know that's a meaningful distinction, because nothing about its job requires checking. So it does what it always does: refunds the original line item, opens a brand-new exchange order for the large, and queues a fresh pick-and-pack on a completely separate order number. Twenty minutes later, the original order - still unfulfilled, still technically live - ships anyway, because nothing told the warehouse to stop. Dana ends up with two jackets, one refund that only covers one of them, and a support ticket that takes longer to unwind than the size swap should ever have taken to make.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't running a returns app alongside order editing - most stores need both, since one handles the window before an order ships and the other handles everything after. The mistake is putting two buttons on the same page that both claim to fix the same problem, with nothing between them routing the request to whichever tool actually still has a cheap answer.",
+      },
+      { type: "h2", text: "Why the returns app catches it first" },
+      {
+        type: "ul",
+        items: [
+          "A returns app like Loop Returns, Return Prime, or AfterShip Returns is built around the assumption that an item has already shipped - it has no reason to check Shopify's fulfillment status before starting an exchange, because in its normal use case the item is always already gone",
+          "Both apps render their own entry point on the order-status page independently, with no shared awareness of each other - each one was installed and configured as if it were the only self-service option a customer would ever see there",
+          "The returns app's flow is usually built to look more complete - reason codes, replacement selection, a tracked label - which reads as more trustworthy to a customer than a plain edit link, even when the edit link is the one that actually costs nothing",
+          "An exchange resolves by refunding the original line item and creating a new order, which means a new shipping cost, a new pick-and-pack, and a broken link back to whatever upsell or attribution the original order carried - all for a change that an in-place edit would have made without touching any of it",
+          "Nothing on either app's side fires a signal the other app listens for, so an exchange opened in the returns app doesn't cancel or flag the order-edit window, and an edit made through AppFox doesn't tell the returns app the item it might later exchange has already changed",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The returns app isn't wrong to skip the fulfillment check - it was never built to make it. It just happens to sit on the same page as a tool that was.",
+      },
+      { type: "h2", text: "What the wrong-portal path costs" },
+      {
+        type: "p",
+        text: "None of this shows up as a single broken order in a report - it shows up as a pattern of exchanges that, on closer look, were opened against orders that hadn't shipped yet. Each one carries a cost that an in-place edit never would have: a second shipment the store pays to send, a refund-and-recharge instead of a fee-preserving swap, and a support ticket once the original item shows up anyway. None of it looks like a bug from inside either app - the returns app processed a normal exchange, and the order-edit app never saw a request come in at all, because the customer never clicked its button.",
+      },
+      {
+        type: "quote",
+        text: "Both portals did exactly what they were built to do. The only thing that failed was the page that put them side by side without saying which one to try first.",
+      },
+      { type: "h2", text: "Sequencing the two portals correctly" },
+      {
+        type: "ol",
+        items: [
+          "Give the order-edit link visual priority on the order-status page while the order is still unfulfilled, and only surface the returns app's entry point once Shopify's fulfillment status actually changes",
+          "Where the theme or app can't conditionally hide either button, label them plainly by what they cost the customer - \"still time to fix this for free\" next to the edit link does more than any icon choice",
+          "Route common post-purchase requests - size, color, address - to the edit flow by default, and reserve the returns app's messaging for damage, quality issues, and anything that genuinely requires the item to come back",
+          "Train support macros to check Shopify's fulfillment status before processing a size or variant complaint as an exchange, since the cheaper fix is still available for as long as the order hasn't shipped",
+          "If the returns app supports it, add a rule that blocks a new exchange from opening on a line item that's still unfulfilled, so the two tools stop competing for a request only one of them can resolve for free",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's edit window is built for exactly the case a returns app isn't: a change made before an order ships, settled in place on the original order and payment method, with fees preserved and no second shipment generated. Auto-apply or approval-queue routing can be set per edit type, so a size or address swap clears instantly while anything that needs a human eye still gets one - all without ever creating a second order number for a customer to keep track of.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is manage the handoff to a returns app once an order actually ships, or reach into that app's own exchange flow to block a request AppFox never saw. Getting the two to stay out of each other's way is still a page-layout and support-policy decision a merchant has to make deliberately - the apps themselves won't coordinate on their own.",
+      },
+      {
+        type: "p",
+        text: "Dana didn't do anything wrong - she clicked the button that looked like the right one, on a page that offered her two. Prescott & Vale's fix wasn't picking a better returns app or a better order-edit tool; it was deciding, once, which portal gets first claim on an order that hasn't shipped yet, and building the page so that decision is visible before the customer has to guess.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-how-many-times-should-you-allow",
     title: "How Many Times Should You Let a Customer Edit a Shopify Order?",
     excerpt:
