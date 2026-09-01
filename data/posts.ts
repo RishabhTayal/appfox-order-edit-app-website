@@ -30,6 +30,78 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-upsell-roas-attribution-gap",
+    title: "Why Your Shopify Order-Edit Upsells Never Show Up in Google Ads or Meta ROAS",
+    excerpt:
+      "A home-goods brand's post-purchase upsell adds real revenue to real orders, and its best-performing ad channel still looks like the weakest one on the dashboard. The upsell isn't the problem - the pixel just stopped counting the sale the moment checkout finished.",
+    category: "REVENUE",
+    date: "2027-02-01",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Order Edits and the Ad-Platform ROAS Gap | AppFox",
+    metaDescription:
+      "A post-purchase order edit raises a Shopify order's real value, but Google Ads and Meta keep reporting the smaller number from checkout. Here's why the ROAS gap forms, what it costs, and how to reconcile it without over-instrumenting every edit.",
+    body: [
+      {
+        type: "p",
+        text: "Birchmark Goods runs a one-click upsell inside its order-edit portal: a customer opens an order to fix a shipping address, sees a matching candle offered at 20% off, and adds it in a tap. On a Meta-driven order that started at $54, that's a $19 add - a real charge, on the same order, settled through the same payment method. Shopify's admin shows the order at $73 within seconds. Meta Ads Manager, looking at the exact same order three months later, still reports it as a $54 purchase. Multiply that gap across a quarter's worth of upsells concentrated on Meta traffic, and the channel that actually drove more revenue than any other starts looking like the one worth cutting - not because it converted worse, but because the dashboard measuring it stopped listening after the first ten seconds of the sale.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is a tracking bug. A purchase event - the signal Google Ads, Meta, and GA4 all use to calculate conversion value and ROAS - fires once, at the moment checkout completes, carrying whatever the order totaled at that instant. That event was never built to be revised. It's a receipt, timestamped and sent, not a live subscription to the order's future state. Shopify's own order record keeps updating after that - a line item added, a total repriced, a refund issued - and every one of those changes shows up correctly in Shopify's admin and reports. None of them replay back through the same pixel or conversion API that only ever fired once.",
+      },
+      {
+        type: "h2", text: "Why the reported number and the real number drift apart",
+      },
+      {
+        type: "ul",
+        items: [
+          "Standard purchase tracking - the Meta Pixel, a Google Ads conversion tag, GA4's purchase event - fires a single time, from the checkout or thank-you page, carrying the order's value at that exact moment",
+          "Shopify's order object keeps changing after checkout when an order is edited, but that later state was never wired to notify an ad platform's conversion API - there's no second purchase event for the same order, only a quieter update inside Shopify itself",
+          "Server-side conversion APIs (Meta's CAPI, Google's Enhanced Conversions) are almost always built to relay that same one-time checkout event, not a stream of the order-edit events Shopify fires afterward on webhooks like orders/updated",
+          "A refund from a later edit sometimes does make it back to GA4, if a merchant has specifically wired a refund event - but the reverse case, an edit that adds value, almost never gets a matching upward adjustment sent forward",
+          "Ad-platform attribution windows are anchored to the original ad click, so even a correctly wired follow-up event sent days after checkout can fall outside the platform's lookback and get dropped or misattributed rather than added to the original conversion",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The dollar figure your ad platform reports isn't your order's dollar figure. It's a receipt printed once, at checkout, and never reprinted when the order changes.",
+      },
+      { type: "h2", text: "What the gap actually costs" },
+      {
+        type: "p",
+        text: "Birchmark pulled a quarter of upsell data before touching ad spend and found the pattern was worse than one anecdote: Meta-attributed orders had a 28% upsell attach rate, nearly double every other channel, averaging $19 per add. Across the quarter that added roughly $6,400 in revenue that Shopify's own reports counted correctly and Meta's reporting never saw. On paper, Meta's ROAS looked mediocre next to a channel with a much lower attach rate but no such gap - and the team came within one budget meeting of shifting spend away from the channel that was, by actual dollars, outperforming everything else in the account.",
+      },
+      {
+        type: "quote",
+        text: "The campaign wasn't underperforming. The dashboard just stopped counting the moment the sale kept going.",
+      },
+      { type: "h2", text: "Reconciling ROAS without instrumenting every edit" },
+      {
+        type: "ol",
+        items: [
+          "Rank channels on Shopify's own total sales or order-value reporting first, not on each ad platform's self-reported conversion value - the two will diverge wherever upsells and edits are common, and only one of them is measuring the real order",
+          "If your stack supports it, send a supplemental server-side event keyed to the edit itself (Meta CAPI or Google Enhanced Conversions), carrying only the delta amount added - never the full new order total, which would double-count the original sale",
+          "Where no supplemental event is realistic, tag upsell and edit-driven revenue separately inside Shopify's own reporting so it's visible on its own, independent of whatever an ad platform happens to display",
+          "Set a cutoff for how long after checkout an edit is still worth reconciling back to the original click - an upsell added six weeks after purchase has a weak claim on the ad that drove the original sale regardless of how the attribution math works",
+          "Reconcile at the campaign or channel level on a monthly cadence instead of chasing individual orders - matching total upsell revenue against total ad-attributed order count for the period corrects a channel's real ROAS without building a live pipeline for every edit event",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox Order Editing keeps the order itself as the single source of truth - when a customer adds an upsell or a merchant approves a line-item change, the order's total, tax, and Shopify Payments fees all update in place, and that updated number is what shows up in Shopify's own admin and sales reports from that moment forward. The upsell revenue was never missing. It's sitting correctly in the one system built to hold it.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is reach into a merchant's ad accounts to correct what Google or Meta reported after the fact - that connection runs through a store's own Customer Events configuration, CAPI setup, or Google tag, entirely outside anything an order-editing app has visibility into or control over. Closing that gap is a merchant's own attribution stack to wire, not a setting inside the app that generated the extra revenue in the first place.",
+      },
+      {
+        type: "p",
+        text: "Birchmark didn't fix this by tracking down every edited order one at a time. It pulled total sales by channel straight from Shopify, matched that against attach rate by traffic source, and used the real number - not Meta's - to decide where the next quarter's budget went. The upsell had been converting the whole time. The only thing that had been underperforming was a dashboard that stopped watching ten seconds into a sale that kept going.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-paypal-billing-agreement-canceled",
     title: "Why a Shopify Subscriber's PayPal Renewal Fails With Nothing Wrong on Her PayPal Account",
     excerpt:
