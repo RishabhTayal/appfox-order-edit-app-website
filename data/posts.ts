@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-dropship-supplier-fulfillment",
+    title: "Why a Self-Service Order Edit Doesn't Reach a Dropshipped Line Item",
+    excerpt:
+      "A customer swaps the color on a lamp through the order-edit portal, gets a clean confirmation, and the lamp still ships in the original color three weeks later - because the order that actually matters was never on the retailer's store to begin with. It was already relayed to a supplier who never heard about the edit at all.",
+    category: "PLAYBOOK",
+    date: "2027-02-02",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Order Edits and Dropshipped Line Items | AppFox",
+    metaDescription:
+      "A dropshipped line item routed through Shopify Collective or a supplier-relay app like DSers gets fulfilled from a separate order the edit never reaches. Here's why the swap looks approved but never makes it to the supplier, and how to gate edits on those items correctly.",
+    body: [
+      {
+        type: "p",
+        text: "Marlin & Reed lists a rattan pendant lamp on its store that it doesn't stock itself - it's fulfilled by a supplier through Shopify Collective, relayed automatically the moment a customer checks out. A customer orders the lamp in walnut, changes her mind twenty minutes later, and opens the order-edit portal to swap it for black. The swap goes through cleanly: new variant, same price, a confirmation email that reads exactly like every other successful edit the store has ever sent. Three weeks later a walnut lamp arrives at her door. Nobody on the Marlin & Reed side did anything wrong on purpose - the order in front of them really does say black. It's just not the order that got built.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the edit itself failed. The moment that customer checked out, Shopify Collective didn't just record a line item on Marlin & Reed's order - it created a second, separate order on the supplier's own store, carrying its own line items, its own fulfillment status, and its own timeline for when the supplier's warehouse picks it. That relay is typically instant, or close to it, because the entire point of the connection is to get the order into the supplier's queue without anyone touching a keyboard. An edit made afterward changes the order Marlin & Reed can see and touch. It has no path back into an order that, by the time the edit happened, already belonged to a different store's fulfillment system.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't offering self-service edits on a product a store doesn't fulfill itself - most dropshipped items are perfectly editable right up until the relay fires. The mistake is treating a dropshipped line item's edit window the same as a warehouse item's, when the two have completely different points of no return.",
+      },
+      { type: "h2", text: "Why the edit stops at the connector" },
+      {
+        type: "ul",
+        items: [
+          "A supplier-relay app like Shopify Collective or DSers creates a second order object - on the supplier's store or the supplier's own system - the moment checkout completes, and that copy is what the supplier's fulfillment team actually works from, not the retailer's original order",
+          "These connectors are built to listen for new orders, not for order-edit events - there's no standing webhook wired to notice a line-item swap, a quantity change, or a cancellation made on the retailer's side after the relay already fired",
+          "Shopify's own fulfillment status on the retailer's order still reads \"unfulfilled\" for as long as the supplier hasn't shipped, which makes a dropshipped item look exactly as editable as an in-stock one to any eligibility rule that only checks that one field",
+          "The supplier controls their own cutoff for when an order can still change, set by their own pick schedule or, in a marketplace case like AliExpress via DSers, by a seller thousands of miles away - a window the retailer's order-edit rules have no visibility into at all",
+          "A retailer relaying a cancellation or a swap has to do it manually, inside the connector's own dashboard or by messaging the supplier directly - there's no automatic path from a customer clicking \"save changes\" on the storefront to that same change landing on the supplier's side",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The confirmation email is real. It's just confirming an edit to the order the retailer can see - not to the order the supplier is actually going to pack.",
+      },
+      { type: "h2", text: "What a silent miss costs" },
+      {
+        type: "p",
+        text: "The failure is invisible at every point where it would be cheap to catch. The customer sees a normal confirmation and has no reason to follow up. The retailer's order shows the new variant, so a support agent glancing at it during a later ticket sees exactly what the customer expects to see. The only place the mismatch actually exists is inside the supplier's own queue, which nobody at Marlin & Reed opens unless something else prompts them to look. By the time the wrong item ships, the edit is three weeks old, the return-and-reship costs a second round of shipping the store never priced in, and the customer's read on the whole exchange is that the store lied to her in writing - not that two systems never talked to each other.",
+      },
+      {
+        type: "quote",
+        text: "An edit that never leaves the retailer's own store isn't wrong. It's just answering a question the supplier was never asked.",
+      },
+      { type: "h2", text: "Gating edits on dropshipped items correctly" },
+      {
+        type: "ol",
+        items: [
+          "Tag or collection-flag every dropshipped product so your eligibility rules can treat it differently from anything the store fulfills itself, instead of leaving it on the same default window as warehouse stock",
+          "Set the real cutoff to whenever the supplier relay actually fires - often at checkout, sometimes on a short delay - rather than to Shopify's fulfillment status, which stays \"unfulfilled\" long after the relay has already made the edit moot",
+          "Route any edit on a dropshipped line item to manual review instead of auto-approve, since the change has to be manually pushed to the supplier's dashboard or relayed by message no matter how the customer requested it",
+          "Confirm the change with the supplier before confirming it to the customer - a store that emails \"updated!\" the moment its own order object changes is promising something it hasn't actually secured yet",
+          "Where a supplier can't accommodate a post-relay change at all, say so plainly on the product or order-status page rather than offering an edit path that looks identical to one on stock the store controls",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's eligibility engine can gate edit windows and route approvals per product or collection, which for a store running Shopify Collective or a supplier-relay app means putting dropshipped items on their own rule - a shorter cutoff, or a hard route to manual review - instead of leaving them on the same auto-apply default as stock the warehouse actually holds. Once an edit is approved, it settles in place on the retailer's own order and payment record, with fees preserved and no second checkout.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is reach into a supplier's own store or a connector app's relay queue - Shopify Collective, DSers, and similar apps each own that hop themselves, and an edit approved on the retailer's order doesn't automatically travel across it. Getting the change onto the order a supplier is actually going to pack is still a manual step in the connector's own dashboard, or a message to the supplier directly, every time.",
+      },
+      {
+        type: "p",
+        text: "Marlin & Reed's customer didn't get a lie in writing. She got an honest confirmation for an order that, by the time she edited it, wasn't the one shipping her lamp anymore. Flag the dropshipped items, cut the edit window off where the relay actually fires, and route the rest to a human who can push the change where it still needs to land - before the confirmation email promises something the supplier was never told to do.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-upsell-roas-attribution-gap",
     title: "Why Your Shopify Order-Edit Upsells Never Show Up in Google Ads or Meta ROAS",
     excerpt:
