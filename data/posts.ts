@@ -30,6 +30,71 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-how-many-times-should-you-allow",
+    title: "How Many Times Should You Let a Customer Edit a Shopify Order?",
+    excerpt:
+      "One clean edit is exactly what self-service was built for. The fifth edit on the same order, an hour later, isn't a customer fixing a typo anymore - it's a pattern your eligibility rules were never asked to notice, because nothing in most setups counts.",
+    category: "PLAYBOOK",
+    date: "2027-02-03",
+    author: "The AppFox Team",
+    metaTitle: "How Many Times Should You Let a Shopify Order Be Edited? | AppFox",
+    metaDescription:
+      "Shopify order-edit windows gate what can change and until when, but almost none gate how often. Here's what unlimited re-edits actually cost - in support noise, payment holds, and card-testing risk - and how to set a sane per-order edit cap.",
+    body: [
+      {
+        type: "p",
+        text: "A customer on Harlow & Vance opens the order-edit link in her confirmation email to fix a shipping typo - swaps \"Steet\" for \"Street,\" saves, done. Forty minutes later she's back, this time swapping the jacket size from M to L. Twenty minutes after that, back to M. By the time the order ships the next morning, she's touched it eight times, and every single edit was individually reasonable: nothing outside the edit window, nothing that failed an eligibility rule, nothing that would have caught a merchant's attention if they'd looked at any one of them in isolation. Nobody did look, because nothing flagged the order - each edit auto-approved on its own merits, the way it was built to.",
+      },
+      {
+        type: "p",
+        text: "The eligibility rules did their job. They just weren't built to answer a different question: not \"is this edit allowed,\" but \"is this order being edited an unreasonable number of times.\" Most order-edit setups gate what can change and until when - edit windows, fulfillment cutoffs, per-action rules - and stop there. Almost none of them gate how often, because a single edit count was never the thing anyone thought to write a rule for.",
+      },
+      { type: "h2", text: "Why unlimited re-edits are more expensive than they look" },
+      {
+        type: "ul",
+        items: [
+          "Every edit that touches price - even a wash, like swapping M for L and back - re-runs payment capture or refund logic, so eight edits on one order can mean eight separate authorization events sitting on a customer's card statement instead of one clean charge",
+          "Each edit fires its own confirmation email and its own audit-timeline entry, so a support agent who opens the order later to answer an unrelated question has to read through eight entries to find the one that matters",
+          "Repeated small changes to the same order - especially address swaps - are a known card-testing pattern: a stolen card gets run through incremental edits to see which variations still authorize, before the version that actually matters goes through",
+          "Any integration wired to edit events - a Shopify Flow automation, a Gorgias ticket sync, a Slack alert - fires once per edit by design, so a customer's indecision can quietly spam a channel that was built to flag genuinely unusual orders",
+          "None of this shows up as a problem in aggregate reporting, because total edits and total orders both look normal - the cost is buried inside the handful of orders getting edited far more than the rest, which no average catches",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A single edit count was never a rule anyone thought to write - right up until the order that got edited nine times was also the one that turned out to be stolen-card testing.",
+      },
+      { type: "h2", text: "What a per-order cap actually needs to do" },
+      {
+        type: "p",
+        text: "The fix isn't refusing a fourth or fifth edit outright - a customer genuinely re-checking a size or address a few times isn't doing anything wrong, and a hard block reads as broken self-service to someone with a perfectly normal reason for coming back. The fix is treating edit count the same way an eligibility rule already treats an edit window or a fulfillment cutoff: as a threshold that routes to a different outcome, not a wall.",
+      },
+      {
+        type: "ol",
+        items: [
+          "Let the first two or three edits on an order auto-approve exactly as they do now - most legitimate re-edits happen in that range, and adding friction there costs more in completion rate than it saves",
+          "Route anything past that threshold to manual review instead of auto-apply, the same way a high-value swap or an out-of-window request already does, so a human sees the pattern before the order ships",
+          "Weight the threshold by what actually changed, not just the count - three quantity tweaks are a different risk than three shipping-address changes on the same order, and the rule should treat them differently",
+          "Surface edit count on the order itself inside your admin, not just buried in the audit timeline, so a support agent glancing at an order for an unrelated reason sees the number without having to scroll",
+          "Cap how often the same edit event can re-fire a downstream integration - a Slack alert or a Gorgias ticket built for a rare event turns into noise a team starts ignoring if one indecisive customer can trigger it eight times",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's eligibility engine already routes by edit window, fulfillment cutoff, and per-action rule - the same machinery extends to a per-order edit count, so a store can let the first few changes auto-apply and send anything past that into the approval queue instead of quietly letting an order re-edit itself all the way to the fulfillment deadline. Every edit still settles in place on the original payment method, with fees preserved, and lands on the same audit timeline a merchant can scan in one pass rather than piecing together from eight separate emails.",
+      },
+      {
+        type: "p",
+        text: "What a count threshold won't do on its own is tell you why a customer kept coming back - that's still a judgment call for whoever reviews the order once it lands in the queue. What it will do is make sure that order gets looked at at all, instead of shipping on the ninth edit with nobody having seen the first eight.",
+      },
+      {
+        type: "p",
+        text: "Harlow & Vance's customer wasn't doing anything wrong - she was just indecisive about a jacket size, on an order that happened to auto-approve its way through eight separate edits without anyone noticing the count. Most re-edited orders will look exactly like hers. The ones that don't are the reason a cap belongs next to the edit window and the fulfillment cutoff, not left as the one rule nobody wrote.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-dropship-supplier-fulfillment",
     title: "Why a Self-Service Order Edit Doesn't Reach a Dropshipped Line Item",
     excerpt:
