@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-transfer-to-another-customer",
+    title: "Can You Transfer a Shopify Subscription to a Different Customer?",
+    excerpt:
+      "A friend gifts three months of a puppy treat box, and the new owner wants to keep it going on her own card once the gift period ends. There's no settings toggle for that - a Shopify subscription contract belongs to one customer record, one payment method, and one address, and it was never built to change hands.",
+    category: "PLAYBOOK",
+    date: "2027-02-07",
+    author: "The AppFox Team",
+    metaTitle: "Transfer a Shopify Subscription to Another Customer? Here's the Gap | AppFox",
+    metaDescription:
+      "A Shopify subscription contract is tied to one customer record, one saved payment method, and one address - there's no native way to hand it to someone else. Here's why a gifted or shared subscription can't just change owners, and how to move one over without losing the subscriber.",
+    body: [
+      {
+        type: "p",
+        text: "Reyes buys her sister's new puppy a three-month starter box from Barkline, a monthly dog-treat subscription, as a puppy-shower gift - her own card on file, shipped to her sister Dana's address. By month two, Dana is hooked. She messages the brand's support inbox to ask the obvious question: when the gift runs out, can she just take over the subscription herself, same box, same cadence, her own card instead of Reyes's? It reads like a five-minute settings change - update the payment method, update the account it's billed to, done. The agent who picks up the ticket finds there's no such setting. Dana can't log into Reyes's account to change the card, because it isn't her account. Reyes can't hand the subscription to Dana, because a subscription isn't a thing that gets handed anywhere in Shopify's admin - it's a contract attached to one customer record, and that record is Reyes's, not Dana's.",
+      },
+      {
+        type: "p",
+        text: "The reason isn't a missing checkbox in the app Barkline happens to use. A Shopify subscription contract stores a single customer ID, a single saved payment method, and a single shipping address as core fields on the contract itself - the same fields every renewal reads before it can charge and ship. Nothing in that model has a concept of \"whose subscription this really is\" versus \"whose card is on file\" - the two are the same field, because Shopify's billing engine was built to run a contract for the person who created it, not to be reassigned to somebody else's customer record mid-life. Changing who pays isn't a field update on an existing contract. It's a different contract, belonging to a different customer, that happens to renew on the same schedule.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't that a merchant's app is missing a \"transfer\" button - it's assuming a subscription contract is a possession that can change hands at all, when Shopify built it to be closer to a standing bank instruction than a gift card.",
+      },
+      { type: "h2", text: "Why a subscription contract can't just switch owners" },
+      {
+        type: "ul",
+        items: [
+          "A subscription contract's customer ID, saved payment method, and shipping address are core fields on the contract - there's no separate \"beneficiary\" field distinct from the customer who owns the billing relationship",
+          "Every renewal authorizes a charge against the payment method saved to that specific contract, under that specific customer's record - a new person's card has to be saved to a new contract under a new customer record, because a saved payment method can't be re-parented onto someone else's account",
+          "Order history, loyalty points, and any price the contract was originally sold at all live under the original customer's record too, so a straight cancel-and-recreate for the new owner starts that history over at zero",
+          "Shopify has no customer-merge or contract-reassignment primitive built for this - customer accounts can be merged in narrow cases, but a subscription contract isn't one of the fields that operation touches",
+          "None of this shows up as a support-desk problem until someone actually asks for it - a gifted subscription renews without issue for as long as the gifter keeps paying, so the gap stays invisible right up until the day the recipient wants to take over",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The subscription doesn't fail when ownership needs to change. It just keeps quietly billing whoever originally set it up, because nothing about the contract knows a handoff was ever supposed to happen.",
+      },
+      { type: "h2", text: "What a merchant does today when this ticket lands" },
+      {
+        type: "p",
+        text: "Most support teams solve it by hand, and the fix is more disruptive than it looks from the outside. The agent cancels Reyes's contract effective at the end of the gift period, then walks Dana through setting up a brand-new subscription under her own account - new checkout, her own card, her own address. Functionally the box keeps showing up on schedule, so from Dana's side it can look seamless. Underneath, it's a different contract with a different creation date, and if Reyes's gift period locked in an introductory price or a bundled discount, that pricing doesn't carry over automatically - Dana's new contract prices out at whatever the product sells for today, unless someone remembers to apply the original offer by hand. The same gap shows up in less gift-shaped situations too: a small business that ran its recurring supply order through the office manager's personal Shopify account for a year, then needs it re-billed to the company card once someone in finance finally notices; a couple who shared one subscriber account and are now splitting it after moving out. All three are the same underlying request - keep the subscription running, change who's actually paying for it - and none of them has a native answer.",
+      },
+      {
+        type: "quote",
+        text: "From the customer's side, it reads as one sentence: 'can I just take this over?' From the contract's side, there's no such operation - only cancel one, create another, and hope somebody remembers to match the price.",
+      },
+      { type: "h2", text: "How to hand off a subscription without losing the subscriber" },
+      {
+        type: "ol",
+        items: [
+          "Treat it as a known request, not an edge case a rep improvises each time - write a short internal playbook for \"subscriber wants to change who's billed\" so the price, the timing, and the history question all get answered the same way twice",
+          "Time the cancel-and-recreate to a renewal boundary, not mid-cycle, so the new owner's first charge lines up with a natural billing date instead of creating a partial-period charge nobody expects",
+          "Decide the price question before the customer asks it - if the original contract carried a gift rate, a loyalty discount, or a price-locked legacy plan, capture that value and apply it explicitly to the new contract rather than letting it silently reprice at checkout",
+          "Carry over what actually matters to the new owner - the product, the variant, the frequency, and any saved preferences - even though order history and loyalty points stay with the original account, since those are usually far less visible to the subscriber than the box itself continuing without interruption",
+          "Tell both people what's happening - the original payer gets a clear cancellation confirmation with a date, and the new owner gets a clear \"here's your new subscription\" rather than being left to wonder whether it's the same one or a different one",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox's subscribe & save widget makes starting that second contract fast - the new owner subscribes through the same product-page or cart-drawer flow the original gifter used, on her own card, with the frequency and variant already known, so a merchant isn't rebuilding the offer from scratch for the handoff. The customer portal that ships from the Free plan gives each subscriber - old and new - self-service control over their own contract: skip, pause, swap, or cancel, without a ticket, once each side has the contract that's actually theirs.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do - because it isn't a gap in the app, it's a gap in what a Shopify subscription contract is built to represent - is move an existing contract from one customer record to another. There's no reassignment operation to expose, on AppFox's Growth plan or any other subscription app built on Shopify's native billing. Growth-tier subscription analytics can at least surface how often \"cancel one, create another\" is happening across a store's subscriber base, which turns an invisible support pattern into a number a merchant can actually plan around instead of relearning it one ticket at a time.",
+      },
+      {
+        type: "p",
+        text: "Dana's box kept arriving on schedule the whole time - the handoff was invisible from her side once Barkline's team worked out what to do with it. What made it invisible wasn't a transfer feature. It was a merchant who'd already decided, before the next gift subscription turned into the same request, exactly how a subscription changes hands when the contract itself has no way to do it on its own.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-portal-roi-support-ticket-deflection",
     title: "How to Calculate the ROI of a Self-Service Shopify Subscription Portal",
     excerpt:
