@@ -30,6 +30,75 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-upgrade-shipping-speed",
+    title: "Can a Shopify Customer Upgrade Their Shipping Speed After Checkout?",
+    excerpt:
+      "A customer wants to pay extra to make an order arrive faster than the option she picked at checkout. A self-service edit can swap the candle for a different scent - it can't swap standard shipping for express, because the shipping line isn't a line item at all.",
+    category: "PLAYBOOK",
+    date: "2027-02-08",
+    author: "The AppFox Team",
+    metaTitle: "Can a Customer Upgrade Shipping Speed After Checkout? | AppFox",
+    metaDescription:
+      "A Shopify order's shipping line is a rate selected once at checkout, not a line item a self-service edit can swap. Here's why a shipping-speed upgrade doesn't fit the same edit flow as a product swap, and how to offer it without breaking your fulfillment queue.",
+    body: [
+      {
+        type: "p",
+        text: "A customer orders a birthday gift set on standard shipping - five to seven business days, plenty of runway for a birthday two weeks out. Two days later she realizes she mixed up the dates; the birthday is this weekend, not next. She opens the store's self-service order-edit portal, ready to pay whatever it costs to get the box there in time, and finds she can swap the candle scent, add a card, change the address - but there's no option anywhere to trade standard shipping for express. The edit flow that handles everything else about the order has nothing for the one change she actually needs.",
+      },
+      {
+        type: "p",
+        text: "The gap isn't a missing button someone forgot to build. A shipping method is a rate selected once at checkout, from whatever options a carrier or rate table returned at that exact moment - it's stored on the order as a shipping line, not a line item. Shopify's Order Editing API operates on line items: it can add a variant, remove one, change a quantity, add a custom item, and settle the price difference automatically. It has no equivalent operation for the shipping line, because the shipping line was never modeled as something an edit session touches. Swapping a scent and swapping a shipping method look like the same kind of request from the customer's side. On the order, they're two entirely different objects.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't building a self-service edit flow that can't upgrade shipping - most can't, out of the box, and that's a reasonable default. The mistake is treating the absence as a bug report instead of a different problem that needs its own path.",
+      },
+      { type: "h2", text: "Why a shipping-speed change isn't a line-item edit" },
+      {
+        type: "ul",
+        items: [
+          "The shipping line stores the specific rate a customer selected from whatever options were shopped live at checkout - it's a recorded choice, not an attribute like size or color that a swap operation can point at a different value",
+          "The Order Editing API's scope is line items - variants, quantities, custom items - with no matching method for replacing or re-quoting the shipping line once the order exists",
+          "The original rate can go stale fast: carrier rates are shopped against real-time availability and daily cutoffs, so the exact express rate quoted at checkout may no longer be bookable by the time someone asks to upgrade into it hours or days later",
+          "Once a fulfillment record exists for the order, the shipping method is already a property of a request sent toward a carrier or a 3PL, not a form field sitting open for revision",
+          "A warehouse pick queue is typically organized by fulfillment method already assigned at the time an order enters it - moving an order from standard to express after it's queued means physically pulling it into a different lane, not just updating a database field",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The shipping line isn't a setting waiting to be toggled - it's the answer to a question checkout already asked, and already billed for.",
+      },
+      { type: "h2", text: "What actually has to happen to upgrade it" },
+      {
+        type: "p",
+        text: "Underneath a shipping-speed upgrade that looks instant to the customer, three separate things have to happen in order: the original shipping charge has to be adjusted or refunded, a new rate has to be re-shopped live rather than reused from checkout, and the difference has to be charged before anything moves. None of that is a swap operation - it's closer to canceling one commitment and making a new one, timed against whatever the warehouse hasn't started picking yet. Get the timing wrong and the upgrade is a promise made after the box already left on the slower method it was supposed to replace.",
+      },
+      {
+        type: "quote",
+        text: "A product swap only has to beat the fulfillment cutoff. A shipping-speed upgrade has to beat the pick queue itself - and by the time a customer notices she needs it, that queue may already be moving.",
+      },
+      { type: "h2", text: "How to offer the upgrade without breaking your fulfillment queue" },
+      {
+        type: "ol",
+        items: [
+          "Gate the option on fulfillment status, not on time since order - only surface a shipping-speed upgrade while the order sits unfulfilled, and pull it the moment picking starts, regardless of how soon after checkout that happens",
+          "Re-shop the rate live at the moment of the request instead of reusing anything quoted at checkout, since carrier availability and daily cutoffs move independently of the order itself",
+          "Settle the price difference the same way an in-place line-item edit already does - charged automatically against the payment method on file, not a manual invoice someone has to remember to send",
+          "Push the updated method to the warehouse or WMS the instant it changes, so a picker sees the new lane before grabbing the order under the old one",
+          "Set a hard cutoff of your own, tied to your carrier's daily pickup time, past which the upgrade option simply doesn't appear - an accepted request you can't actually honor same-day is worse than no option at all",
+        ],
+      },
+      {
+        type: "p",
+        text: "AppFox Order Editing already routes every edit through an eligibility engine that decides what auto-applies and what needs a second look before it reaches the warehouse - the same place a heavier variant swap gets flagged for a shipping-rate recheck is the right place to gate a shipping-speed upgrade, since both hinge on the same fact: whether the order has started moving yet. Treating it as its own edit type, checked against fulfillment status rather than bundled in with product swaps, is what keeps the option honest instead of quietly overselling a delivery date the warehouse can no longer hit.",
+      },
+      {
+        type: "p",
+        text: "A customer asking to pay more for a faster box isn't asking for anything unreasonable - she's asking for a service most stores would be glad to sell. The reason it doesn't show up next to the scent swap in a self-service portal isn't reluctance, it's that a shipping method was never built as something an order edit can reach the same way it reaches a line item. Build the upgrade as its own path, gated on fulfillment status and priced off a live rate instead of a stale one, and it stops being a request support has to talk someone out of and starts being revenue the edit flow was already positioned to capture.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-transfer-to-another-customer",
     title: "Can You Transfer a Shopify Subscription to a Different Customer?",
     excerpt:
