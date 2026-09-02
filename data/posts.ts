@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-occasion-delivery-date-drift",
+    title: "Why a Shopify Subscription's Delivery Date Drifts Away From the Occasion It Was Bought For",
+    excerpt:
+      "A flower or gift subscription usually gets bought for one date - a birthday, an anniversary, a holiday that moves every year. The renewal clock underneath doesn't track that date at all. It counts days from signup, and drifts a little further from the occasion with every cycle nobody catches.",
+    category: "PLAYBOOK",
+    date: "2027-02-05",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Delivery Dates: Fixing Occasion Drift | AppFox",
+    metaDescription:
+      "A Shopify subscription's renewal clock counts days from signup, not toward a birthday, anniversary, or floating holiday. Here's why that quietly misses the date a gift or flower subscription was actually bought for, and how to build the cadence around the occasion instead of the interval.",
+    body: [
+      {
+        type: "p",
+        text: "Linden & Bloom sells a flower-of-the-month subscription, and a good third of new signups aren't buying it for themselves - they're buying it as a standing gift, timed to land on someone's birthday or anniversary. A shopper named Priya signs up in early April for her mother, picks the monthly cadence, and adds a gift note explaining the box should really matter most around Mother's Day, three weeks out. The first delivery ships right on schedule, a few days before the holiday, and it lands perfectly. Priya assumes the subscription now knows what it's for. It doesn't. The renewal that ships the following April isn't timed to Mother's Day at all - it's timed to April 3rd, the day she happened to sign up, because that's the only date the subscription's renewal clock actually tracks. Mother's Day itself, which moves to a different Sunday every year, comes and goes with an ordinary bouquet arriving three weeks early or three weeks late, depending on how the calendar falls that year.",
+      },
+      {
+        type: "p",
+        text: "The instinct is to read this as a scheduling nuisance - mildly annoying, but not really a problem, since a flower box still shows up every month regardless. That undersells it for a subscription bought around one specific date in the first place. The whole reason Priya paid for a gift subscription instead of one bouquet was to guarantee that date got covered without her having to remember it herself. A renewal engine that quietly stops tracking the date the moment the first box ships hasn't failed loudly - it's failed exactly where the customer can't see it happening until the day itself has already passed.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't offering flowers or other occasion-bound goods as a subscription - it's giving that subscription the same fixed-interval renewal logic built for a coffee bag or a vitamin bottle, where landing a few days early or late costs nothing at all.",
+      },
+      { type: "h2", text: "Why a fixed interval can't track a moving occasion" },
+      {
+        type: "ul",
+        items: [
+          "A subscription's renewal clock anchors to a start date - usually the signup date or the last processed renewal - and counts forward a fixed number of days, weeks, or months from there; it has no concept of \"the second Sunday in May\" or \"June 14th\" as a target it's counting toward",
+          "Most gifting occasions that matter - Mother's Day, Valentine's Day, Lunar New Year - are floating dates that move by up to a week from one year to the next, while the subscription's interval doesn't move at all, so a signup date that happened to line up in year one drifts further out of alignment every year after",
+          "The only adjustment tools in a standard customer portal are skip, which pushes the next charge out by one cycle, and a frequency change, which recalculates future renewals starting from today - neither one asks what date a subscriber is actually trying to hit, so closing the gap takes the customer doing the date math herself",
+          "A few days of drift costs a supplement or apparel subscriber nothing - the bottle still gets used, the shirt still gets worn - but it's the entire value of a bouquet, which is worthless a week early and worthless a week late in a way almost no other subscription category has to plan around",
+          "None of this shows up as an occasion-alignment problem on a churn dashboard - it shows up as a subscriber who skipped a cycle for no visible reason, or one who canceled right after the birthday or holiday she was actually buying toward came and went without the box marking it",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The renewal engine isn't wrong about its math - it was built to count days from a start date, not to find a Sunday in May that moves every year.",
+      },
+      { type: "h2", text: "What a missed occasion actually costs" },
+      {
+        type: "p",
+        text: "A late bouquet doesn't read to the customer as a subscription timing quirk - it reads as the brand missing the one thing it was hired to remember. The refund or reship request that follows isn't really about the flowers; it's about the fact that the entire pitch for paying in advance was outsourcing a date nobody wanted to forget, and the subscription forgot it anyway. A review mentioning \"arrived a week late for her birthday\" does more damage to a gifting brand than the same complaint would do to a brand selling something that doesn't expire on a specific day.",
+      },
+      {
+        type: "quote",
+        text: "A flower subscription doesn't get judged on this month's bouquet. It gets judged on whether it showed up during the one week it was actually bought for.",
+      },
+      { type: "h2", text: "Building the cadence around the occasion, not just the interval" },
+      {
+        type: "ol",
+        items: [
+          "Capture the actual target date at signup for anything sold as a gift or occasion subscription - a birthday or anniversary field on the product page, not just a cadence dropdown - so the merchant's own systems know what the subscription is supposed to hit, even though the renewal engine itself won't track it automatically",
+          "Time the first delivery close to the occasion on purpose, and treat every renewal after that as something to check rather than something to trust - an annual cadence generally holds closer to a fixed date than a monthly one drifts, but still needs a yearly confirmation instead of blind faith in the interval",
+          "Send a reminder two to three weeks before the occasion, prompting the subscriber to confirm the date or skip/adjust the cycle herself, instead of letting the default renewal ship on whatever day the fixed interval happens to produce",
+          "For a floating holiday, publish the real ship-by cutoff every year in that reminder, since \"the second Sunday in May\" isn't a date most subscribers are tracking on their own calendar any more precisely than the subscription is",
+          "Route occasion and perishable subscriptions to manual review or a locked delivery-window rule around the target date rather than default auto-apply renewal - a day of drift here has a real cost that a supplement subscription's default handling was never built to weigh",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's portal already gives subscribers the two tools this actually calls for: skip, to push a single delivery out without disturbing the rest of the schedule, and a frequency change, to move the renewal anchor closer to an occasion that's coming up. Used deliberately - a merchant prompting a subscriber to skip or adjust a cycle ahead of a known date - either tool gets a bouquet subscription back into alignment without switching subscription apps or hand-building a workaround.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do - and no subscription app's renewal engine is built to do on its own - is know that a customer's subscription is supposed to land on the second Sunday of May instead of thirty days after she signed up. That distinction only exists if the merchant asks for it: capturing the actual occasion at signup, not just a cadence, and building the reminder that tells a subscriber when to skip or adjust before the date that matters slips by unmarked.",
+      },
+      {
+        type: "p",
+        text: "Priya's fix wasn't switching subscription apps or asking Linden & Bloom to build smarter renewal math. It was Linden & Bloom asking every gifting subscriber, right at signup, which date actually mattered, and building the reminder around that answer instead of trusting a fixed interval to find Mother's Day on its own.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-returns-app-overlap",
     title: "Why Your Returns App Handles Fixes a Shopify Order Edit Should Have Caught for Free",
     excerpt:
