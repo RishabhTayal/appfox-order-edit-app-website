@@ -30,6 +30,91 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-portal-roi-support-ticket-deflection",
+    title: "How to Calculate the ROI of a Self-Service Shopify Subscription Portal",
+    excerpt:
+      "A coffee subscription brand turns on self-service skip and pause expecting the payback to show up as agent-hours saved. The bigger number was never in the support report at all - it was the subscribers who used to get canceled by mistake every time a pause request landed on a human instead of a button.",
+    category: "REVENUE",
+    date: "2027-02-06",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Portal ROI: How to Calculate the Payback | AppFox",
+    metaDescription:
+      "Support ticket deflection is the number everyone quotes for a self-service Shopify subscription portal, and it's only half the payback. Here's how to calculate the real ROI - deflected tickets plus subscriptions retained instead of mistakenly canceled - worked through with real math.",
+    body: [
+      {
+        type: "p",
+        text: "Fernway Coffee runs its subscription support through the same shared inbox as everything else, and for months one request shows up more than any other: \"can I skip next month's bag\" or \"pause me for a bit, I'm traveling.\" Handling either one by hand takes an agent a couple of minutes - find the subscription, apply the change, reply to confirm. The team turns on AppFox Subscription's self-service portal specifically to get that volume out of the inbox, and it works: skip and pause requests that used to average close to 300 a month drop to a trickle of edge cases nobody's portal button covers. The founder goes to write the payback into a board update - the portal paid for itself in agent-hours alone - and the number, while real, undersells what actually happened. It undersells it because of what those 300 monthly requests used to turn into before a subscriber could just click skip.",
+      },
+      {
+        type: "p",
+        text: "Before the portal existed, a \"pause my subscription\" email didn't reliably become a pause. Fernway's help desk had no clean pause workflow built into its macros - the fastest resolution an agent had on hand was the cancel button, with a note to the subscriber that she was welcome to resubscribe whenever she was ready. Some agents took the extra few minutes to manually hold the next renewal instead. Most, on a busy day, didn't. A pull of six months of ticket tags after the fact showed close to 40% of \"pause\" requests had been closed as full cancellations - not because any subscriber asked to cancel, but because canceling was the path of least resistance for whoever answered the ticket that hour.",
+      },
+      {
+        type: "p",
+        text: "Ticket deflection is the number every subscription-portal pitch leads with, and it's real - but it only counts the requests that used to get resolved correctly and now happen faster. It says nothing about the requests that used to get resolved wrong, which is exactly why that half of the payback almost never makes it into the math.",
+      },
+      { type: "h2", text: "The savings ticket deflection alone doesn't count" },
+      {
+        type: "ul",
+        items: [
+          "Support labor avoided - every skip, pause, swap, or cancel request that gets resolved by the subscriber instead of an agent, valued at a fully-loaded cost per ticket handled",
+          "Subscriptions retained instead of mistakenly canceled - every pause request that used to get closed as a cancellation because a real pause state wasn't a fast option for whoever was working the queue, now stays subscribed because skip and pause are single-click actions built on Shopify's own subscription contract",
+          "What this calculation deliberately leaves out - swap-driven upsell revenue captured in the same portal is real money, but it's incremental revenue, not a cancellation avoided, and belongs on a separate line so it doesn't inflate a payback number that's supposed to answer a narrower question",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A support ticket is the cost you can see because it has a queue and a timestamp. A pause request quietly closed as a cancellation is the cost you can't, because it never showed up as a mistake on anyone's dashboard - it showed up as a subscriber who left.",
+      },
+      { type: "h2", text: "A worked example" },
+      {
+        type: "p",
+        text: "Take Fernway's numbers specifically: 800 subscription-management contacts a month before launch - 300 of them skip or pause requests, the rest swaps, cancellations, and card updates - a fully-loaded support cost of $4.50 per ticket, and an average subscription value of $42 a month.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Tickets deflected: roughly 78% of all subscription-management contacts now resolve without reaching an agent - 624 tickets a month, in line with the self-service completion rate a well-built portal typically holds",
+          "Support labor saved: 624 × $4.50 = $2,808 a month",
+          "Pause requests that used to get mis-resolved as cancellations: 40% of the 300 monthly skip/pause requests, or 120 subscribers a month, based on Fernway's own six-month ticket-tag pull",
+          "Subscriptions retained: those 120 subscribers now pause and resume through the portal instead of getting canceled by an agent's fastest available click - each one recaptures at least one renewal charge that a canceled subscription would never have fired",
+          "Revenue retained: 120 × $42 average subscription value ≈ $5,040 a month",
+          "Total monthly payback: $2,808 + $5,040 = $7,848",
+          "Plan cost: $5/mo for the Growth plan, the tier that unlocks the subscription analytics this calculation depends on",
+          "Net monthly return: $7,848 - $5 = $7,843, or well over a thousand times the plan cost",
+        ],
+      },
+      {
+        type: "quote",
+        text: "The support-labor line alone ($2,808) already clears the plan's cost many times over. The retained-revenue line ($5,040) is the bigger number - and it's the one that was never sitting on a support report to begin with, because a canceled subscription doesn't get tagged as a support failure. It just gets tagged canceled.",
+      },
+      { type: "h2", text: "How to calculate this for your own store" },
+      {
+        type: "ol",
+        items: [
+          "Get a real pre-launch baseline from your helpdesk - tag skip, pause, swap, cancel, and card-update requests as separate categories before you launch self-service, not after, so the before-and-after comparison is measuring the same thing twice",
+          "Look specifically at how pause requests used to get resolved - pull a sample of closed tickets tagged \"pause\" or \"skip\" and check how many actually ended in a cancellation instead, because that gap is the retention leak this calculation exists to find",
+          "Price your fully-loaded cost per ticket - agent time plus the share of tooling and management overhead a ticket actually consumes, not just the wage for the minutes spent typing",
+          "Value a retained subscription at one recaptured renewal - your average subscription order value - rather than a full-year lifetime-value estimate, so the number reflects what self-service actually proved instead of a speculative future that hasn't happened yet",
+          "Recalculate quarterly, not once - the share of pause requests that used to get mis-resolved as cancellations depends on how your support team was actually working the queue before launch, and that's a habit worth re-checking as agents turn over",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "Skip, pause, swap, and cancel ship as core self-service actions from the Free plan, running on Shopify's native subscription billing - a merchant doesn't build a pause workflow from scratch to give subscribers a real one, which is exactly the gap that used to send Fernway's pause requests down the cancel path in the first place. Subscription analytics, on the Growth plan and above, breaks out skip, pause, swap, and cancel events individually rather than folding them into one blended activity count, which is what actually shows how many subscribers are using pause as intended instead of ending up canceled by default.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is pull ticket history from your helpdesk or tell you how big your own mis-resolution gap was before launch - the pre-launch baseline, the sample of closed \"pause\" tickets, and the fully-loaded cost per ticket all have to come from a merchant's own support tools, the same way they would for any ROI case built by hand. The analytics dashboard supplies the portal-activity side of the equation; the helpdesk history supplies the other, and the two only turn into a payback number when someone puts them in the same spreadsheet.",
+      },
+      {
+        type: "p",
+        text: "Fernway's board update eventually got its sentence, just not the one the founder expected to write. The portal didn't pay for itself in agent-hours alone - it paid for itself several times over once the retained-subscriptions line got added to a report that had never asked the question before. The 624 deflected tickets were the visible half of the number. The 120 subscribers who stopped getting canceled by mistake were the half that had been leaving quietly every month, filed under \"canceled\" instead of under anything that pointed back to the ticket queue.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-occasion-delivery-date-drift",
     title: "Why a Shopify Subscription's Delivery Date Drifts Away From the Occasion It Was Bought For",
     excerpt:
