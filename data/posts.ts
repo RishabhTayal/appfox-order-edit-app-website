@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-ai-agent-checkout-no-confirmation",
+    title: "When an AI Agent Buys on Shopify, Who Gets the Order-Edit Link?",
+    excerpt:
+      "A shopping agent completes checkout in the background and reports back inside its own chat window - order placed, done. The actual Shopify confirmation email, the one carrying the order-status link a self-service edit portal runs on, may never reach an inbox the customer checks at all.",
+    category: "PLAYBOOK",
+    date: "2027-02-12",
+    author: "The AppFox Team",
+    metaTitle: "AI Agent Checkout: Who Gets the Shopify Order-Edit Link? | AppFox",
+    metaDescription:
+      "When an AI shopping agent completes a Shopify checkout, the human buyer often never sees the order-status email a self-service edit portal depends on. Here's why the link goes missing, and how to keep an edited order reachable anyway.",
+    body: [
+      {
+        type: "p",
+        text: "A shopper tells her browser-based shopping agent to buy a specific jacket, in her size, from a Shopify store she's bought from before. The agent fills the cart, completes checkout in the background, and reports back inside its own chat window: order placed, confirmation number attached. She closes the tab satisfied. Four days later the jacket arrives a size small - her exact size was briefly out of stock at the moment the agent checked out, and it substituted the closest available variant without asking. She wants to swap it, but she has no idea what to click. The confirmation lives in the agent's chat history, or in an inbox she rarely opens because the agent ran the transaction through a forwarding address, and the actual Shopify order-confirmation email - the one carrying the order-status link the self-service edit portal depends on - is sitting unopened, if it arrived at all.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the agent's checkout was wrong from Shopify's side: it's an ordinary order, the same checkout API, the same confirmation flow a human clicking \"place order\" herself would trigger. What's different is what happens the moment after the order confirms. A customer completing her own checkout sees the confirmation page in her own browser and gets the follow-up email in an inbox she's about to go check anyway, so she has every reason to open a message that says her order is confirmed. An agent completing the same checkout on her behalf absorbs that entire moment instead - it's the one that actually saw the confirmation page, and whatever it decides to relay back to her, in whatever format it picks, becomes the entire record she has of the purchase.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't letting a shopping agent complete checkout on a customer's behalf - for a fast, well-specified purchase, that's exactly the job it's good at. The mistake is assuming that because Shopify still generates the same order, the same confirmation email, and the same order-status link it always has, the human on the other end of an agent-run purchase ends up with the same access to them she'd have gotten by checking out herself.",
+      },
+      { type: "h2", text: "Why the order-edit link doesn't reach the actual buyer" },
+      {
+        type: "ul",
+        items: [
+          "Many shopping-agent and browser-assistant checkout flows summarize the purchase inside their own chat window or activity log rather than surfacing Shopify's actual order-status URL, so the one link a self-service edit portal runs on never gets shown to the person who'd need to click it",
+          "Some agents complete checkout using a relay or session-scoped email address to run the transaction, which routes Shopify's order-confirmation and order-status emails into an inbox the human customer doesn't have access to, not the one she actually checks",
+          "An agent's own \"order tracking\" or purchase-history surface is read-only by design - it shows what was bought, not a live link into the merchant's self-service edit flow, because the agent has no way to know that flow even exists on that storefront",
+          "The human never lands on Shopify's actual thank-you or order-status page during an agent-run checkout, so there's no browser session, cookie, or visited-page history tying her back to where the edit portal actually lives",
+          "When something needs fixing, the instinct is to go back to the same agent and ask it to handle the change - but most shopping agents are built to complete a purchase, not to call a merchant's order-editing API on an order that already exists, so the request stalls or gets answered with \"you'll need to contact the seller\"",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The agent didn't lose the order-edit link. It never had a reason to hand it over in the first place.",
+      },
+      { type: "h2", text: "What a missing link actually costs" },
+      {
+        type: "p",
+        text: "For a human-run checkout, a lost or unopened confirmation email is a minor inconvenience - she can log back into the storefront, find the order under her account, or reply to whichever marketing email happens to mention the purchase. An agent-run purchase often leaves none of those fallbacks: no storefront session was ever created, sometimes no customer account exists at all, and an inbox that never got, or never surfaced, the one email carrying the actual edit link. What was built to turn a size swap into a thirty-second self-service fix becomes exactly the kind of request self-service was supposed to prevent - a ticket opened by someone holding an order number from a chat transcript and nothing else to prove it's hers.",
+      },
+      {
+        type: "quote",
+        text: "A self-service edit portal only works for the person who can find the door. An agent that completes the purchase without ever showing her the door has quietly handed the whole interaction back to support - it just doesn't look that way from inside the chat window.",
+      },
+      { type: "h2", text: "Keeping an edited order reachable when an agent did the buying" },
+      {
+        type: "ol",
+        items: [
+          "Confirm that Shopify's own order-confirmation and order-status emails still send to the actual customer email captured at checkout, not a relay address the agent supplied to complete the transaction - that's the single email carrying the order-edit link, agent-run or not",
+          "Where a store runs its own on-site AI concierge for checkout, have it explicitly surface the order-status link back into the chat transcript as a message the customer can revisit, not just a one-line purchase summary that scrolls out of view",
+          "Give support a fast way to look up an order and resend the order-status link on request, since \"I bought this through an agent and can't find any email\" is turning into a routine support macro, not an edge case",
+          "Point customers - in a help-center article, a chatbot response, wherever \"how do I change my order\" gets answered - toward looking the order up by order number and email rather than only toward \"check your confirmation email,\" since the first path still works when the second one never reached her",
+          "Where a third-party shopping agent's checkout can be identified on the order - a distinct referring domain, a known agent user-agent, a partner checkout API - flag those orders for a proactive resend of the order-status link instead of waiting for the customer to notice she never got one",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's edit portal lives on Shopify's own thank-you and order-status pages, so it inherits whatever confirmation flow a given checkout produced - agent-initiated or not, if Shopify generated an order and an order-status page for it, AppFox's self-service portal is sitting on that page waiting to be found. And because the portal already verifies identity by order number and email rather than a stored login, a customer who never received - or never saw - the emailed link isn't fully locked out: looking her order up directly still gets her to the same edit screen.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't control is whether a given AI shopping agent tells her that link exists in the first place - that's the agent's own checkout-summary logic, running entirely outside anything a Shopify app can reach into. Whether a specific browser assistant or chat-based shopping tool surfaces an order-status link, forwards Shopify's confirmation email intact, or just reports \"order placed\" and moves on is a question worth putting to that agent's vendor, not one an order-editing app can answer on its behalf.",
+      },
+      {
+        type: "p",
+        text: "The jacket that arrived a size small isn't the interesting problem - sizes get swapped every day, and a self-service edit exists exactly for that. The interesting problem is a purchase where the person who has to live with the mistake was never the one who saw the order confirm. Whatever tool a customer used to buy something, the fix afterward only works if she can actually find her way back to it.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-address-redirect-fraud",
     title: "Can a Leaked Order Link Redirect a Customer's Shopify Package?",
     excerpt:
