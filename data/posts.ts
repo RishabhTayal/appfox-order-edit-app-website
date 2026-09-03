@@ -30,6 +30,75 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-order-edit-address-redirect-fraud",
+    title: "Can a Leaked Order Link Redirect a Customer's Shopify Package?",
+    excerpt:
+      "A tracking link forwarded to help with a gift, screenshotted for a return request, opened once on a shared laptop - any of them hands over everything needed to change where a package ships, because a no-login order-edit portal was never built to tell a customer apart from anyone else holding the same link.",
+    category: "PLAYBOOK",
+    date: "2027-02-11",
+    author: "The AppFox Team",
+    metaTitle: "Can a Leaked Order Link Redirect a Package? | AppFox",
+    metaDescription:
+      "A self-service order-edit portal needs no login - which is exactly why a leaked order-status link can be used to redirect a package. Here's what address validation doesn't catch, and how to close the gap without bringing back a login wall.",
+    body: [
+      {
+        type: "p",
+        text: "A customer forwards her order confirmation to a friend who's picking up a shared gift order at his place next week - a completely ordinary thing to do with an email that looks like it belongs to her. The friend opens the order-status link inside it, lands on the same self-service edit portal she'd see, and updates the shipping address to his own. Nothing about the request looks wrong: the address is real, it validates, autocomplete fills in the rest, and the edit applies instantly. Three days later the customer is asking support where her order went, and support is looking at an edit log showing a perfectly legitimate-looking address change - made by someone who was never asked to prove he was her.",
+      },
+      {
+        type: "p",
+        text: "No login on the thank-you and order-status pages is the entire point of a self-service edit portal - it's what turns an edit request that would otherwise sit in a support queue into something a customer handles in thirty seconds. What makes that work is treating the order-status link itself as the credential: whoever has it gets in, the same way whoever has a Shopify order-status link today can already track the package. That's a reasonable trade for almost everything the portal does. It's a much riskier one for a single edit type - changing where the order physically goes - because that's the one action where being wrong doesn't just annoy the real customer, it hands her order to someone else.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't offering no-login self-service editing - removing the login is most of the value. The mistake is letting an address change auto-apply under the exact same trust model as a size swap, when an order-status link was designed from the start to be easy to find in an inbox months later, not to be a secret only one person could possibly hold.",
+      },
+      { type: "h2", text: "Why address validation doesn't catch this" },
+      {
+        type: "ul",
+        items: [
+          "Address validation and autocomplete exist to catch a typo or an undeliverable address - they confirm a street exists and a carrier can reach it, not who's asking to send the package there",
+          "A real, correctly formatted address that happens to belong to someone other than the customer passes every check a validation step runs, because deliverability and legitimacy aren't the same question",
+          "Nothing in a standard edit flow compares the new address to the original one, the billing address, or the customer's past order history - a request to ship three states away looks identical to a request to fix a mistyped apartment number",
+          "The same session that lets a customer confidently swap a candle scent applies a shipping-address change with exactly the same level of trust, even though only one of those two edits can send an order to a stranger",
+        ],
+      },
+      {
+        type: "h3",
+        text: "Address validation was built to keep a bad delivery from happening. It was never built to ask whether the person requesting the change is the one who's supposed to receive the package.",
+      },
+      { type: "h2", text: "How the link actually gets out" },
+      {
+        type: "p",
+        text: "None of the ordinary ways an order-status link travels look like a security incident from the customer's side. It sits in an inbox that gets forwarded to a partner splitting a purchase, or to a parent covering a gift. It gets screenshotted and pasted into a return-request form or a chat with support, address and all. It stays logged into a browser on a shared or public computer long after the person who checked it out has walked away. On a gift order, the link goes to the buyer by default, not the recipient, so the one person who most needs to fix a wrong delivery address is the one person who was never sent the means to do it - while the buyer's copy sits wherever a buyer's inbox happens to sit. Every one of these is completely normal behavior around an email that was designed to be easy to find again, not to be kept secret. The stakes just aren't evenly distributed: a redirected order for a $30 candle is an annoyance; a redirected order for a laptop or a piece of jewelry is a loss worth actually planning against.",
+      },
+      {
+        type: "quote",
+        text: "An order-status link isn't a password, because it was never designed to be secret - it's designed to be easy to find in an inbox months later. That's a feature for a customer looking up her own order, and exactly the same feature for anyone else who has it.",
+      },
+      { type: "h2", text: "How to close the gap without bringing back a login wall" },
+      {
+        type: "ol",
+        items: [
+          "Require approval specifically on shipping-address changes, even while other edit types - size and variant swaps, quantity updates - keep auto-applying, since address changes are the one edit type that can hand the order to someone else entirely",
+          "Give a reviewer enough to make the call fast: the original address, the requested one, and how far apart they are, right next to each other instead of buried in two separate order views",
+          "Tighten the review threshold for high-value orders specifically rather than applying one blanket policy - that's where a redirect costs the most and where a few minutes of manual review is easiest to justify",
+          "Watch for an address change requested close to a fulfillment cutoff, when there's less time for anyone to notice or reverse it before the order actually ships",
+          "Send a confirmation notice to the address already on file whenever a shipping address changes - not just an update to the new one - so the actual customer has a chance to catch a redirect she didn't request",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's eligibility engine already sets auto-apply or require-approval independently per edit type, so a merchant can leave size swaps and quantity changes instant while routing address changes into the approval queue specifically - no need to add friction anywhere the risk doesn't exist. Every applied edit lands on the audit timeline with the before-and-after address and a timestamp, so if a redirect does slip through, support isn't reconstructing what happened from a support ticket and a guess - the record of exactly which address replaced which one is already sitting there.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is verify who's holding the order-status link before an edit request comes in - that link is Shopify's, not a credential AppFox issues, and there's no password behind it to check. Deciding how much scrutiny an address change deserves, and how much of the friction the no-login portal was built to remove a merchant is willing to add back for that one edit type, is a policy call only the merchant can make. What the eligibility engine can do is make that policy specific to the one action that actually needs it, instead of forcing a choice between full auto-apply everywhere and a login wall on everything.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-annual-plan-renewal-notice-law",
     title: "Does a Shopify Subscription Need an Annual Renewal Notice? What the Law Requires",
     excerpt:
