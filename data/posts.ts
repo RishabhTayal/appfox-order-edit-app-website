@@ -30,6 +30,94 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-shipping-cost-margin-erosion",
+    title: "How Rising Shipping Costs Quietly Erode Shopify Subscription Margin",
+    excerpt:
+      "A subscription box's price hasn't moved in over a year, and neither has what's inside it. What's moved is what the carrier charges to ship it - and nothing on the revenue dashboard is built to notice.",
+    category: "REVENUE",
+    date: "2027-02-09",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Margin: What Shipping Costs Really Cost | AppFox",
+    metaDescription:
+      "Shopify subscription revenue can stay flat for months while shipping cost per box quietly climbs from carrier rate hikes, fuel surcharges, and DIM pricing. Here's how to catch the margin erosion before it costs a year of profit, worked through with real math.",
+    body: [
+      {
+        type: "p",
+        text: "Northwood Supply Co. ships a monthly grooming box to 4,200 subscribers for $28.00, and neither the price nor what's in the box has changed in fourteen months - same razor, same soap, same restock of blades every cycle. The subscription revenue dashboard shows exactly what it's shown for over a year: steady MRR, steady subscriber count, a line so flat it barely needs a second look. By every number that dashboard tracks, nothing about the program has moved at all.",
+      },
+      {
+        type: "p",
+        text: "What that dashboard was never built to show is what it now costs to get that same box to that same subscriber. Two carrier rate increases have landed since the price was set, a fuel surcharge has climbed from 4.5% to 9%, and a sturdier mailer added last spring to cut down on damaged-in-transit claims pushed the package into the next dimensional-weight bracket. None of that touched the razor, the soap, or the $9.10 it costs Northwood to source them. All of it touched the line sitting just below cost of goods on the same P&L - the one nobody re-checks on the same schedule they check the recipe.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't accepting a rate increase - a merchant running one box through one carrier contract has limited room to just say no. The mistake is tracking margin at the product level only, on a subscription that ships an identical box every single month whether or not the price of shipping it just went up.",
+      },
+      { type: "h2", text: "Why shipping cost drift hides from a product-level margin view" },
+      {
+        type: "ul",
+        items: [
+          "Carrier general rate increases land on the carrier's own annual calendar - typically each January - regardless of anything a merchant changes in their own product or pricing",
+          "Fuel surcharges float week to week as a percentage stacked on top of the base rate, so the same box can cost more to ship this month than last purely from a line neither the merchant nor the subscriber ever sees itemized",
+          "A packaging change - a sturdier mailer, an added protective insert, a slightly larger box to fit a new SKU - can push a shipment into a higher dimensional-weight bracket even when the physical weight barely moves, and DIM pricing always charges by the larger of the two",
+          "As a subscriber base grows, its geography shifts too - more signups from zones farther from the fulfillment center raise the blended average shipping cost even if the carrier's own per-zone rate table never changes",
+          "Because a subscription box ships on autopilot every cycle, a rate hike that would prompt a re-pricing conversation on a one-time SKU just renews quietly, cycle after cycle, without anyone reopening the pricing question",
+        ],
+      },
+      {
+        type: "h3",
+        text: "Product cost is a decision a merchant makes once and revisits on their own schedule. Shipping cost is a bill that arrives on the carrier's schedule, whether or not anyone's rereading it.",
+      },
+      { type: "h2", text: "What the wrong number costs you" },
+      {
+        type: "p",
+        text: "The cost doesn't show up as a bad month - it shows up as a healthy-looking revenue dashboard sitting on top of a shrinking margin nobody's watching. A subscription box can hit its MRR target every month for a year and still lose meaningful profit every one of those months, and the dashboard everyone actually opens will never flag it, because MRR only tracks price times subscriber count - not what it costs to get the box out the door.",
+      },
+      {
+        type: "quote",
+        text: "Nobody at Northwood did anything wrong. The carrier raised its rates the same way it does every January. The margin just was never being watched from the seat where the increases were landing.",
+      },
+      { type: "h2", text: "A worked example" },
+      {
+        type: "p",
+        text: "Northwood's product cost has held steady at $9.10 a box for the full fourteen months. Blended shipping cost - averaged across every zone Northwood ships to - was $6.40 a box when the $28.00 price was set. After two GRIs, the fuel surcharge climb, and the DIM reclassification, that same blended figure is $8.10 today.",
+      },
+      {
+        type: "ul",
+        items: [
+          "MRR then and now: 4,200 x $28.00 = $117,600, unchanged, since neither price nor subscriber count ever moved",
+          "Gross margin per subscriber, fourteen months ago: $28.00 - $9.10 - $6.40 = $12.50, a 44.6% gross margin",
+          "Gross margin per subscriber, today: $28.00 - $9.10 - $8.10 = $10.80, a 38.6% gross margin",
+          "That's $1.70 less margin per subscriber per month, times 4,200 subscribers, or $7,140 a month - about $85,680 a year - quietly gone from a program whose revenue dashboard never showed a single dollar of change",
+        ],
+      },
+      { type: "h2", text: "How to catch this before it costs a year of margin" },
+      {
+        type: "ol",
+        items: [
+          "Track shipping cost per shipment as its own line, refreshed against the carrier's actual current invoice - not the rate card a merchant priced the box against at launch",
+          "Re-check package dimensions any time contents or packaging change, since a DIM-bracket jump can raise cost without the box getting a gram heavier",
+          "Recompute blended shipping cost by zone as the subscriber base's geography shifts, not just once when the program launched",
+          "Put the carrier's own rate-increase calendar on the same annual review as cost of goods, so a January GRI gets checked against the subscription price deliberately instead of applying itself unnoticed",
+          "Decide in advance how to respond to sustained shipping cost creep - absorb it, adjust the box's contents or size, introduce a modest price move, or shift the highest-zone subscribers to a regional carrier - rather than deciding it mid-crisis once the number is already large",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's custom shipping profiles, on the Business plan and above, let a merchant set shipping rules and rates specifically for subscription and renewal orders - separate from whatever a storefront's general checkout rates do - so a renewal's shipping can be priced deliberately as carrier costs change, instead of inheriting a rate that was only ever tuned for one-time orders. Subscription analytics, on the Growth plan and above, reports what subscribers are actually being charged and the makeup of the active base by product, which is the revenue half of the calculation above.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is pull in a merchant's actual carrier invoice, fuel-surcharge schedule, or package dimensions - that data lives with the carrier and whoever packs the box, and matching it against the subscription price to see whether margin still holds is a step that happens outside the app.",
+      },
+      {
+        type: "p",
+        text: "Northwood's box never changed. The price on it never changed either. What changed was a bill that arrived every month from a carrier nobody at Northwood was rereading - and the fix wasn't a new recipe or a higher price, it was finally checking what postage cost this month against what it cost the month the price was set.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-upgrade-shipping-speed",
     title: "Can a Shopify Customer Upgrade Their Shipping Speed After Checkout?",
     excerpt:
