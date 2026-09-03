@@ -30,6 +30,99 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-annual-plan-renewal-notice-law",
+    title: "Does a Shopify Subscription Need an Annual Renewal Notice? What the Law Requires",
+    excerpt:
+      "Meridian Candle Co.'s Yearly Pass renews for a second $180 charge right on schedule, and the first anyone's heard from Meridian since signup day is the receipt. A courtesy reminder wouldn't have covered this - several states require a specific notice before a year-or-longer subscription renews at all.",
+    category: "PLAYBOOK",
+    date: "2027-02-10",
+    author: "The AppFox Team",
+    metaTitle: "Shopify Subscription Annual Renewal Notice: What the Law Requires | AppFox",
+    metaDescription:
+      "A Shopify subscription with a term of a year or longer needs its own renewal notice before it recharges - separate from a normal reminder email. Here's what several states' auto-renewal laws require, and how to build the notice correctly.",
+    body: [
+      {
+        type: "p",
+        text: "Meridian Candle Co. sells a Yearly Pass: one upfront charge of $180 covers twelve monthly candles, priced well below buying the same twelve one at a time. It's the store's best-reviewed offer, and for the first 340 days of a subscriber's term nothing about it needs any attention at all - the candles ship, the plan renews further out than anyone's thinking about it. On day 365, the card on file gets charged $180 again, automatically, for a second year nobody explicitly agreed to start. The subscriber's first communication from Meridian since the original signup receipt is a new receipt, for an amount she wasn't expecting, on a date she had no reason to be watching.",
+      },
+      {
+        type: "p",
+        text: "Nothing about the charge itself was wrong. The subscriber agreed to auto-renewal in the checkout terms a year earlier, the price never changed, and the card worked fine. What's missing isn't consent - it's a notice, sent a defined window before that specific charge, telling her plainly that the year is up, what she's about to be charged, and how to stop it if she doesn't want a second one. That notice isn't a nice-to-have for a plan like this. In a growing number of states, it's a legal requirement that a short courtesy reminder doesn't satisfy on its own.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't running an annual prepay plan, and it isn't skipping reminder emails out of laziness - most merchants running one send some kind of renewal message. The mistake is assuming the general reminder built for a monthly or biweekly cycle also covers the one plan on the store that renews once a year, when several states treat a year-or-longer term as its own category with its own specific notice rules.",
+      },
+      { type: "h2", text: "A renewal reminder and a renewal notice aren't the same thing" },
+      {
+        type: "ul",
+        items: [
+          "A courtesy reminder is a UX choice a merchant can time, word, and send however they like - it's good practice for every cycle, but nothing requires it to exist or say anything in particular",
+          "A statutory renewal notice, where it applies, has to say specific things - that the plan is about to automatically renew, the exact amount that will be charged, and a clear way to cancel before the charge date - not just \"your next box ships soon\"",
+          "The statutory version also has to land inside a specific window before the charge, not just \"sometime in advance\" the way a courtesy reminder usually does",
+          "It applies to a narrower slice of a subscription program than a general reminder does - most laws in this space are triggered by a committed term of a year or longer, or by a free trial or discounted introductory period that runs past 30 days, not by every renewal a store processes",
+          "Sending a good monthly reminder says nothing about whether the one annual plan on the same store has ever had this specific notice built for it at all",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A store can be sending excellent renewal reminders on every monthly plan it runs and still have never built the one notice its single annual plan legally needs.",
+      },
+      { type: "h2", text: "What several states actually require before a long-term plan renews" },
+      {
+        type: "p",
+        text: "California's Automatic Renewal Law is the most-cited version of this rule, and it's a useful baseline because several other states have written broadly similar language into their own statutes since. For a contract with an initial term of a year or longer that renews automatically unless the consumer cancels, California requires the seller to send a clear notice of the upcoming renewal - by email or another method the consumer already agreed to - in a window the statute sets at no less than 15 and no more than 45 days before the renewal date. The same requirement reaches an offer that included a free gift or a discounted trial period lasting more than 30 days, even if the ongoing term itself is shorter than a year.",
+      },
+      {
+        type: "ul",
+        items: [
+          "The notice has to disclose that the subscription will automatically renew, the amount and frequency of the upcoming charge, and the deadline and method for canceling before it fires",
+          "It has to be a message about that renewal specifically - a general marketing email that happens to mention the product, or a shipping notice for the box that's about to go out, doesn't satisfy a requirement written around the renewal itself",
+          "The trigger is the committed term length, not the billing cadence inside it - a plan that bills monthly but locks a subscriber into a 12-month commitment can fall under the same rule as a plan that charges the full year at once",
+          "Exactly which states apply this, and the precise day window each one sets, isn't identical everywhere - it's a live area of state consumer-protection law, and the specific thresholds that apply depend on where a store's subscribers actually live",
+        ],
+      },
+      { type: "h2", text: "Why this slips through on a Shopify subscription program specifically" },
+      {
+        type: "p",
+        text: "Most stores running subscribe-and-save build their reminder cadence around the plan type that makes up nearly all of their subscriber base - weekly, biweekly, or monthly - and tune the timing, the copy, and the trigger to that cycle. An annual or multi-month prepay plan is usually a small slice of the program, often added later as a discount tier for the most committed subscribers rather than designed from day one as its own product. It's easy for a reminder system built and tested against a 30-day cycle to simply never get a second, differently-timed template built for the one plan that renews on a 365-day cycle instead - especially when that plan represents a handful of contracts next to a few thousand monthly ones, and nobody's specifically auditing it against a statute most of the team has never had a reason to read.",
+      },
+      {
+        type: "quote",
+        text: "A subscription program can look fully compliant from the dashboard everyone checks - every monthly reminder firing on schedule - while the one annual plan on the same store has never had this notice built for it at all.",
+      },
+      { type: "h2", text: "A worked example" },
+      {
+        type: "p",
+        text: "Meridian's Yearly Pass has 340 active subscribers, each on a 365-day term renewing at $180. The store's existing renewal-reminder automation was built for its monthly candle plan and fires three days before every charge, with copy that just says \"your next candle ships soon.\" Run against the Yearly Pass on that same three-day trigger, the message uses copy that never mentions the word \"renew\" or a cancellation deadline, and it lands three days before a $180 charge - well inside California's 15-to-45-day window rather than meeting it. A compliant version is a separate template, built specifically for year-or-longer plans, triggered 25 days before the anniversary date instead of 3, that states plainly: the Yearly Pass is about to renew, it will charge $180, and cancellation before a specific date stops it. Same subscriber base, same underlying charge - the only difference is a notice built for the actual term, instead of one reused from a plan that renews twelve times as often.",
+      },
+      { type: "h2", text: "How to build a compliant annual-renewal notice" },
+      {
+        type: "ol",
+        items: [
+          "Identify every selling plan on the store with a committed term of a year or longer, or an introductory trial or discount period past 30 days - that's the segment this applies to, not the whole subscriber base",
+          "Build a distinct notice for that segment rather than widening the trigger window on the existing short-cycle reminder - the required content and timing are different enough that reusing the monthly template usually means editing the wrong thing",
+          "Time the send off each contract's own anniversary date, not a fixed calendar date - a skip, pause, or plan change earlier in the year can shift when a given subscriber's term actually renews",
+          "State the required facts plainly in the notice itself: that the plan is renewing automatically, the exact amount and date, and a working way to cancel before then - not folded into a general marketing send",
+          "Confirm with counsel which states' thresholds actually apply given where the store's subscribers live, and set the notice window to the strictest one that applies rather than guessing at a single number for every subscriber",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's auto-renewal engine already tracks each contract's committed term and next-charge date, so a merchant can pull every subscriber on a year-or-longer selling plan as its own list rather than exporting orders by hand to find them. Custom email HTML on the Business plan and above makes it possible to build a distinct annual-renewal-notice template, separate from whatever cadence drives the standard renewal reminder, and a custom sending domain on the Pro plan keeps that notice out of spam long enough to be read before the window closes.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is decide which state's auto-renewal law applies to a given subscriber, calculate that state's specific notice window, or send the notice automatically out of the box - that's a compliance policy a merchant has to define with their own counsel, the same way sales-tax nexus or age-verification rules elsewhere in a subscription program aren't something a billing engine can determine on its own. What the app can do is make the annual segment visible and give the notice a real, correctly-timed template to run on, instead of leaving it to inherit a reminder that was only ever built for a thirty-day cycle.",
+      },
+      {
+        type: "p",
+        text: "Meridian's Yearly Pass didn't need a bigger discount or a friendlier receipt. It needed a notice, timed to its own 365-day term instead of borrowed from the monthly plan next to it, telling a subscriber the year was up before her card found out for her.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-shipping-cost-margin-erosion",
     title: "How Rising Shipping Costs Quietly Erode Shopify Subscription Margin",
     excerpt:
