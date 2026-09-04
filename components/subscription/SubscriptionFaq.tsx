@@ -43,6 +43,10 @@ export const subscriptionFaqs: { q: string; a: string }[] = [
     q: "Do you have MCP for developers?",
     a: "Yes. AppFox Subscription has a hosted MCP (Model Context Protocol) server that lets store developers and agencies connect Cursor, Claude Desktop, or VS Code to read subscription contracts, selling plans, failed billing, and upcoming renewals directly from their AI IDE - using the same Enterprise API keys as the REST API. The MCP docs live at subscriptions-docs.getappfox.com/api/mcp.",
   },
+  {
+    q: "Does AppFox work with Shopify Sidekick?",
+    a: "Yes. Shopify Sidekick (Shopify's admin AI assistant) integrates with AppFox Subscription so merchants can ask natural-language questions about their subscriptions and jump straight to the right page - no extra setup, included with install. Try asking Sidekick: \"How many paused subscriptions do I have?\" or \"Find Jane Smith's subscription\" or \"Which subscriptions failed billing?\" or \"Show me subscriptions renewing this week.\" Read more at subscriptions-docs.getappfox.com/sidekick.",
+  },
 ];
 
 const answerLink =
@@ -53,7 +57,7 @@ export function SubscriptionFaq() {
     <section id="faq" className="bg-paper-sunken py-20 sm:py-28">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
         <Reveal variant="none">
-          <SectionSlug no="04" label="QUESTIONS" caption="Seven straight answers" />
+          <SectionSlug no="04" label="QUESTIONS" caption="Nine straight answers" />
         </Reveal>
 
         <div className="mt-8 grid gap-12 lg:grid-cols-12 lg:gap-16">
