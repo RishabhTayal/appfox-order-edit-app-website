@@ -30,6 +30,84 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "migrate-shopify-subscription-off-appstle-without-losing-your-setup",
+    title: "How to Migrate a Shopify Subscription Program Off Appstle Without Losing the Setup It Runs On",
+    excerpt:
+      "The subscriber list moves over in an afternoon. What doesn't automatically move is everything sitting underneath it - the build-a-box logic, the cancellation-save flow, the portal branding - none of which shows up in a CSV, and all of which was doing real work.",
+    category: "GUIDE",
+    date: "2027-02-16",
+    author: "The AppFox Team",
+    metaTitle: "Migrate a Shopify Subscription Off Appstle Without Losing Your Setup | AppFox",
+    metaDescription:
+      "Switching Shopify subscription apps from Appstle risks more than a billing hiccup - it risks losing tier-gated features nobody inventoried first. Here's how to migrate off Appstle without losing the setup your program actually runs on.",
+    body: [
+      {
+        type: "p",
+        text: "A candle brand has spent two years building its \"Candle Club\" subscription on Appstle's Advanced tier: subscribers pick three scents out of twelve every month through a build-a-box picker, and anyone who clicks cancel gets routed through a save flow offering a free wax melt with their next box before the cancellation goes through. The team is done with Appstle's pricing and switches to AppFox Subscription, picking the plan that matches their subscriber count on the pricing page. The subscriber export goes smoothly, billing is sequenced carefully so nobody gets double-charged, and the cutover itself draws zero complaints. Two weeks later, support tickets start asking why the box only ships one candle now instead of three, and why clicking cancel just cancels - no offer, no melt, nothing. Nothing about the migration failed. The subscriber list moved perfectly. The build-a-box picker and the cancellation-save flow were both real settings living deep in Appstle's dashboard, and neither one was ever on the plan the team picked by price alone.",
+      },
+      {
+        type: "p",
+        text: "That's the part a migration plan built around subscriber data and billing continuity misses. A mature subscription program running on a feature-dense app like Appstle accumulates dependencies the way any long-running configuration does - a picker logic set up eighteen months ago, a save-offer flow nobody's touched since it was built, portal copy tweaked once and forgotten. None of that lives in a subscriber record. All of it stops working the moment the app it was configured in is gone, and a team that's spent two years not thinking about those settings has no reason to remember they exist until a subscriber notices first.",
+      },
+      { type: "h2", text: "Why a subscriber export never carries the settings around it" },
+      {
+        type: "p",
+        text: "Most switching guides focus on the part with an obvious failure mode - a declined card, a mistimed charge, a wrong renewal date. Those are real risks, and they're worth planning for. They're also not what actually broke the candle brand's migration.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Feature parity across two apps' plan tiers is never one-to-one - a capability bundled into Appstle's Advanced tier can sit on a different, sometimes higher, tier of the app you're switching to, and picking a plan by subscriber count alone skips that comparison entirely",
+          "Build-a-box and curated-pick logic is some of the most store-specific configuration in a subscription program, and it almost never gets written down anywhere outside the settings screen it was built in",
+          "Automated flows like a cancellation-save offer live entirely inside the old app's dashboard - invisible to a subscriber-data export, and simply absent afterward unless someone rebuilds them on purpose",
+          "Portal branding and custom CSS a team spent real time on is gated by plan tier too, so a plan picked on price can hand subscribers a portal that looks and behaves differently than the one they were used to",
+          "None of this appears on a pre-migration checklist built around subscriber count and billing continuity, so it surfaces afterward as subscriber-visible breakage instead of a line item anyone planned for",
+        ],
+      },
+      {
+        type: "h3",
+        text: "Losing a subscriber to a missed charge complains loudly, the day it happens. Losing a feature complains quietly, one confused subscriber at a time, for weeks - which is why it's so easy to miss until the ticket count says otherwise",
+      },
+      { type: "h2", text: "A feature-dense app hides its own dependency list" },
+      {
+        type: "p",
+        text: "The instinct to treat a migration as a data-and-billing project isn't wrong - it's just incomplete. Billing failures are loud and immediate, so they get planned for. Settings are silent right up until the moment they're gone, and a team that's stopped thinking about a setting because it's just always worked has no natural trigger to go re-check it before switching apps.",
+      },
+      {
+        type: "quote",
+        text: "A store doesn't lose a feature when it switches subscription apps. It loses the thing nobody remembered they were depending on - until a subscriber asked why it stopped working.",
+      },
+      { type: "h2", text: "Auditing what a switch actually has to carry over" },
+      {
+        type: "ol",
+        items: [
+          "Before exporting subscriber data, write down a settings inventory - every plan-level feature, tier-gated automation, and portal customization currently live - not just the subscriber list and their next billing dates",
+          "Map each item on that list to the specific tier of the new app that supports it, before picking a plan by price alone - a cheaper plan that quietly drops build-a-box logic or portal customization is a downgrade the price tag never mentioned",
+          "Treat automated flows - a cancellation-save offer, a tier-gated retention perk - as their own migration line item that needs to be rebuilt on purpose, since nothing about a subscriber CSV brings them along",
+          "Pilot the new configuration on a small slice of subscribers before the full cutover, so a missing feature shows up as one confused subscriber during the pilot instead of the whole list finding out at once",
+          "Keep both apps' settings screens open side by side during the audit - a capability that's easy to describe from memory in one sentence (\"we do build-a-box\") is often three or four settings deep, and that's exactly the kind of thing that's easy to miss until it's already gone",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's core - widgets, recurring billing, and the customer portal - ships on every plan including Free, but the features a mature Appstle program is likely leaning on are still tiered here too: subscription analytics, custom CSS, and portal customization start on Growth; bundling and build-a-box logic, along with custom shipping profiles, start on Business; a custom email domain and priority support are on Pro and above. Switching off Appstle without losing what a program runs on means running the same tier-mapping exercise against this ladder before picking a plan by subscriber count alone - and it's exactly what support walks through directly for anyone migrating from Appstle, rather than leaving it to a self-service CSV upload to sort out.",
+      },
+      {
+        type: "p",
+        text: "Because AppFox bills through Shopify's own checkout and native subscription APIs, a subscriber's payment method stays with Shopify rather than with the app being left behind, which covers the billing-continuity risk most migration advice already focuses on. The harder part specific to an Appstle switch is the configuration surface: a cancellation-save equivalent isn't a built-in toggle, but it's the kind of flow the Klaviyo integration can trigger off a cancellation event, scoped to the plan and subscriber it applies to - which is a rebuild, not a migration, and worth budgeting time for rather than assuming it.",
+      },
+      {
+        type: "p",
+        text: "It's also worth saying plainly: AppFox keeps a simpler settings surface than Appstle's on purpose, and a program built deep into Appstle's most advanced picker logic across many product lines may find AppFox's build-a-box tooling on the Business plan is the more straightforward version of the same idea, not a feature-for-feature match. That's worth checking against an actual box configuration before cutover, not assumed from the feature name alone.",
+      },
+      {
+        type: "p",
+        text: "The candle brand's migration didn't fail on data or billing - both moved cleanly. It failed because the build-a-box picker and the cancellation-save offer were real, working settings that nobody wrote down before the export button got clicked, on a plan picked for its price rather than for what it carried. Inventory the settings before the subscriber list, map each one to the tier that actually supports it, and rebuild the automated flows on purpose instead of assuming they'll follow - and a switch off Appstle stops being a migration that quietly breaks in week two, and starts being one where the only thing subscribers notice is a cheaper bill.",
+      },
+    ],
+  },
+  {
     slug: "why-manual-payment-methods-cant-fund-a-shopify-subscription-renewal",
     title: "Why Manual Payment Methods Can't Fund a Shopify Subscription Renewal",
     excerpt:
