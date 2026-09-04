@@ -34,8 +34,8 @@ const FEATURES: { title: string; copy: string; caption: string }[] = [
   },
   {
     title: "Plays well with your stack",
-    copy: "Works with Shopify Checkout, customer accounts, and Shopify Flow, and integrates with Klaviyo, PageFly, and Loyalty Lion. Developers can connect Cursor, Claude, or VS Code with MCP and Enterprise API keys. Migrating from another subscription app? Bring your subscribers along.",
-    caption: "klaviyo · pagefly · mcp · shopify flow",
+    copy: "Works with Shopify Checkout, customer accounts, and Shopify Flow, and integrates with Klaviyo, PageFly, and Loyalty Lion. Merchants ask subscription questions in Shopify Sidekick and jump straight to the right page. Developers can connect Cursor, Claude, or VS Code with MCP and Enterprise API keys. Migrating from another subscription app? Bring your subscribers along.",
+    caption: "klaviyo · pagefly · sidekick · mcp · shopify flow",
   },
 ];
 

@@ -53,7 +53,7 @@ export function GET(): Response {
       title: "Subscription features",
       path: "/features/subscription",
       description:
-        "Full feature tour: subscribe & save widgets, recurring billing on Shopify Checkout, a self-service customer portal, subscription models, integrations, and MCP for developers.",
+        "Full feature tour: subscribe & save widgets, recurring billing on Shopify Checkout, a self-service customer portal, subscription models, integrations, Shopify Sidekick, and MCP for developers.",
     },
     {
       title: "Pricing",
@@ -108,7 +108,7 @@ No per-edit fees or revenue caps on paid plans.
 
 ## AppFox Subscription
 
-AppFox Subscription (formerly Trust Subscriptions) is a Shopify subscription app. Merchants add subscribe-and-save widgets to product pages, and customers pay through Shopify's native checkout with auto-renewal on the schedule they picked. A self-service customer portal handles skips, pauses, swaps, payment updates, and cancellations. Supports replenishment, subscription boxes, memberships, digital products, and bundles, with discounts, trials, and tiered pricing. Integrates with Klaviyo, PageFly, Loyalty Lion, and Shopify Flow. For developers: hosted MCP (Model Context Protocol) server connects Cursor, Claude Desktop, and VS Code to read subscription data with Enterprise API keys. Rated 4.2/5 on the Shopify App Store.
+AppFox Subscription (formerly Trust Subscriptions) is a Shopify subscription app. Merchants add subscribe-and-save widgets to product pages, and customers pay through Shopify's native checkout with auto-renewal on the schedule they picked. A self-service customer portal handles skips, pauses, swaps, payment updates, and cancellations. Supports replenishment, subscription boxes, memberships, digital products, and bundles, with discounts, trials, and tiered pricing. Integrates with Klaviyo, PageFly, Loyalty Lion, and Shopify Flow. Shopify Sidekick (admin AI assistant) integration lets merchants ask natural-language questions about subscriptions and jump to the right page. For developers: hosted MCP (Model Context Protocol) server connects Cursor, Claude Desktop, and VS Code to read subscription data with Enterprise API keys. Rated 4.2/5 on the Shopify App Store.
 
 ### Subscription pricing
 

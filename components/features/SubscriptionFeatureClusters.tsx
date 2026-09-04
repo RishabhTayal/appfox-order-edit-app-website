@@ -122,6 +122,15 @@ const CLUSTERS: Cluster[] = [
       <>Shopify Flow triggers and actions</>,
       <>
         <Link
+          href="https://subscriptions-docs.getappfox.com/sidekick"
+          className="font-medium text-brand-700 underline decoration-brand-300 underline-offset-[3px] transition-colors hover:decoration-brand-600"
+        >
+          Shopify Sidekick
+        </Link>{" "}
+        integration - merchants ask subscription questions in Shopify admin and jump to the right page
+      </>,
+      <>
+        <Link
           href="https://subscriptions-docs.getappfox.com/api/mcp"
           className="font-medium text-brand-700 underline decoration-brand-300 underline-offset-[3px] transition-colors hover:decoration-brand-600"
         >
