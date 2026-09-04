@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "why-manual-payment-methods-cant-fund-a-shopify-subscription-renewal",
+    title: "Why Manual Payment Methods Can't Fund a Shopify Subscription Renewal",
+    excerpt:
+      "Cash on Delivery and Bank Deposit ask a merchant to mark an order paid by hand, once, after the money's already changed hands offline. A Shopify subscription needs something it can charge again on its own thirty days later - which is the one thing a manual payment method was never built to leave behind.",
+    category: "REVENUE",
+    date: "2027-02-15",
+    author: "The AppFox Team",
+    metaTitle: "Manual Payment Methods Can't Fund a Shopify Subscription | AppFox",
+    metaDescription:
+      "Cash on Delivery, Bank Deposit, and other manual payment methods don't appear as options once a selling plan enters a Shopify cart, and it isn't a configuration bug. Here's why a manual payment method can't fund a subscription renewal, and what to offer those shoppers instead.",
+    body: [
+      {
+        type: "p",
+        text: "A specialty foods importer runs Bank Deposit and Cash on Delivery alongside card payments, because a meaningful share of its customers - older shoppers, first-time buyers wary of entering a card online, wholesale accounts used to paying on receipt - simply won't check out any other way. Both options convert reliably on one-time orders. When the team launches a subscribe-and-save version of its most popular olive oil, they expect Bank Deposit to sit right there next to card payment the way it does on every other product page. It doesn't. The moment a shopper selects the monthly plan instead of a one-time purchase, Bank Deposit and Cash on Delivery both disappear from checkout - not grayed out, not explained, just gone, as if the store had never offered them at all.",
+      },
+      {
+        type: "p",
+        text: "The team's first move is to check whether the subscription app is somehow filtering payment methods, assuming a setting got left off during setup. There's no setting to find, because nothing here is a configuration choice. A Shopify subscription renews by charging the same payment method again, unattended, on a schedule the store controls - no shopper in the loop, no invoice sent, no wait for money to actually arrive before the next order ships. A manual payment method was built to do the opposite: the shopper pays offline - hands cash to a driver, wires funds to a bank account - and the merchant marks the order paid afterward, by hand, once that money is confirmed. There's no card, no token, no stored instrument sitting behind either transaction that a renewal could reach for thirty days later. The first payment wasn't captured by the store at all; it was captured by a driver or a bank teller, and nothing about that leaves anything on file to bill again.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't offering Cash on Delivery or Bank Deposit - for shoppers who won't hand over a card number to a store they don't know yet, it's often the only checkout that converts at all. The mistake is assuming a payment method that works by having no stored instrument behind it can somehow power a billing model that depends entirely on one.",
+      },
+      { type: "h2", text: "Why a subscription checkout can't offer a manual payment method" },
+      {
+        type: "ul",
+        items: [
+          "A subscription renewal is a merchant-initiated, off-session charge - the store triggers it on schedule with nobody present to hand over cash or confirm a wire, and a manual payment method has no automated path to collect anything without a person physically completing the transaction",
+          "Marking an order \"paid\" on a manual payment method is a merchant action taken after the fact, once money has already changed hands offline - there's no gateway behind it capturing a token, so there's nothing left over for a second charge to reference next month",
+          "Shopify's checkout only surfaces payment methods eligible for a selling-plan cart, and a manual payment method drops out the same way Amazon Pay or a Buy Now, Pay Later option does - none of them leave behind a rechargeable credential a recurring-billing system can use",
+          "A subscription's failed-payment retry logic assumes a gateway it can query and reattempt a charge against - there's no equivalent retry for a bank deposit that never arrived, because the store has no automated visibility into whether an offline payment happened at all",
+          "A shopper who wants her subscription billed the way she pays for everything else in the store has no recurring equivalent to switch to - Cash on Delivery and Bank Deposit exist as one-time-order options only, with no mechanism that repeats them automatically on a schedule",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A card on file is a promise a merchant can redeem again next month. Cash handed to a driver, or a wire confirmed at a bank, is a promise that was already kept once, with nothing left standing behind it to redeem a second time.",
+      },
+      { type: "h2", text: "What assuming a manual method will carry over actually costs" },
+      {
+        type: "p",
+        text: "The cost shows up first at the product page, for exactly the shoppers a manual payment method was added to serve: someone who won't enter a card, reaching for Bank Deposit or Cash on Delivery on a subscribe-and-save item, finding neither one there, and leaving rather than entering payment details she came to the store specifically to avoid. For a merchant in a market where card penetration is genuinely low, that isn't a rounding error - it's a subscription program that's structurally unreachable for a meaningful slice of the customer base, no matter how good the offer is. The second cost shows up when a team tries to route around the gap by hand: manually invoicing a subscriber every month and re-adding her to a spreadsheet, or converting her recurring order into a series of one-time Cash on Delivery orders someone has to remember to place. Neither one is a subscription anymore. Both throw away the entire point of the automation - the skip, pause, and swap tools a self-service portal runs on - in exchange for a support workload that scales with every subscriber added.",
+      },
+      {
+        type: "quote",
+        text: "A subscription isn't a recurring order. It's a standing permission to bill something again without asking - and a manual payment method was built for the one thing that permission can't survive: a person having to be there to complete it.",
+      },
+      { type: "h2", text: "Setting expectations instead of forcing a workaround" },
+      {
+        type: "ol",
+        items: [
+          "Check what your active gateways actually list as eligible for selling-plan carts before assuming a store-wide manual payment option reaches subscription products the same way it reaches one-time ones",
+          "Say it on the product page, not just at checkout - a line as simple as \"Cash on Delivery available on one-time purchase; subscriptions bill by card\" resolves the confusion before a shopper commits to a plan expecting a payment method that won't be there",
+          "Keep the one-time purchase path available with every manual payment method the store normally offers, so a shopper who won't enter a card can still buy the product - just not on the recurring plan",
+          "Don't try to substitute manual recurring billing for the real thing - invoicing a subscriber by hand or converting her plan into a string of one-time Cash on Delivery orders isn't automatable the way a card charge is, and it strips out every self-service tool a subscription runs on",
+          "Track checkout starts against completions specifically on subscription product pages if manual payment methods carry real volume store-wide - a payment-method gap shows up first as a quiet drop at that exact step, well before it shows up as a support ticket",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription bills renewals through Shopify's own checkout and native subscription APIs, so the payment methods a subscriber sees at signup are whatever Shopify Payments and the store's connected gateways make eligible for a selling-plan cart - AppFox doesn't maintain a separate payment-method list, and it can't make Cash on Delivery or Bank Deposit hand over a rechargeable credential neither was ever built to offer. Where AppFox does help is upstream of checkout: the subscribe-and-save widget's copy is merchant-controlled, so a store can set the expectation - card billing on the recurring plan, manual payment still available on the one-time version - right on the product page, before a shopper picks a plan assuming every payment option carries over. On Growth and higher plans, subscription analytics reports checkout starts against completions for subscription products as its own number, which is exactly where a payment-method mismatch shows up as a conversion gap worth investigating instead of staying invisible until a subscriber asks why her usual way to pay disappeared.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is add a payment method a gateway hasn't made eligible for recurring billing, or turn an offline transaction into a stored instrument it can charge again - that would require a rechargeable credential neither Cash on Delivery nor Bank Deposit was ever designed to produce. The customer portal lets a subscriber update the card on file whenever she's ready to switch to one; it doesn't offer a manual method as an alternative, because there's no automated way to bill one on a schedule.",
+      },
+      {
+        type: "p",
+        text: "The olive oil importer's missing Bank Deposit option wasn't a bug, and there was no setting buried anywhere that would have brought it back. A subscription needs a standing permission to bill something again next month; a manual payment method is a transaction that already finished the moment cash or a wire changed hands, with nothing left to bill. The fix isn't finding a way to force a manual method into a recurring relationship it can't support. It's telling a shopper, before she picks a plan, exactly which payment methods her subscription can actually run on - and keeping the one-time path open for everyone who'd rather pay the way they always have.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-renewal-return-to-sender",
     title: "Shopify Subscription Renewals Don't Know When a Box Comes Back Return to Sender",
     excerpt:
