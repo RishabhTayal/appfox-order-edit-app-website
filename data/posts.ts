@@ -30,6 +30,72 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "why-amazon-pay-cant-fund-a-shopify-subscription-renewal",
+    title: "Why Amazon Pay Can't Fund a Shopify Subscription Renewal",
+    excerpt:
+      "Amazon Pay checks out fast because it hands over a one-time authorization tied to that single order, not a stored credential a merchant can charge again next month. A Shopify subscription needs the second thing. That's why the button disappears the moment a selling plan enters the cart.",
+    category: "REVENUE",
+    date: "2027-02-13",
+    author: "The AppFox Team",
+    metaTitle: "Amazon Pay and Shopify Subscriptions: Why They Don't Mix | AppFox",
+    metaDescription:
+      "Amazon Pay isn't in the list of payment methods a Shopify subscription checkout can offer, and it isn't a missing integration. Amazon Pay authorizes one order at a time and doesn't hand a merchant a rechargeable stored credential the way a vaulted card does. Here's why it can't fund a renewal, and what to show subscribers instead.",
+    body: [
+      {
+        type: "p",
+        text: "A coffee roaster runs Amazon Pay on every product page - one tap, no new account, no re-typing a card, and it consistently outperforms every other express-checkout button on mobile. When the team launches a subscribe-and-save version of the same bags, they expect Amazon Pay to just carry over the way it does for every other payment option on the store. It doesn't. The button that sits front and center on the one-time product page simply isn't there once a shopper selects the subscription plan instead - no error, no grayed-out tooltip explaining why, just gone, as if it had never been configured at all.",
+      },
+      {
+        type: "p",
+        text: "The team's first instinct is to check the app settings, assuming a toggle got missed somewhere in checkout configuration. There's nothing to find, because nothing is misconfigured. A Shopify subscription renews by charging a payment method the customer authorized once, at signup, again and again on a schedule the store controls - each renewal a fresh, merchant-initiated charge against something that's still good to bill next month, and the month after that. Amazon Pay was never built to hand a merchant that kind of standing permission. It authorizes one checkout, against one specific order, at one specific moment - a single-use token scoped to that transaction, not a stored, chargeable credential sitting behind it the way a vaulted card is. There's no request a merchant can send Amazon later that says \"charge this account $32 again\" the way there is for a card on file.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't offering Amazon Pay on one-time orders - it converts as well as it does for a reason, and that reason is genuine: shoppers trust it and it removes every field between \"add to cart\" and \"done.\" The mistake is assuming it's a generic payment method a subscription checkout can treat the same way it treats a stored card, when a one-time checkout authorization and a rechargeable credential are structurally different things that happen to sit behind the same-looking button.",
+      },
+      { type: "h2", text: "Why a subscription checkout can't offer Amazon Pay" },
+      {
+        type: "ul",
+        items: [
+          "A subscription renewal is a merchant-initiated, off-session charge - the store triggers it on schedule with no shopper present to approve anything new, and Amazon Pay's checkout flow exists specifically to get a shopper's active approval in the moment, not to grant standing permission for a future one",
+          "The authorization Amazon Pay returns at checkout is scoped to that one order - there's no equivalent of a vaulted card token behind it that a merchant's billing system can reach for and charge again on a different date, for a different renewal amount",
+          "Shopify's checkout only surfaces payment methods that are actually eligible for a selling-plan cart, so a subscription product drops Amazon Pay from the available options the same way it drops any method without a recurring-billing integration behind it",
+          "Amazon Pay's merchant dashboard shows the original order and nothing resembling a stored-credential endpoint a store can bill against later, because there was never a request to keep one on file in the first place",
+          "A subscriber who wants to pay with whatever's already saved to their Amazon account has no recurring equivalent to switch to - the one-tap convenience Amazon Pay offers on a single purchase simply has no version that repeats automatically next month",
+        ],
+      },
+      {
+        type: "quote",
+        text: "A card on file is a promise a merchant can redeem again next month. An Amazon Pay checkout is a promise that was already kept - once, for one order - with nothing left standing behind it.",
+      },
+      { type: "h2", text: "What assuming Amazon Pay will carry over actually costs" },
+      {
+        type: "p",
+        text: "The cost shows up in two places, and neither looks like a broken payment. First, at the product page: a shopper who reaches for the button she used on every other order finds it missing the moment she picks the subscription option, with nothing on the page telling her why - some portion of that traffic just leaves, assuming the store's checkout is broken rather than understanding the real constraint. Second, inside support, when a subscriber emails asking why her preferred payment method \"disappeared\" - a question that reads like a bug report and gets escalated like one, when it's actually a structural limit no setting can fix. Neither cost shows up as a declined charge, because there's no charge attempt to decline. The renewal simply never had a payment method behind it that could run.",
+      },
+      { type: "h2", text: "Setting expectations instead of forcing a workaround" },
+      {
+        type: "ol",
+        items: [
+          "Check what your active gateways actually list as eligible for selling-plan carts before assuming a store-wide Amazon Pay button reaches subscription products the same way it reaches one-time ones",
+          "Say it on the product page, not just at checkout - a line as simple as \"Amazon Pay available on one-time purchase; subscriptions bill by card\" resolves the confusion before a shopper commits to a plan expecting a button that won't be there",
+          "If the one-tap speed matters for a given item, keep the one-time purchase path available with Amazon Pay clearly alongside the subscription option, rather than trying to make one plan serve both jobs",
+          "Don't try to route around the gap by manually rebilling a subscriber's Amazon account order by order - it's not automatable the way a card charge is, and it strips out the self-service skip, pause, and swap tools a real subscription runs on",
+          "Track checkout starts against completions specifically on subscription product pages if Amazon Pay converts well store-wide - a payment-method gap shows up first as a quiet drop at that exact step, well before it shows up as a support ticket",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription bills renewals through Shopify's own checkout, so the payment methods a subscriber sees at signup are whatever Shopify Payments and the store's connected gateways make eligible for a selling-plan cart - AppFox doesn't maintain a separate payment-method list, and it can't make Amazon Pay hand over a rechargeable credential it was never built to offer. Where AppFox does help is upstream of checkout: the subscribe-and-save widget's copy is merchant-controlled, so a store can set the expectation - card billing on the recurring plan, Amazon Pay still available on the one-time version - right on the product page, before a shopper picks a plan assuming every payment icon carries over. Subscription analytics on the Growth plan and above reports checkout starts against completions for subscription products as its own number, which is exactly where a payment-method mismatch shows up as a conversion gap worth investigating, instead of staying invisible until a subscriber emails asking where her usual button went.",
+      },
+      {
+        type: "p",
+        text: "The coffee roaster's missing Amazon Pay button wasn't a bug, and there was no setting buried anywhere that would have brought it back. It was two different transactions that happen to look identical at the button level - a one-time authorization and a standing permission to bill again - and only one of them was ever going to survive into a second billing cycle. The fix isn't finding a way to force Amazon Pay into a recurring relationship it was never built for. It's telling a subscriber, before she picks a plan, exactly which payment method her subscription actually runs on.",
+      },
+    ],
+  },
+  {
     slug: "shopify-order-edit-ai-agent-checkout-no-confirmation",
     title: "When an AI Agent Buys on Shopify, Who Gets the Order-Edit Link?",
     excerpt:
