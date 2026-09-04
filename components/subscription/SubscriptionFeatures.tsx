@@ -34,8 +34,8 @@ const FEATURES: { title: string; copy: string; caption: string }[] = [
   },
   {
     title: "Plays well with your stack",
-    copy: "Works with Shopify Checkout, customer accounts, and Shopify Flow, and integrates with Klaviyo, PageFly, and Loyalty Lion. Migrating from another subscription app? Bring your subscribers along.",
-    caption: "klaviyo · pagefly · shopify flow",
+    copy: "Works with Shopify Checkout, customer accounts, and Shopify Flow, and integrates with Klaviyo, PageFly, and Loyalty Lion. Developers can connect Cursor, Claude, or VS Code with MCP and Enterprise API keys. Migrating from another subscription app? Bring your subscribers along.",
+    caption: "klaviyo · pagefly · mcp · shopify flow",
   },
 ];
 

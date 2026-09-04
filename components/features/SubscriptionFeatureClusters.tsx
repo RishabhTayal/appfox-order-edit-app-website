@@ -121,6 +121,15 @@ const CLUSTERS: Cluster[] = [
       <>Klaviyo, PageFly, and Loyalty Lion integrations</>,
       <>Shopify Flow triggers and actions</>,
       <>
+        <Link
+          href="https://subscriptions-docs.getappfox.com/api/mcp"
+          className="font-medium text-brand-700 underline decoration-brand-300 underline-offset-[3px] transition-colors hover:decoration-brand-600"
+        >
+          MCP server
+        </Link>{" "}
+        for developers - read subscription data in Cursor, Claude, and VS Code with Enterprise API keys
+      </>,
+      <>
         Assisted migration from apps like{" "}
         <Link
           href="/vs/recharge"
