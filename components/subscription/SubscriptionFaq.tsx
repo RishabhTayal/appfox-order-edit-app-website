@@ -39,6 +39,10 @@ export const subscriptionFaqs: { q: string; a: string }[] = [
     q: "Do I need to touch my theme code?",
     a: "No. The subscription widget drops onto your product pages from the app - pick a template, match your branding, and publish. Setup takes about five minutes, and it also works with PageFly pages.",
   },
+  {
+    q: "Do you have MCP for developers?",
+    a: "Yes. AppFox Subscription has a hosted MCP (Model Context Protocol) server that lets store developers and agencies connect Cursor, Claude Desktop, or VS Code to read subscription contracts, selling plans, failed billing, and upcoming renewals directly from their AI IDE - using the same Enterprise API keys as the REST API. The MCP docs live at subscriptions-docs.getappfox.com/api/mcp.",
+  },
 ];
 
 const answerLink =
