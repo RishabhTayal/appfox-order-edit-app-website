@@ -30,6 +30,80 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-renewal-apo-fpo-military-address",
+    title: "Why a Shopify Subscription Renewal Can't Ship to an APO/FPO Address Like the First Box Did",
+    excerpt:
+      "A subscriber sets up a monthly box for a spouse stationed overseas and types the APO address in like any other US address - Shopify's checkout accepts it without complaint, and the first box ships fine. It's the renewal after that stalls, because nothing at checkout ever told the carrier this address needed different handling.",
+    category: "PLAYBOOK",
+    date: "2027-02-19",
+    author: "The AppFox Team",
+    metaTitle: "Why a Shopify Subscription Renewal Can't Ship to an APO/FPO Address | AppFox",
+    metaDescription:
+      "An APO or FPO address looks like any other US shipping address to Shopify's checkout, but delivery to it only moves through USPS - and a subscription renewal inherits whatever carrier the contract defaulted to at signup. Here's why the second box stalls when the first one didn't, and how to route a Shopify subscription program around it.",
+    body: [
+      {
+        type: "p",
+        text: "A jerky-of-the-month subscription's most loyal customer sets one up as a gift for her husband, stationed at a base in Germany, and enters his address into the shipping field the way she'd enter anyone else's: a box number, \"APO AE\" where a city would normally go, and a five-digit ZIP. Shopify's checkout takes it without complaint, because that's exactly what a military address is built to look like to a system expecting a US destination - a real ZIP code, a real (if unusual) state abbreviation, no red flags for tax or address validation to catch. The first box goes out and arrives a couple of weeks later, same as any first-time order routed through the postal system's own overseas military channels. It's the second box, due three weeks after that, that never shows up. Nothing declined at checkout and nothing failed at billing - the renewal charged clean and a fulfillment record was created right on schedule. The shipment just never moved past the carrier hand-off, because the label printed through the store's regular ground carrier, and that carrier doesn't deliver to APO/FPO addresses at all.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is Shopify mishandling the address. An APO, FPO, or DPO address uses a standard-format ZIP code and one of three special state codes - AA, AE, or AP - specifically so it can be processed as domestic by every system built around real US states and ZIPs, tax logic included. A subscription contract stores that address in its delivery policy exactly the way it stores any other US address, because to the contract, it is one. What the contract also stores is a shipping method, inherited from whatever the order used the first time it ran - and physical delivery to an APO/FPO/DPO destination only ever moves through USPS's military mail system, regardless of which ground or expedited carrier a store's shipping profile normally reaches for first. Nothing in that profile was ever told this destination type needed a different carrier, because until an address like this showed up, there was never a reason to ask.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't accepting an APO/FPO address at checkout - a US-based subscription program has every reason to serve a customer shipping to a service member overseas, and the address is, technically and legally, domestic. The mistake is letting a subscription's shipping method default silently from whatever carrier the first order happened to use, instead of treating an APO/FPO/DPO destination as the routing decision it actually is - at signup, and on every renewal that follows.",
+      },
+      { type: "h2", text: "Why an address that looks completely normal breaks routing nobody else changes" },
+      {
+        type: "ul",
+        items: [
+          "An APO/FPO/DPO address uses a standard-format ZIP and one of three special state abbreviations (AA, AE, AP) instead of a real state, which is exactly why most address validation and state-based tax logic treats it as an ordinary US address with no early warning that delivery works differently",
+          "Physical delivery to an APO/FPO/DPO destination moves through USPS's military mail system exclusively - the carrier is dictated by the destination type itself, not by whichever ground or expedited service a store's shipping profile defaults to for everyone else",
+          "A subscription contract stores one shipping method in its delivery policy the same way it stores one address, and unless a merchant's shipping rules explicitly branch on the AA/AE/AP state codes, that stored method stays whatever carrier the contract defaulted to at signup, renewal after renewal",
+          "Military mail enforces its own weight caps, package-size limits, and restricted-content rules (aerosols and certain batteries among them), and customs paperwork applies to anything routed through a host country even though the address itself is treated as domestic - rules that apply to every renewal, not just a first shipment a merchant might think to check by hand",
+          "None of this surfaces as a failed renewal anywhere in billing - the charge succeeds, the fulfillment record is created on schedule, and the shipment only stalls at the carrier hand-off, a step that throws no customer-facing error and shows up on a merchant's dashboard as nothing more than a tracking number that stops updating",
+        ],
+      },
+      {
+        type: "h3",
+        text: "An APO/FPO address doesn't fail at checkout or at billing. It fails one step later, at a carrier hand-off nobody built a rule for - and a subscription repeats that same silent failure every renewal, not once.",
+      },
+      { type: "h2", text: "What a stalled renewal costs a subscriber who can't just check the mailbox" },
+      {
+        type: "p",
+        text: "A one-time order that stalls at an APO/FPO hand-off is a single delayed package, usually caught when the recipient asks about it. A subscription that stalls the same way repeats the gap every cycle, and it hits a household that's often already managing a harder logistics problem than most subscribers ever have to think about: the person paying for the box and the person waiting on it are frequently two different people in two different countries, and a deployed recipient can't always call support, check a tracking page, or drive to a post office to sort it out. The card keeps getting charged in full on schedule. The box the charge is supposed to buy sits somewhere between a warehouse and a carrier that was never going to deliver it, sometimes quietly returned as undeliverable and written off, with nothing about the charge itself flagging that anything went wrong.",
+      },
+      {
+        type: "quote",
+        text: "A stalled APO shipment isn't a one-time delivery problem. On a subscription, it's the same routing gap repeating every cycle, silently, until someone who isn't even the one waiting on the package happens to ask if it ever arrived.",
+      },
+      { type: "h2", text: "Setting up a Shopify subscription program to actually serve APO/FPO addresses" },
+      {
+        type: "ol",
+        items: [
+          "Add a shipping rule that detects the AA/AE/AP state codes (or an APO/FPO/DPO city field) and forces USPS as the fulfillment method for any order or renewal shipping there, instead of leaving the choice to whatever carrier the profile defaults to for everyone else",
+          "Apply military mail's weight, dimension, and restricted-content rules at the point a subscription product is set up for that destination, rather than finding out a box got bounced back after it's already been packed and charged for",
+          "Set a longer standard delivery window in confirmation and renewal messaging for these addresses specifically, so a subscriber isn't measuring an overseas military shipment against the same estimate a domestic order gets",
+          "Give the account holder - usually the one paying and managing the subscription, not the one receiving it - clear delivery status in the portal, since a deployed recipient often can't act on a failed-delivery notice themselves",
+          "Review any subscription with a stalled or returned APO/FPO shipment by hand before its next renewal, rather than letting the same broken routing repeat unattended on the next cycle",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription stores a contract's address, payment method, and shipping details the same way Shopify's subscription model expects - which means an APO/FPO address is accepted at signup exactly like any other US address, with nothing in the widget or checkout flow treating it as a special case. That's accurate as far as it goes, but it's also the whole problem: carrier selection isn't a decision the subscription layer makes. It's the store's shipping profile and fulfillment setup that choose which service actually prints the label, on the first order and on every renewal after it.",
+      },
+      {
+        type: "p",
+        text: "What AppFox's portal does give a merchant is the place to catch a stalled APO/FPO renewal before it repeats for months: the account holder can see delivery status on past renewals and update the destination address if a shipment is stuck, and a merchant reviewing subscriptions in the AppFox dashboard can spot an account tied to an AA/AE/AP address and confirm with their own carrier setup that it's actually routing through USPS before letting it renew unattended again.",
+      },
+      {
+        type: "p",
+        text: "The husband's jerky box wasn't lost to a mistake anyone made on purpose - it was stuck behind a carrier assumption nobody had reason to question until an address that looks almost exactly like every other one showed up in the queue. Getting a subscription program to actually work for APO/FPO subscribers means treating that address type as a routing decision, not just a string the shipping field happily accepted - the first time it's used, and every renewal after.",
+      },
+    ],
+  },
+  {
     slug: "shopify-wismo-tickets-hidden-order-edit-requests",
     title: "The \"Where Is My Order\" Tickets That Are Secretly Edit Requests",
     excerpt:
