@@ -30,6 +30,76 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-usage-based-billing",
+    title: "Why Shopify Subscriptions Can't Bill by Usage (And What to Build Instead)",
+    excerpt:
+      "A water-filtration brand wants to charge for a replacement filter the moment a sensor says the old one's spent, not on a fixed 60-day clock. That's usage-based billing - and it asks a Shopify subscription contract to work backwards from how billing there actually happens.",
+    category: "GUIDE",
+    date: "2027-02-20",
+    author: "The AppFox Team",
+    metaTitle: "Why Shopify Subscriptions Can't Bill by Usage | AppFox",
+    metaDescription:
+      "Usage-based billing sounds like a setting away on any Shopify subscription app - it isn't, because the limit sits in Shopify's own subscription contract, not in the app. Here's why a selling plan can't meter consumption, and what to build instead within Shopify's native model.",
+    body: [
+      {
+        type: "p",
+        text: "A home water-filtration brand sells a pitcher with a replaceable carbon filter and wants to sell the refills as a subscription - the obvious recurring-revenue play for a consumable that runs out on its own. The catch is that a filter's life isn't the calendar's business. A person living alone who fills a glass twice a day might get four months out of one; a family of five running the pitcher constantly burns through the same filter in five weeks. The founder's plan is to wire a flow sensor into the base and bill and ship the replacement the moment usage crosses the threshold that means it's spent - true usage-based billing, priced and timed by consumption instead of a fixed interval. It sounds like a setting inside whatever subscription app they install. It isn't a setting in any of them, because the limit isn't something an app chose to leave out - it's underneath every app, in how a Shopify subscription contract is built.",
+      },
+      {
+        type: "p",
+        text: "A Shopify subscription runs on a selling plan - a billing policy that stores an interval (every 30 days, every 6 weeks, whatever was chosen at signup) and a price, set once and reused by Shopify's own recurring-billing job every cycle after that. Nothing in that record has a field for \"units consumed since the last charge.\" The amount charged and the quantity shipped are fixed at the moment the contract is created, not computed at charge time from a reading somewhere else. A sensor can measure exactly how much water has gone through a filter. There's nowhere on a selling plan for that number to go.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't wanting to price by usage - metered billing is completely reasonable for a product that gets used up at different rates by different customers. The mistake is assuming the subscription layer can flip from billing on a schedule to billing on a meter reading just because there's now a sensor generating the data. Those are two different billing architectures, not two settings in the same app.",
+      },
+      { type: "h2", text: "Why a Shopify subscription contract can't meter usage" },
+      {
+        type: "ul",
+        items: [
+          "A selling plan's billing policy stores one interval and one price, decided at signup - Shopify's recurring-billing job re-charges that same fixed amount on that same schedule every cycle, with no step that asks how much of last cycle's product actually got used before it generates the next order",
+          "Metered billing invoices in arrears - use it, then get billed for what was used. Shopify's subscription billing runs the opposite direction: it authorizes and charges the saved payment method to create the renewal order before the period that charge is supposed to cover has even started, so there's no usage figure yet for it to bill against",
+          "Nothing in the Selling Plans API listens for a signal from outside Shopify - a flow-sensor reading, a page count, an API call tally - the recurring order fires purely off the clock stored on the contract, whether last cycle's filter lasted three weeks or ten",
+          "Changing what a subscription charges or ships means updating the contract itself - editing the selling plan or the subscription through the admin or the API - which is a deliberate action taken between cycles, not a calculation the billing job runs automatically using new data as it arrives",
+          "Quantity is fixed at signup the same way price is, so a plan can't ship one filter to a light user and three to a heavy one on the same interval without something rewriting that specific contract before the next order gets created - and nothing does that on its own",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A Shopify subscription bills on a clock, not a meter. Usage-based billing needs to know what happened during the period before it charges for it - a selling plan decides both the amount and the date before that period has even started.",
+      },
+      { type: "h2", text: "Where the workarounds break" },
+      {
+        type: "p",
+        text: "The usual fallback is averaging: price the plan for typical usage and let light households subsidize heavy ones, or the reverse. That holds up until a heavy user's filter fails weeks before the renewal ships a replacement, or a light user notices they're paying full price for one that's nowhere near spent - both read as the subscription being wrong about their household, because it is. The other common attempt bolts a sensor onto the storefront with an automation tool meant to trigger an early reorder - but the card's already been authorized on the old schedule by the time that signal arrives, so the fix becomes a manual refund-and-recharge for every household whose usage doesn't match the average the plan was built around.",
+      },
+      {
+        type: "quote",
+        text: "A sensor can tell you exactly how much got used. A selling plan was never built to ask.",
+      },
+      { type: "h2", text: "What actually works within Shopify's subscription model" },
+      {
+        type: "ol",
+        items: [
+          "Replace one metered plan with a few fixed bands a subscriber picks for themselves - \"light household,\" \"standard,\" \"heavy use\" - each mapped to a different interval or quantity, so the pricing still reflects usage without asking the contract to compute it automatically",
+          "Let the subscriber move between bands from the customer portal the moment they notice their filter running out early or lasting longer than expected, rather than trying to predict usage algorithmically before the fact",
+          "Sell a one-time top-up alongside the subscription for genuine overage - a replacement filter ordered as an ordinary one-time purchase when the fixed cadence runs short - instead of trying to fold overage into the recurring contract itself",
+          "If true consumption metering is worth the investment, meter it outside Shopify: read the sensor data in a separate system and use it to trigger a scheduled Admin API update to the selling plan's price or interval between cycles, as a deliberate action - not something any subscription app's checkout widget can do at charge time",
+          "Say plainly at signup that the plan bills on a schedule, not a live meter, so a subscriber picking a band knows they're choosing the cadence that best matches their use, not enrolling in something that reads their exact consumption in real time",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription runs on Shopify's native selling plans and subscription contracts - the same fixed-interval, fixed-price model every Shopify-native subscription app is built on. That means it doesn't do usage-based billing either, and no app built on Shopify's own subscription contracts can, because the constraint sits in Shopify's billing model, not in any one app's feature list. What it does give a merchant working around that limit: the subscribe-and-save widget supports tiered pricing, so usage bands can be set up as selectable plans instead of one flat price; the customer portal lets a subscriber change frequency or swap plans themselves the moment their actual usage stops matching what they signed up for, no support ticket required; and subscription analytics, on Growth and above, shows which bands subscribers actually land in and how often they switch - real signal for tightening the bands instead of guessing once and leaving them alone.",
+      },
+      {
+        type: "p",
+        text: "The water-filtration brand didn't need to give up on pricing by usage - it needed to stop trying to make a calendar behave like a sensor. A handful of bands built around real usage patterns, with an easy way for a subscriber to move between them the moment their filter tells them something the contract can't, gets most of the way to what true metering would have delivered - without asking a Shopify subscription to compute something it was never built to compute.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-renewal-apo-fpo-military-address",
     title: "Why a Shopify Subscription Renewal Can't Ship to an APO/FPO Address Like the First Box Did",
     excerpt:
