@@ -30,6 +30,74 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-wismo-tickets-hidden-order-edit-requests",
+    title: "The \"Where Is My Order\" Tickets That Are Secretly Edit Requests",
+    excerpt:
+      "A customer asking what's going on with their order usually gets a tracking link back, and the ticket closes - if tracking really was the whole question. When it wasn't, the same reply reopens the next day, because the real question was whether anything could still be changed.",
+    category: "PLAYBOOK",
+    date: "2027-02-18",
+    author: "The AppFox Team",
+    metaTitle: "WISMO Tickets Are Often Hidden Shopify Order-Edit Requests | AppFox",
+    metaDescription:
+      "A share of the 'where is my order' tickets your helpdesk tags WISMO aren't tracking questions at all - they're edit requests a customer didn't know how to ask for directly. Here's why they get missed, and how a Shopify order-status page that shows edits alongside tracking closes the gap.",
+    body: [
+      {
+        type: "p",
+        text: "Cedarcroft Skincare's helpdesk runs on one dominant tag: WISMO, short for \"where is my order,\" and it accounts for close to half of everything that lands in the queue. The macro for it is fast - pull the order, paste the tracking link, close the ticket in under two minutes. Most of the time that's the whole interaction. Then, a day or two later, a share of those same customers write back. Not about tracking - the package is exactly where the link said it was. What they actually wanted to know was whether it was too late to switch to the fragrance-free version before it shipped, or fix an old apartment number, or cancel one line item. The first reply never touched that question, because nothing in the ticket said \"edit this\" - it said something closer to \"what's going on with my order,\" and the macro answered the only part of that sentence support had a tool for.",
+      },
+      {
+        type: "p",
+        text: "The mistake isn't answering the tracking question fast. Fast is exactly right, for the tickets that are really only about tracking. The mistake is treating every WISMO-tagged ticket as if it's the same question, when a meaningful share of them are an edit request wearing a tracking question's clothes - asked that way not out of confusion, but because \"where is my order\" was the only framing the customer had a visible path to ask through.",
+      },
+      { type: "h2", text: "Why a tracking question and an edit request read identically" },
+      {
+        type: "ul",
+        items: [
+          "A standard order-status page shows a shipping timeline and nothing else - there's no button for \"change something,\" so a customer with an edit in mind has no way to signal that from the page itself before writing in",
+          "The words customers actually use don't split cleanly between the two - \"what's happening with my order\" and \"is it too late to change my order\" both get typed as some version of the same sentence, and a keyword-based tag can't tell them apart on the subject line alone",
+          "Shipping-confirmation emails usually link straight to a carrier's tracking page, which has even less room for an edit path than the store's own order-status page does - so the version of the question a customer sees most often offers tracking and nothing more",
+          "A support macro built to close WISMO tickets fast answers the visible question and stops there - it was never written to ask \"did you also want to change anything\" before marking the ticket resolved",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A WISMO tag describes what the customer typed, not what they actually needed - and on a real share of these tickets, those are two different tickets wearing one label.",
+      },
+      { type: "h2", text: "The double-touch nobody's counting" },
+      {
+        type: "p",
+        text: "None of this shows up as a failure in the moment. The first reply goes out, the ticket closes, and the helpdesk's metrics log a fast resolution on a WISMO ticket like every other one. The second message - the one that actually asks for the edit - opens as what looks like a brand-new ticket days later, often assigned to a different agent with no memory of the first exchange, who now has to re-pull the order, re-read the shipping timeline, and find out from scratch what the customer actually wants changed. Two touches, two macros, two entries in the ticket count, and a resolution-time metric that still reads clean on both of them individually - because neither ticket was wrong on its own terms, and nothing in the reporting connects a closed ticket to the one that reopens the conversation two days later under a fresh number.",
+      },
+      {
+        type: "quote",
+        text: "The first reply doesn't fail to solve the problem because it's wrong. It fails because it answers a question the customer never actually asked - and there was nowhere on the page for them to ask the real one instead.",
+      },
+      { type: "h2", text: "Put the edit actions on the page that already answers tracking" },
+      {
+        type: "p",
+        text: "The fix isn't a smarter macro or a longer intake form. It's closing the gap between the page a customer already lands on to check tracking and the actions they might actually need once they're there - so the question never has to travel through a support ticket to get an answer.",
+      },
+      {
+        type: "ol",
+        items: [
+          "Route every tracking link - in the shipping-confirmation email, in the order-status page, in whatever the WISMO macro pastes back - to the same page that also shows the edits still available for that order, rather than a bare carrier tracking URL with no path back to the store",
+          "Gate which edit actions appear by the order's actual fulfillment status, so a customer checking status while the order still shows \"label created\" sees the address or item-swap option right next to the tracking line, and sees it disappear on its own once the window closes",
+          "Update the WISMO macro to link that combined page instead of a raw tracking number, so the reply that answers \"where is it\" also hands over the means to ask the second question without writing back at all",
+          "Watch the reopen rate on WISMO-tagged tickets specifically - a ticket that closes once and reopens within a day or two is a strong signal the first reply solved the wrong problem",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox's order-status page shows live shipping status and the eligible edit actions for that order on the same screen, gated by the same fulfillment state a merchant already sets eligibility rules around - so a customer checking on a package sees whatever's still changeable sitting right next to it, no separate request required. Edits that need a second look still route to the approval queue rather than auto-applying blind, and every change lands on the order's audit trail so a follow-up ticket, if one still comes in, isn't starting from zero.",
+      },
+      {
+        type: "p",
+        text: "What AppFox can't do is rewrite a helpdesk's tagging rules or retrain the macro a support team already relies on - that's a support-process decision that belongs to the merchant, not something an order-edit portal can reach into from the outside. What it can do is make sure that whichever page a tracking link actually points to shows both answers at once, so the second question doesn't need its own ticket to get asked.",
+      },
+    ],
+  },
+  {
     slug: "migrate-shopify-subscription-off-loop-without-losing-retention-flow",
     title: "How to Migrate a Shopify Subscription Program Off Loop Subscriptions Without Losing Your Retention Flow",
     excerpt:
