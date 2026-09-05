@@ -30,6 +30,84 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "migrate-shopify-subscription-off-loop-without-losing-retention-flow",
+    title: "How to Migrate a Shopify Subscription Program Off Loop Subscriptions Without Losing Your Retention Flow",
+    excerpt:
+      "The subscriber list and billing history move over cleanly. What doesn't come along on its own is the cancellation flow, the win-back campaign, and the cohort dashboard - all of it built inside Loop's retention suite, none of it visible in a subscriber export.",
+    category: "GUIDE",
+    date: "2027-02-17",
+    author: "The AppFox Team",
+    metaTitle: "Migrate a Shopify Subscription Off Loop Without Losing Retention | AppFox",
+    metaDescription:
+      "Switching off Loop Subscriptions for flatter pricing risks losing the retention flows built on top of it. Here's how to migrate a Shopify subscription program off Loop without losing the cancellation flow, win-back campaign, or dashboard it runs on.",
+    body: [
+      {
+        type: "p",
+        text: "A coffee roaster has spent eighteen months building its retention program inside Loop Subscriptions: a three-step cancellation flow that offers a free bag before the cancel button ever fires, a win-back email that goes out forty-five days after someone leaves, and a cohort dashboard the team checks every Monday to see how retention curves shift by acquisition channel. Loop's pricing scales with the subscriber list the way it's built to, and at this size the plan has become the single largest line item in the software budget. The team switches to AppFox Subscription for the flatter pricing, exports the subscriber list, sequences the billing cutover carefully, and nobody gets double-charged. Three weeks later, the cancellation rate is up a full point and nobody can say exactly why - subscribers who click cancel now just cancel, no offer, no free bag, no flow in the way. The dashboard the team checked every Monday doesn't exist in any app anymore, so the first sign anything changed at all is a rising number nobody can explain yet.",
+      },
+      {
+        type: "p",
+        text: "That's the part a migration plan built around subscriber data and billing continuity misses. A retention program bolted onto a subscription app isn't a setting that travels with the subscriber record - it's a separate piece of software, built on top of the subscription infrastructure rather than inside it, and nothing about moving the subscriber list brings it along.",
+      },
+      { type: "h2", text: "Why a subscriber export doesn't carry a retention program with it" },
+      {
+        type: "p",
+        text: "Most migration checklists focus on what a subscriber export is actually built to carry: plan names, prices, next-renewal dates. That part usually goes fine. The failure shows up somewhere the checklist never looked - in the retention layer a team spent a year building on top of the subscription app, and stopped thinking about because it just ran.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Loop's retention tooling - the gamified cancellation flow, the win-back campaign, the cohort dashboard - is a paid-tier product built on top of the subscription infrastructure, not a field stored alongside the subscriber record, so none of it appears in an export built to carry plans and renewal dates",
+          "A save offer that fires before a cancel button submits is sequencing logic specific to the app that built it - no subscription platform inherits another platform's cancellation flow just because the subscriber list moved",
+          "A win-back campaign triggered off a cancellation event lives in whatever automation tool it's wired to, and if that wiring pointed at Loop's event stream, the trigger goes quiet the moment Loop stops firing it - whether or not anyone remembers the campaign exists",
+          "Retention analytics - cohort curves by acquisition channel, save rate by offer - measured history that was never portable to begin with, so a new app starts a fresh dashboard from a fresh dataset on day one rather than continuing eighteen months of curves",
+          "None of this reads as a migration failure on cutover day - it reads as several weeks of a slowly rising cancellation number that looks like ordinary churn until someone thinks to check whether the flow that used to catch those cancellations still exists",
+        ],
+      },
+      {
+        type: "h3",
+        text: "A missed charge complains inside a day. A missing retention flow complains one silent cancellation at a time, for weeks, until the number is finally big enough that someone asks what changed",
+      },
+      { type: "h2", text: "A retention suite hides its own dependency list the same way any feature-dense app does" },
+      {
+        type: "p",
+        text: "Planning a migration around subscriber data and billing continuity isn't the wrong instinct - a mistimed charge is real, and it's loud the same day it happens. A retention program is the opposite kind of risk: it does its job quietly enough that a team stops noticing it's doing anything, right up until it's gone and the cancellations it was always intercepting start going through instead.",
+      },
+      {
+        type: "quote",
+        text: "A store doesn't lose its retention program when it switches subscription apps. It loses the flow nobody wrote down - because it never lived anywhere a subscriber export could reach.",
+      },
+      { type: "h2", text: "Auditing what a retention program actually depends on before you switch" },
+      {
+        type: "ol",
+        items: [
+          "Before exporting subscriber data, write down every retention mechanic actually running - the exact steps of the cancellation flow, the trigger and timing of any win-back campaign, and which numbers the team checks weekly - not just the plans and prices",
+          "Decide, for each mechanic, whether it's worth rebuilding on the new platform or whether the volume it's protecting doesn't justify the effort - a save offer catching three cancellations a week isn't the same decision as one catching thirty",
+          "Treat a win-back campaign as marketing-automation logic, not subscription-app logic, and rewire its trigger against whatever event the new app actually fires - a migration doesn't carry a Klaviyo or Zapier trigger across on its own",
+          "Rebuild the metrics the team relies on, even in a simpler form, before cutover rather than after - a retention number nobody tracks for a month is a month where nobody notices if churn has already moved",
+          "Watch cancellation rate as its own cohort for the first two billing cycles after cutover, isolated from baseline churn, since a slow rise from a missing save flow looks exactly like ordinary churn until it's measured on its own",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Subscription's answer to retention starts from a different premise than Loop's: instead of a gamified, multi-step save flow gated to higher tiers, the customer portal makes skip, pause, and swap the easiest path available before cancel - on every plan, including Free. Most cancellations start as \"I just need to skip a month,\" and a program that catches that intent early needs less retention theater than one that only offers a deal at the exit door. Subscription analytics and portal customization start on Growth at $5/mo, so a team scaling past Loop's volume-based pricing steps into flat tiers instead - $5 to $100/mo by active subscription count, with 0% transaction fees on every tier - rather than a bill that keeps climbing with the subscriber list.",
+      },
+      {
+        type: "p",
+        text: "It's worth being direct about what doesn't come with that: AppFox doesn't ship a built-in multi-step cancellation offer or a cohort-retention dashboard the way Loop's paid tiers do. A win-back campaign is rebuilt as a Klaviyo flow triggered off the cancellation event AppFox fires, scoped to the plan and subscriber it applies to - which is a rebuild, not a migration, and worth budgeting the time for rather than assuming a save flow travels with the subscriber list. For a team whose retention program was doing genuinely heavy lifting at high volume, that's a real tradeoff to weigh against the pricing before switching, not after.",
+      },
+      {
+        type: "p",
+        text: "Migrating off Loop, including rebuilding a Klaviyo win-back trigger, is something support walks through directly rather than leaving to a self-service CSV upload, and because AppFox bills through Shopify's own checkout and native subscription APIs, a subscriber's payment method and renewal schedule carry over without needing re-authorization mid-switch.",
+      },
+      {
+        type: "p",
+        text: "The coffee roaster's migration didn't fail on data or billing - the subscriber list and the billing cutover both went cleanly. It failed because a cancellation flow, a win-back campaign, and a dashboard were real, working software sitting on top of the subscription app, and nobody inventoried them before the export button got clicked. Write down what the retention program actually depends on, decide what's worth rebuilding at your volume, and rewire the automation on purpose instead of assuming it follows the subscriber list - and a switch off Loop stops being a migration that quietly raises churn in week three, and starts being one where the only thing that changed is the bill.",
+      },
+    ],
+  },
+  {
     slug: "migrate-shopify-subscription-off-appstle-without-losing-your-setup",
     title: "How to Migrate a Shopify Subscription Program Off Appstle Without Losing the Setup It Runs On",
     excerpt:
