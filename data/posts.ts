@@ -30,6 +30,79 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-subscription-insert-card-reduces-cancellations",
+    title: "The Shopify Subscription Insert Card That Actually Reduces Cancellations",
+    excerpt:
+      "Most subscription box insert cards carry a referral code, a thank-you note, and an Instagram handle - nothing that tells the subscriber holding it when the next charge lands or how to change it. That's the one touchpoint a merchant is guaranteed a subscriber sees, spent entirely on acquisition instead of retention.",
+    category: "PLAYBOOK",
+    date: "2027-02-22",
+    author: "The AppFox Team",
+    metaTitle: "The Shopify Subscription Insert Card That Reduces Cancellations | AppFox",
+    metaDescription:
+      "Most Shopify subscription box insert cards carry a referral code and a thank-you note - nothing about the next charge or how to change it. Here's what belongs on the card instead, and why it beats a renewal email at stopping cancellations.",
+    body: [
+      {
+        type: "p",
+        text: "A skincare subscriber opens her third box, and the serum inside is fine - not a complaint in sight. Tucked in with it is a card printed the same way every box has been since launch: a thank-you line, an Instagram handle, and a referral code worth 15% off a friend's first order. What she actually wanted to do that day was swap next month's shipment for the lighter moisturizer instead of the rich one, because summer's coming and the rich one has been sitting half-used in her bathroom for two cycles. Nothing on the card tells her how. She doesn't remember the merchant's domain well enough to search it confidently, the account-management email from three months ago is buried under sale promos, and Shopify's own \"manage subscription\" link she half-remembers logging into once isn't in front of her right now. What's in front of her, in the box, in her hands, is a card that assumes the only thing she'd want to do with it is give someone else 15% off. So she opens her account from memory, finds cancel faster than she finds swap, and clicks the one option the interface makes obvious.",
+      },
+      {
+        type: "p",
+        text: "Nothing about this is the subscriber being difficult, and nothing about it is the product failing. It's an insert card built entirely as a marketing asset - referral codes, social handles, unboxing prompts - sitting inside the one touchpoint a merchant is genuinely guaranteed a subscriber will look at, with zero of that guaranteed attention spent on the thing most likely to keep her subscribed.",
+      },
+      { type: "h2", text: "Why the box beats the inbox for reaching a subscriber" },
+      {
+        type: "ul",
+        items: [
+          "A shipped box gets opened close to 100% of the time - the subscriber paid for what's inside and wants to see it - while a renewal reminder or skip-window email competes with a crowded inbox and routinely goes unread or into spam",
+          "The box arrives at exactly the moment a subscriber is forming an opinion about the product - too rich, wrong scent, more than they need - which is precisely when they'd want to act on a wrong pick, not weeks later when a reminder email happens to land",
+          "A card physically in hand doesn't require digging through an inbox for an old email or trying to remember a domain - it's the fix sitting right next to the thing that prompted the need for one",
+          "An insert card is printed once for a kitting run and rarely revisited, so whatever's on it at launch - almost always acquisition copy - stays there indefinitely, long after the subscriber base and their support questions have moved on to something the card never anticipated",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The one moment nearly every subscriber is guaranteed to see carries a referral code and a thank-you - and nothing that tells them how to control the charge they're already on the hook for.",
+      },
+      { type: "h2", text: "What's usually on the card instead" },
+      {
+        type: "ul",
+        items: [
+          "A referral code, a social handle, and a thank-you note - all pointed at acquiring the next customer, none of it answering \"when's my next charge\" or \"how do I change what's coming\"",
+          "At best, a generic \"manage your subscription at [homepage]\" line that drops the subscriber on the storefront rather than straight into the account portal where skip, swap, and pause actually live",
+          "No information specific to that shipment - the same card ships in box one, box six, and box fourteen, so it can't say anything about that box's contents, that subscriber's next renewal date, or what's about to be charged",
+        ],
+      },
+      {
+        type: "quote",
+        text: "A subscriber who wants to swap a scent isn't looking for a marketing message - she's looking for the fastest visible path to a fix. If the card in her hands doesn't offer one, cancel becomes the fastest path she can find instead.",
+      },
+      { type: "h2", text: "What actually belongs on the card, and where it should point" },
+      {
+        type: "ol",
+        items: [
+          "State the next renewal date and price in plain language - a subscriber who can see it coming isn't surprised by it, and bill-shock cancellations drop when the charge stops arriving as news",
+          "Put a link or QR code straight into the customer portal login, not the homepage - nobody should have to find \"log in\" and then hunt inside it for \"manage subscription\"",
+          "Give skip, swap, and pause the same visual weight as the referral code - the same card real estate spent acquiring the next customer should spend some of itself keeping the one already holding it",
+          "Print the renewal date and price as a variable filled in per batch, not a line hardcoded once at launch - a static card goes stale the first time pricing, cadence, or plan options change, and a stale promise on paper is worse than no promise at all",
+          "Walk the printed link or QR code through an actual login on a subscriber's phone, including whatever verification step sits before the portal - a card that promises a one-scan fix isn't finished until someone's confirmed the scan actually lands there",
+        ],
+      },
+      { type: "h2", text: "Where this lives in AppFox Subscription" },
+      {
+        type: "p",
+        text: "Skip, pause, swap, and cancel are already what the AppFox Subscription customer portal is built to handle without a support ticket - the insert card's job is just to point a subscriber at that portal directly instead of leaving her to find it on her own. On the Growth plan and above, portal customization lets the page itself carry the store's branding, so the link printed on a card leads somewhere that looks like the same box the subscriber just opened rather than a generic account page that reads like it belongs to someone else.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is print, kit, or ship the card itself - that's a packaging decision that belongs to the merchant's fulfillment process, not to a subscription app sitting on top of Shopify's checkout. What it can guarantee is a stable portal link that resolves to real self-service the moment someone scans it, so a merchant who redesigns the insert card around renewal dates and a portal QR code isn't printing a promise the account system underneath can't keep.",
+      },
+      {
+        type: "p",
+        text: "The skincare subscriber in the opening example didn't need a better serum or a bigger discount to stay subscribed - she needed the box in her hands to tell her when the next one was coming and how to change it before it shipped. Put that on the card instead of a referral code alone, point it straight at the portal, and the moment a subscriber is most engaged with what she bought stops being wasted on acquiring someone else's first order.",
+      },
+    ],
+  },
+  {
     slug: "order-edits-dont-update-the-shop-app-push-notification",
     title: "Why an Order Edit Doesn't Update the Shop App Push Notification a Customer Already Got",
     excerpt:
