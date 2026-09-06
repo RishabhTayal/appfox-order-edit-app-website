@@ -58,11 +58,11 @@ export default function AppsPage() {
           <div className="relative mx-auto max-w-7xl px-6 pt-28 pb-14 sm:px-8 sm:pt-36 sm:pb-20 lg:px-10">
             <p className="enter-fade-rise" style={{ animationDelay: "60ms" }}>
               <span className="till inline-flex items-center rounded-lg border border-paper-edge bg-paper-raised px-3 py-1.5 text-[0.8125rem] text-marigold-700 shadow-(--shadow-card)">
-                Two apps · one storefront toolkit
+                Three apps · one storefront toolkit
               </span>
             </p>
             <h1 className="enter-rise mt-6 max-w-3xl">
-              Both apps,{" "}
+              All three apps,{" "}
               <span className="wonk relative inline-block">
                 side by side
                 <svg
@@ -89,8 +89,8 @@ export default function AppsPage() {
               style={{ animationDelay: "140ms" }}
             >
               AppFox builds Shopify apps for the whole order journey - subscriptions that start
-              on the product page, plus fixing and growing orders after checkout. Pick one, or
-              run both.
+              on the product page, product bundles that boost average order value, plus fixing and
+              growing orders after checkout. Pick one, or run all three.
             </p>
           </div>
         </section>
@@ -146,18 +146,18 @@ export default function AppsPage() {
 
             <Reveal delay={150}>
               <p className="till mt-12 text-center text-[0.8125rem] text-ink-500">
-                Both apps install in about 5 minutes · no theme code · {site.supportEmail}
+                All apps install in about 5 minutes · no theme code · {site.supportEmail}
               </p>
             </Reveal>
           </div>
         </section>
 
         <CtaBand
-          headline="Start with one. The other will make sense soon enough."
-          body="Order Editing keeps every sale intact and growing; Subscription makes the next one automatic. Both start free, both set up in minutes."
+          headline="Start with one. The others will make sense soon enough."
+          body="Order Editing keeps every sale intact and growing; Subscription makes the next one automatic; Product Bundles boosts the size. All three start free, all set up in minutes."
           primaryLabel="Get Order Editing"
-          secondaryLabel="Get Subscription"
-          secondaryHref="/subscription"
+          secondaryLabel="See all apps"
+          secondaryHref="/apps"
           from="paper"
         />
       </main>

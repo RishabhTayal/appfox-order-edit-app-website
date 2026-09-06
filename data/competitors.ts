@@ -5,7 +5,7 @@ export type ComparisonRow = {
 };
 
 /** Which AppFox app this competitor is compared against. */
-export type CompetitorApp = "order-editing" | "subscription";
+export type CompetitorApp = "order-editing" | "subscription" | "product-bundles";
 
 export type Competitor = {
   /** Which AppFox app the comparison is about - drives hub grouping, CTAs, and OG copy. */

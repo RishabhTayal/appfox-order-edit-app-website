@@ -18,6 +18,14 @@ const SUBSCRIPTION_LINKS = [
   { label: "FAQ", href: "/subscription#faq" },
 ];
 
+const BUNDLES_LINKS = [
+  { label: "Overview", href: "/product-bundles" },
+  { label: "Features", href: "/features/product-bundles" },
+  { label: "Pricing", href: "/pricing/product-bundles" },
+  { label: "How it works", href: "/product-bundles#how-it-works" },
+  { label: "FAQ", href: "/product-bundles#faq" },
+];
+
 const COMPARE_LINKS = [
   { label: "All comparisons", href: "/vs" },
   { label: "Order editing apps", href: "/vs#order-editing" },
@@ -89,13 +97,13 @@ export function Footer() {
   return (
     <footer className="on-night bg-night text-mist-on-night">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 pt-16 pb-10">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-x-8 gap-y-12">
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-x-8 gap-y-12">
           {/* Brand */}
-          <div className="col-span-2 md:col-span-1">
+          <div className="col-span-2">
             <Wordmark onNight className="text-[1.375rem]" />
             <p className="mt-4 text-[0.9375rem] leading-relaxed">
               Shopify apps for the whole order journey - self-service order editing, post-purchase
-              upsells, and subscriptions that start right on the product page.
+              upsells, product bundles, and subscriptions.
             </p>
             <p className="mt-4">
               <Link
@@ -109,6 +117,7 @@ export function Footer() {
 
           <LinkColumn heading="Order Editing" links={ORDER_EDITING_LINKS} />
           <LinkColumn heading="Subscription" links={SUBSCRIPTION_LINKS} />
+          <LinkColumn heading="Product Bundles" links={BUNDLES_LINKS} />
           <LinkColumn heading="Compare" links={COMPARE_LINKS} />
 
           <div>

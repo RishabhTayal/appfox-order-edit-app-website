@@ -17,6 +17,7 @@ export const metadata = routeMeta.pricing;
 
 const orderEditing = getApp("order-editing")!;
 const subscription = getApp("subscription")!;
+const bundles = getApp("product-bundles")!;
 
 const CARDS = [
   {
@@ -45,6 +46,19 @@ const CARDS = [
     href: "/pricing/subscription",
     cta: "See Subscription pricing",
   },
+  {
+    app: bundles,
+    priceLine: { amount: "Free", note: "to start" },
+    summary:
+      "Free to install with unlimited bundles, all bundle types, and full analytics. Most stores never need to upgrade.",
+    bullets: [
+      "Free plan - unlimited product bundles",
+      "All bundle types: fixed, mix-and-match, BOGO, volume discounts",
+      "Theme-integrated widgets & performance analytics",
+    ],
+    href: "/pricing/product-bundles",
+    cta: "See Product Bundles pricing",
+  },
 ];
 
 export default function PricingHubPage() {
@@ -56,7 +70,7 @@ export default function PricingHubPage() {
         <section className="paper-wash grain grain-soft relative overflow-hidden">
           <div className="relative mx-auto max-w-7xl px-6 pt-28 pb-14 sm:px-8 sm:pt-36 sm:pb-20 lg:px-10">
             <div className="enter-fade-rise" style={{ animationDelay: "60ms" }}>
-              <SectionSlug no="01" label="PRICING" caption="Two apps · both start at $0" />
+              <SectionSlug no="01" label="PRICING" caption="Three apps · all start at $0" />
             </div>
 
             <h1 className="enter-rise mt-10 max-w-3xl">
@@ -88,7 +102,7 @@ export default function PricingHubPage() {
               className="enter-fade-rise mt-6 max-w-[58ch] text-xl leading-[1.55] text-ink-700"
               style={{ animationDelay: "140ms" }}
             >
-              Both AppFox apps start at $0 and neither takes a cut of your revenue - no per-edit
+              All three AppFox apps start at $0 and none takes a cut of your revenue - no per-edit
               fees, no transaction fees on renewals, no revenue caps. Here&apos;s each app&apos;s
               pricing in full.
             </p>
@@ -98,7 +112,7 @@ export default function PricingHubPage() {
         {/* ── One card per app ── */}
         <section className="bg-paper-sunken py-16 sm:py-24">
           <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
-            <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
+            <div className="grid gap-6 lg:grid-cols-3 lg:gap-8">
               <StaggerGroup step={120}>
                 {CARDS.map((card, i) => (
                   <Reveal key={card.app.slug} index={i} className="h-full">
@@ -139,18 +153,18 @@ export default function PricingHubPage() {
 
             <Reveal delay={150}>
               <p className="till mt-12 text-center text-[0.8125rem] text-ink-500">
-                No card required to install either app · cancel anytime · {site.supportEmail}
+                No card required to install any app · cancel anytime · {site.supportEmail}
               </p>
             </Reveal>
           </div>
         </section>
 
         <CtaBand
-          headline="Start free with either app - or both"
-          body="Order Editing's free plan never expires and Subscription's covers your first 50 subscribers. Neither app takes a cut of your revenue."
+          headline="Start free with any app - or all three"
+          body="Order Editing's free plan never expires, Subscription's covers your first 50 subscribers, and Product Bundles is free to install with unlimited bundles. None of the apps take a cut of your revenue."
           primaryLabel="Get Order Editing"
-          secondaryLabel="Get Subscription"
-          secondaryHref="/subscription"
+          secondaryLabel="See all apps"
+          secondaryHref="/apps"
           from="sunken"
         />
       </main>

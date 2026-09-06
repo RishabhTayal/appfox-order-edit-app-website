@@ -19,12 +19,12 @@ export function GET(): Response {
       title: "Home",
       path: "/",
       description:
-        "Brand overview - both AppFox apps for Shopify, what each does, and why merchants run them together.",
+        "Brand overview - all three AppFox apps for Shopify, what each does, and why merchants run them together.",
     },
     {
       title: "Apps",
       path: "/apps",
-      description: "All AppFox apps for Shopify in one place - Order Editing and Subscription.",
+      description: "All AppFox apps for Shopify in one place - Order Editing, Subscription, and Product Bundles.",
     },
     {
       title: "AppFox Order Editing & Upsell",
@@ -39,9 +39,15 @@ export function GET(): Response {
         "Shopify subscription app with a free plan - subscribe-and-save widgets, auto-renewal billing on native checkout, and a self-service customer portal.",
     },
     {
+      title: "AppFox Product Bundles",
+      path: "/product-bundles",
+      description:
+        "Shopify product bundles app - unlimited bundles, volume discounts, quantity breaks, BOGO offers, and mix-and-match deals with theme-friendly widgets.",
+    },
+    {
       title: "Features",
       path: "/features",
-      description: "Feature hub for both apps - each app's full tour on its own page.",
+      description: "Feature hub for all three apps - each app's full tour on its own page.",
     },
     {
       title: "Order Editing features",
@@ -56,9 +62,15 @@ export function GET(): Response {
         "Full feature tour: subscribe & save widgets, recurring billing on Shopify Checkout, a self-service customer portal, subscription models, integrations, Shopify Sidekick, and MCP for developers.",
     },
     {
+      title: "Product Bundles features",
+      path: "/features/product-bundles",
+      description:
+        "Full feature tour: unlimited bundles, volume discounts, quantity breaks, BOGO offers, mix-and-match, theme-integrated Shopify 2.0 widgets, and bundle analytics.",
+    },
+    {
       title: "Pricing",
       path: "/pricing",
-      description: "Pricing hub for both apps - each app's plans on its own page.",
+      description: "Pricing hub for all three apps - each app's plans on its own page.",
     },
     {
       title: "Order Editing pricing",
@@ -69,6 +81,11 @@ export function GET(): Response {
       title: "Subscription pricing",
       path: "/pricing/subscription",
       description: `Free plan for 50 active subscriptions, paid plans $${SUBSCRIPTION_PAID_FROM}-$100/mo by subscription count - 0% transaction fees on renewals.`,
+    },
+    {
+      title: "Product Bundles pricing",
+      path: "/pricing/product-bundles",
+      description: "Free to install with unlimited bundles, all bundle types, and full analytics.",
     },
     {
       title: "Comparison hub",
@@ -84,9 +101,9 @@ export function GET(): Response {
 
   const body = `# ${site.name}
 
-> Shopify apps for the whole order journey - self-service order editing, post-purchase upsells, and subscriptions that start right on the product page.
+> Shopify apps for the whole order journey - self-service order editing, post-purchase upsells, product bundles, and subscriptions.
 
-${site.name} makes two Shopify apps: ${site.appName} (self-service order editing with in-flow upsells) and AppFox Subscription (recurring subscriptions on Shopify's native checkout with a free plan, formerly Trust Subscriptions).
+${site.name} makes three Shopify apps: ${site.appName} (self-service order editing with in-flow upsells), AppFox Subscription (recurring subscriptions on Shopify's native checkout with a free plan, formerly Trust Subscriptions), and AppFox Product Bundles (product bundles, volume discounts, and BOGO offers).
 
 ${site.appName} is a Shopify app that lets customers edit their own orders right on the store's thank-you page and order status page, with post-purchase upsells in the same flow. Customers fix a shipping address, swap a variant, change quantities, add or remove items, or cancel - all within rules the merchant sets (edit windows, fulfillment cutoffs, per-action eligibility). Sensitive changes route through a merchant approval queue; everything else applies automatically. Edits happen in place through Shopify's native Order Editing API rather than cancel-and-reorder, and the edit flow doubles as an upsell surface with one-click product offers.
 

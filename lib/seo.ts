@@ -50,6 +50,12 @@ export const routeMeta = {
       "Subscribe & save widgets, auto-renewal on Shopify's native checkout, a self-service customer portal, boxes and memberships, and Klaviyo integration. Start free.",
     path: "/features/subscription",
   }),
+  featuresProductBundles: pageMetadata({
+    title: "Product Bundles App Features for Shopify",
+    description:
+      "Unlimited bundles, volume discounts, BOGO offers, and mix-and-match deals. Theme-friendly Shopify 2.0 widgets, bundle analytics. Free to start.",
+    path: "/features/product-bundles",
+  }),
   pricing: pageMetadata({
     title: "Pricing - AppFox Apps for Shopify",
     description:
@@ -67,6 +73,12 @@ export const routeMeta = {
     description:
       "AppFox Subscription starts free for 50 active subscriptions. Paid plans run $5 to $100/mo with 0% transaction fees, 14-day trials, and 20% off yearly.",
     path: "/pricing/subscription",
+  }),
+  pricingProductBundles: pageMetadata({
+    title: "Product Bundles Pricing - Free to Start for Shopify",
+    description:
+      "AppFox Product Bundles is free to install with unlimited bundles, volume discounts, and analytics. Upgrade as your bundle program grows.",
+    path: "/pricing/product-bundles",
   }),
   vs: pageMetadata({
     title: "Compare Shopify Order Editing & Subscription Apps",

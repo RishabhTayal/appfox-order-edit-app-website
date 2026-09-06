@@ -58,6 +58,23 @@ export const apps: AppEntry[] = [
       "Subscribe & save discounts and bundles",
     ],
   },
+  {
+    slug: "product-bundles",
+    name: "AppFox Product Bundles",
+    shortName: "Product Bundles",
+    tagline: "Boost AOV with bundles and volume discounts",
+    description:
+      "Product bundles, volume discounts, quantity breaks, BOGO, and mix-and-match offers with theme-friendly widgets. Easy setup, unlimited bundles. Free plan available.",
+    href: "/product-bundles",
+    installUrl: "https://apps.shopify.com/trust-bundles",
+    pricingLine: "Free to start",
+    highlights: [
+      "Unlimited product bundles with custom discounts",
+      "Volume discounts, quantity breaks, BOGO & mix-and-match",
+      "Responsive widgets integrated with Shopify 2.0 themes",
+      "Bundle analytics and performance tracking",
+    ],
+  },
 ];
 
 export function getApp(slug: string): AppEntry | undefined {
