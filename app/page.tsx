@@ -33,11 +33,11 @@ export default function Home() {
         <WhyAppfox />
         <BrandReading />
         <CtaBand
-          headline="Two apps. One quieter inbox."
-          body="Order Editing lets customers fix and grow their own orders; Subscription brings them back on a schedule. Both start free and set up in about five minutes."
+          headline="Three apps. One quieter inbox."
+          body="Order Editing lets customers fix and grow their own orders; Product Bundles boosts average order value; Subscription brings them back on a schedule. All three start free and set up in about five minutes."
           primaryLabel="Get Order Editing"
-          secondaryLabel="Get Subscription"
-          secondaryHref="/subscription"
+          secondaryLabel="See all apps"
+          secondaryHref="/apps"
           from="paper"
         />
       </main>

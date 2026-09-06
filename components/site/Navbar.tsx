@@ -13,26 +13,31 @@ const NAV_LINKS = [{ label: "Blog", href: "/blog" }];
 const FEATURES_LINKS = [
   { label: "Order Editing & Upsell", detail: "Self-service edits + upsells", href: "/features/order-editing" },
   { label: "Subscription", detail: "Recurring billing + portal", href: "/features/subscription" },
+  { label: "Product Bundles", detail: "Bundle offers + volume discounts", href: "/features/product-bundles" },
 ];
 
 const HOW_IT_WORKS_LINKS = [
   { label: "Order Editing & Upsell", detail: "Confirmation email → settled edit", href: "/order-editing#how-it-works" },
   { label: "Subscription", detail: "Product page → renewal", href: "/subscription#how-it-works" },
+  { label: "Product Bundles", detail: "Create bundle → boost AOV", href: "/product-bundles#how-it-works" },
 ];
 
 const FAQ_LINKS = [
   { label: "Order Editing & Upsell", detail: "Edits, approvals & upsells", href: "/order-editing#faq" },
   { label: "Subscription", detail: "Billing, portal & migration", href: "/subscription#faq" },
+  { label: "Product Bundles", detail: "Bundle types, pricing & setup", href: "/product-bundles#faq" },
 ];
 
 const PRICING_LINKS = [
   { label: "Order Editing & Upsell", detail: "Free plan · paid from $19/mo", href: "/pricing/order-editing" },
   { label: "Subscription", detail: "Free plan · paid from $5/mo", href: "/pricing/subscription" },
+  { label: "Product Bundles", detail: "Free to start", href: "/pricing/product-bundles" },
 ];
 
 const COMPARE_GROUPS = [
   { label: "Order Editing & Upsell", competitors: competitorsForApp("order-editing") },
   { label: "Subscription", competitors: competitorsForApp("subscription") },
+  { label: "Product Bundles", competitors: competitorsForApp("product-bundles") },
 ];
 
 /** Routes whose install CTA should point at AppFox Subscription. */
@@ -43,10 +48,20 @@ const SUBSCRIPTION_PATHS = new Set([
   ...competitorsForApp("subscription").map((c) => `/vs/${c.slug}`),
 ]);
 
+/** Routes whose install CTA should point at AppFox Product Bundles. */
+const BUNDLES_PATHS = new Set([
+  "/product-bundles",
+  "/features/product-bundles",
+  "/pricing/product-bundles",
+  ...competitorsForApp("product-bundles").map((c) => `/vs/${c.slug}`),
+]);
+
 /** The navbar install CTA follows the app the visitor is reading about. */
 function installUrlForPath(pathname: string): string {
   const subscriptionApp = apps.find((a) => a.slug === "subscription");
+  const bundlesApp = apps.find((a) => a.slug === "product-bundles");
   if (subscriptionApp && SUBSCRIPTION_PATHS.has(pathname)) return subscriptionApp.installUrl;
+  if (bundlesApp && BUNDLES_PATHS.has(pathname)) return bundlesApp.installUrl;
   return site.installUrl;
 }
 

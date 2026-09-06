@@ -17,6 +17,7 @@ export const metadata = routeMeta.features;
 
 const orderEditing = getApp("order-editing")!;
 const subscription = getApp("subscription")!;
+const bundles = getApp("product-bundles")!;
 
 const CARDS = [
   {
@@ -47,6 +48,20 @@ const CARDS = [
     href: "/features/subscription",
     cta: "Tour Subscription features",
   },
+  {
+    app: bundles,
+    eyebrow: "Product bundles & volume discounts",
+    summary:
+      "Create unlimited product bundles, volume discounts, quantity breaks, BOGO offers, and mix-and-match deals. Theme-friendly widgets that integrate via Shopify 2.0 app blocks, plus bundle analytics to see what's working.",
+    bullets: [
+      "Unlimited bundles - fixed, mix-and-match, BOGO",
+      "Volume discounts & quantity breaks",
+      "Theme-integrated Shopify 2.0 widgets",
+      "Bundle performance analytics",
+    ],
+    href: "/features/product-bundles",
+    cta: "Tour Product Bundles features",
+  },
 ];
 
 /** Hand-drawn tick - draws on when the card reveals. */
@@ -76,7 +91,7 @@ export default function FeaturesHubPage() {
         <section className="paper-wash grain grain-soft relative overflow-hidden">
           <div className="relative mx-auto max-w-7xl px-6 pt-28 pb-14 sm:px-8 sm:pt-36 sm:pb-20 lg:px-10">
             <div className="enter-fade-rise" style={{ animationDelay: "60ms" }}>
-              <SectionSlug no="01" label="FEATURES" caption="Two apps · pick a tour" />
+              <SectionSlug no="01" label="FEATURES" caption="Three apps · pick a tour" />
             </div>
 
             <h1 className="enter-rise mt-10 max-w-3xl">
@@ -107,9 +122,9 @@ export default function FeaturesHubPage() {
               className="enter-fade-rise mt-6 max-w-[58ch] text-xl leading-[1.55] text-ink-700"
               style={{ animationDelay: "140ms" }}
             >
-              Two AppFox apps cover the whole order journey - subscriptions that start on the
-              product page, and orders customers fix and grow themselves after checkout. Take the
-              full tour of whichever fits.
+              Three AppFox apps cover the whole order journey - subscriptions that start on the
+              product page, bundles that boost average order value, and orders customers fix and grow
+              themselves after checkout. Take the full tour of whichever fits.
             </p>
           </div>
         </section>
@@ -117,7 +132,7 @@ export default function FeaturesHubPage() {
         {/* ── One card per app ── */}
         <section className="bg-paper-sunken py-16 sm:py-24">
           <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
-            <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
+            <div className="grid gap-6 lg:grid-cols-3 lg:gap-8">
               <StaggerGroup step={120}>
                 {CARDS.map((card, i) => (
                   <Reveal key={card.app.slug} index={i} className="h-full">
@@ -158,18 +173,18 @@ export default function FeaturesHubPage() {
 
             <Reveal delay={150}>
               <p className="till mt-12 text-center text-[0.8125rem] text-ink-500">
-                Both apps install in about 5 minutes · no theme code · {site.supportEmail}
+                All apps install in about 5 minutes · no theme code · {site.supportEmail}
               </p>
             </Reveal>
           </div>
         </section>
 
         <CtaBand
-          headline="Two apps. One quieter inbox."
-          body="Order Editing lets customers fix and grow their own orders; Subscription brings them back on a schedule. Both start free and set up in about five minutes."
+          headline="Three apps. One quieter inbox."
+          body="Order Editing lets customers fix and grow their own orders; Product Bundles boosts average order value; Subscription brings them back on a schedule. All three start free and set up in about five minutes."
           primaryLabel="Get Order Editing"
-          secondaryLabel="Get Subscription"
-          secondaryHref="/subscription"
+          secondaryLabel="See all apps"
+          secondaryHref="/apps"
           from="sunken"
         />
       </main>
