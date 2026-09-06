@@ -30,6 +30,68 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "why-you-cant-undo-a-shopify-order-edit",
+    title: "Why You Can't Undo a Shopify Order Edit (And How to Reverse One Correctly)",
+    excerpt:
+      "A support agent approves the wrong request in the queue - a cancellation instead of a size swap - and goes looking for an undo button. There isn't one, because Shopify's Order Editing API doesn't keep a previous version to roll back to. Here's what actually changed underneath, and the right way to put it back.",
+    category: "PLAYBOOK",
+    date: "2027-02-23",
+    author: "The AppFox Team",
+    metaTitle: "Why You Can't Undo a Shopify Order Edit | AppFox",
+    metaDescription:
+      "There's no undo button on a Shopify order edit - once it commits, the line items, payment, and inventory it touched are already settled. Here's why the Order Editing API works that way, and the checklist for reversing a mistaken edit safely instead of guessing.",
+    body: [
+      {
+        type: "p",
+        text: "A support agent works through the morning's approval queue and clicks approve on order #2214 - except the customer had requested a size swap, and the request sitting one row above it in the queue was the cancellation. Two clicks, two orders, one mix-up: the wrong order just got canceled, and the size swap is still waiting. The agent's first instinct is to look for an undo button, the same way they'd undo a typo in a document. There isn't one. Shopify's Order Editing API doesn't keep a snapshot of the order the moment before the edit landed - it applies a calculated change and commits it, and what existed before that commit isn't sitting anywhere waiting to be restored.",
+      },
+      {
+        type: "p",
+        text: "This isn't a missing feature in whatever order-editing app the store runs. It's the shape of the API underneath every one of them. An edit isn't a draft that gets saved over a previous draft - it's closer to a transaction that clears. Once it clears, fixing the mistake means understanding exactly what moved and making a second, opposite transaction, not pressing a button that quietly reaches back in time.",
+      },
+      { type: "h2", text: "Why there's no undo on a Shopify order edit" },
+      {
+        type: "ul",
+        items: [
+          "The Order Editing API works in begin-then-commit sessions - a merchant opens an edit, stages changes, and commits them, and once committed those changes are written into the order's permanent record, not held as a checkpoint the way a saved document keeps its last version",
+          "Money moves at commit time, not before it: an edit that raises the total triggers a payment request, and one that lowers it triggers a refund, both settling immediately - reversing the line items afterward doesn't pull that money back on its own",
+          "Inventory adjusts at commit time too - a removed variant gets restocked, a swapped-in one gets reserved off whatever's left - so undoing the item change without separately checking stock can leave the inventory count wrong even after the order looks corrected",
+          "A canceled order is its own state change, not just an edit to line items - reopening a canceled order isn't the same operation as editing one that's still open, and treating it that way is exactly how a wrongly-approved cancellation turns into a second mistake",
+          "Some edits can't be recreated identically after the fact - a variant that was in stock at the moment of the original edit may have sold out by the time someone tries to reverse it, and a discount applied in that session may no longer be valid to reapply",
+        ],
+      },
+      {
+        type: "h3",
+        text: "An order edit isn't a version you can roll back to. It's a change that already happened - to the line items, to the payment, and to inventory - and reversing it means making that same set of decisions again, in the other direction.",
+      },
+      { type: "h2", text: "What reversing an edit actually requires" },
+      {
+        type: "ol",
+        items: [
+          "Read the order's audit timeline first, not memory - confirm exactly what the mistaken edit changed (which item, which quantity, which address) before touching anything else, since acting on a guess is how a fix becomes a third mistake",
+          "Work out the precise inverse of that change - the original item and quantity to restore, or the address to re-enter - rather than approximating it from what the order 'probably' looked like before",
+          "Apply the inverse as a new edit through the normal approval flow, with the same review it would get if a customer had requested it fresh - not as a direct database correction that skips the checks the first edit went through",
+          "Check what happened to the payment on the original edit and reverse that explicitly: refund what was charged, or request payment for what was refunded - the money doesn't correct itself just because the line items do",
+          "Confirm stock before committing the reversal - if the edit is undoing a swap, the original variant may have sold out in the time since the mistaken edit went through, and the reversal needs a real answer for that, not an assumption that it's still available",
+          "Send the customer a fresh confirmation stating the corrected order plainly - two conflicting emails in their inbox is how a merchant's internal mistake becomes the customer's confusion too",
+        ],
+      },
+      {
+        type: "quote",
+        text: "The fix for a wrong edit isn't a rollback - it's a second edit, made as deliberately as the first one should have been. Skip the diagnosis step and the reversal just adds a new error on top of the old one.",
+      },
+      { type: "h2", text: "Where this lives in AppFox Order Editing" },
+      {
+        type: "p",
+        text: "AppFox keeps a full audit timeline on every order - who changed what, and when - which is exactly what step one above depends on. When an edit needs reversing, that timeline is the difference between working from the actual record and working from someone's recollection of what an order used to say. The approval queue helps before the fact, too: routing sensitive edit types like cancellations to a human reviewer instead of auto-applying them means a wrong click in the queue is caught by whoever approves it next, rather than shipping straight through to a canceled order.",
+      },
+      {
+        type: "p",
+        text: "What AppFox doesn't do is give a mistaken edit a literal undo button, because that constraint sits in Shopify's Order Editing API itself, not in the app layered on top of it. What it does do is make the manual reversal fast and accurate instead of a guessing exercise - the audit trail shows exactly what to reverse, and running that reversal back through the same approval flow keeps it from becoming a second unreviewed mistake. The support agent in the opening example doesn't need an undo button nearly as much as they need to see, in one place, exactly what the mistaken click changed - and a route to fix it that gets checked before it ships.",
+      },
+    ],
+  },
+  {
     slug: "shopify-subscription-insert-card-reduces-cancellations",
     title: "The Shopify Subscription Insert Card That Actually Reduces Cancellations",
     excerpt:
