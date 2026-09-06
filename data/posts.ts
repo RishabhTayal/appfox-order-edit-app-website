@@ -30,6 +30,77 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-post-purchase-upsell-converts-buyers-to-subscribers",
+    title: "The Post-Purchase Upsell That Turns One-Time Shopify Buyers Into Subscribers",
+    excerpt:
+      "Most stores run their post-purchase upsell and their subscription program as two features that happen to share a website - the upsell slot sells a travel mug, and the subscribe-and-save pitch waits for an email that hasn't been sent yet. Here's what belongs in that slot instead.",
+    category: "PLAYBOOK",
+    date: "2027-02-24",
+    author: "The AppFox Team",
+    metaTitle: "The Post-Purchase Upsell That Turns Buyers Into Subscribers | AppFox",
+    metaDescription:
+      "A subscribe-and-save email sent three days after checkout gets ignored. The post-purchase upsell shown before the buyer leaves the order status page gets seen. Here's how to pitch a Shopify subscription at the moment a one-time buyer is still paying attention.",
+    body: [
+      {
+        type: "p",
+        text: "A shopper on a coffee roaster's site adds one 12oz bag of the seasonal blend, checks out, and lands on the order status page. The post-purchase upsell there offers her a travel mug for $18 - a reasonable add-on, but not the offer that would actually change what she's worth to the store. Nowhere in that flow is the option she'd very likely take if someone put it in front of her: the same bag, on a six-week subscribe-and-save cadence, at 15% off. She bought once. Whether she buys again now depends on a promotional email that hasn't been sent yet, competing with a promotions tab she rarely opens.",
+      },
+      {
+        type: "p",
+        text: "Most stores run their post-purchase upsell and their subscription program as two features that happen to share a website, not two halves of one funnel. The upsell slot - the highest-attention real estate a merchant owns after checkout - gets spent on cross-sells and complementary products. The subscription pitch gets saved for a \"join subscribe & save\" email that goes out days later, if it goes out at all, aimed at a buyer whose purchase reasoning has already gone cold.",
+      },
+      { type: "h2", text: "Why the post-purchase moment beats the follow-up email" },
+      {
+        type: "ul",
+        items: [
+          "The buyer is still on-site with payment already captured at checkout - accepting a subscription offer here is one click against an already-authorized method, not a second checkout started cold from an email link days later",
+          "Her reasoning for buying is at its freshest the moment she's just paid - she's already decided the product is worth the money, which is the exact belief a subscribe-and-save pitch needs her to hold",
+          "A shipped order status page gets viewed close to 100% of the time, the same way a shipped box gets opened close to 100% of the time - a renewal-program email is competing with an inbox and routinely loses",
+          "The post-purchase slot only has to ask her to change the cadence of a purchase she already made - a follow-up email has to re-sell the product and the subscription decision at once, starting from zero",
+        ],
+      },
+      {
+        type: "h3",
+        text: "The offer that turns a one-time order into a subscription isn't the one sent three days later - it's the one shown before the buyer has closed the tab.",
+      },
+      { type: "h2", text: "What most post-purchase upsells get wrong for subscription conversion" },
+      {
+        type: "ul",
+        items: [
+          "The upsell slot pitches a complementary product instead of the item she just bought - a travel mug, not the coffee she's already decided she likes, so the subscription question never gets asked at all",
+          "When a subscribe-and-save option does appear, it's generic - \"manage your subscriptions here\" - instead of pre-filled with the exact product and quantity she just checked out with, so accepting still means re-finding the item on a subscription listing",
+          "The offer doesn't state the next charge date, the cadence, or the price after discount, so it reads as a vague signup instead of a concrete plan - the same bill-shock gap that turns a subscriber into a cancellation later shows up here as a reason not to say yes in the first place",
+          "The subscribe-and-save discount shown to a buyer who already converted is the same generic rate shown to a cold visitor on the product page, with nothing acknowledging that this is a warmer, cheaper-to-convert audience",
+        ],
+      },
+      {
+        type: "quote",
+        text: "A subscription pitch that isn't anchored to the exact product just bought isn't an upsell - it's a separate ask, competing for the same five seconds of attention as everything else on the page.",
+      },
+      { type: "h2", text: "What to put in the post-purchase slot instead" },
+      {
+        type: "ol",
+        items: [
+          "Trigger the subscribe-and-save offer only for products actually enrolled in the subscription plan, pre-filled with the exact SKU and quantity from the order just placed - not a generic pitch for the subscription program in general",
+          "State the concrete terms in the offer itself: the cadence, the price after discount, and the date of the first renewal - accepting should read as a specific decision, not a vague signup",
+          "Price the post-purchase subscription discount a little better than the on-page subscribe-and-save rate shown to cold traffic - this buyer already converted once and costs less to win again than a new visitor does",
+          "Make accepting a single action that converts the order just placed into the first cycle of a subscription contract, rather than routing her into a second, separate checkout",
+          "Show the offer once per order and drop it the moment that order is edited or refunded, so a subscription never gets pitched against a cart that's already changed underneath it",
+          "Track subscription attach rate from the post-purchase slot as its own metric, separate from general upsell attach rate - it's a different intent, and blending the two hides whether the tactic is working at all",
+        ],
+      },
+      { type: "h2", text: "Where this lives across AppFox Order Editing and AppFox Subscription" },
+      {
+        type: "p",
+        text: "AppFox Order Editing & Upsell already owns the post-purchase moment - it's the app rendering the upsell slot on the thank-you and order-status pages. Most merchants running it alongside AppFox Subscription treat the two as parallel programs: one drives attach rate on complementary products, the other manages subscribers once they already exist. Pointing that upsell slot at the subscribe-and-save version of the product a customer just bought - instead of, or alongside, an unrelated cross-sell - turns the highest-attention real estate on the order into an acquisition channel for the subscriber base the other app manages.",
+      },
+      {
+        type: "p",
+        text: "Neither app auto-detects that overlap for you. It takes deciding, product by product, which items are subscription-eligible, and wiring the post-purchase offer to that specific SKU instead of a generic one. What both apps already hand a merchant is the harder half of the job: AppFox Subscription's stored payment method and self-service portal to manage whatever happens after she says yes, and AppFox Order Editing's approval queue and audit trail if that first renewal ever needs correcting. The offer itself takes minutes to wire up. What it's competing against, in the coffee roaster's case, is a travel mug - shown at the one moment a buyer was ready to say yes to something that keeps her buying every six weeks instead of once.",
+      },
+    ],
+  },
+  {
     slug: "why-you-cant-undo-a-shopify-order-edit",
     title: "Why You Can't Undo a Shopify Order Edit (And How to Reverse One Correctly)",
     excerpt:
